@@ -1,0 +1,30 @@
+# endstack: rules for coding agents
+
+Owner: Daniel (`endqwerty`). Personal project. Your global `~/.<agent>/AGENTS.md`
+applies. Read [README.md](README.md) and [DISTILL.md](DISTILL.md) first.
+
+## What this repository is
+
+pstack (upstream `cursor/plugins`, folder `pstack/`) being distilled into
+Daniel's own skills. Upstream files are kept verbatim until a skill is
+distilled; a distilled skill replaces the upstream one in the same commit and
+is recorded in DISTILL.md and CHANGELOG.md.
+
+## Rules for a distilled skill
+
+- Say the outcome and the roles, never the tool. No `gh`, `git`, `Task`,
+  `/loop`, model names, provider names, Cursor or T3 Code features. "If the
+  harness can watch a pull request, use it" is fine; a tool name is not.
+- Under about 2 KB. Judgment and policy only; anything deterministic belongs
+  in the `homelab` CLI with tests, not in a skill.
+- One skill, one job. Add a skill only when the same failure has shown up
+  twice.
+- Frontmatter `name` and `description` that trigger correctly from both Codex
+  and Claude Code; test the trigger before merging.
+
+## Delivery
+
+Delivery: land. Work on the T3 branch in your worktree, open a PR, merge it
+yourself when checks and the verifier pass, confirm the commit is on `main`.
+Changes to a skill's behaviour get a dry run described in the PR (what the
+agent did with and without the skill). Record changes in CHANGELOG.md.
