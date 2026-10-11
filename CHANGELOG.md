@@ -1,5 +1,17 @@
 # Change log
 
+## 2026-10-11 — verify: re-review inputs; stale pending notes
+
+- `verify`: a re-review covers the whole change through the new head, with the
+  earlier findings, never the author's reasons for dismissing them (a hosted
+  review noted that "the new range" could mean only the incremental diff). Found in the autopilot-full
+  dry run, where the author re-asked with its own conclusion. Dropped the
+  "Never verify your own work and call it independent" bullet, which step 3
+  already says, to keep the size near 2 KB (2170 bytes).
+- README and DISTILL.md no longer say the global rule is pending: homelab's
+  short rule plus gate has landed. Still open: verifier launch command in
+  `homelab route plan`, and `autopilot-full` direct pushes.
+
 ## 2026-10-10 — distribution docs
 
 - Cookbook, README and DISTILL.md now describe installation through

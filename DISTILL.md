@@ -80,18 +80,39 @@ perform that migration.
 Step 3's pointer-only check and step 4's dry runs, Claude first and a small
 Codex pass after its allowance recovered. A bare pointer at `verify` **failed**
 (the skill is not always loaded; "before you deliver" came after the edit), so
-the global section becomes a short rule plus a gate that stands without the
-skill, prepared in homelab on branch `pointer-verify` and not landed until an
-independent verdict on its final revision. See
+the global section became a short rule plus a gate that stands without the
+skill. It has since landed in homelab (`0a1f1f0` and the scope fixes after it,
+2026-10-10); I did not re-check the verdict it landed under. See
 [pointer-only-checks.md](docs/pointer-only-checks.md) (arms, 33 run records,
 Codex review of the wording) and
 [delivery-dry-runs.md](docs/delivery-dry-runs.md) (real pull requests in a
 throwaway private repository: build, babysit, ship, both autopilots, with and
 without the skills). Baselines without the skills merged behaviour changes with
 no real independent verdict twice; with them, once held and once verified. Open
-from that: verifier reachability (`homelab route plan` names who, not how),
-`autopilot-full` direct pushes to `main`, and re-asking a verifier with the
-author's conclusion.
+from that: verifier reachability (`homelab route plan` names who, not how) and
+`autopilot-full` direct pushes to `main`. Re-asking a verifier with the
+author's conclusion is addressed in `verify` (2026-10-11, below).
+
+### `verify` re-review rule (2026-10-11)
+
+Step 4 now adds: a re-review covers the whole change through the new head, with
+the earlier findings, never the author's reasons for dismissing them.
+
+The dry run tested the first wording, "a re-review gets the new range and the
+earlier findings, never your reasons for dismissing them" (`7952318`). Same
+scenario (verifier returned issues, author fixed one and believes the other is
+partly a false alarm), asked only to write the re-review prompt. With the old
+text the prompt still carried the author's belief ("inputs are always integer
+cents ... I have not proven that", framed as a hypothesis to test). With the
+first wording it carried the incremental and the full range, the checks and the
+earlier findings, and no belief. One sample each (Claude Sonnet 5.5); the old
+text's leak was mild and labelled, so this shows the wording changes the
+prompt, not that it prevents every leak.
+
+A hosted review then noted "the new range" could mean only the incremental
+diff, and the wording became "the whole change through the new head"
+(`ca49b2b`). That clarification was **not** exercised by the dry run (the agent
+happened to give both ranges). Not checked: Codex, or a real re-review.
 
 ### `verify` dry run (2026-10-10)
 
@@ -159,7 +180,7 @@ not by fetching. Done in one cleanup:
 The [upstream prompt-reduction review](docs/upstream-token-review.md) confirms
 that PR #538 is already in our retained snapshot and records a controlled
 compression follow-up. Its reported byte/word reductions are not runtime token
-measurements; distribution and pointer-only checks still precede global cleanup.
+measurements. Distribution and the pointer-only global rule have landed.
 
 1. Distribution is decided: homelab's source manifest pins a reviewed endstack
    revision and six names; content stays here. See
