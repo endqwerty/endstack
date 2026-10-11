@@ -12,18 +12,31 @@ reference; importing one means distilling it to the rules below, with a dry run,
 and recording it in DISTILL.md and CHANGELOG.md. Nothing in `candidates/` is
 installed or maintained.
 
-## Rules for a distilled skill
+## Rules for a skill in `skills/`
+
+`python3 scripts/check-skills.py` enforces the mechanical ones (frontmatter,
+size, no tool or model names, links) and must pass.
 
 - Say the outcome and the roles, never the tool. No `gh`, `git`, `Task`,
   `/loop`, model names, provider names, Cursor or T3 Code features. "If the
   harness can watch a pull request, use it" is fine; a tool name is not.
-- Under about 2 KB. Judgment and policy only; anything deterministic belongs
-  in the `homelab` CLI with tests, not in a skill.
-- One skill, one job. The approved core delivery split includes:
-  build, babysit, ship, autopilot-stack and autopilot-full, alongside verify.
-  Add further skills only when the same failure has shown up twice.
+  Judge or reviewer roles ask for a different provider or model family "if
+  available", never a named one.
+- One skill, one job, one role. Deterministic work belongs in the `homelab` CLI
+  with tests, not in a skill.
+- **Core delivery skills** (build, babysit, ship, autopilot-stack,
+  autopilot-full, verify): `SKILL.md` under about 2 KB, judgment and policy
+  only; changes get a dry run in the PR.
+- **Imported role skills** (ported from pstack, see `candidates/README.md` and
+  DISTILL.md): keep the role, identity, structure and judgment; `SKILL.md`
+  under 6 KB, longer material in `references/` read on demand. Porting removes
+  tool, model and harness coupling and dead links; it does not rewrite the
+  substance. Record what each port changed in `docs/import-notes/`.
 - Frontmatter `name` and `description` that trigger correctly from both Codex
-  and Claude Code; test the trigger before merging.
+  and Claude Code. Keep `disable-model-invocation: true` where the source has it
+  (explicit-invocation skills cost no catalog space).
+- Adding a skill beyond the six needs either a recurring failure or Daniel's
+  request.
 
 ## Delivery
 
