@@ -83,9 +83,9 @@ and hold if landing would itself perform an unauthorized irreversible action.
 - Icon: original code-native SVG chosen by Daniel, not AI raster generation.
   Rendered with `rsvg-convert` at 512 and 32 pixels and visually inspected:
   stacked bars and endpoint remain distinct. The committed 256-pixel PNG is a
-  compatibility export; `assets/logo.png` remains the inherited pstack asset.
-  Reproduce it with `rsvg-convert -w 256 -h 256 -o /tmp/endstack-icon.png
-  assets/endstack-icon.svg` and compare with `assets/endstack-icon.png`.
+  compatibility export (the inherited pstack `assets/logo.png` has since been
+  deleted). Reproduce it with `rsvg-convert -w 256 -h 256 -o /tmp/icon.png
+  assets/icon.svg` and compare with `assets/icon.png`.
 
 The independent exact-revision verdict and current delivery state belong in the
 pull request, so recording a verdict does not itself revise the artifact under

@@ -5,12 +5,12 @@ Read [README.md](README.md) and [DISTILL.md](DISTILL.md) first.
 
 ## What this repository is
 
-pstack (upstream `cursor/plugins`, folder `pstack/`) being distilled into
-portable agent skills. Upstream files are kept verbatim until a skill is
-distilled; a distilled skill replaces the upstream one in the same commit and
-is recorded in DISTILL.md and CHANGELOG.md. If other upstream files still link
-to the replaced skill, it stays until the last of them is deleted (DISTILL.md
-step 5) and DISTILL.md says so.
+Daniel's portable agent skills for Claude Code and Codex, distilled from pstack
+(`cursor/plugins`) and no longer tracking it. `skills/` holds only installable,
+distilled skills. `candidates/` holds the pstack skills not yet imported, as
+reference; importing one means distilling it to the rules below, with a dry run,
+and recording it in DISTILL.md and CHANGELOG.md. Nothing in `candidates/` is
+installed or maintained.
 
 ## Rules for a distilled skill
 
