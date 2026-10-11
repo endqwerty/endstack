@@ -32,7 +32,7 @@ Give the [synthesizer](references/synthesizer.md) to a separate worker, if avail
 
 ## 4. Structural enforcement check
 
-Move any Accepted item that a lint rule, script, metadata flag, or runtime check would enforce more reliably to Backlog. See the **encode-lessons-in-structure** principle skill.
+Move any Accepted item that a lint rule, script, metadata flag, or runtime check would enforce more reliably to Backlog. See the [encode-lessons-in-structure](../principles/references/encode-lessons-in-structure.md) principle.
 
 ## 5. Apply
 

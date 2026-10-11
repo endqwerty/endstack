@@ -7,7 +7,8 @@ is no longer tracked here; read it by hand and import only what is valuable.
 Most pstack skills have been imported into `skills/` (see
 [DISTILL.md](../DISTILL.md) and `docs/import-notes/`). What remains here is
 either already covered by a `skills/` entry or not wanted. Nothing here is
-installed: `npx skills add` and `homelab sync` read `skills/` only.
+installed: `npx skills add` and `homelab sync` read `skills/` only (`npx skills add
+--full-depth` also scans `candidates/`, so do not pass it).
 
 To import something: `git mv candidates/<name> skills/<name>`, port it to the
 rules in [AGENTS.md](../AGENTS.md), run `python3 scripts/check-skills.py`, and
