@@ -30,11 +30,17 @@ provider: the Codex row and the Claude row of its class.
 | worker | medium | Sonnet 5.5, medium |
 | author | medium | Sonnet 5.5, medium |
 | reviewer, verifier | medium | Sonnet 5.5, high |
-| hard | high | Opus 5.5, high |
+| hard | Astra, medium | Fable 5.1, medium |
+| lead (one session coordinating a large multi-agent task) | Astra, high | Fable 5.1, high |
 
-Nothing above `high`. `lean` drops each one a step; `deep` (about pstack's own
-"large") raises them, uses Opus for the Claude judges, and goes to `xhigh` only
-for `hard`. A test in homelab pins the balanced ceiling.
+There is no effort ceiling: high and xhigh may be the right default for a class
+or a job when the work needs them. The rule for agents is to choose for that
+reason and not to assume everything runs at xhigh. The premium models (Astra,
+Fable, which has its own weekly allocation) are for `hard` and `lead` only; a test
+in homelab pins that, and that gathering never costs more effort than judging.
+`lean` falls back to Sol or Sonnet at high for `hard`; `deep` (about pstack's own
+"large") raises each class, uses Opus for the Claude judges, and goes to `xhigh`
+for `lead`.
 
 ## Why these numbers
 
