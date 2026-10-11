@@ -80,9 +80,9 @@ perform that migration.
 Step 3's pointer-only check and step 4's dry runs, Claude first and a small
 Codex pass after its allowance recovered. A bare pointer at `verify` **failed**
 (the skill is not always loaded; "before you deliver" came after the edit), so
-the global section becomes a short rule plus a gate that stands without the
-skill, prepared in homelab on branch `pointer-verify` and not landed until an
-independent verdict on its final revision. See
+the global section became a short rule plus a gate that stands without the
+skill. It has since landed in homelab (`0a1f1f0` and the scope fixes after it,
+2026-10-10); I did not re-check the verdict it landed under. See
 [pointer-only-checks.md](docs/pointer-only-checks.md) (arms, 33 run records,
 Codex review of the wording) and
 [delivery-dry-runs.md](docs/delivery-dry-runs.md) (real pull requests in a

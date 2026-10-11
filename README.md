@@ -9,7 +9,9 @@ distilled from Lauren Tan's [pstack](https://github.com/cursor/plugins/tree/main
 autopilot-full and verify keep implementation, readiness and merge authority
 separate. Start with the [command cookbook](docs/cookbook.md) for the full
 catalog, copyable prompts, outputs and stopping points. Distribution uses a
-reviewed revision selected by homelab sync; global-rule migration remains pending.
+reviewed revision selected by homelab sync. Homelab's global rule is now a short
+rule plus a gate that stands without the skill (the pointer-only check showed a
+bare pointer fails).
 [DISTILL.md](DISTILL.md) records the plan, checks and remaining work.
 
 endstack started as a copy of pstack and has since broken from it: upstream is
