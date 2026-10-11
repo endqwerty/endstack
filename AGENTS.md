@@ -8,7 +8,9 @@ applies. Read [README.md](README.md) and [DISTILL.md](DISTILL.md) first.
 pstack (upstream `cursor/plugins`, folder `pstack/`) being distilled into
 Daniel's own skills. Upstream files are kept verbatim until a skill is
 distilled; a distilled skill replaces the upstream one in the same commit and
-is recorded in DISTILL.md and CHANGELOG.md.
+is recorded in DISTILL.md and CHANGELOG.md. If other upstream files still link
+to the replaced skill, it stays until the last of them is deleted (DISTILL.md
+step 5) and DISTILL.md says so.
 
 ## Rules for a distilled skill
 

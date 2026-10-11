@@ -1,5 +1,10 @@
 # Change log
 
+## 2026-10-10 — verify
+
+- Added `skills/verify/` (distilled from principle-prove-it-works,
+  interrogate, blast-radius). Upstream files kept until DISTILL.md step 5. Dry run recorded in DISTILL.md.
+
 ## 2026-10-10 — repository created
 
 - pstack copied from `cursor/plugins@978ca6e` with the history of its folder
