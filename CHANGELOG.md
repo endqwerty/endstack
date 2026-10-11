@@ -37,6 +37,15 @@
 - Added an original SVG endstack icon and PNG export, with separate stacked
   bars and a terminal endpoint. The inherited pstack logo is unchanged.
 
+## 2026-10-10 — import of the pstack role skills
+
+- Ported 23 role skills and 23 principles (as one `principles` skill) from
+  `candidates/` to `skills/` with tool, model and harness names removed; skills
+  now total 30. Not imported: make-bot-ui, setup-pstack, poteto-help,
+  poteto-mode. Added `scripts/check-skills.py` (with tests) and the rules for
+  imported role skills in AGENTS.md. Port notes: `docs/import-notes/`.
+- Installing them through homelab still needs its allowlist and pin updated.
+
 ## 2026-10-10 — break from upstream pstack
 
 - Daniel decided to stop tracking pstack. Deleted the Cursor-only material
