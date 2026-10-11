@@ -27,7 +27,7 @@ provider: the Codex row and the Claude row of its class.
 
 | Class | Codex (Sol 6.1) | Claude |
 | --- | --- | --- |
-| worker | low | Sonnet 5.5, medium |
+| worker | medium | Sonnet 5.5, medium |
 | author | medium | Sonnet 5.5, medium |
 | reviewer, verifier | medium | Sonnet 5.5, high |
 | hard | high | Opus 5.5, high |
@@ -41,7 +41,9 @@ for `hard`. A test in homelab pins the balanced ceiling.
 Measured on this machine on 2026-10-10: a scoped Codex review at medium effort
 took about 25 seconds and found a real gap; the large review at high ran over
 ten minutes, and a three-round build review took about ten. Reading and
-gathering do not need judgment effort, so `worker` is the cheapest class.
+gathering need less judgment than reviewing, so `worker` is the cheapest class;
+Daniel raised Sol's worker from low to medium because everything after the
+gathering trusts it.
 Not measured: how the lower efforts change review quality across many tasks.
 The first reading of any profile is a starting point; edit `routing.json` and run
 `homelab install` to change it.
