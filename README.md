@@ -8,8 +8,8 @@ distilled from Lauren Tan's [pstack](https://github.com/cursor/plugins/tree/main
 **State: six core skills distilled.** Build, babysit, ship, autopilot-stack,
 autopilot-full and verify keep implementation, readiness and merge authority
 separate. Start with the [command cookbook](docs/cookbook.md) for the full
-catalog, copyable prompts, outputs and stopping points. Installation and
-global-rule migration remain pending; these are not installed commands yet.
+catalog, copyable prompts, outputs and stopping points. Distribution uses a
+reviewed revision selected by homelab sync; global-rule migration remains pending.
 [DISTILL.md](DISTILL.md) records the plan, checks and remaining work.
 
 The remaining upstream material is pstack at `cursor/plugins@978ca6e`, with
@@ -33,10 +33,17 @@ in its `AGENTS.md`.
 
 ## Install
 
-Not yet. The intended path is the `homelab` CLI (`homelab sync`), which
-installs skills into `~/.codex/skills` and `~/.claude/skills`; whether
-endstack is synced from here or vendored into the homelab repository is an
-open question in DISTILL.md.
+Install the current homelab CLI from its checkout first (`scripts/homelab install`).
+`homelab sync` installs the six distilled skills into `~/.codex/skills` and
+`~/.claude/skills`. Homelab's `skill-sources.json` selects an exact reviewed
+endstack commit and the six names; source content stays in this repository.
+Run `homelab sync --check` afterwards and start a fresh agent session.
+
+The [cookbook](docs/cookbook.md) lists `$build`/`/build` and the other entry
+points, installation and update steps, prompts and stopping points.
+[Distribution checks](docs/distribution-checks.md) record the tested surface
+and remaining limits. First installation requires access to the private source
+repository; cached checks work offline.
 
 ## License
 

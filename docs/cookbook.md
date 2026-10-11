@@ -2,10 +2,24 @@
 
 ## What can I call?
 
-These six skill files exist in this checkout. They are **not yet installed**
-in either agent's global catalog. Do not assume a slash command exists just
-because you see its name here. For now, explicitly ask the agent to read the
-linked file in this checkout; the prompts below work that way.
+The six distilled skills are distributed through `homelab sync` from a pinned,
+reviewed revision of endstack. A fresh agent session discovers them in its user
+skill directory. Use a named command when you want a particular workflow; an
+ordinary matching request can also select it automatically.
+
+| Skill | Codex | Claude Code |
+| --- | --- | --- |
+| build | `$build` | `/build` |
+| babysit | `$babysit` | `/babysit` |
+| ship | `$ship` | `/ship` |
+| autopilot-stack | `$autopilot-stack` | `/autopilot-stack` |
+| autopilot-full | `$autopilot-full` | `/autopilot-full` |
+| verify | `$verify` | `/verify` |
+
+These are prompts typed into the agent, not shell commands. In Codex, `/skills`
+also opens skill selection. If a newly installed skill does not appear, start
+a fresh session. In a wrapper that does not expand command syntax, ask to use
+the named skill and check that the agent loads its installed `SKILL.md`.
 
 | Skill | Use it for | Deliverable / stop |
 | --- | --- | --- |
@@ -16,29 +30,50 @@ linked file in this checkout; the prompts below work that way.
 | [autopilot-full](../skills/autopilot-full/SKILL.md) | A bounded queue with explicit merge authority | Verified, landed items; held items remain held |
 | [verify](../skills/verify/SKILL.md) | Independent evidence on an exact revision | Read-only pass / issues / not checked verdict; no merge authority |
 
-Future installation must expose this same allowlist in both harnesses and test
-actual discovery. No distribution mechanism is claimed here. Upstream's other
-skills and its playbooks are reference material, **not extra endstack commands**.
+Only these six names are selected for installation. Upstream's other skills
+and its playbooks remain reference material, not extra endstack commands.
+
+## Install and update
+
+Install the current homelab CLI from its checkout with `scripts/homelab install`
+before the first sync; older CLI copies do not understand external sources.
+Then run `homelab sync`, followed by `homelab sync --check`.
+Homelab's `skill-sources.json` pins a reviewed endstack commit; it obtains that
+source and installs copies into `~/.codex/skills` and `~/.claude/skills`.
+The first fetch needs access to the private source repository. Cached checks
+work offline; check and dry-run do not fetch or change files. Existing unmanaged
+names are reported as conflicts rather than overwritten.
+
+A missing private source blocks the whole sync until access is available.
+Symlinked home, skill or cache ancestors are rejected. Each machine needs its
+own install and discovery check. See [distribution evidence](distribution-checks.md)
+for the tested machines and current limits.
+
+For an update, change and review endstack first, then advance its exact commit
+in the homelab manifest and sync again. Do not edit installed copies. One source
+of truth remains here; installing from remote main without updating the reviewed
+pin is intentionally not an automatic update mechanism.
 
 ## Copyable examples
 
-Replace the bracketed details with your actual work. On another checkout,
-provide the absolute path to this repository's skill file.
+Replace the bracketed details with your actual work. Examples use Codex's `$`
+prefix; in Claude Code use `/` instead. Without installation, the fallback is
+“Read [absolute path to endstack]/skills/[name]/SKILL.md” followed by the request.
 
 **Build:**
-> Read `skills/build/SKILL.md`. Fix [bug]; completion means [observable result].
+> $build Fix [bug]; completion means [observable result].
 > Prepare the PR for my review. Do not watch or merge it.
 
 **Babysit:**
-> Read `skills/babysit/SKILL.md`. Babysit [PR URL] until it is merge-ready.
+> $babysit Babysit [PR URL] until it is merge-ready.
 > Handle real review findings and failed checks. Leave merging to me.
 
 **One status check:**
-> Read `skills/babysit/SKILL.md`. Is [PR URL] green? One read-only pass;
+> $babysit Is [PR URL] green? One read-only pass;
 > do not change anything or start a watcher.
 
 **Ship:**
-> Read `skills/ship/SKILL.md`. Merge [PR URL] into [destination] only if its
+> $ship Merge [PR URL] into [destination] only if its
 > required checks and independent current-revision verdict already pass.
 > Otherwise report the blockers; do not watch or arm automatic merging.
 
@@ -49,16 +84,16 @@ does not execute it. Automatic merge-when-ready needs its own explicit request
 and safeguards for the verified revision; green checks alone do not grant it.
 
 **Autopilot stack:**
-> Read `skills/autopilot-stack/SKILL.md`. Implement [A, then B, then C] as a
+> $autopilot-stack Implement [A, then B, then C] as a
 > reviewable PR chain. Verify every layer and leave all merges to me.
 
 **Full autopilot (the special case):**
-> Read `skills/autopilot-full/SKILL.md`. Implement and merge only [A, B, C],
+> $autopilot-full Implement and merge only [A, B, C],
 > in dependency order, after verification. I authorize those merges into
 > [destination]. Hold [operator decision] for me. Do not deploy.
 
 **Verify:**
-> Read `skills/verify/SKILL.md`. Independently review [base..head] against
+> $verify Independently review [base..head] against
 > [task and observable checks]. Change nothing; report evidence and limits.
 
 **Help, not execution:**

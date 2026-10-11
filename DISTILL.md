@@ -30,8 +30,8 @@ where they are.
   homelab routing decides who that is. Upstream `principle-prove-it-works`,
   `interrogate` and `blast-radius` stay until step 5, since other upstream
   skills still link to them. Do not shrink the global AGENTS.md paragraph until
-  distribution exists and a pointer-only dry run passes; the skill is not
-  installed by the current homelab sync.
+  distribution exists and a pointer-only dry run passes. The original runs
+  below predate installation; distribution evidence is recorded separately.
 
 ### Current-revision gate follow-up (2026-10-10)
 
@@ -70,9 +70,10 @@ and [acceptance checks](docs/delivery-checks.md) for evidence and limitations.
 The [old preparation](docs/hand-off-preparation.md) is historical, not policy.
 
 All upstream playbooks remain verbatim because the mode, help and guide still
-link to them. Do not install them alongside the distilled catalog. Distribution,
-live installed discovery and migration of other repositories/global rules remain
-separate work. The new skills do not perform that migration.
+link to them. Do not install them alongside the distilled catalog. Distribution
+selects only the six core skills at a reviewed revision. Migration of other
+repositories/global rules remains separate; installing the skills does not
+perform that migration.
 
 ### `verify` dry run (2026-10-10)
 
@@ -112,11 +113,17 @@ chapters), so they stay until those are deleted (step 5).
 
 ## Open questions
 
-1. Distribution: sync endstack skills through `homelab sync` from this repo,
-   or vendor the distilled skills into homelab's `skills/`? One source of
-   truth either way; leaning towards homelab pulling from this repo.
-2. Installed discovery: run pointer-only and live disposable-PR checks on both
-   harnesses after distribution. Current catalog decision runs cannot prove it.
+The [upstream prompt-reduction review](docs/upstream-token-review.md) confirms
+that PR #538 is already in our retained snapshot and records a controlled
+compression follow-up. Its reported byte/word reductions are not runtime token
+measurements; distribution and pointer-only checks still precede global cleanup.
+
+1. Distribution is decided: homelab's source manifest pins a reviewed endstack
+   revision and six names; content stays here. See
+   [distribution checks](docs/distribution-checks.md) for installation evidence.
+2. Live delivery and cross-machine discovery: local installed-catalog and
+   command checks do not prove remote merge/watch enforcement or another
+   machine's state. Keep those limits separate from earlier simulations.
 3. Which other repositories should adopt review-first versus explicitly
    authorized full delivery? Do not migrate them as a side effect of this work.
 4. Public or private repository. Private now; MIT allows either.
