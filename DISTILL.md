@@ -75,6 +75,24 @@ selects only the six core skills at a reviewed revision. Migration of other
 repositories/global rules remains separate; installing the skills does not
 perform that migration.
 
+### Pointer-only and delivery dry runs (2026-10-10)
+
+Step 3's pointer-only check and step 4's dry runs, Claude first and a small
+Codex pass after its allowance recovered. A bare pointer at `verify` **failed**
+(the skill is not always loaded; "before you deliver" came after the edit), so
+the global section becomes a short rule plus a gate that stands without the
+skill, prepared in homelab on branch `pointer-verify` and not landed until an
+independent verdict on its final revision. See
+[pointer-only-checks.md](docs/pointer-only-checks.md) (arms, 33 run records,
+Codex review of the wording) and
+[delivery-dry-runs.md](docs/delivery-dry-runs.md) (real pull requests in a
+throwaway private repository: build, babysit, ship, both autopilots, with and
+without the skills). Baselines without the skills merged behaviour changes with
+no real independent verdict twice; with them, once held and once verified. Open
+from that: verifier reachability (`homelab route plan` names who, not how),
+`autopilot-full` direct pushes to `main`, and re-asking a verifier with the
+author's conclusion.
+
 ### `verify` dry run (2026-10-10)
 
 Task: a planted off-by-one in a money calculation (`>` vs `>=` at exactly
@@ -121,9 +139,10 @@ measurements; distribution and pointer-only checks still precede global cleanup.
 1. Distribution is decided: homelab's source manifest pins a reviewed endstack
    revision and six names; content stays here. See
    [distribution checks](docs/distribution-checks.md) for installation evidence.
-2. Live delivery and cross-machine discovery: local installed-catalog and
-   command checks do not prove remote merge/watch enforcement or another
-   machine's state. Keep those limits separate from earlier simulations.
+2. Live delivery and cross-machine discovery: Claude ran the delivery skills
+   against real pull requests on this machine (delivery-dry-runs.md); watching a
+   pull request, Codex on a pull-request host and another machine are still
+   untested. Keep those limits separate from earlier simulations.
 3. Which other repositories should adopt review-first versus explicitly
    authorized full delivery? Do not migrate them as a side effect of this work.
 4. Public or private repository. Private now; MIT allows either.
