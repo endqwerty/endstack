@@ -40,3 +40,25 @@ and stated uncertainty. The parent grades them in
 contexts: inherited instructions, directory names and recent history can prime
 the answers. Claude explicitly disclosed that priming. These are simulations,
 not an enforcement or installed-discovery test.
+
+Protocol deviations: Claude's baseline has 1129 whitespace-delimited words
+(table pipes included), above the requested 1100-word limit; retained verbatim
+rather than trimming evidence. Both Claude children reported using their
+available file-write tool because apply_patch was absent. Reasoning settings
+above are the requested settings, not an independently observed runtime value.
+
+## Focused follow-up
+
+Two GPT 6.1 Sol tasks (requested medium reasoning, priority service tier)
+evaluated [Q–S](../delivery-follow-up-fixtures.json) before/after review fixes.
+The first loaded only skill blobs from `8a6fee3`; the second loaded revised
+working-tree files and recorded their hashes. T was added after the first run
+and appears only in the second. The briefs asked for proposed next actions,
+readiness, stopping points and deciding words without self-grading or assuming
+a failure was expected; neither ran scenario operations.
+
+- [Before](codex-followup-before.md): `endstack-split-followup-before-20261010-r1`.
+- [After](codex-followup-after.md): `endstack-split-followup-after-20261010-r1`.
+
+Both disclosed required project-doc reads exposing historical summaries despite
+the requested isolation. Retain that limitation rather than claiming blindness.

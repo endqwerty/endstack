@@ -38,8 +38,9 @@ provide the absolute path to this repository's skill file.
 > do not change anything or start a watcher.
 
 **Ship:**
-> Read `skills/ship/SKILL.md`. Merge [PR URL] into [destination] once its
-> required checks and independent current-revision verdict pass.
+> Read `skills/ship/SKILL.md`. Merge [PR URL] into [destination] only if its
+> required checks and independent current-revision verdict already pass.
+> Otherwise report the blockers; do not watch or arm automatic merging.
 
 That grants landing authority for that work, not deployment authority. “Ship
 this PR” also grants it when the PR and destination are clear. Missing checks,

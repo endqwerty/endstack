@@ -108,7 +108,7 @@ chapters), so they stay until those are deleted (step 5).
   automate-me, setup-pstack (models live in homelab's `routing.json`),
   poteto-help, the `benny` automations, the Cursor-specific agent definitions.
 - **Vendored for reference only:** `vendor/cursor-team-kit/` (`deslop`,
-  `control-cli`, `control-ui`); their ideas go into `verify` and `pr-brief`.
+  `control-cli`, `control-ui`); their ideas go into `verify` and build's PR brief.
 
 ## Open questions
 

@@ -13,9 +13,13 @@
   rules and installation are unchanged. Recorded pre-implementation acceptance
   checks in `docs/delivery-checks.md`.
 - Recorded paired 16-case Codex/Claude catalog and baseline decisions. Codex's
-  baseline reused stale review in one case; both catalog runs requested fresh
-  review. These are bounded simulations, not installed discovery or proof of
-  causal improvement; Claude's baseline already respected that gate.
+  baseline would reuse an older verdict if it remained applicable; both catalog
+  runs required a fresh verdict, applying unchanged verify policy. These are
+  bounded simulations, not installed discovery or causal improvement; Claude's
+  baseline already respected that gate.
+- Tightened babysit readiness even when no edit was made, kept dependency fixes
+  inside the authorized scope, made build's stop explicit, and clarified the
+  cookbook's immediate-merge example following independent and hosted review.
 - Added an original SVG endstack icon and PNG export, with separate stacked
   bars and a terminal endpoint. The inherited pstack logo is unchanged.
 

@@ -25,4 +25,5 @@ Opening a pull request does not start babysitting. Do not merge, arm automatic
 merging, close the request or write directly to the delivery branch. Ownership,
 “keep going” and a budget request do not grant landing authority. A later
 explicit request to land identified work belongs to [ship](../ship/SKILL.md).
-A plan or help request explains the workflow without executing it.
+A plan or help request explains the workflow without executing it. An explicit
+stop means no further writes; report the known state of any issued operations.

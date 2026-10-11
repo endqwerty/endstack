@@ -57,7 +57,13 @@ any of the proposed external operations.
 The single Codex J difference is an observed decision contrast, not causal or
 statistical improvement. Claude's baseline already made the desired decision.
 All runs inherit some global/project context; explicit workflow words in several
-cases and the supplied catalog prime selection. Neither unprimed automatic
+cases and the supplied catalog prime selection. The fixture instructions supply
+review-first policy to both arms, and state fields spell out decisive facts
+(G lacks a landing grant, O lacks a bounded queue/grant, L retains a hold).
+The A–P fixtures were written after the initial skills; only acceptance checks
+1–10 preceded implementation. These runs apply stated rules to stated facts,
+not infer unstated authority. J's contrast comes from unchanged verify policy,
+not proof of an effect from the five new skills. Neither unprimed automatic
 discovery nor installation nor a live remote delivery loop is proven. N's
 different reviewer does not establish a different provider; live eligibility
 must be checked. M raised a local-cleanup ambiguity in the Claude outputs;
@@ -86,3 +92,35 @@ pull request, so recording a verdict does not itself revise the artifact under
 review. This repository's handoff ends before Daniel's merge. Global distribution,
 installed commands, cross-machine discovery and actual watcher/merge operations
 remain **not checked** and outside this change.
+
+## Review follow-up checks
+
+The first independent review on `8a6fee3` passed with nonblocking findings.
+Before fixing them, [follow-up fixtures](delivery-follow-up-fixtures.json) added
+Q (never-reviewed PR whose checks recover without edits), R (stop during build),
+and S (pending check under an immediate-merge-only request). A later hosted
+review reported an out-of-scope dependency-write risk; T was added before its
+fix. All four are required boundary checks on the final revision.
+
+Changes: babysit's readiness always needs a current verdict or valid exemption,
+not just after edits; dependency changes need authority covering that dependency;
+build explicitly honors stop; the cookbook distinguishes immediate merge from
+merge-when-ready. Evidence now discloses explicit fixture facts and ordering,
+and the changelog describes the conditional J baseline accurately. Historical
+run files remain unchanged. Their initial size/validation measurements refer
+to the initial skill text, not the follow-up revision.
+
+Focused Codex controls: [prior text](delivery-runs/codex-followup-before.md)
+at `8a6fee3` and [revised text](delivery-runs/codex-followup-after.md), with
+loaded file hashes. Both keep Q unverified, obey R's stop, and block S's pending
+check. Inherited verify/user instructions already produced those safe decisions;
+the edits make the local contracts explicit, not a demonstrated behavioral
+improvement. T was added after the prior-text run and tested only with revised
+text: it reports PR 12 as an out-of-scope blocker without changing it. Both
+follow-up runs disclosed historical-summary exposure from required project-doc
+reads. These are not clean-room controls or live operations.
+
+Follow-up artifact checks: all five YAML/name/description checks, 2 KB bounds,
+named-tool exclusions, local links and whitespace checks pass. Updated sizes:
+build 1746, babysit 1944; other skills unchanged. A fresh independent verdict on
+the final revision is required; the earlier pass cannot approve these edits.
