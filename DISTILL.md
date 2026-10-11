@@ -95,16 +95,24 @@ author's conclusion is addressed in `verify` (2026-10-11, below).
 
 ### `verify` re-review rule (2026-10-11)
 
-Step 4 now adds: a re-review covers the whole change through the new head, with the earlier
-findings, never the author's reasons for dismissing them. Dry run: same scenario (verifier
-returned issues, author fixed one and believes the other is partly a false
-alarm), asked only to write the re-review prompt. With the old text the prompt
-still carried the author's belief ("inputs are always integer cents ... I have
-not proven that", framed as a hypothesis to test). With the new text it carried
-both ranges, the checks and the earlier findings, and no belief. One sample each
-(Claude Sonnet 5.5); the old text's leak was mild and labelled, so this shows
-the wording changes the prompt, not that it prevents every leak. Not checked:
-Codex, or a real re-review.
+Step 4 now adds: a re-review covers the whole change through the new head, with
+the earlier findings, never the author's reasons for dismissing them.
+
+The dry run tested the first wording, "a re-review gets the new range and the
+earlier findings, never your reasons for dismissing them" (`7952318`). Same
+scenario (verifier returned issues, author fixed one and believes the other is
+partly a false alarm), asked only to write the re-review prompt. With the old
+text the prompt still carried the author's belief ("inputs are always integer
+cents ... I have not proven that", framed as a hypothesis to test). With the
+first wording it carried the incremental and the full range, the checks and the
+earlier findings, and no belief. One sample each (Claude Sonnet 5.5); the old
+text's leak was mild and labelled, so this shows the wording changes the
+prompt, not that it prevents every leak.
+
+A hosted review then noted "the new range" could mean only the incremental
+diff, and the wording became "the whole change through the new head"
+(`ca49b2b`). That clarification was **not** exercised by the dry run (the agent
+happened to give both ranges). Not checked: Codex, or a real re-review.
 
 ### `verify` dry run (2026-10-10)
 
