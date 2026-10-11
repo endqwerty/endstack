@@ -45,6 +45,22 @@ the safe decisions. Both no-skill baselines also succeeded, so this is not
 evidence of an improvement over the existing global rule. Real installation,
 pointer-only discovery and live remote delivery remain untested.
 
+The follow-up also states that all required checks and the safety fact must
+pass, any revision change needs a fresh verdict, and non-blocking limits must
+be reported. Old-text/current-text controls cover available reviewers after
+the nominal review limit, mixed verdicts, non-material revisions and blockers.
+Both variants passed; this clarifies policy without claiming measured uplift.
+
+### Next candidate: `hand-off`
+
+[Preparation and proposed checks](docs/hand-off-preparation.md) record the
+read-only source analysis. No new delivery skill is added yet: the available
+sources do not establish two instances of the same hand-off failure required
+by AGENTS.md. Crosspoint-reader #28 is one recorded incident; endstack #1's
+missing-verdict merge is a different verification failure, not a second
+no-merge violation. Establish recurrence or an explicit exception before
+promotion. `land`, distribution and global-rule migration remain later work.
+
 ### `verify` dry run (2026-10-10)
 
 Task: a planted off-by-one in a money calculation (`>` vs `>=` at exactly

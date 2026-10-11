@@ -9,6 +9,11 @@
   `docs/verify-gate-checks.md`, including successful no-skill baselines and
   limits. Updated the README's stale day-zero status and kept installation
   and global-rule migration explicitly pending.
+- Required passing safety evidence, a fresh verdict after any revision change,
+  and reporting of unverified work and non-blocking limits. Extended controls
+  against the old text also passed; no causal improvement is claimed.
+- Recorded `hand-off` source analysis and planned checks without adding a new
+  skill: the twice-recurring-failure condition is not yet established.
 
 ## 2026-10-10 — verify
 

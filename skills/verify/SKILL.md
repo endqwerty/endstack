@@ -14,13 +14,15 @@ A change needs evidence from someone who did not write it.
 2. Run them on the real artifact; keep the deciding lines. Compiling and
    passing tests alone do not prove behaviour.
 3. Ask for a read-only verifier from a different provider, never another
-   session of your own. Without one, do not merge or call the change done.
+   session of your own. Without one, report unverified; do not merge or call
+   the change done.
 4. Give it the task, checks and exact revision range, not your conclusions.
-5. Fix real findings; answer the rest with a concrete reason. After material
-   fixes, rerun affected checks and get a fresh independent verdict. Deliver
-   only with a passing verdict on the current revision and no unresolved
-   blockers. A review limit is not approval: if another check cannot run,
-   stop and report what is still unverified.
+5. Fix real findings; answer the rest with a concrete reason. Rerun affected
+   checks after material fixes. Any revision change needs a fresh verdict.
+   Deliver only when an independent verdict passes all required checks and
+   the safety fact on the current revision, with no unresolved blockers.
+   Report non-blocking limits. A review limit is not approval: if review
+   cannot run, stop unverified.
 
 ## Verifier
 
