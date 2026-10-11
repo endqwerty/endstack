@@ -1,5 +1,11 @@
 # Change log
 
+## 2026-10-10 — user-agnostic agent instructions
+
+- Removed the owner's name and account from AGENTS.md. Describe the collection
+  generically and reserve default review and merging for the user; delivery
+  gates and the approved core skill set are unchanged.
+
 ## 2026-10-10 — separate delivery stages
 
 - Added build, babysit, ship, autopilot-stack and autopilot-full alongside
