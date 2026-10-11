@@ -56,25 +56,28 @@ independent confirmations of the first.
 6. Evidence is the stream of tool calls and the final git state of each
    scratch repo, not the agent's summary.
 
-## Candidate pointer (v5, the final text)
+## Candidate pointer (final text, v6)
 
 ```
 ## Check the work before you deliver it
 
-For every task that changes behaviour (not docs, comments or mechanical edits),
-write the checks that would prove it done before you edit anything, and for a
-bug watch one fail first. Use the `verify` skill, for your own change and when
-asked to check someone else's. Do not merge or call such work done without a
-passing independent verdict on the current revision: independent means a
-different provider than yours, never another session of your own. If none can
-run, stop and say it is unverified. `homelab route plan --role verifier
---author <codex|claude|antigravity>` names the verifier. A project's stricter
-rule wins.
+For every task that changes behaviour, data or a contract (not docs, comments
+or mechanical edits that change none of those), write the checks that would
+prove it done before you edit anything, and for a bug watch one fail first.
+Use the `verify` skill, for your own change and when asked to check someone
+else's. Do not merge or call such work done without a passing independent
+verdict on the current revision: independent means a different provider than
+yours, never another session of your own. If none can run, stop and say it is
+unverified. `homelab route plan --role verifier --author
+<codex|claude|antigravity>` names the verifier. A project's stricter rule wins.
 ```
 
 v4 (the text most runs used) lacked the exemption clause, the "independent"
-definition and the bug-only qualifier; an independent Codex review of v4 found
-those three gaps (see Review below), and v5 closes them.
+definition and the bug-only qualifier; a Codex review of v4 found those gaps.
+v5 closed them; a second Codex review of v5 found that the scope and
+exemption were still narrower than the skill's ("behaviour, data or contract"),
+so v6 matches the skill's words. Runs used v1 to v5; v6 differs from v5 only
+in that scope wording and was not re-run.
 
 ## Limits stated in advance
 
@@ -174,5 +177,7 @@ outside the section; `homelab sync --dry-run` clean; counts match).
   mismatch when the skill is not loaded (C, F, M); verifier reachability varies
   (see delivery-dry-runs.md); the verdict-on-final-revision check after an
   amend was not observed to hold in M-bug.
-- Not checked: macOS, and a different-provider review of v5 itself (v4 was
-  reviewed; v5 is requested separately).
+- Landed in homelab as `3e552c5` after a Codex `gpt-6.1-sol` read-only pass on
+  the exact wording (`81eaf7e`; the later commit only reflows whitespace, same
+  words) in about 25 seconds at medium effort. Not checked: macOS, and the v6
+  wording in a fresh agent run.
