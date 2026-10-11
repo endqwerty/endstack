@@ -37,6 +37,16 @@
 - Added an original SVG endstack icon and PNG export, with separate stacked
   bars and a terminal endpoint. The inherited pstack logo is unchanged.
 
+## 2026-10-10 — pointer-only check and delivery dry runs
+
+- Recorded the pointer-only global rule check (`docs/pointer-only-checks.md`,
+  33 run records): a bare pointer fails; a short rule with a skill-independent
+  gate passed, reviewed by Codex. Homelab's change is prepared, not landed.
+- Recorded real-pull-request dry runs of build, babysit, ship, autopilot-stack
+  and autopilot-full (`docs/delivery-dry-runs.md`). No skill text changed.
+  Open findings: verifier reachability, autopilot-full direct pushes, a
+  verifier re-asked with the author's conclusion.
+
 ## 2026-10-10 — current-revision verification gate
 
 - Clarified `verify`: material fixes need fresh checks and an independent
