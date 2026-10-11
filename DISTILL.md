@@ -95,13 +95,13 @@ author's conclusion is addressed in `verify` (2026-10-11, below).
 
 ### `verify` re-review rule (2026-10-11)
 
-Step 4 now adds: a re-review gets the new range and the earlier findings, never
-the author's reasons for dismissing them. Dry run: same scenario (verifier
+Step 4 now adds: a re-review covers the whole change through the new head, with the earlier
+findings, never the author's reasons for dismissing them. Dry run: same scenario (verifier
 returned issues, author fixed one and believes the other is partly a false
 alarm), asked only to write the re-review prompt. With the old text the prompt
 still carried the author's belief ("inputs are always integer cents ... I have
 not proven that", framed as a hypothesis to test). With the new text it carried
-the range, the checks and the earlier findings, and no belief. One sample each
+both ranges, the checks and the earlier findings, and no belief. One sample each
 (Claude Sonnet 5.5); the old text's leak was mild and labelled, so this shows
 the wording changes the prompt, not that it prevents every leak. Not checked:
 Codex, or a real re-review.

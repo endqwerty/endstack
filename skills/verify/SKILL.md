@@ -17,8 +17,8 @@ A change needs evidence from someone who did not write it.
    session of your own. Without one, report unverified; do not merge or call
    the change done.
 4. Give it the task, checks and exact revision range, not your conclusions.
-   A re-review gets the new range and the earlier findings, never your
-   reasons for dismissing them.
+   A re-review covers the whole change through the new head, with the earlier
+   findings, never your reasons for dismissing them.
 5. Fix real findings; answer the rest with a concrete reason. Rerun affected
    checks after material fixes. Any revision change needs a fresh verdict.
    Deliver only when an independent verdict passes all required checks and
