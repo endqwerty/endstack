@@ -23,8 +23,8 @@ where they are.
 - `verify` (2026-10-10): `skills/verify/`. One skill for both roles (author
   asks, verifier answers). Mandatory for features, bug fixes and anything
   touching auth, data, money, credentials or deployment; skipped for docs,
-  comments, mechanical edits. "Independent of the author" replaces provider
-  names; homelab routing decides who that is. Upstream `principle-prove-it-works`,
+  comments, mechanical edits. "A different provider than yours" is stated without naming any;
+  homelab routing decides who that is. Upstream `principle-prove-it-works`,
   `interrogate` and `blast-radius` stay until step 5, since other upstream
   skills still link to them. The global AGENTS.md paragraph shrinks to a pointer
   once the dry runs pass.
@@ -40,17 +40,16 @@ was loaded in every run, so the baseline is "global rule only".
 | Claude, without skill | Failing test first, fix, committed. Skipped the independent verifier ("one operator", scratch repo) but said so. |
 | Claude, with skill (auto-triggered, no mention in the prompt) | Failing tests first, fix, then a Codex verifier reviewed the revision range read-only and ran a differential check over 140014 inputs; found only the intended change. Verdict tied to the range. |
 | Codex, without skill | Failing tests first, fix, Claude reviewed independently before commit, then committed. |
-| Codex, with skill | Same path up to the review, then the Codex login token expired (401). Not completed; no evidence either way on whether the skill triggered. |
+| Codex, with skill (second try, after sign-in was fixed, current skill text) | Read the skill unprompted ("using the verification skill because this changes money calculations"), failing check first, fix, asked a Claude reviewer for an independent verdict, got none, and reported the independent review as **not checked** instead of passing it. Commit was blocked by the scratch run's read-only sandbox, so no commit. An earlier try died on an expired login. |
 
-Read: with the global rule loaded the skill changes little for Codex and
-turns Claude's skipped review into a done one. The real test is after the
-global paragraph shrinks to a pointer. Open: a Codex-with run once Codex is
-signed in again, and the verifier check for this very change (author Claude,
-so verifier Codex).
+Read: with the global rule loaded, Codex's baseline already obtained a
+review, and the skill turned Claude's skipped review into a done one. The
+Codex trigger fired once (one run). The real test is after the global
+paragraph shrinks to a pointer.
 
-**Needed from Daniel:** sign Codex back in (`token_expired`). Next agent: run
-`homelab route plan --role verifier --author claude`, and if it names Codex
-and a one-word probe still returns 401, that is the only step left.
+Upstream `principle-prove-it-works`, `interrogate` and `blast-radius` are
+still linked from about 30 upstream files (poteto-mode, its playbooks, guide
+chapters), so they stay until those are deleted (step 5).
 
 ## Triage of upstream (first pass, to be argued with)
 

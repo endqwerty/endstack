@@ -1,6 +1,6 @@
 ---
 name: verify
-description: Get an independent check before a change is merged or called done. Use for a feature, bug fix, or anything touching auth, data, money, credentials or deployment, and when asked to verify, double-check, sign off on or break someone else's change. Not for docs, comments or mechanical edits.
+description: Get an independent check before a change is merged or called done. Use for a feature, bug fix, or anything touching auth, data, money, credentials or deployment, and when asked to verify, double-check, sign off on or break someone else's change. Not for docs, comments, or mechanical edits that change no behaviour, data or contract.
 ---
 
 # Verify
@@ -15,17 +15,19 @@ runs it, tries to break it, and answers on the evidence.
    stored value. A bug gets a check that fails first.
 2. Run them on the real artifact and keep the lines that decide each one.
    "It compiles" and "the tests pass" are not proof of behaviour.
-3. Ask for a verifier that is independent of you: a different model lineage
-   if the project can provide one, never your own earlier session. It is
-   read-only.
+3. Ask for a read-only verifier from a different provider than yours, never
+   another session of your own. If none is available, say the check was not
+   independent; do not call it one.
 4. Give it the task, your checks, and the exact revision range. Not your
-   conclusions, not your explanation of why it works.
+   conclusions.
 5. Fix real findings. Answer the rest with a concrete reason. After material
    fixes, check again once, then deliver and say what is still open.
 
 ## Verifier
 
 - Run every check yourself. Do not accept the author's output.
+- Name the one fact the change's safety rests on and prove it by running the
+  real code. If you cannot, mark it unproven.
 - Then try to break it: other inputs, failure paths, what else uses the
   changed code, what the diff does not show.
 - Suspect your method before the system when a check fails. Reproduce it.
