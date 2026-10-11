@@ -1,6 +1,14 @@
 MIT License
 
+Copyright (c) 2026 Daniel Yang
 Copyright (c) 2026 Lauren Tan
+
+The skills in skills/ and candidates/ derive from pstack
+(https://github.com/cursor/plugins/tree/main/pstack, Lauren Tan, MIT), which is
+why her copyright notice stays. The cloned pstack history before the commit
+"Start endstack" is hers and Cursor's, kept for attribution. Original work in
+this repository (the linter, the role and effort profiles, the delivery skills,
+the dry-run records and docs) is Daniel Yang's.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

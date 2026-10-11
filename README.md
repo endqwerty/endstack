@@ -76,4 +76,6 @@ private source repository; cached checks work offline.
 
 ## License
 
-MIT, as upstream. pstack is © 2026 Lauren Tan ([LICENSE](LICENSE)).
+MIT ([LICENSE](LICENSE)). Original work is © 2026 Daniel Yang; the skills derived
+from pstack keep Lauren Tan's © 2026 notice. The pstack history before
+"Start endstack" is Lauren Tan's and Cursor's, kept for attribution.
