@@ -1,5 +1,13 @@
 # Change log
 
+## 2026-10-10 — distribution docs
+
+- Cookbook, README and DISTILL.md now describe installation through
+  `homelab sync` from a pinned reviewed revision, with `$name` (Codex) and
+  `/name` (Claude Code) entry points. Added docs/distribution-checks.md
+  (installer evidence, installed-state checks, what is not checked) and
+  docs/upstream-token-review.md (pstack PR #538 is already in our snapshot).
+
 ## 2026-10-10 — user-agnostic agent instructions
 
 - Removed the owner's name and account from AGENTS.md. Describe the collection
