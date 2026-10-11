@@ -37,6 +37,13 @@
 - Added an original SVG endstack icon and PNG export, with separate stacked
   bars and a terminal endpoint. The inherited pstack logo is unchanged.
 
+## 2026-10-10 — model roles instead of setup-pstack
+
+- Added `docs/model-roles.md`: pstack's per-role model setup mapped to five role
+  classes and three effort profiles, kept in homelab's `routing.json` (landed
+  there as `10c6450`, with `homelab route models`). Balanced runs Sonnet 5.5 and
+  Sol 6.1 at medium or high; Opus only for the hardest tasks.
+
 ## 2026-10-10 — import of the pstack role skills
 
 - Ported 23 role skills and 23 principles (as one `principles` skill) from

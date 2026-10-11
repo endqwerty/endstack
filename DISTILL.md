@@ -128,7 +128,8 @@ alone is 60 KB with references). Dry runs: `/tdd` on a planted off-by-one wrote
 the failing test first and reported before/after evidence; `/architect` read the
 code, compared two candidate shapes and synthesised one. Not exercised: arena,
 swarm, reflect, interrogate and the rest beyond lint and a read-through.
-Not imported: make-bot-ui (Daniel does not use it), setup-pstack, poteto-help,
+Models: `setup-pstack` is replaced by the role classes and profiles in
+[docs/model-roles.md](docs/model-roles.md). Not imported: make-bot-ui (Daniel does not use it), setup-pstack, poteto-help,
 poteto-mode (router; replaced), and the pieces already inside `verify`. The
 non-imported poteto-mode playbooks (investigation, refactoring, perf-issue,
 prototype, ...) remain reference in `candidates/`; whether any should become a
