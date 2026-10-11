@@ -37,6 +37,19 @@
 - Added an original SVG endstack icon and PNG export, with separate stacked
   bars and a terminal endpoint. The inherited pstack logo is unchanged.
 
+## 2026-10-10 — break from upstream pstack
+
+- Daniel decided to stop tracking pstack. Deleted the Cursor-only material
+  (`.cursor-plugin/`, `agents/`, `automations/`, `vendor/cursor-team-kit/`, the
+  pstack README, `docs/guide/`, the inherited logo). The 52 pstack skills not yet
+  imported moved to `candidates/` (indexed, not installed). The pre-cleanup tree
+  is the git tag `pstack-snapshot`.
+- `skills/` now holds exactly the six distilled skills, so
+  `npx skills add <path-or-repo>` lists and installs only those.
+- Renamed `assets/endstack-icon.{svg,png}` to `assets/icon.{svg,png}`; T3 Code
+  looks for `assets/icon.png` (and `.svg`) as a project icon, and previously
+  picked up the inherited `assets/logo.png`.
+
 ## 2026-10-10 — pointer-only check and delivery dry runs
 
 - Recorded the pointer-only global rule check (`docs/pointer-only-checks.md`,

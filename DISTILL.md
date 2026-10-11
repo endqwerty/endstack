@@ -115,19 +115,24 @@ Upstream `principle-prove-it-works`, `interrogate` and `blast-radius` are
 still linked from 23 upstream files (poteto-mode, its playbooks, guide
 chapters), so they stay until those are deleted (step 5).
 
-## Triage of upstream (first pass, to be argued with)
+## Upstream (decided 2026-10-10: broken from)
 
-- **Keep the idea, distill:** poteto-mode's merge gates and autonomy section,
-  babysit, shipping, opening-a-pr, prove-it-works, interrogate, blast-radius,
-  benchmark-checklist, unslop, technical-writing, correct (as a habit, not a
-  skill), the principles as a reading list in docs, not as skills.
-- **Drop:** poteto-mode as an always-on mode, the 23-playbook router, swarm,
-  arena, orchestrate, hillclimb, visual-parity, eval,
-  show-me-your-work's TSV trail, recall, ketchup, bro, make-bot-ui,
-  automate-me, setup-pstack (models live in homelab's `routing.json`),
-  poteto-help, the `benny` automations, the Cursor-specific agent definitions.
-- **Vendored for reference only:** `vendor/cursor-team-kit/` (`deslop`,
-  `control-cli`, `control-ui`); their ideas go into `verify` and build's PR brief.
+Daniel decided pstack is no longer tracked: endstack differs too much, and
+future changes are taken by reading upstream and importing what is valuable,
+not by fetching. Done in one cleanup:
+
+- **Kept as reference:** the 52 pstack skills not yet imported, in
+  [candidates/](candidates/README.md) with an index and import steps. They sit
+  outside `skills/` so neither `npx skills add` nor `homelab sync` installs them.
+- **Deleted:** `.cursor-plugin/`, `agents/` (Cursor agent definitions),
+  `automations/benny/`, `vendor/cursor-team-kit/` (reference only; its ideas
+  already went into `verify` and build's PR brief), the pstack README and the
+  `docs/guide/` chapters, and the inherited pstack logo.
+- **Recoverable:** everything above, and the old layout, is the git tag
+  `pstack-snapshot` (`cursor/plugins@978ca6e` plus the pstack history).
+- The three upstream skills replaced by `verify` and poteto-mode's replaced
+  playbooks stay inside `candidates/` because other candidates link to them.
+  There is no longer a step "delete the files a distilled skill replaces".
 
 ## Open questions
 
@@ -155,4 +160,5 @@ measurements; distribution and pointer-only checks still precede global cleanup.
    shrink global instructions only after installed pointer-only checks pass.
 4. Dry runs from a Codex thread and a Claude thread on each machine; record
    what differed.
-5. Delete the upstream files each distilled skill replaces.
+5. ~~Delete the upstream files each distilled skill replaces.~~ Superseded by
+   the break from upstream above.

@@ -108,21 +108,13 @@ boundary. Choose autopilot-full only when you deliberately delegate landing.
 This repository now uses review-first delivery; other repositories retain their
 own rules until deliberately migrated. Nothing here changes global rules.
 
-## What pstack actually separates
+## Where the split came from
 
-pstack uses a mode plus named playbooks, not one slash command per playbook.
-Its [help](../skills/poteto-help/SKILL.md) supplies example prompts without
-starting work. We keep that discoverability in this guide, not a new router.
-
-- [Opening a PR](../skills/poteto-mode/playbooks/opening-a-pr.md) is separate
-  from [babysitting](../skills/poteto-mode/playbooks/babysit.md), which starts
-  when requested and stops at merge-ready.
-- [Shipping](../skills/poteto-mode/playbooks/shipping.md) is the landing stage.
-  The babysit playbook explicitly routes merge/land/ship requests there.
-- [Autopilot-stack](../skills/poteto-mode/playbooks/autopilot-stack.md) says
-  “You own the stack, never the landing”; the operator lands it.
-- [Autopilot-full](../skills/poteto-mode/playbooks/autopilot-full.md) owns the
-  delivery loop, while retaining operator gates.
+pstack uses a mode plus named playbooks, not one slash command per playbook. The
+playbooks live on as reference in [candidates/poteto-mode](../candidates/poteto-mode/SKILL.md):
+opening a PR, babysitting (starts when requested, stops at merge-ready),
+shipping (the landing stage), autopilot-stack ("You own the stack, never the
+landing") and autopilot-full (owns the delivery loop, retains operator gates).
 
 endstack preserves these decisions, not the upstream polling machinery, named
 tools, model choices or decision-trail system. It deliberately requires a new
