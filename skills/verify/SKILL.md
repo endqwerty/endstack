@@ -16,12 +16,13 @@ runs it, tries to break it, and answers on the evidence.
 2. Run them on the real artifact and keep the lines that decide each one.
    "It compiles" and "the tests pass" are not proof of behaviour.
 3. Ask for a read-only verifier from a different provider than yours, never
-   another session of your own. If none is available, say the check was not
-   independent; do not call it one.
+   another session of your own. If none is available, the change is not
+   verified: say so and do not merge or call it done.
 4. Give it the task, your checks, and the exact revision range. Not your
    conclusions.
 5. Fix real findings. Answer the rest with a concrete reason. After material
-   fixes, check again once, then deliver and say what is still open.
+   fixes, check again once, then deliver (if verified) and say what is still
+   open.
 
 ## Verifier
 

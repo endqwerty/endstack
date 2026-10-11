@@ -23,7 +23,7 @@ where they are.
 - `verify` (2026-10-10): `skills/verify/`. One skill for both roles (author
   asks, verifier answers). Mandatory for features, bug fixes and anything
   touching auth, data, money, credentials or deployment; skipped for docs,
-  comments, mechanical edits. "A different provider than yours" is stated without naming any;
+  comments, and mechanical edits that change no behaviour, data or contract. "A different provider than yours" is stated without naming any;
   homelab routing decides who that is. Upstream `principle-prove-it-works`,
   `interrogate` and `blast-radius` stay until step 5, since other upstream
   skills still link to them. The global AGENTS.md paragraph shrinks to a pointer
@@ -48,7 +48,7 @@ Codex trigger fired once (one run). The real test is after the global
 paragraph shrinks to a pointer.
 
 Upstream `principle-prove-it-works`, `interrogate` and `blast-radius` are
-still linked from about 30 upstream files (poteto-mode, its playbooks, guide
+still linked from 23 upstream files (poteto-mode, its playbooks, guide
 chapters), so they stay until those are deleted (step 5).
 
 ## Triage of upstream (first pass, to be argued with)
