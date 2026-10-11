@@ -1,5 +1,24 @@
 # Change log
 
+## 2026-10-10 — separate delivery stages
+
+- Added build, babysit, ship, autopilot-stack and autopilot-full alongside
+  verify, following Daniel's explicit request after he merged PR #2. Building
+  does not start watching; readiness is not merge permission; full autopilot
+  requires a bounded queue and explicit landing authority.
+- Added the command cookbook with prompts, outputs, stopping points and pstack
+  source links. Replaced the combined hand-off/land roadmap; retained upstream
+  sources and the superseded design as clearly labeled reference material.
+- Changed this repository to review-first delivery. Other repositories, global
+  rules and installation are unchanged. Recorded pre-implementation acceptance
+  checks in `docs/delivery-checks.md`.
+- Recorded paired 16-case Codex/Claude catalog and baseline decisions. Codex's
+  baseline reused stale review in one case; both catalog runs requested fresh
+  review. These are bounded simulations, not installed discovery or proof of
+  causal improvement; Claude's baseline already respected that gate.
+- Added an original SVG endstack icon and PNG export, with separate stacked
+  bars and a terminal endpoint. The inherited pstack logo is unchanged.
+
 ## 2026-10-10 — current-revision verification gate
 
 - Clarified `verify`: material fixes need fresh checks and an independent

@@ -1,11 +1,15 @@
 # endstack
 
+<img src="assets/endstack-icon.svg" width="96" height="96" alt="endstack: a mint stacked E with an amber endpoint">
+
 Daniel Yang's agent stack: skills for Claude Code and Codex (through T3 Code),
 distilled from Lauren Tan's [pstack](https://github.com/cursor/plugins/tree/main/pstack).
 
-**State: first skill distilled.** [verify](skills/verify/SKILL.md) requires an
-independent passing verdict on the current revision before delivery. Next:
-`hand-off`, then `land`; installation and global-rule migration remain pending.
+**State: six core skills distilled.** Build, babysit, ship, autopilot-stack,
+autopilot-full and verify keep implementation, readiness and merge authority
+separate. Start with the [command cookbook](docs/cookbook.md) for the full
+catalog, copyable prompts, outputs and stopping points. Installation and
+global-rule migration remain pending; these are not installed commands yet.
 [DISTILL.md](DISTILL.md) records the plan, checks and remaining work.
 
 The remaining upstream material is pstack at `cursor/plugins@978ca6e`, with

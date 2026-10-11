@@ -1,7 +1,12 @@
 # Hand-off preparation
 
-Status (2026-10-10): research only, not an installed or discoverable skill.
-`hand-off` is the next candidate in DISTILL.md, followed by `land`.
+**Superseded (2026-10-10).** Historical research only, not current policy or an
+installed skill. Daniel explicitly requested separate build, babysit, ship,
+autopilot-stack and autopilot-full workflows. Read [the cookbook](cookbook.md)
+and [DISTILL.md](../DISTILL.md) for the replacement. The recurrence objection
+below was too broad for explicitly authorized core distillation. The proposed
+automatic watcher and refusal to treat an explicit ship request as authority
+were not adopted. The rest is retained as a record of the rejected design.
 
 ## Evidence before adding a skill
 

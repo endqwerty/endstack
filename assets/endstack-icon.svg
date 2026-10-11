@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">endstack</title>
+  <desc id="desc">Three separate mint bars form a stacked E on a dark rounded tile, ending at an amber square.</desc>
+  <rect width="256" height="256" rx="56" fill="#142923"/>
+  <path d="M68 74v108" fill="none" stroke="#38564b" stroke-width="12" stroke-linecap="round"/>
+  <rect x="52" y="56" width="152" height="36" rx="12" fill="#b7f7da"/>
+  <rect x="52" y="110" width="120" height="36" rx="12" fill="#7dddaf"/>
+  <rect x="52" y="164" width="100" height="36" rx="12" fill="#4cb887"/>
+  <rect x="168" y="164" width="36" height="36" rx="10" fill="#ffc278"/>
+</svg>
