@@ -5,7 +5,7 @@
 Daniel Yang's agent stack: skills for Claude Code and Codex (through T3 Code),
 distilled from Lauren Tan's [pstack](https://github.com/cursor/plugins/tree/main/pstack).
 
-**State: six core skills distilled.** Build, babysit, ship, autopilot-stack,
+**State: six core delivery skills plus 24 imported role skills.** Build, babysit, ship, autopilot-stack,
 autopilot-full and verify keep implementation, readiness and merge authority
 separate. Start with the [command cookbook](docs/cookbook.md) for the full
 catalog, copyable prompts, outputs and stopping points. Distribution uses a
@@ -13,10 +13,24 @@ reviewed revision selected by homelab sync; global-rule migration remains pendin
 [DISTILL.md](DISTILL.md) records the plan, checks and remaining work.
 
 endstack started as a copy of pstack and has since broken from it: upstream is
-no longer tracked or fetched. The 52 pstack skills not yet imported are kept as
-reference in [candidates/](candidates/README.md), outside `skills/`, so one can
-be imported later without being installed by accident. The full pstack copy
+no longer tracked or fetched. Most pstack skills are now imported (ported to
+carry no tool, model or harness names; see the [skills table](#skills) and
+`docs/import-notes/`). The few not imported are kept as reference in
+[candidates/](candidates/README.md), outside `skills/`. The full pstack copy
 (`cursor/plugins@978ca6e`, with its history) is the git tag `pstack-snapshot`.
+
+## Skills
+
+| Group | Skills |
+| --- | --- |
+| Delivery (core, about 2 KB each) | build, babysit, ship, autopilot-stack, autopilot-full, verify |
+| Explain and think | architect, how, why, teach, recall, figure-it-out, correct, ketchup |
+| Review and process | reflect, interrogate, arena, swarm, show-me-your-work, benchmark-checklist, automate-me, bro |
+| Writing and code | technical-writing, unslop, no-comments, typescript-best-practices, tdd, create-verification-skill, maintain-verification-skill |
+| Principles | principles (index; each principle is a reference read on demand) |
+
+All imported role skills are explicit-invocation (`/tdd`, `/arena`, ...), as in
+pstack, so they add almost nothing to the catalog the agent sees every session.
 
 ## Why not just install pstack
 
@@ -32,7 +46,7 @@ in its `AGENTS.md`.
 
 ## Install
 
-Only `skills/` is installable: exactly the six skills, nothing else.
+Only `skills/` is installable (30 skills). Add `-s build -s verify ...` to take a subset.
 
 **With npx** (any machine; installs to Claude Code, Codex and other agents):
 

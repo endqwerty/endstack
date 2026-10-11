@@ -115,15 +115,34 @@ Upstream `principle-prove-it-works`, `interrogate` and `blast-radius` are
 still linked from 23 upstream files (poteto-mode, its playbooks, guide
 chapters), so they stay until those are deleted (step 5).
 
+## Import of the pstack role skills (2026-10-10)
+
+Daniel likes pstack's separation of roles and identities and asked for all the
+skills. 23 role skills and the 23 principles (as one `principles` skill with a
+reference per principle) were ported by four parallel workers (Codex), each
+owning disjoint directories, then reviewed by Claude. Rules are in AGENTS.md
+("Imported role skills"); `scripts/check-skills.py` enforces the mechanical
+ones. What each port changed is in `docs/import-notes/W1-W4.md`. Content kept:
+every ported skill is 87 to 119 percent of its source's bytes (the `why` skill
+alone is 60 KB with references). Dry runs: `/tdd` on a planted off-by-one wrote
+the failing test first and reported before/after evidence; `/architect` read the
+code, compared two candidate shapes and synthesised one. Not exercised: arena,
+swarm, reflect, interrogate and the rest beyond lint and a read-through.
+Not imported: make-bot-ui (Daniel does not use it), setup-pstack, poteto-help,
+poteto-mode (router; replaced), and the pieces already inside `verify`. The
+non-imported poteto-mode playbooks (investigation, refactoring, perf-issue,
+prototype, ...) remain reference in `candidates/`; whether any should become a
+skill is open.
+
 ## Upstream (decided 2026-10-10: broken from)
 
 Daniel decided pstack is no longer tracked: endstack differs too much, and
 future changes are taken by reading upstream and importing what is valuable,
 not by fetching. Done in one cleanup:
 
-- **Kept as reference:** the 52 pstack skills not yet imported, in
-  [candidates/](candidates/README.md) with an index and import steps. They sit
-  outside `skills/` so neither `npx skills add` nor `homelab sync` installs them.
+- **Kept as reference:** what was not imported, in
+  [candidates/](candidates/README.md) with an index and import steps. It sits
+  outside `skills/` so neither `npx skills add` nor `homelab sync` installs it.
 - **Deleted:** `.cursor-plugin/`, `agents/` (Cursor agent definitions),
   `automations/benny/`, `vendor/cursor-team-kit/` (reference only; its ideas
   already went into `verify` and build's PR brief), the pstack README and the
