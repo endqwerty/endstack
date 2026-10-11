@@ -26,8 +26,40 @@ where they are.
   comments, and mechanical edits that change no behaviour, data or contract. "A different provider than yours" is stated without naming any;
   homelab routing decides who that is. Upstream `principle-prove-it-works`,
   `interrogate` and `blast-radius` stay until step 5, since other upstream
-  skills still link to them. The global AGENTS.md paragraph shrinks to a pointer
-  once the dry runs pass.
+  skills still link to them. Do not shrink the global AGENTS.md paragraph until
+  distribution exists and a pointer-only dry run passes; the skill is not
+  installed by the current homelab sync.
+
+### Current-revision gate follow-up (2026-10-10)
+
+PR #1 landed as `5dba621` without a passing verdict on its final revision.
+The author treated “check again once” as permission to stop checking after
+further material fixes. A fresh read-only Codex review of that merged revision
+confirmed the ambiguity. `verify` now requires a passing independent verdict
+on the current revision with no unresolved blockers; a review limit leaves
+the change unverified, not mergeable.
+
+[Checks and paired dry runs](docs/verify-gate-checks.md) keep the evidence and
+limits. Both harnesses selected the skill from the fixture catalog and made
+the safe decisions. Both no-skill baselines also succeeded, so this is not
+evidence of an improvement over the existing global rule. Real installation,
+pointer-only discovery and live remote delivery remain untested.
+
+The follow-up also states that all required checks and the safety fact must
+pass, any revision change needs a fresh verdict, and non-blocking limits must
+be reported. Old-text/current-text controls cover available reviewers after
+the nominal review limit, mixed verdicts, non-material revisions and blockers.
+Both variants passed; this clarifies policy without claiming measured uplift.
+
+### Next candidate: `hand-off`
+
+[Preparation and proposed checks](docs/hand-off-preparation.md) record the
+read-only source analysis. No new delivery skill is added yet: the available
+sources do not establish two instances of the same hand-off failure required
+by AGENTS.md. Crosspoint-reader #28 is one recorded incident; endstack #1's
+missing-verdict merge is a different verification failure, not a second
+no-merge violation. Establish recurrence or an explicit exception before
+promotion. `land`, distribution and global-rule migration remain later work.
 
 ### `verify` dry run (2026-10-10)
 
@@ -40,7 +72,7 @@ was loaded in every run, so the baseline is "global rule only".
 | Claude, without skill | Failing test first, fix, committed. Skipped the independent verifier ("one operator", scratch repo) but said so. |
 | Claude, with skill (auto-triggered, no mention in the prompt) | Failing tests first, fix, then a Codex verifier reviewed the revision range read-only and ran a differential check over 140014 inputs; found only the intended change. Verdict tied to the range. |
 | Codex, without skill | Failing tests first, fix, Claude reviewed independently before commit, then committed. |
-| Codex, with skill (second try, after sign-in was fixed, current skill text) | Read the skill unprompted ("using the verification skill because this changes money calculations"), failing check first, fix, asked a Claude reviewer for an independent verdict, got none, and reported the independent review as **not checked** instead of passing it. Commit was blocked by the scratch run's read-only sandbox, so no commit. An earlier try died on an expired login. |
+| Codex, with skill (second try, after sign-in was fixed, text at `2e2146b`) | Read the skill unprompted ("using the verification skill because this changes money calculations"), failing check first, fix, asked a Claude reviewer for an independent verdict, got none, and reported the independent review as **not checked** instead of passing it. Commit was blocked by the scratch run's read-only sandbox, so no commit. An earlier try died on an expired login. |
 
 Read: with the global rule loaded, Codex's baseline already obtained a
 review, and the skill turned Claude's skipped review into a done one. The
