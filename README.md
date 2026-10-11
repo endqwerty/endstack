@@ -3,12 +3,17 @@
 Daniel Yang's agent stack: skills for Claude Code and Codex (through T3 Code),
 distilled from Lauren Tan's [pstack](https://github.com/cursor/plugins/tree/main/pstack).
 
-**State: day zero.** This is pstack as of `cursor/plugins@978ca6e`, with its full
-history for the `pstack/` folder, plus the three `cursor-team-kit` skills it
-links to (`vendor/cursor-team-kit/`). Nothing is distilled yet. The original
-README is [docs/pstack-readme.md](docs/pstack-readme.md); the original guide
-is [docs/guide/](docs/guide/README.md). [DISTILL.md](DISTILL.md) is the plan
-for turning it into mine.
+**State: first skill distilled.** [verify](skills/verify/SKILL.md) requires an
+independent passing verdict on the current revision before delivery. Next:
+`hand-off`, then `land`; installation and global-rule migration remain pending.
+[DISTILL.md](DISTILL.md) records the plan, checks and remaining work.
+
+The remaining upstream material is pstack at `cursor/plugins@978ca6e`, with
+its `pstack/` history and three linked `cursor-team-kit` skills in
+`vendor/cursor-team-kit/`. The original README is
+[docs/pstack-readme.md](docs/pstack-readme.md); its guide is
+[docs/guide/](docs/guide/README.md). Retained upstream skills are reference
+material, not the distilled collection to install wholesale.
 
 ## Why not just install pstack
 

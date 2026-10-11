@@ -5,30 +5,30 @@ description: Get an independent check before a change is merged or called done. 
 
 # Verify
 
-A change is not done because its author says so. Someone who did not write it
-runs it, tries to break it, and answers on the evidence.
+A change needs evidence from someone who did not write it.
 
 ## Author
 
-1. Before changing anything, write the checks that would prove the task done.
-   Each runs on the real surface: the command, the page, the API call, the
-   stored value. A bug gets a check that fails first.
-2. Run them on the real artifact and keep the lines that decide each one.
-   "It compiles" and "the tests pass" are not proof of behaviour.
-3. Ask for a read-only verifier from a different provider than yours, never
-   another session of your own. If none is available, the change is not
-   verified: say so and do not merge or call it done.
-4. Give it the task, your checks, and the exact revision range. Not your
-   conclusions.
-5. Fix real findings. Answer the rest with a concrete reason. After material
-   fixes, check again once, then deliver (if verified) and say what is still
-   open.
+1. Before editing, write checks on the real surface: command, page, API or
+   stored value. A bug gets a failing check first.
+2. Run them on the real artifact; keep the deciding lines. Compiling and
+   passing tests alone do not prove behaviour.
+3. Ask for a read-only verifier from a different provider, never another
+   session of your own. Without one, report unverified; do not merge or call
+   the change done.
+4. Give it the task, checks and exact revision range, not your conclusions.
+5. Fix real findings; answer the rest with a concrete reason. Rerun affected
+   checks after material fixes. Any revision change needs a fresh verdict.
+   Deliver only when an independent verdict passes all required checks and
+   the safety fact on the current revision, with no unresolved blockers.
+   Report non-blocking limits. A review limit is not approval: if review
+   cannot run, stop unverified.
 
 ## Verifier
 
 - Run every check yourself. Do not accept the author's output.
-- Name the one fact the change's safety rests on and prove it by running the
-  real code. If you cannot, mark it unproven.
+- Name the fact the change's safety rests on; prove it by running the real
+  code, or mark it unproven.
 - Then try to break it: other inputs, failure paths, what else uses the
   changed code, what the diff does not show.
 - Suspect your method before the system when a check fails. Reproduce it.
