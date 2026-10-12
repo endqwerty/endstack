@@ -33,6 +33,9 @@ carry no tool, model or harness names; see the [skills table](#skills) and
 
 All imported role skills are explicit-invocation (`/tdd`, `/arena`, ...), as in
 pstack, so they add almost nothing to the catalog the agent sees every session.
+What replaces pstack's always-on router is [ROUTING.md](ROUTING.md), a 1.6 KB
+index of when to use which skill, installed in the global rules so every turn
+sees it ([evidence](docs/routing.md)).
 
 ## Why not just install pstack
 
