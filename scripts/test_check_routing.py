@@ -13,8 +13,8 @@ def tree(routing, skills=("a", "b", "c")):
     return d
 
 
-GOOD = "Skip on a casual turn.\n- prose: `unslop`, docs `technical-writing`\nOnly when named: `c`\n"
-SK = ("unslop", "technical-writing", "c")
+GOOD = "Skip casual chat.\n- prose: `unslop`, docs `technical-writing`\n- merge: `ship`, `autopilot-full` only when explicitly asked\n\nOnly when named: `c`\n"
+SK = ("unslop", "technical-writing", "c", "ship", "autopilot-full")
 
 
 class T(unittest.TestCase):
@@ -28,15 +28,26 @@ class T(unittest.TestCase):
         p = " ".join(cr.check(tree(GOOD + "`ghost`\n", SK + ("orphan",))))
         self.assertIn("`ghost` is not a skill", p); self.assertIn("skill orphan is not routed", p)
 
-    def test_named_and_routed_conflict(self):
-        p = " ".join(cr.check(tree(GOOD + "- `c` for x\n", SK)))
-        self.assertIn("both routed and 'only when named'", p)
+    def test_duplicate_route_and_named_conflict(self):
+        self.assertIn("skill unslop appears 2 times", " ".join(cr.check(tree(GOOD.replace("docs", "`unslop` docs"), SK))))
+        self.assertIn("skill c appears 2 times", " ".join(cr.check(tree(GOOD.replace("- merge", "- `c` merge"), SK))))
 
-    def test_required_routes_and_named_line(self):
-        p = " ".join(cr.check(tree("Only when named: `x`\n", ("x",))))
-        for w in ("route to unslop", "route to technical-writing", "casual turn"):
-            self.assertIn(w, p)
-        self.assertIn("no 'Only when named:' line", " ".join(cr.check(tree("casual unslop technical-writing `unslop` `technical-writing`\n", ("unslop", "technical-writing")))))
+    def test_named_line_missing_or_empty(self):
+        no_line = "\n".join(l for l in GOOD.splitlines() if not l.startswith("Only")).replace("`c`", "")
+        self.assertIn("no 'Only when named:' line", " ".join(cr.check(tree(no_line, SK))))
+        self.assertIn("lists no skill", " ".join(cr.check(tree(GOOD.replace("`c`", ""), SK))))
+
+    def test_prose_and_docs_in_one_bullet(self):
+        split = GOOD.replace("- prose: `unslop`, docs `technical-writing`", "- prose: `unslop`\n- docs: `technical-writing`")
+        self.assertIn("one bullet must route prose", " ".join(cr.check(tree(split, SK))))
+
+    def test_merge_skills_need_explicit_request(self):
+        p = " ".join(cr.check(tree(GOOD.replace("only when explicitly asked", "to merge"), SK)))
+        self.assertIn("`ship` must be routed only on an explicit request", p)
+        self.assertIn("`autopilot-full` must be routed only on an explicit request", p)
+
+    def test_casual_skip_required(self):
+        self.assertIn("casual chat", " ".join(cr.check(tree(GOOD.replace("casual", "quiet"), SK))))
 
     def test_size_and_forbidden_terms(self):
         p = " ".join(cr.check(tree(GOOD + "word " * 700 + "Use Claude, run `git push`.\n", SK)))

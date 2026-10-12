@@ -43,8 +43,8 @@ size, no tool or model names, links) and must pass.
 [ROUTING.md](ROUTING.md) is the always-on skill index: homelab copies it into
 the global rules so every turn sees it, and the hidden skills stay out of the
 catalog. Adding, renaming or dropping a skill means updating it too;
-`python3 scripts/check-routing.py` must pass (every skill routed once, about
-2.6 KB at most), and the copy in homelab's `agents/AGENTS.md` must match.
+`python3 scripts/check-routing.py` must pass (every skill named once, the
+merge skills tied to an explicit request, 2.6 KB at most), and the copy in homelab's `agents/AGENTS.md` must match.
 Evidence and limits: [docs/routing.md](docs/routing.md).
 
 ## Delivery

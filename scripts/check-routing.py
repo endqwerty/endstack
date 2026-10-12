@@ -22,22 +22,33 @@ def check(root):
         for m in re.finditer(pat, text, re.I):
             problems.append(f"ROUTING.md:{text.count(chr(10), 0, m.start()) + 1}: {why}: {m.group(0)[:40]!r}")
     skills = {d for d in os.listdir(os.path.join(root, "skills")) if os.path.isdir(os.path.join(root, "skills", d))}
-    named_line = next((l for l in text.splitlines() if l.startswith(NAMED)), None)
-    if named_line is None:
-        problems.append(f"ROUTING.md: no '{NAMED}' line")
-    routed = set(re.findall(r"`([a-z][a-z0-9-]*)`", text))
-    for name in sorted(routed - skills):
+    names = re.findall(r"`([a-z][a-z0-9-]*)`", text)
+    for name in sorted(set(names) - skills):
         problems.append(f"ROUTING.md: `{name}` is not a skill in skills/")
-    for name in sorted(skills - routed):
-        problems.append(f"ROUTING.md: skill {name} is not routed")
-    if named_line:
-        for name in re.findall(r"`([a-z][a-z0-9-]*)`", named_line):
-            if text.count(f"`{name}`") > 1:
-                problems.append(f"ROUTING.md: `{name}` is both routed and 'only when named'")
-    for needle, why in (("unslop", "prose must route to unslop"), ("technical-writing", "docs must route to technical-writing"),
-                        ("casual", "must say a casual turn skips routing")):
-        if needle not in text:
-            problems.append(f"ROUTING.md: {why}")
+    for name in sorted(skills):
+        n = names.count(name)
+        if n == 0:
+            problems.append(f"ROUTING.md: skill {name} is not routed")
+        elif n > 1:
+            problems.append(f"ROUTING.md: skill {name} appears {n} times, expected once")
+    at = text.find(NAMED)
+    if at < 0:
+        problems.append(f"ROUTING.md: no '{NAMED}' line")
+    elif not re.findall(r"`([a-z][a-z0-9-]*)`", text[at:]):
+        problems.append(f"ROUTING.md: '{NAMED}' lists no skill")
+    bullets = [b for b in re.split(r"\n(?=- )", text[:at] if at >= 0 else text) if b.startswith("- ")]
+
+    def bullet_with(name):
+        return next((b for b in bullets if f"`{name}`" in b), "")
+
+    prose = bullet_with("unslop")
+    if "`technical-writing`" not in prose or "docs" not in prose.lower():
+        problems.append("ROUTING.md: one bullet must route prose to unslop and docs to technical-writing")
+    for name in ("ship", "autopilot-full"):
+        if "explicit" not in bullet_with(name):
+            problems.append(f"ROUTING.md: `{name}` must be routed only on an explicit request")
+    if "casual" not in text.lower():
+        problems.append("ROUTING.md: must say casual chat skips routing")
     return problems
 
 
