@@ -38,6 +38,15 @@ size, no tool or model names, links) and must pass.
 - Adding a skill beyond the six needs either a recurring failure or Daniel's
   request.
 
+## Routing
+
+[ROUTING.md](ROUTING.md) is the always-on skill index: homelab copies it into
+the global rules so every turn sees it, and the hidden skills stay out of the
+catalog. Adding, renaming or dropping a skill means updating it too;
+`python3 scripts/check-routing.py` must pass (every skill routed once, about
+2.6 KB at most), and the copy in homelab's `agents/AGENTS.md` must match.
+Evidence and limits: [docs/routing.md](docs/routing.md).
+
 ## Delivery
 
 Delivery: review-first. Work on the T3 branch in your worktree and follow
