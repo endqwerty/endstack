@@ -6,7 +6,7 @@ used when Daniel named them, and nothing chained them (for example `build`
 writing docs never reached `unslop`). Asking him to think about 24 skills per
 message was the failure.
 
-What: [ROUTING.md](../ROUTING.md) is a 1.8 KB index, one line per situation. It
+What: [ROUTING.md](../ROUTING.md) is a 1.9 KB index, one line per situation. It
 is loaded on every turn through the global rules in homelab (`agents/AGENTS.md`),
 the only file both Claude Code and Codex read each session. The model matches the
 task against it, opens the named skill, and says which one shaped a decision. A
@@ -39,13 +39,16 @@ Turned down:
 3. Independent review (Codex, round 1) failed the first draft: one-line tasks
    were exempt from routing, the checker passed five wrong variants,
    `no-comments` was routed wider than its own description, and the merge
-   skills read as authority. All fixed; the checker now rejects those variants.
+   skills read as authority. Fixed in the next commit. The checker now rejects duplicate
+   and conflicting routes, an empty or missing named list, and merge skills
+   without "explicit"; it still passes a wrong situation or an unquoted name
+   (limit above).
 
-## Dry run (2026-10-12, revised text)
+## Dry run (2026-10-12, final text)
 
-Seven tasks, answered by a small model with no tools, from the index text only;
-the "without" column is the same model seeing only the six core skills (first
-five tasks, earlier draft run). The decision only; nothing ran.
+Ten tasks, answered by a small model with no tools, from the index text only.
+The "without" column is the same model seeing only the six core skills (earlier
+draft run, first five tasks). The decision only; nothing ran.
 
 | Task | Without | With |
 | --- | --- | --- |
@@ -53,20 +56,22 @@ five tasks, earlier draft run). The decision only; nothing ran.
 | Fix off-by-one in a .ts file, keep it fixed | `build`, `verify` | `build`, `tdd`, `typescript-best-practices` |
 | Two teams disagree on a design | none | `interrogate`, `principles` |
 | "what time zone is the server in?" | none | none |
-| Retry logic across queue module, then open a PR | `build`, `verify` | `architect`, `principles`, `build`, `verify` |
-| "Merge PR 12." | not run | `ship` |
-| "How does the scheduler pick the next job?" | not run | `how` |
+| Retry logic across queue module, then open a PR | `build`, `verify` | `architect`, `principles`, `build` |
+| "Merge PR 12." / "Ship PR 12." | not run | `ship` / `ship` |
+| "Is it safe to merge PR 12?" | not run | `verify` |
+| "How does the scheduler pick the next job?" / "How does this small function work?" | not run | `how` / `how` |
 
-The casual question stayed unrouted; docs, bugs, design calls and explanations
-reached the hidden skills. The small model dropped `verify` on the bug fix and
+The casual question stayed unrouted; docs, bugs, design calls, explanations and
+safety checks reached the hidden skills, and the safety question did not reach
+`ship`. The small model dropped `verify` on the bug fix and the PR task, and
 `unslop` on the PR task, so routing is a nudge, not a guarantee; an independent
-Codex probe on the same text (round 1 wording) did add them.
+Codex probe on the round 1 wording did add them.
 
 ## Not checked
 
 - Real sessions: the dry run is one small model's stated choice, not observed
   skill use in Claude Code or Codex, and one sample, not a rate. Whether the
   model really opens a hidden skill by reading its SKILL.md is unconfirmed.
-- Cost and noise: the index adds about 1.8 KB per turn; whether it over-triggers
+- Cost and noise: the index adds about 1.9 KB per turn; whether it over-triggers
   on short turns is not measured. If it does, tighten the "casual turn" line.
 - Drift: the copy in homelab is checked by hand, not by a script.

@@ -3,13 +3,13 @@
 ## 2026-10-12 — routing index (replaces the dropped always-on router)
 
 - Added `ROUTING.md`: one line per situation naming the skill to open, covering
-  all 30 skills (1.8 KB; the pstack router was 19 KB). Homelab copies it into
+  all 30 skills (1.9 KB; the pstack router was 19 KB). Homelab copies it into
   the global rules, since only those load every turn, so hidden skills are
   routed without growing the catalog. Prose now routes to `unslop` and docs to
   `technical-writing` inside any delivery skill, without editing the core
   skills' size caps. Added `scripts/check-routing.py` with tests. Merge skills route only on an
   explicit request, and `no-comments`, `tdd` and `architect` keep their own
-  trigger limits (independent review found the first draft wider). Dry run and
+  trigger limits (independent review found the first draft wider; casual skip no longer covers explaining or reviewing). Dry run and
   limits in `docs/routing.md`.
 
 ## 2026-10-11 — verify: re-review inputs; stale pending notes

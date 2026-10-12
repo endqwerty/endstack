@@ -14,7 +14,8 @@ def check(root):
     path = os.path.join(root, "ROUTING.md")
     if not os.path.isfile(path):
         return ["ROUTING.md: missing"]
-    text = open(path, encoding="utf-8").read()
+    with open(path, encoding="utf-8") as f:
+        text = f.read()
     problems = []
     if len(text.encode()) > MAX:
         problems.append(f"ROUTING.md: {len(text.encode())} bytes > {MAX}")
@@ -34,7 +35,7 @@ def check(root):
     at = text.find(NAMED)
     if at < 0:
         problems.append(f"ROUTING.md: no '{NAMED}' line")
-    elif not re.findall(r"`([a-z][a-z0-9-]*)`", text[at:]):
+    elif not re.findall(r"`([a-z][a-z0-9-]*)`", re.split(r"\n\s*\n", text[at:], maxsplit=1)[0]):
         problems.append(f"ROUTING.md: '{NAMED}' lists no skill")
     bullets = [b for b in re.split(r"\n(?=- )", text[:at] if at >= 0 else text) if b.startswith("- ")]
 
