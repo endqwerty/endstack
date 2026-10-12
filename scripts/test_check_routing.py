@@ -36,6 +36,8 @@ class T(unittest.TestCase):
         no_line = "\n".join(l for l in GOOD.splitlines() if not l.startswith("Only")).replace("`c`", "")
         self.assertIn("no 'Only when named:' line", " ".join(cr.check(tree(no_line, SK))))
         self.assertIn("lists no skill", " ".join(cr.check(tree(GOOD.replace("`c`", ""), SK))))
+        later = GOOD.replace("`c`", "") + "\n- Always apply: `c`\n"
+        self.assertIn("lists no skill", " ".join(cr.check(tree(later, SK))))
 
     def test_prose_and_docs_in_one_bullet(self):
         split = GOOD.replace("- prose: `unslop`, docs `technical-writing`", "- prose: `unslop`\n- docs: `technical-writing`")
