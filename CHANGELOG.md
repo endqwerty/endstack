@@ -1,5 +1,22 @@
 # Change log
 
+## 2026-10-12 — principle groups and step citations
+
+- `principles`: the index is grouped again under upstream's Core, Architecture,
+  Verification, Delegation and Meta (the port had flattened it to alphabetical
+  order), and carries upstream's rule to name each principle that shaped a
+  decision and the choice it changed, citing only references read this session.
+- `build` and `tdd` cite a principle at the step it governs, as upstream's
+  feature and bug-fix playbooks did. `build` names `fix-root-causes`,
+  `model-the-domain` and `sequence-verifiable-units` (2131 bytes). `tdd` names
+  `fix-root-causes`, `test-behavior-not-implementation` and
+  `sequence-verifiable-units`, and commits the failing test before the fix.
+- Dry run in `docs/principle-citations.md`: replies now name the principle and
+  the choice (4 of 4 runs against 0 of 4 without the change), and the bug task reads
+  `fix-root-causes` and commits the failing test first. The code the agent
+  wrote did not change on either task. A linked principle was not opened until
+  the skill said to read it.
+
 ## 2026-10-12 — routing index (replaces the dropped always-on router)
 
 - Added `ROUTING.md`: one line per situation naming the skill to open, covering

@@ -156,6 +156,14 @@ non-imported poteto-mode playbooks (investigation, refactoring, perf-issue,
 prototype, ...) remain reference in `candidates/`; whether any should become a
 skill is open.
 
+### Principle groups and step citations (2026-10-12)
+
+The principles index is grouped as upstream grouped it, and `build` and `tdd`
+cite a principle at the step it governs, with the rule to name each principle
+that shaped a decision. Checks, dry run and limits:
+[docs/principle-citations.md](docs/principle-citations.md). The dry run changed
+what the agent reads and reports, not the code it wrote.
+
 ## Upstream (decided 2026-10-10: broken from)
 
 Daniel decided pstack is no longer tracked: endstack differs too much, and
