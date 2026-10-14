@@ -1,5 +1,11 @@
 # Change log
 
+## 2026-10-14 — model roles: Gemini column
+
+- `docs/model-roles.md` lists Gemini (Antigravity) beside Codex and Claude:
+  homelab's `routing.json` now routes every Gemini role to Gemini 4 Argon
+  (low, medium or high by class and profile) and no longer to Flash.
+
 ## 2026-10-12 — principle groups and step citations
 
 - `principles`: the index is grouped again under upstream's Core, Architecture,
