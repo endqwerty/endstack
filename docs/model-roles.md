@@ -6,7 +6,8 @@ to `max`. endstack does not import it: the skills name roles, never models (see
 [AGENTS.md](../AGENTS.md)), and the model table lives in homelab's
 `routing.json`, next to the allowance-based provider routing.
 
-Daniel uses Claude and Codex and wants a middle ground, not unlimited effort.
+Daniel uses Codex, Claude and Gemini (through Antigravity) and wants a middle
+ground, not unlimited effort.
 `homelab route models` prints the table (add `--profile lean|balanced|deep`,
 `--role <class>`, `--json`). Balanced is the default.
 
@@ -21,17 +22,21 @@ Daniel uses Claude and Codex and wants a middle ground, not unlimited effort.
 | hardest tasks | `hard` |
 
 A panel (arena, architect, interrogate, reflect) puts one member on each
-provider: the Codex row and the Claude row of its class.
+provider: the Codex, Claude and Gemini rows of its class.
 
 ## What balanced runs
 
-| Class | Codex (Sol 6.1) | Claude |
-| --- | --- | --- |
-| worker | medium | Sonnet 5.5, medium |
-| author | medium | Sonnet 5.5, medium |
-| reviewer, verifier | medium | Sonnet 5.5, high |
-| hard | Astra, medium | Fable 5.1, medium |
-| lead (one session coordinating a large multi-agent task) | Astra, high | Fable 5.1, high |
+| Class | Codex (Sol 6.1) | Claude | Gemini (Argon 4) |
+| --- | --- | --- | --- |
+| worker | medium | Sonnet 5.5, medium | medium |
+| author | medium | Sonnet 5.5, medium | medium |
+| reviewer, verifier | medium | Sonnet 5.5, high | high |
+| hard | Astra, medium | Fable 5.1, medium | high |
+| lead (one session coordinating a large multi-agent task) | Astra, high | Fable 5.1, high | high |
+
+Gemini has one model, Argon, with three tiers (low, medium, high) and no
+separate premium allocation, so `hard` and `lead` run Argon at high. Flash was
+dropped on 2026-10-14.
 
 There is no effort ceiling: high and xhigh may be the right default for a class
 or a job when the work needs them. The rule for agents is to choose for that
