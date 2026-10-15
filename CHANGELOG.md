@@ -1,5 +1,22 @@
 # Change log
 
+## 2026-10-14 — smaller catalog, verdicts carry forward, unslop checked
+
+- The 24 explicit-invocation skills have `agents/openai.yaml` with
+  `allow_implicit_invocation: false`, so Codex no longer lists them in every
+  request; every description is at most 200 characters. Codex's endstack
+  catalog falls from about 2,285 to 342 tokens a request, Claude Code's from
+  415 to 282. `check-skills.py` enforces both. Evidence in
+  [docs/catalog-size.md](docs/catalog-size.md).
+- `verify`: a re-review covers what changed since the last verdict and what it
+  can affect; a verdict carries forward over an unchanged rebase onto a base
+  touching nothing the change uses, or a docs-only edit, once the required
+  checks are rerun. `ship` and `autopilot-stack` point at it. Dry run in
+  [docs/verify-carry-forward.md](docs/verify-carry-forward.md).
+- `unslop` checked: applied while writing it removed every counted pattern
+  (0 against 50 hits in 80 runs); in real threads the effect is smaller. It
+  stays. [docs/unslop-check.md](docs/unslop-check.md).
+
 ## 2026-10-14 — model roles: Gemini column
 
 - `docs/model-roles.md` lists Gemini (Antigravity) beside Codex and Claude:

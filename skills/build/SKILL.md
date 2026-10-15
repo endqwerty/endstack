@@ -1,6 +1,6 @@
 ---
 name: build
-description: Implement a feature or fix and prepare a checked pull request for review. Use when asked to build, implement or fix a change, not merely explain or plan it. Stops before watching or merging.
+description: Implement a feature or fix and prepare a checked pull request for review. Use to build, implement or fix, not to explain or plan. Stops before watching or merging.
 ---
 
 # Build

@@ -1,6 +1,6 @@
 ---
 name: ketchup
-description: "Catch the user up on everything in this chat since their last message, in plain words. Give each action item an executive summary with enough context to make the call. Use when asked to catch up on this chat or summarize pending decisions."
+description: Catch the user up on this chat since their last message, with the decisions waiting on them.
 disable-model-invocation: true
 ---
 

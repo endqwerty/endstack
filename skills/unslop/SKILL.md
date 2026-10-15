@@ -1,6 +1,6 @@
 ---
 name: unslop
-description: Remove AI writing patterns while preserving meaning and tone. Use when writing, editing, or reviewing any prose; always apply to writing.
+description: Remove AI writing patterns from prose while keeping its meaning and tone.
 disable-model-invocation: true
 ---
 

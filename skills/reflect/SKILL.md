@@ -1,6 +1,6 @@
 ---
 name: reflect
-description: Apply three distinct reviewer lenses over the active transcript, surface learnings, and route each to a concrete edit on an existing skill. Use when the user says reflect.
+description: Review this transcript for learnings and route each to an edit of an existing skill.
 disable-model-invocation: true
 ---
 

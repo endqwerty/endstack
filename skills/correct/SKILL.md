@@ -1,6 +1,6 @@
 ---
 name: correct
-description: "Find the mistakes agents keep repeating in this repo and make each one impossible. Try architecture first, then types, then a lint whose error names the fix, then a test, and write docs last. Prove each check fails on a real past mistake. Repeat this each time the operator corrects you. Use when asked to correct recurring agent mistakes or stop repeated repository errors."
+description: Make a mistake agents keep repeating impossible, preferring architecture, types, lint and tests over docs.
 disable-model-invocation: true
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: maintain-verification-skill
-description: "Keep a project-local verification skill and feature map accurate through source review, a live pass of every feature, and at most one pull request of proven corrections. Use when asked to audit or maintain the verification skill or feature map."
+description: Audit and correct a project's verification skill and feature map.
 disable-model-invocation: true
 ---
 

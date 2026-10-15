@@ -1,6 +1,6 @@
 ---
 name: principles
-description: Apply engineering principles when making design, implementation, debugging or review decisions. Select the relevant principle by its situation and read only its full reference.
+description: Engineering principles for design, implementation, debugging and review decisions.
 disable-model-invocation: true
 ---
 

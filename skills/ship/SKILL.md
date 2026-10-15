@@ -1,6 +1,6 @@
 ---
 name: ship
-description: Land identified pull requests when explicitly asked to merge, land or ship that work. Check authority and current evidence first. Not for building, getting checks green, status, planning or an unspecified request to keep going.
+description: Land identified pull requests only when explicitly asked to merge, land or ship them. Not for building, fixing checks, status, planning or a general keep-going request.
 ---
 
 # Ship
@@ -18,7 +18,8 @@ Own only the landing the user authorized.
 3. Land only the contiguous authorized, verified run from the lowest unmerged
    dependency, one request at a time, using the project's delivery mechanism.
    Do not merge a child into an unlanded parent or arm descendants. Changed
-   revisions or bases require fresh checks and a current independent verdict.
+   revisions or bases require fresh checks and a current independent verdict
+   (verify says when an earlier one carries forward).
 4. Confirm each landed result in the intended destination, not merely that a
    merge was requested. Reinspect the next request after each landing. If the
    remote outcome is unknown, inspect it before retrying. Stop at the first gap.

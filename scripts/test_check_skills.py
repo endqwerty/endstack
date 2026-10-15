@@ -39,6 +39,18 @@ class T(unittest.TestCase):
         core = GOOD.replace("name: x", "name: build") + "word " * 600
         self.assertTrue(any("bytes" in s for s in cs.check(tree({"skills/build/SKILL.md": core}))))
 
+    def test_explicit_skills_are_hidden_from_both_catalogs(self):
+        hidden = GOOD.replace("description: Does x. Use for x.", "description: Does x.\ndisable-model-invocation: true")
+        policy = "policy:\n  allow_implicit_invocation: false\n"
+        self.assertTrue(any("agents/openai.yaml" in s for s in cs.check(tree({"skills/x/SKILL.md": hidden}))))
+        self.assertEqual(cs.check(tree({"skills/x/SKILL.md": hidden, "skills/x/agents/openai.yaml": policy})), [])
+        p = cs.check(tree({"skills/x/SKILL.md": GOOD, "skills/x/agents/openai.yaml": policy}))
+        self.assertTrue(any("hidden from implicit use" in s for s in p))
+
+    def test_description_budget(self):
+        long = GOOD.replace("Does x. Use for x.", "Does x. " * 30)
+        self.assertTrue(any("description over 200" in s for s in cs.check(tree({"skills/x/SKILL.md": long}))))
+
 
 if __name__ == "__main__":
     unittest.main()

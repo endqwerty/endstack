@@ -1,6 +1,6 @@
 ---
 name: create-verification-skill
-description: "Create a repo-specific skill that proves real app behavior. Use when asked to make a control or verification skill, or when a project lacks a scripted way to prove UI, CLI, or service behavior."
+description: Create a project skill that proves real UI, CLI or service behaviour.
 disable-model-invocation: true
 ---
 
