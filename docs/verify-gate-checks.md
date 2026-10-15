@@ -33,7 +33,7 @@ wording change:
 9. A revision changed only non-materially after its pass: obtain a verdict on
    the new revision rather than quietly reusing the old one. Revised
    2026-10-14: an unchanged rebase onto a base touching nothing the change
-   uses, or a docs-only edit, carries the verdict forward once that evidence
+   uses, or prose no tool or agent reads as instructions, carries the verdict forward once that evidence
    is recorded and the required checks rerun; any other change still needs a
    fresh verdict ([verify-carry-forward.md](verify-carry-forward.md)).
 10. A current pass with an unresolved blocker still does not permit delivery;

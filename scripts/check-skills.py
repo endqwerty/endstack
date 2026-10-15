@@ -54,7 +54,8 @@ def check(root, only=None):
             explicit = fm.get("disable-model-invocation") == "true"
             policy = os.path.join(d, POLICY)
             hidden = os.path.isfile(policy) and re.search(
-                r"^\s*allow_implicit_invocation:\s*false\b", open(policy, encoding="utf-8").read(), re.M)
+                r"^policy:\s*\n(?:[ \t]+.*\n)*?[ \t]+allow_implicit_invocation:\s*false\b",
+                open(policy, encoding="utf-8").read(), re.M)
             if explicit and not hidden:
                 problems.append(f"{name}: explicit-only skill needs {POLICY} with allow_implicit_invocation: false")
             elif hidden and not explicit:
