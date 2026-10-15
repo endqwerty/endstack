@@ -1,6 +1,6 @@
 ---
 name: why
-description: "Investigate why code took its current shape, using available historical evidence and returning cited decisions, tradeoffs and calibrated confidence. Use for design rationale, regressions, postmortems, or data-backed thresholds. Use how for runtime behavior."
+description: Find why code took its current shape, from history, with cited evidence.
 disable-model-invocation: true
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: verify
-description: Get an independent check before a change is merged or called done. Use for a feature, bug fix, or anything touching auth, data, money, credentials or deployment, and when asked to verify, double-check, sign off on or break someone else's change. Not for docs, comments, or mechanical edits that change no behaviour, data or contract.
+description: Independent check before a behaviour, data, auth, money or deployment change is merged or called done, or of someone else's. Not for docs-only edits.
 ---
 
 # Verify
@@ -17,14 +17,16 @@ A change needs evidence from someone who did not write it.
    session of your own. Without one, report unverified; do not merge or call
    the change done.
 4. Give it the task, checks and exact revision range, not your conclusions.
-   A re-review covers the whole change through the new head, with the earlier
-   findings, never your reasons for dismissing them.
-5. Fix real findings; answer the rest with a concrete reason. Rerun affected
-   checks after material fixes. Any revision change needs a fresh verdict.
-   Deliver only when an independent verdict passes all required checks and
-   the safety fact on the current revision, with no unresolved blockers.
-   Report non-blocking limits. A review limit is not approval: if review
-   cannot run, stop unverified.
+   A re-review covers what changed since the last verdict and what that can
+   affect, with the earlier findings, never your reasons for dismissing them.
+5. Fix real findings and rerun affected checks; answer others with a
+   concrete reason. A new revision needs a fresh verdict, unless it only
+   rebased the change unchanged onto a base touching nothing it uses, or only
+   edited docs or comments: then record that evidence, rerun the required
+   checks, and the verdict carries forward. Deliver only on an independent
+   pass of all required checks and the safety fact on the current revision,
+   with no unresolved blockers. Report non-blocking limits. A review limit is
+   not approval: if review cannot run, stop unverified.
 
 ## Verifier
 
@@ -36,7 +38,8 @@ A change needs evidence from someone who did not write it.
 - Suspect your method before the system when a check fails. Reproduce it.
 - Answer each check: **pass**, **issues**, or **not checked**, with what you
   ran and the deciding lines. A check you could not run is never a pass.
-- Name the revision you judged. A verdict on an older revision is stale.
+- Name the revision you judged. An older verdict is stale unless step 5
+  carries it.
 - Change nothing.
 
 ## Never

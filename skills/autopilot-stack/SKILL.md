@@ -1,6 +1,6 @@
 ---
 name: autopilot-stack
-description: Autonomously build and verify a bounded dependent queue into a reviewable pull-request stack for the user to land. Use when asked for a stack with human landing, not full automatic delivery or a plan alone.
+description: Build and verify a bounded queue of dependent changes into a pull-request stack for the user to land. Not full automatic delivery or a plan alone.
 ---
 
 # Autopilot stack
@@ -17,8 +17,8 @@ Own the stack, never its landing.
   the delivery branch. Record each request's parent and exact reviewed revision.
   Do not collapse review boundaries to make the stack look green.
 - Keep dependent work blocked behind missing prerequisites. If a revision or
-  base moves, refresh affected checks and independent verdicts before declaring
-  the chain ready. A successful child does not make an unverified parent safe.
+  base moves, refresh affected checks and independent verdicts (verify says
+  when one carries forward) before declaring the chain ready. A successful child does not make an unverified parent safe.
 - Hand the user the ordered request links, dependency map, evidence and current
   verdicts, unresolved gates and next action. Preserve the branches and release
   only project-prescribed local artifacts. Stop watchers at handoff.

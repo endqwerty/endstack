@@ -1,6 +1,6 @@
 ---
 name: no-comments
-description: "Review scoped comments as Comment Sicko, fix accepted findings, and offer enforceable encodings for claimed constraints. Use when asked to remove comments or replace workaround comments with root-cause fixes."
+description: Review comments, fix what they work around, and encode the constraints they claim.
 disable-model-invocation: true
 ---
 

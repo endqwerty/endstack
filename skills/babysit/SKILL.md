@@ -1,6 +1,6 @@
 ---
 name: babysit
-description: Get an existing pull request merge-ready by handling feedback and failing checks, without merging. Use for babysit, get it green or address review comments. A status-only question gets one read-only pass, not ongoing work.
+description: Get an existing pull request merge-ready by handling review comments and failing checks, without merging. A status-only question gets one read-only pass.
 ---
 
 # Babysit

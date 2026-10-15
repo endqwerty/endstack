@@ -33,8 +33,11 @@ size, no tool or model names, links) and must pass.
   tool, model and harness coupling and dead links; it does not rewrite the
   substance. Record what each port changed in `docs/import-notes/`.
 - Frontmatter `name` and `description` that trigger correctly from both Codex
-  and Claude Code. Keep `disable-model-invocation: true` where the source has it
-  (explicit-invocation skills cost no catalog space).
+  and Claude Code, the description at most 200 characters: a visible one is
+  paid on every request. Keep `disable-model-invocation: true` where the source
+  has it, and give such a skill `agents/openai.yaml` with
+  `allow_implicit_invocation: false`, which keeps it out of Codex's catalog the
+  way the frontmatter does for Claude Code ([docs/catalog-size.md](docs/catalog-size.md)).
 - Adding a skill beyond the six needs either a recurring failure or Daniel's
   request.
 

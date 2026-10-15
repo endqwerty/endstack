@@ -1,6 +1,6 @@
 ---
 name: show-me-your-work
-description: "Keep a reviewable decision trail for long-running or unattended work: a TSV log with one row per decision (what, why, evidence, result). Local by default; commit it when a reviewer needs the trail to trust the result. Use for a decision trail, autonomous or multi-phase runs, or work a human reviews after stepping away."
+description: Keep a reviewable decision log for long, multi-phase or unattended work.
 disable-model-invocation: true
 ---
 

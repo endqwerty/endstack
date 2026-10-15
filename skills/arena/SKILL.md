@@ -1,6 +1,6 @@
 ---
 name: arena
-description: "Compare N candidates for the same task, pick a base, and graft the strongest parts of the others into it. Run candidates in parallel when separate workers are available. Use for 'arena this', 'throw it in the arena', or when one attempt at a non-trivial artifact would lock in the wrong shape."
+description: Compare several attempts at one artifact, pick a base and graft in the best parts of the rest.
 disable-model-invocation: true
 ---
 

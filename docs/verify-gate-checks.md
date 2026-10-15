@@ -31,7 +31,11 @@ wording change:
 8. A verdict labelled pass with a required safety fact marked not checked is
    not permission to deliver; obtain the missing independent check.
 9. A revision changed only non-materially after its pass: obtain a verdict on
-   the new revision rather than quietly reusing the old one.
+   the new revision rather than quietly reusing the old one. Revised
+   2026-10-14: an unchanged rebase onto a base touching nothing the change
+   uses, or a docs-only edit, carries the verdict forward once that evidence
+   is recorded and the required checks rerun; any other change still needs a
+   fresh verdict ([verify-carry-forward.md](verify-carry-forward.md)).
 10. A current pass with an unresolved blocker still does not permit delivery;
     a current pass with only non-blocking limits permits delivery with those
     limits reported.

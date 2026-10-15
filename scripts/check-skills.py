@@ -5,6 +5,8 @@ import os, re, sys
 CORE = {"build", "babysit", "ship", "autopilot-stack", "autopilot-full", "verify"}
 CORE_MAX = 2200      # bytes, SKILL.md of a core delivery skill
 OTHER_MAX = 6000     # bytes, SKILL.md of any other skill; detail goes in references/
+DESCRIPTION_MAX = 200  # characters; a visible description is paid on every request
+POLICY = "agents/openai.yaml"  # Codex reads allow_implicit_invocation here; false keeps a skill out of its catalog
 FORBIDDEN = [
     (r"`(?:gh|git|npm|bun|npx|pnpm|yarn|curl)\b[^`]*`", "command in backticks"),
     (r"(?<![\w-])(?:Task|Read|Edit|Bash|Grep|TodoWrite) tool\b", "harness tool name"),
@@ -47,8 +49,16 @@ def check(root, only=None):
                 problems.append(f"{name}: frontmatter name {fm.get('name')!r} != directory")
             if not fm.get("description"):
                 problems.append(f"{name}: empty description")
-            elif len(fm["description"]) > 1024:
-                problems.append(f"{name}: description over 1024 characters")
+            elif len(fm["description"]) > DESCRIPTION_MAX:
+                problems.append(f"{name}: description over {DESCRIPTION_MAX} characters")
+            explicit = fm.get("disable-model-invocation") == "true"
+            policy = os.path.join(d, POLICY)
+            hidden = os.path.isfile(policy) and re.search(
+                r"^\s*allow_implicit_invocation:\s*false\b", open(policy, encoding="utf-8").read(), re.M)
+            if explicit and not hidden:
+                problems.append(f"{name}: explicit-only skill needs {POLICY} with allow_implicit_invocation: false")
+            elif hidden and not explicit:
+                problems.append(f"{name}: hidden from implicit use but not disable-model-invocation")
         limit = CORE_MAX if name in CORE else OTHER_MAX
         if len(text.encode()) > limit:
             problems.append(f"{name}: SKILL.md {len(text.encode())} bytes > {limit}")
