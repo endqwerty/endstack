@@ -54,8 +54,8 @@ def check(root, only=None):
                 problems.append(f"{name}: description over {DESCRIPTION_MAX} characters")
             explicit = fm.get("disable-model-invocation") == "true"
             policy = os.path.join(d, POLICY)
-            # Exact text, not YAML reading: endstack writes these files, so nothing else should pass.
-            hidden = os.path.isfile(policy) and open(policy, encoding="utf-8").read() == POLICY_TEXT
+            # Exact bytes, not YAML reading: endstack writes these files, so nothing else should pass.
+            hidden = os.path.isfile(policy) and open(policy, "rb").read() == POLICY_TEXT.encode()
             if explicit and not hidden:
                 problems.append(f"{name}: explicit-only skill needs {POLICY} with allow_implicit_invocation: false")
             elif os.path.isfile(policy) and not explicit:

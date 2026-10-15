@@ -8,7 +8,7 @@ def tree(files):
     d = tempfile.mkdtemp()
     for path, text in files.items():
         p = os.path.join(d, path); os.makedirs(os.path.dirname(p), exist_ok=True)
-        open(p, "w").write(text)
+        open(p, "w", newline="").write(text)   # keep line endings exactly as given
     return d
 
 
@@ -53,7 +53,9 @@ class T(unittest.TestCase):
                     'policy:\n  allow_implicit_invocation: "false"\n',
                     "policy:\n\tallow_implicit_invocation: false\n",
                     "policy:\n  allow_implicit_invocation: false junk\n",
-                    "interface:\n  display_name: \"X\"\npolicy:\n  allow_implicit_invocation: false\n"):
+                    "interface:\n  display_name: \"X\"\npolicy:\n  allow_implicit_invocation: false\n",
+                    "policy:\r\n  allow_implicit_invocation: false\r\n",
+                    "policy:\r  allow_implicit_invocation: false\r"):
             p = cs.check(tree({"skills/x/SKILL.md": hidden, "skills/x/agents/openai.yaml": bad}))
             self.assertTrue(any("agents/openai.yaml" in s for s in p), bad)
 
