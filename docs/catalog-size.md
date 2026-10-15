@@ -19,7 +19,7 @@ the catalog a third of it.
   a skill that is not in their list from the skills directory, as Claude Code
   agents do today.
 - Every description is at most 200 characters (6,879 characters in total
-  before, 2,803 after). The six visible skills keep their trigger boundaries;
+  before, 2,835 after). The six visible skills keep their trigger boundaries;
   the hidden ones are one line, since they are reached by name.
 - `scripts/check-skills.py` enforces both: an explicit skill without the policy
   file, a visible skill with it, and a description over 200 characters are
@@ -28,8 +28,8 @@ the catalog a third of it.
 
 | Catalog per request (endstack entries) | Before | After |
 | --- | --- | --- |
-| Codex | 30 entries, about 2,285 tokens | 6 entries, about 342 tokens |
-| Claude Code | 6 entries, about 415 tokens | 6 entries, about 282 tokens |
+| Codex | 30 entries, about 2,285 tokens | 6 entries, about 350 tokens |
+| Claude Code | 6 entries, about 415 tokens | 6 entries, about 291 tokens |
 
 Estimates at 4.0 (Codex) and 3.6 (Claude) characters a token, counting
 Codex's `(file: ...)` suffix.
