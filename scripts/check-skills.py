@@ -29,6 +29,27 @@ def frontmatter(text):
     return fm
 
 
+def implicit_policy(text):
+    """The value directly under `policy:` for allow_implicit_invocation, or None. Deeper keys do not count."""
+    lines = text.splitlines()
+    for i, line in enumerate(lines):
+        if not re.match(r"policy:\s*(#.*)?$", line):
+            continue
+        indent = None
+        for child in lines[i + 1:]:
+            if not child.strip() or child.lstrip().startswith("#"):
+                continue
+            depth = len(child) - len(child.lstrip())
+            if depth == 0:
+                break
+            indent = depth if indent is None else indent
+            m = re.match(r"\s*allow_implicit_invocation:\s*([^#\s]+)", child)
+            if depth == indent and m:
+                return m.group(1).strip("\"'").lower()
+        return None
+    return None
+
+
 def check(root, only=None):
     problems = []
     skills = os.path.join(root, "skills")
@@ -53,9 +74,7 @@ def check(root, only=None):
                 problems.append(f"{name}: description over {DESCRIPTION_MAX} characters")
             explicit = fm.get("disable-model-invocation") == "true"
             policy = os.path.join(d, POLICY)
-            hidden = os.path.isfile(policy) and re.search(
-                r"^policy:\s*\n(?:[ \t]+.*\n)*?[ \t]+allow_implicit_invocation:\s*false\b",
-                open(policy, encoding="utf-8").read(), re.M)
+            hidden = os.path.isfile(policy) and implicit_policy(open(policy, encoding="utf-8").read()) == "false"
             if explicit and not hidden:
                 problems.append(f"{name}: explicit-only skill needs {POLICY} with allow_implicit_invocation: false")
             elif hidden and not explicit:

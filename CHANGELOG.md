@@ -5,8 +5,8 @@
 - The 24 explicit-invocation skills have `agents/openai.yaml` with
   `allow_implicit_invocation: false`, so Codex no longer lists them in every
   request; every description is at most 200 characters. Codex's endstack
-  catalog falls from about 2,285 to 342 tokens a request, Claude Code's from
-  415 to 282. `check-skills.py` enforces both. Evidence in
+  catalog falls from about 2,285 to 350 tokens a request, Claude Code's from
+  415 to 291. `check-skills.py` enforces both. Evidence in
   [docs/catalog-size.md](docs/catalog-size.md).
 - `verify`: a re-review covers what changed since the last verdict and what it
   can affect; a verdict carries forward over an unchanged rebase onto a base
