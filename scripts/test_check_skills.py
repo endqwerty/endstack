@@ -45,13 +45,17 @@ class T(unittest.TestCase):
         self.assertTrue(any("agents/openai.yaml" in s for s in cs.check(tree({"skills/x/SKILL.md": hidden}))))
         self.assertEqual(cs.check(tree({"skills/x/SKILL.md": hidden, "skills/x/agents/openai.yaml": policy})), [])
         p = cs.check(tree({"skills/x/SKILL.md": GOOD, "skills/x/agents/openai.yaml": policy}))
-        self.assertTrue(any("hidden from implicit use" in s for s in p))
-        flat = "allow_implicit_invocation: false\n"   # not under policy: Codex ignores it
-        self.assertTrue(any("agents/openai.yaml" in s for s in cs.check(tree({"skills/x/SKILL.md": hidden, "skills/x/agents/openai.yaml": flat}))))
-        nested = "policy:\n  allow_implicit_invocation: true\n  unrelated:\n    allow_implicit_invocation: false\n"
-        self.assertTrue(any("agents/openai.yaml" in s for s in cs.check(tree({"skills/x/SKILL.md": hidden, "skills/x/agents/openai.yaml": nested}))))
-        other = "interface:\n  display_name: \"X\"\npolicy:\n  # hidden from the catalog\n  allow_implicit_invocation: false\n"
-        self.assertEqual(cs.check(tree({"skills/x/SKILL.md": hidden, "skills/x/agents/openai.yaml": other})), [])
+        self.assertTrue(any("but not disable-model-invocation" in s for s in p))
+        # Anything but the exact canonical file is rejected, so no YAML reading can disagree with it.
+        for bad in ("allow_implicit_invocation: false\n",
+                    "policy:\n  allow_implicit_invocation: true\n  unrelated:\n    allow_implicit_invocation: false\n",
+                    "policy:\n  allow_implicit_invocation: false\npolicy:\n  allow_implicit_invocation: true\n",
+                    'policy:\n  allow_implicit_invocation: "false"\n',
+                    "policy:\n\tallow_implicit_invocation: false\n",
+                    "policy:\n  allow_implicit_invocation: false junk\n",
+                    "interface:\n  display_name: \"X\"\npolicy:\n  allow_implicit_invocation: false\n"):
+            p = cs.check(tree({"skills/x/SKILL.md": hidden, "skills/x/agents/openai.yaml": bad}))
+            self.assertTrue(any("agents/openai.yaml" in s for s in p), bad)
 
     def test_description_budget(self):
         long = GOOD.replace("Does x. Use for x.", "Does x. " * 30)
