@@ -22,8 +22,11 @@ the catalog a third of it.
   before, 2,835 after). The six visible skills keep their trigger boundaries;
   the hidden ones are one line, since they are reached by name.
 - `scripts/check-skills.py` enforces both: an explicit skill without the policy
-  file, a visible skill with it, and a description over 200 characters are
-  problems. Tests in `scripts/test_check_skills.py`, written and seen failing
+  file, a visible skill with any `agents/openai.yaml`, and a description over
+  200 characters are problems. The policy file must be exactly
+  `policy:` / `  allow_implicit_invocation: false`: comparing text rather than
+  reading YAML means no hand-written parser can disagree with Codex's (review
+  rounds 2 and 3 found four ways one could). Tests in `scripts/test_check_skills.py`, written and seen failing
   before the checker changed.
 
 | Catalog per request (endstack entries) | Before | After |

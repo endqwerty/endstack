@@ -7,6 +7,7 @@ CORE_MAX = 2200      # bytes, SKILL.md of a core delivery skill
 OTHER_MAX = 6000     # bytes, SKILL.md of any other skill; detail goes in references/
 DESCRIPTION_MAX = 200  # characters; a visible description is paid on every request
 POLICY = "agents/openai.yaml"  # Codex reads allow_implicit_invocation here; false keeps a skill out of its catalog
+POLICY_TEXT = "policy:\n  allow_implicit_invocation: false\n"
 FORBIDDEN = [
     (r"`(?:gh|git|npm|bun|npx|pnpm|yarn|curl)\b[^`]*`", "command in backticks"),
     (r"(?<![\w-])(?:Task|Read|Edit|Bash|Grep|TodoWrite) tool\b", "harness tool name"),
@@ -27,27 +28,6 @@ def frontmatter(text):
         if sep and not line.startswith(" "):
             fm[k.strip()] = v.strip().strip("\"'")
     return fm
-
-
-def implicit_policy(text):
-    """The value directly under `policy:` for allow_implicit_invocation, or None. Deeper keys do not count."""
-    lines = text.splitlines()
-    for i, line in enumerate(lines):
-        if not re.match(r"policy:\s*(#.*)?$", line):
-            continue
-        indent = None
-        for child in lines[i + 1:]:
-            if not child.strip() or child.lstrip().startswith("#"):
-                continue
-            depth = len(child) - len(child.lstrip())
-            if depth == 0:
-                break
-            indent = depth if indent is None else indent
-            m = re.match(r"\s*allow_implicit_invocation:\s*([^#\s]+)", child)
-            if depth == indent and m:
-                return m.group(1).strip("\"'").lower()
-        return None
-    return None
 
 
 def check(root, only=None):
@@ -74,11 +54,12 @@ def check(root, only=None):
                 problems.append(f"{name}: description over {DESCRIPTION_MAX} characters")
             explicit = fm.get("disable-model-invocation") == "true"
             policy = os.path.join(d, POLICY)
-            hidden = os.path.isfile(policy) and implicit_policy(open(policy, encoding="utf-8").read()) == "false"
+            # Exact text, not YAML reading: endstack writes these files, so nothing else should pass.
+            hidden = os.path.isfile(policy) and open(policy, encoding="utf-8").read() == POLICY_TEXT
             if explicit and not hidden:
                 problems.append(f"{name}: explicit-only skill needs {POLICY} with allow_implicit_invocation: false")
-            elif hidden and not explicit:
-                problems.append(f"{name}: hidden from implicit use but not disable-model-invocation")
+            elif os.path.isfile(policy) and not explicit:
+                problems.append(f"{name}: has {POLICY} but not disable-model-invocation")
         limit = CORE_MAX if name in CORE else OTHER_MAX
         if len(text.encode()) > limit:
             problems.append(f"{name}: SKILL.md {len(text.encode())} bytes > {limit}")
