@@ -1,6 +1,6 @@
 ---
 name: autopilot-full
-description: Deliver a bounded work queue end to end, merges included, only with explicit authority for that queue. Not a plan, a budget or a general keep-going request.
+description: Deliver a bounded work queue end to end, merges included, only with explicit authority for that queue. Not a plan, a budget, a keep-going request or a stack the user lands.
 ---
 
 # Full autopilot

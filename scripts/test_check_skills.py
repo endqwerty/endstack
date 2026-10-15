@@ -46,6 +46,10 @@ class T(unittest.TestCase):
         self.assertEqual(cs.check(tree({"skills/x/SKILL.md": hidden, "skills/x/agents/openai.yaml": policy})), [])
         p = cs.check(tree({"skills/x/SKILL.md": GOOD, "skills/x/agents/openai.yaml": policy}))
         self.assertTrue(any("hidden from implicit use" in s for s in p))
+        flat = "allow_implicit_invocation: false\n"   # not under policy: Codex ignores it
+        self.assertTrue(any("agents/openai.yaml" in s for s in cs.check(tree({"skills/x/SKILL.md": hidden, "skills/x/agents/openai.yaml": flat}))))
+        other = "interface:\n  display_name: \"X\"\npolicy:\n  allow_implicit_invocation: false\n"
+        self.assertEqual(cs.check(tree({"skills/x/SKILL.md": hidden, "skills/x/agents/openai.yaml": other})), [])
 
     def test_description_budget(self):
         long = GOOD.replace("Does x. Use for x.", "Does x. " * 30)

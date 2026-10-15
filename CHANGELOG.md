@@ -10,7 +10,8 @@
   [docs/catalog-size.md](docs/catalog-size.md).
 - `verify`: a re-review covers what changed since the last verdict and what it
   can affect; a verdict carries forward over an unchanged rebase onto a base
-  touching nothing the change uses, or a docs-only edit, once the required
+  touching nothing the change uses, or prose no tool or agent reads as
+  instructions, once the required
   checks are rerun. `ship` and `autopilot-stack` point at it. Dry run in
   [docs/verify-carry-forward.md](docs/verify-carry-forward.md).
 - `unslop` checked: applied while writing it removed every counted pattern
