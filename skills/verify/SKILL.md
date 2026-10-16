@@ -18,18 +18,20 @@ A change needs evidence from someone who did not write it.
 4. Give it the task, checks and exact revision range, not your conclusions.
    A re-review covers what changed since the last verdict and what that can
    affect, with the earlier findings, never your reasons for dismissing them.
-5. Fix real findings and rerun affected checks; answer others with a
-   reason. A new revision needs a fresh verdict, unless it only rebased the
-   change unchanged onto a base touching nothing it uses, or only edited
-   prose no tool or agent reads as instructions: then record that evidence
-   and rerun the required checks; the verdict carries forward. Deliver only
-   on an independent pass of all required checks and the safety fact on the
-   current revision, with no unresolved blockers. Report non-blocking limits.
-   A review limit is not approval: if review cannot run, stop unverified.
+5. Fix each real finding with a check that catches it again; rerun affected
+   checks; answer others with a reason. A new revision needs a fresh verdict,
+   unless it only rebased the change unchanged onto a base touching nothing it
+   uses, or only edited prose no tool or agent reads as instructions: then
+   record that evidence and rerun the required checks; the verdict carries
+   forward. Deliver only on an independent pass of all required checks and the
+   safety fact on the current revision, with no unresolved blockers. Report
+   non-blocking limits. A review limit is not approval: if review cannot run,
+   stop unverified.
 
 ## Verifier
 
-- Run every check yourself. Do not accept the author's output.
+- Run every check and read the whole diff yourself, a subagent's
+  included. Never pass on a summary.
 - Name the fact the change's safety rests on; prove it by running the real
   code, or mark it unproven.
 - Then try to break it: other inputs, failure paths, what else uses the
@@ -40,7 +42,3 @@ A change needs evidence from someone who did not write it.
 - Name the revision you judged. An older verdict is stale unless step 5
   carries it.
 - Change nothing.
-
-## Never
-
-- Pass on a summary. Read the diff yourself, a subagent's included.
