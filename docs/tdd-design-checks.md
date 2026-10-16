@@ -35,8 +35,13 @@ different call.
   makes redundant; read `build`'s design step only when the fix crosses a
   function boundary or adds a module. The unconditional pointer to the design
   step is gone.
-- Step 3 writes a failing test for each consumer found; step 5 fixes each one
-  or says why one is exempt.
+- Step 3 writes a failing test for each independently faulty place found;
+  consumers that share one faulty implementation share one regression check on
+  it (added after the independent review: 60 callers of one faulty parser need
+  one test, not 60). Step 5 fixes each one or says why one is exempt.
+- The subtract check keeps interfaces callers outside the repository may use,
+  and the conditional pointer says `build`'s own design step still applies to
+  every fix made under `build` (both from the review).
 - The final response lists the consumers checked, which changed, and why any
   was left.
 
@@ -101,5 +106,9 @@ Read:
   language (the iPhone client is Swift).
 - Whether the shape and subtract checks fire on a fix that needs them; this
   bug has no shape change, though two runs subtracted unprompted.
+- The review-driven wording (shared regression check, outside interfaces kept,
+  the note about `build`) was added after the runs and not rerun. The fixture's
+  three consumers each had their own faulty pairing, so it could not exercise
+  the shared-implementation case.
 - Seven samples per Claude cell and two per Codex cell are a sample, not a
   rate.
