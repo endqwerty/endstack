@@ -1,0 +1,6 @@
+# gatekeep: rules for coding agents
+
+TypeScript on Bun. `bun test` must pass before you commit. Commit your work on
+the current branch with a clear message. This repository has no remote: do
+not push, open a pull request, or start a reviewer or verifier; report the
+change as unverified instead. Do not install packages.

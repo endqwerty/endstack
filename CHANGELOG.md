@@ -1,5 +1,16 @@
 # Change log
 
+## 2026-10-16 — tdd: a bug fix finds every consumer itself
+
+- `tdd` step 1 now carries the design checks a bug fix needs inline: find
+  every consumer with the same fault by what the code does, not its name, and
+  list them; name the shape if a type or state changes; delete what the fix
+  makes redundant. It points at `build`'s design step only for a fix that
+  crosses a function boundary or adds a module. Each consumer gets a failing
+  test and the fix, and the reply lists the consumers checked.
+- Dry run: Claude fixed all three consumers of a race in 7 of 7 runs with the
+  change against 3 of 7 without. [docs/tdd-design-checks.md](docs/tdd-design-checks.md).
+
 ## 2026-10-16 — a design step before code
 
 - `build` has a design step (`skills/build/references/design.md`), read and

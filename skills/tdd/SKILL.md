@@ -14,11 +14,15 @@ Do not force a test when it would be impractical. If the available test would re
 
 When a step names a principle, read that reference before doing the step.
 
-1. **Understand the bug.** Identify the intended behavior, current behavior, affected path, and smallest observable reproduction. Trace the symptom to its cause per the [fix-root-causes](../principles/references/fix-root-causes.md) principle. Then read build's [design step](../build/references/design.md) and do it before editing production code; its every-consumer step finds the other places with the same fault.
+1. **Understand the bug.** Identify the intended behavior, current behavior, affected path, and smallest observable reproduction. Trace the symptom to its cause per the [fix-root-causes](../principles/references/fix-root-causes.md) principle. Then, before writing the test:
+   - **Find every consumer with the same fault**, not only the one reported: other clients (web, mobile, command line, integrations) and sibling functions that do the same job. Search by what the faulty code does (the data it reads, writes or combines), not only by its name or call spelling. List each place you find.
+   - **Name the shape** if the fix changes a type or a state, and keep impossible combinations out of it, per the [type-system-discipline](../principles/references/type-system-discipline.md) principle.
+   - **Name what the fix makes redundant**: a guard or workaround downstream of the cause. Delete it in the fix.
+   - A fix that crosses a function boundary or adds a module: read build's [design step](../build/references/design.md) and do it.
 2. **Choose the narrowest executable check.** Prefer the closest unit, component, integration, or regression test already used for that codepath. If no practical test path is obvious, do not create one from scratch just to satisfy the workflow.
-3. **Write the failing test first.** Add the smallest focused test that would have caught the bug. The test should encode intended behavior, not mirror the current implementation, per the [test-behavior-not-implementation](../principles/references/test-behavior-not-implementation.md) principle.
+3. **Write the failing test first.** Add the smallest focused test that would have caught the bug, for each consumer found in step 1. The test should encode intended behavior, not mirror the current implementation, per the [test-behavior-not-implementation](../principles/references/test-behavior-not-implementation.md) principle.
 4. **Run the new test before fixing.** Confirm it fails for the intended reason. If it passes or fails for an unrelated reason, correct the test or reproduction before editing the implementation. Where the history allows, commit the failing test before the fix. That is the canonical order of the [sequence-verifiable-units](../principles/references/sequence-verifiable-units.md) principle.
-5. **Fix the bug.** Make the smallest production change that satisfies the intended behavior while preserving nearby contracts. Fix the cause, not a guard downstream, and fix it in every consumer with the same fault (another client, a sibling function), or say why one is exempt.
+5. **Fix the bug.** Make the smallest production change that satisfies the intended behavior while preserving nearby contracts. Fix the cause, not a guard downstream, in every consumer listed in step 1, or say why one is exempt.
 6. **Rerun the regression test.** Confirm the test now passes.
 
 ## If a Failing Test Is Impractical
@@ -42,4 +46,5 @@ Report the evidence, not just the outcome:
 - Name the failing-before test or executable check and the failure it produced.
 - Name the passing-after test run and any nearby validation performed.
 - If failing-before evidence could not be demonstrated, state why and describe the closest regression check used instead.
+- List the consumers checked for the same fault, which ones changed, and why any was left.
 - Name each principle that changed a choice, and the choice.
