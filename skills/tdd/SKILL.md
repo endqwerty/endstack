@@ -14,11 +14,11 @@ Do not force a test when it would be impractical. If the available test would re
 
 When a step names a principle, read that reference before doing the step.
 
-1. **Understand the bug.** Identify the intended behavior, current behavior, affected path, and smallest observable reproduction. Trace the symptom to its cause per the [fix-root-causes](../principles/references/fix-root-causes.md) principle.
+1. **Understand the bug.** Identify the intended behavior, current behavior, affected path, and smallest observable reproduction. Trace the symptom to its cause per the [fix-root-causes](../principles/references/fix-root-causes.md) principle. Then read build's [design step](../build/references/design.md) and do it before editing production code; its every-consumer step finds the other places with the same fault.
 2. **Choose the narrowest executable check.** Prefer the closest unit, component, integration, or regression test already used for that codepath. If no practical test path is obvious, do not create one from scratch just to satisfy the workflow.
 3. **Write the failing test first.** Add the smallest focused test that would have caught the bug. The test should encode intended behavior, not mirror the current implementation, per the [test-behavior-not-implementation](../principles/references/test-behavior-not-implementation.md) principle.
 4. **Run the new test before fixing.** Confirm it fails for the intended reason. If it passes or fails for an unrelated reason, correct the test or reproduction before editing the implementation. Where the history allows, commit the failing test before the fix. That is the canonical order of the [sequence-verifiable-units](../principles/references/sequence-verifiable-units.md) principle.
-5. **Fix the bug.** Make the smallest production change that satisfies the intended behavior while preserving nearby contracts.
+5. **Fix the bug.** Make the smallest production change that satisfies the intended behavior while preserving nearby contracts. Fix the cause, not a guard downstream, and fix it in every consumer with the same fault (another client, a sibling function), or say why one is exempt.
 6. **Rerun the regression test.** Confirm the test now passes.
 
 ## If a Failing Test Is Impractical

@@ -11,8 +11,9 @@ Own the stack, never its landing.
   operator-held decisions. A request to describe the plan is not permission to
   execute it. Do not expand the queue just because capacity remains.
 - Compose [build](../build/SKILL.md), [babysit](../babysit/SKILL.md) and
-  [verify](../verify/SKILL.md) for each change. Delegate disjoint implementation
-  ownership when useful; keep one coordinator responsible for stack topology.
+  [verify](../verify/SKILL.md) for each change. Before any code or brief for a
+  change, read build's [design step](../build/references/design.md) and do it.
+  Delegate disjoint implementation ownership, with its note, when useful; keep one coordinator responsible for stack topology.
 - Produce one reviewable linear chain, bottom-up, with only its root targeting
   the delivery branch. Record each request's parent and exact reviewed revision.
   Do not collapse review boundaries to make the stack look green.

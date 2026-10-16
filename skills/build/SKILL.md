@@ -10,12 +10,11 @@ Own the change through a reviewable pull request, not through landing.
 - Establish the requested outcome, observable checks and scope before editing.
   Reproduce a bug first. Resolve engineering questions from evidence; leave
   product decisions that change the request to the user.
-- Read a principle before the step it governs:
-  [fix-root-causes](../principles/references/fix-root-causes.md) for a bug,
-  [model-the-domain](../principles/references/model-the-domain.md) before
-  stateful or branchy logic,
-  [sequence-verifiable-units](../principles/references/sequence-verifiable-units.md)
-  when ordering units and commits. Report each one that changed a choice.
+- Before the first edit to production code, read
+  [references/design.md](references/design.md) and do its steps; keep its
+  note. A delegated builder gets the note and reads the principles index and
+  that file before coding.
+  Report each principle that changed a choice.
 - Implement the smallest complete change. Run the checks on the real artifact
   and keep their deciding output. Read the whole diff, including delegated work.
 - Use [verify](../verify/SKILL.md) for independent review and exemptions.
