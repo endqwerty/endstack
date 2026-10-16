@@ -6,8 +6,9 @@
   every consumer with the same fault by what the code does, not its name, and
   list them; name the shape if a type or state changes; delete what the fix
   makes redundant. It points at `build`'s design step only for a fix that
-  crosses a function boundary or adds a module. Each consumer gets a failing
-  test and the fix, and the reply lists the consumers checked.
+  crosses a function boundary or adds a module. Each independently faulty
+  place gets a failing test and the fix (consumers of one faulty
+  implementation share one check), and the reply lists the consumers checked.
 - Dry run: Claude fixed all three consumers of a race in 7 of 7 runs with the
   change against 3 of 7 without. [docs/tdd-design-checks.md](docs/tdd-design-checks.md).
 
