@@ -26,7 +26,7 @@ different call.
 
 ## What changed
 
-`skills/tdd/SKILL.md` (4576 bytes):
+`skills/tdd/SKILL.md` (4794 bytes):
 
 - Step 1, after tracing the cause and before the test, lists four checks:
   find every consumer with the same fault, searching by what the code does
@@ -79,7 +79,7 @@ final commit passes `bun test`).
 | with, Codex ×2 | 2 of 2 | 2 of 2 | 2 of 2 | 2 of 2 |
 
 Checks: 1 passes (`0 problem(s)` from both linters, 16 unit tests OK, 4576
-bytes) and 2 passes (`ROUTING.md` has no diff). Check 3 passes for "with": 9
+bytes at the dry run, 4794 after the review) and 2 passes (`ROUTING.md` has no diff). Check 3 passes for "with": 9
 of 9 runs fixed all three consumers and named them in the reply, against 5 of
 9 without.
 
