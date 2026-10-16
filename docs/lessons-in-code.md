@@ -11,17 +11,19 @@ request.
 
 What changes:
 
-- `verify`, author step 5: each real finding is fixed with a check that would
-  catch it again. The "Never" section moves into the verifier's first bullet
-  to keep the file at the 2200-byte cap.
+- `verify`, author step 5: each real finding is fixed with a check that
+  catches it again. To stay at the 2200-byte cap, the verifier's "do not
+  accept the author's output" goes (running every check yourself already says
+  it), and two phrases are shortened.
 - `build`: one bullet after verification. A correction, or a mistake made
   before, gets the strongest guard `correct` names; a rule in an instruction
   file is for judgment only.
 - `ROUTING.md`: `correct` also routes when an agent is about to add a rule to
   AGENTS.md or another agent instruction file.
 - `correct`: a short "One rule" section for that case: skip the repository
-  sweep, take the one mistake down the ladder, and write a rule only if it
-  needs judgment, with what enforces it.
+  sweep, take the one mistake down the ladder, and write a rule only if the
+  user asked for it (one row naming what enforces it) or it still needs
+  judgment.
 
 Turned down:
 
@@ -85,11 +87,14 @@ Reading:
   encoded the rule in code, fixed the cause, and wrote the rule as one row
   that names its guard. Codex on `main` read the old `correct` and still wrote
   only prose: the old skill has no case for one rule, and its rule table says
-  "add the rule". The "One rule" section is what changed the outcome there.
+  "add the rule". That makes the "One rule" section the likely cause, but not
+  an isolated one: the four files changed together and no run tested the
+  section alone.
 - The finding task shows no uplift. Both arms added a guard and tests; the old
   route ("a mistake recurs") already reaches `correct`, and a bug fix already
-  draws a test. The only difference is that the arm-N Claude run also added an
-  AGENTS.md row.
+  draws a test. The only difference in these categories is that the arm-N
+  Claude run also added an AGENTS.md row; the code and tests differ in detail
+  between runs (for example, only arm-N Claude rejects an empty error).
 
 ## Not checked
 

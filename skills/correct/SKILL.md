@@ -12,7 +12,7 @@ Assume every contributor is an agent that sees only the files it opened, copies 
 
 ## One rule
 
-When you are about to add a rule to an agent instruction file, or were just corrected, skip the sweep. Take that one mistake down the levels below, fix it at the highest level that works in the same change, and prove the guard fails on the mistake. Write the rule only if it still needs judgment, in the rule table with what enforces it.
+When you are about to add a rule to an agent instruction file, or were just corrected, handle that one mistake instead of sweeping the repository: take it down the levels below, fix it at the highest level that works in the same change, and prove the guard fails on the mistake. A rule the user asked for is still written, as one row in the rule table naming what enforces it; otherwise write a rule only if it still needs judgment.
 
 ## Find the mistake classes
 
@@ -31,6 +31,6 @@ Then fix the most frequent classes now, one commit each. Prove each new check fa
 
 ## Keep the rule table
 
-Last, keep a table in the agent instruction file that pairs each rule with what enforces it. When the operator corrects you, fix the mistake and add the rule. If the rule was already there and nothing enforces it, that's a repeat, so fix it at the highest level in the same change. Drop a rule once its mistake can't happen.
+Last, keep a table in the agent instruction file that pairs each rule with what enforces it. When the operator corrects you, follow One rule above. If the rule was already there and nothing enforces it, that's a repeat, so fix it at the highest level in the same change. Drop a rule once its mistake can't happen.
 
 **Reply:** each class with its evidence, the level you picked, and why a higher level didn't work.
