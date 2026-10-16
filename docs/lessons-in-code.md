@@ -103,6 +103,10 @@ Reading:
 - The new route was seen beside the old one (arm S's repository AGENTS.md says
   it replaces the global routing). Installed alone it is not tested until the
   homelab copy changes.
+- The runs used the text at `2faf18d`. Review then restored `verify`'s
+  "Never" section and changed "One rule" to say that a rule the user asked for
+  is still written, as one row naming its guard. Every arm-S rule run already
+  did that; the final wording was not run again.
 - `verify`'s new step 5 wording was not exercised by a real verifier round:
   no verifier runs in the fixture.
 - Real repositories: whether this slows the growth of mainworthy's AGENTS.md
