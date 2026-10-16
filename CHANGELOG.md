@@ -1,5 +1,17 @@
 # Change log
 
+## 2026-10-16 — lessons go into code, not into rules files
+
+- `verify`: each real finding is fixed with a check that catches it again.
+  The "Never" section joins the verifier's first bullet.
+- `build`: a correction, or a mistake made before, gets the strongest guard
+  `correct` names; an instruction-file rule is only for judgment.
+- `ROUTING.md`: `correct` also routes when an agent is about to add a rule to
+  AGENTS.md or another agent instruction file. `correct` gains a "One rule"
+  section for that case: no repository sweep, one mistake taken down the
+  levels, a rule only if it still needs judgment.
+- Why, dry run and limits: [docs/lessons-in-code.md](docs/lessons-in-code.md).
+
 ## 2026-10-16 — tdd: a bug fix finds every consumer itself
 
 - `tdd` step 1 now carries the design checks a bug fix needs inline: find

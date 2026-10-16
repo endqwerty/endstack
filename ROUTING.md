@@ -26,7 +26,8 @@ Explaining code, reviewing and checking safety are tasks, short or not.
 - A benchmark number you will report: `benchmark-checklist`.
 - Long, unattended or multi-phase work: `show-me-your-work`. No narrower
   playbook fits: `figure-it-out`.
-- The same mistake keeps recurring, or you were corrected: `correct`.
+- You were corrected, a mistake recurs, or you are about to add a rule to
+  AGENTS.md or another agent instruction file: `correct`.
 - No scripted way to prove UI, CLI or service behaviour: `create-verification-skill`;
   keeping one accurate: `maintain-verification-skill`.
 

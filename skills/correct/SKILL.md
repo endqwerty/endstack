@@ -10,6 +10,10 @@ The operator keeps correcting agents in this repo for the same mistakes. Change 
 
 Assume every contributor is an agent that sees only the files it opened, copies the nearest example, and takes the shortest path that compiles. Design the repo so a change that looks right from one file is right for the whole repo.
 
+## One rule
+
+When you are about to add a rule to an agent instruction file, or were just corrected, skip the sweep. Take that one mistake down the levels below, fix it at the highest level that works in the same change, and prove the guard fails on the mistake. Write the rule only if it still needs judgment, in the rule table with what enforces it.
+
 ## Find the mistake classes
 
 First, read recent commits, reverts, review comments, agent instruction files, and comments that explain workarounds. Group the mistakes into classes. A class counts once it has happened twice.

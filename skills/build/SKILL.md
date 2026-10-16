@@ -19,6 +19,9 @@ Own the change through a reviewable pull request, not through landing.
   and keep their deciding output. Read the whole diff, including delegated work.
 - Use [verify](../verify/SKILL.md) for independent review and exemptions.
   Missing evidence or review means unverified, never ready or done.
+- A correction, or a mistake made before, gets the strongest guard
+  [correct](../correct/SKILL.md) names; an instruction-file rule is only for
+  judgment.
 - Prepare a non-draft pull request with a standalone brief: why, what changed,
   where to start reading, why this approach, checks and deciding evidence,
   reviewer and exact revision, findings and remaining limits. Follow the
