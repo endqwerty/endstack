@@ -23,7 +23,6 @@ for f in sorted(glob.glob(S+'/runs/*.jsonl')):
             for m,t in MARK.items():
                 if t in x: seen.add(m)
     base=git(d,'rev-list','--max-count=1','--grep=skills path','--all').strip()
-    files=git(d,'diff','--stat',base).strip().splitlines()[-1:] 
     ch=git(d,'diff','--name-only',base).split()
     agents=[l for l in git(d,'diff',base,'--','AGENTS.md').splitlines() if l.startswith('+') and not l.startswith('+++')]
     print(f"== {id}\n read: {','.join(sorted(seen)) or '-'}\n changed: {ch}\n AGENTS.md added {len(agents)} lines, {sum(len(l) for l in agents)} chars; branch: {git(d,'branch','--show-current').strip()}, commits: {git(d,'rev-list','--count',base+'..HEAD').strip()}, dirty: {bool(git(d,'status','--porcelain').strip())}")

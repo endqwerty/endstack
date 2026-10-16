@@ -9,7 +9,7 @@ A change needs evidence from someone who did not write it.
 
 ## Author
 
-1. Before editing, write checks on the real surface: command, page, API or
+1. Before editing, write checks on the real surface: command, page, API,
    stored value. A bug gets a failing check first.
 2. Run them on the real artifact; keep the deciding lines. Compiling and
    passing tests alone do not prove behaviour.
@@ -30,11 +30,10 @@ A change needs evidence from someone who did not write it.
 
 ## Verifier
 
-- Run every check and read the whole diff yourself, a subagent's
-  included. Never pass on a summary.
+- Run every check yourself.
 - Name the fact the change's safety rests on; prove it by running the real
   code, or mark it unproven.
-- Then try to break it: other inputs, failure paths, what else uses the
+- Try to break it: other inputs, failure paths, what else uses the
   changed code, what the diff does not show.
 - When a check fails, suspect your method first and reproduce it.
 - Answer each check: **pass**, **issues**, or **not checked**, with what you
@@ -42,3 +41,7 @@ A change needs evidence from someone who did not write it.
 - Name the revision you judged. An older verdict is stale unless step 5
   carries it.
 - Change nothing.
+
+## Never
+
+- Pass on a summary. Read the diff yourself, a subagent's included.
