@@ -1,5 +1,11 @@
 # Change log
 
+## 2026-10-15 — model roles: Gemini column removed
+
+- `docs/model-roles.md` drops the Gemini column and the three-provider panel:
+  homelab's `routing.json` routes only Codex and Claude now, since Gemini was
+  unreliable in T3 Code. No skill changes: the skills never named a provider.
+
 ## 2026-10-14 — smaller catalog, verdicts carry forward, unslop checked
 
 - The 24 explicit-invocation skills have `agents/openai.yaml` with
