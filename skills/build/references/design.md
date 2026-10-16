@@ -22,9 +22,14 @@ sentence.
    that the domain does not, and make them unrepresentable. When the change
    adds a state to an existing shape, redesign the shape as if that state had
    been there from the start.
-4. **Alternatives.** Code that crosses a function boundary or adds a module
-   goes through [architect](../../architect/SKILL.md). Several valid shapes
-   with no clear winner go to [arena](../../arena/SKILL.md); a contested one to
+4. **Alternatives.** Non-trivial code that crosses a function boundary or adds
+   a module: run [architect](../../architect/SKILL.md)'s ground and sketch
+   phases, take its synthesized sketch as this step's shape, and return here.
+   Its implement phase waits until the remaining steps are done and, under a
+   test-first workflow, until the failing test exists. A change whose shape is
+   already settled (a signature update across its callers, a bug with a clear
+   fix) is `n/a`. Several valid shapes with no clear winner go to
+   [arena](../../arena/SKILL.md); a contested one to
    [interrogate](../../interrogate/SKILL.md).
 5. **Subtract.** Name what this change makes redundant (a check, a wrapper,
    an old path, a guard) and delete it in the same change.
