@@ -1,5 +1,22 @@
 # Change log
 
+## 2026-10-16 — a design step before code
+
+- `build` has a design step (`skills/build/references/design.md`), read and
+  done before the first edit to production code: read the whole principles
+  index, list every consumer, name the data shape and make impossible states
+  unrepresentable, subtract, change every consumer with the same fault, think
+  through retries, tests and the split of work. Its short note goes into the
+  pull request and every brief; a delegated builder reads the index and the
+  design step before coding. This is pstack's Feature playbook and
+  `poteto-agent`, without the mode.
+- `autopilot-full` and `autopilot-stack` do the design step before any code or
+  brief for an item. `tdd` reads it, and its fix step now fixes the cause in
+  every consumer with the same fault.
+- `principles`: each entry states its rule, not only when it applies, so
+  reading the index alone gives every rule.
+- Dry run and limits: [docs/design-step.md](docs/design-step.md).
+
 ## 2026-10-15 — model roles: Gemini column removed
 
 - `docs/model-roles.md` drops the Gemini column and the three-provider panel:

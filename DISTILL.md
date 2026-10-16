@@ -164,6 +164,15 @@ that shaped a decision. Checks, dry run and limits:
 [docs/principle-citations.md](docs/principle-citations.md). The dry run changed
 what the agent reads and reports, not the code it wrote.
 
+### Design step (2026-10-16)
+
+An audit of Mainworthy found the principles rarely read and never cited, and
+misses a design step catches. pstack reached the same agents through its
+per-turn mode reminder, rules stated in its index, the Feature playbook's
+data-shape brief and its `poteto-agent` children. `build` now carries that as
+a design step read before code, and the index states each rule. Evidence,
+dry run and limits: [docs/design-step.md](docs/design-step.md).
+
 ## Upstream (decided 2026-10-10: broken from)
 
 Daniel decided pstack is no longer tracked: endstack differs too much, and

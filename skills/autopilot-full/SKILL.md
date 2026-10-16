@@ -16,7 +16,9 @@ Own delivery inside an explicit boundary, not an unlimited backlog.
   [ship](../ship/SKILL.md). Their boundaries and [verify](../verify/SKILL.md)'s
   independent current-revision gate still apply to each item; autonomy removes
   repetitive prompting, never evidence or approval requirements.
-- Give each participant a bounded change and ownership. The coordinator owns
+- Before any code or brief for an item, read build's
+  [design step](../build/references/design.md) and do it. Give each
+  participant a bounded change, ownership and that note. The coordinator owns
   dependency order and delivery. Land only the authorized verified frontier;
   do not skip blocked prerequisites or delegate away an operator-held decision.
 - Track progress by artifacts and current checks, not reassuring status text.
