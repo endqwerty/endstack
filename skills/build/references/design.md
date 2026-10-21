@@ -38,11 +38,13 @@ sentence.
    exempt. Fixing one client and leaving its sibling broken is an unfinished
    change.
 7. **Failure.** For anything that can be retried, interrupted or run by two
-   actors at once: what is the end state? Split shared state before
-   serializing it.
-8. **Tests.** Each test calls the code the way its users do and asserts a
-   literal outcome. A test that avoids a failing state, instead of fixing it,
-   is a finding, not a pass.
+   actors at once: what is the end state, and how does the next run
+   recognise and reconcile what an interrupted one left behind? Split shared
+   state before serializing it.
+8. **Tests.** Each test calls the code the way its users do and asserts what
+   the contract promises: it fails when that behaviour breaks and keeps
+   passing when only the internals change. A test that avoids a failing state,
+   instead of fixing it, is a finding, not a pass.
 9. **Throughput.** Name the blocking first steps, the workstreams with
    disjoint files, and the smallest safe split. If one worker is best, say why.
    Order the work as small units that each end in a check.
@@ -50,10 +52,12 @@ sentence.
 ## The design note
 
 Write the outcome in a few lines: the shape and its structure, the consumers
-and which ones change, what is deleted, and each principle that changed a
-choice. It goes into the pull request's "why this approach" and into every
-brief, not into a file in the repository unless the project keeps design
-records.
+and which ones change, and what is deleted. End it with one line,
+`Principles: <name> (<the choice it changed>); ...`, or
+`Principles: n/a: <reason>` when none changed a choice; a project's checks can
+read that line. The note goes into the pull request's "why this approach" and
+into every brief, not into a file in the repository unless the project keeps
+design records.
 
 ## Delegated builders
 
