@@ -1,5 +1,23 @@
 # Change log
 
+## 2026-10-21 — role skills follow upstream's later fixes
+
+- `create-verification-skill`: ready means usable. Launch reaches a usable
+  state from empty data, with migrations and seeds done; a journey whose
+  prerequisite is missing fails instead of being weakened; a proof on a
+  substitute environment lists the setup the real target still lacks. The
+  repo interview moved to a reference (pstack `c49b37a`).
+- `ketchup`: visuals only from what the work already produced, never a drawn
+  or fabricated screen; every item of a grouped call keeps its own link,
+  impact, evidence and risk, and no count or link replaces an item
+  (`ea32d95`, `d00ba6e`, `c86f349`, `afd51cf`, `16541c6`, `bc14437`).
+- `typescript-best-practices`: a brand comes from a validating type guard, not
+  a cast; a project's existing opaque-type constructor wins (`0317eb8`).
+- `interrogate`: the lead no longer treats more than five findings as a sign
+  of weak filtering (`99743e9`).
+- Port notes [W5](docs/import-notes/W5.md); dry run and limits:
+  [docs/upstream-190d287-role-skills.md](docs/upstream-190d287-role-skills.md).
+
 ## 2026-10-21 — four principles restated as reasoning; a readable design note
 
 - `principles`: Attack the Premise, Fix Root Causes, Make Operations
