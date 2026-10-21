@@ -48,3 +48,100 @@ then. Deciding lines:
 The new text skips the two rounds the measurement called waste and keeps every
 round that guards behaviour, including prose that tools or agents follow. A
 dry run is the model's stated decision, not an observed delivery.
+
+## 2026-10-21: a verdict covers the patch (pstack's rule)
+
+### Why
+
+Daniel asked for upstream's looser rule. pstack's shipping playbook (at
+`190d287`, cut to principles in
+[ce649c0](https://github.com/cursor/plugins/commit/ce649c0)) treats a verdict
+as covering a patch, not a revision, for three reasons it states:
+
+- In a stack, a rebase moves every request above it to a new revision
+  "without failing any check", so a revision-keyed verdict goes stale on every
+  rebase while the code it judged is unchanged. pstack compares a patch
+  identity (`git patch-id` of the base-to-head diff) instead: exact, cheap and
+  mechanical, where endstack's "a base touching nothing it uses" was a
+  judgment.
+- A base that moved under an unchanged patch is a merge-prep question, not a
+  review question: "When trunk changed a caller of the patch or something the
+  patch depends on, ... run the patch's checks on the merge result and merge
+  on a pass" (autopilot-full step 5). "Rebasing for every trunk move never
+  ends."
+- When only tests, docs or lint configuration changed, the shipped artifact is
+  the same, so the expensive runtime results ("lanes") still describe it. pstack
+  proves "the same" by building: twice at the verdict revision and once at the
+  head, so that noise (an embedded revision id, a timestamp) is told apart from
+  a real difference. A lane with no build output, such as a dev server, cannot
+  show this and reruns. The changed part itself still gets fresh checks and a
+  review, "because the old verdict never saw it". Nothing goes unreviewed; only
+  the runtime evidence is reused.
+
+pstack also sizes the re-review: one verifier after a rebase, a conflict
+resolution or a minor fix, a full panel again only for new behaviour, a
+redesign or a large new diff (multi-phase-plan, autopilot-full step 4). And it
+charges a defect to the change only when the change copies it or newly reaches
+it; one the base already has is recorded against the base.
+
+### What changed
+
+- `verify` step 5 says a verdict covers the patch and points at
+  [references/carry-forward.md](../skills/verify/references/carry-forward.md),
+  which holds the cases: same patch on a new base (verdict stands; if the base
+  changed something the patch uses, the change's checks run on the combined
+  result and a pass keeps it); tests, docs or lint configuration only (built
+  results stand when the build matches apart from noise, the changed part gets
+  a scoped independent review); prose nothing reads as instructions (as
+  before); anything else (a fresh, scoped verdict; one verifier enough after a
+  conflict resolution or small fix). The author records the patch comparison;
+  a claim that nothing changed carries nothing. Agents' rules and skills count
+  as behaviour, not docs.
+- The verifier records the patch it judged, and a defect the base already has
+  is the base's unless the change copies it or newly reaches it.
+- `autopilot-stack`: topology has one writer. Builders push only their own
+  branches, start a dependent item from its parent's branch, and never rebase
+  or retarget (pstack autopilot-stack steps 1 and 2).
+- `ship`, `autopilot-stack` and the global rule already defer to `verify` for
+  when a verdict carries forward; unchanged.
+
+Turned down:
+
+- Naming the comparison tool in the skill. Skills here name outcomes, not
+  tools; the reference describes the fingerprint (the base-to-head diff,
+  ignoring line offsets and commit metadata) instead.
+- A `homelab` command that does the comparison and the build check. The patch
+  comparison is one command any agent knows, and the build and its noise are
+  per project, so a generic command would mostly take the build as an
+  argument. Worth adding if verdicts are carried wrongly.
+- pstack's lockfile shortcut (no rebase when a frozen install passes on the
+  merge result). It needs project-specific proof and saves one rebase.
+
+### Dry run
+
+Each scenario decided by Sonnet 5.5 at medium effort, no tools, holding only
+the old `verify` text or the new text with its reference; one sample each.
+
+| Scenario | Old text | New text |
+| --- | --- | --- |
+| A. Same patch, main changed `validate_token()` the change calls | fresh round: "the base touches something the change uses" | "If those checks pass, the r1 verdict carries forward and no new verifier round is needed" |
+| B. Only tests added and a docs typo fixed; binary differs only by an embedded hash | fresh round: "the rule has no exception for that" | "the r1 server-binary check still stands ... a different-provider verifier must review the two new test cases and the docs/usage.md fix" |
+| C. Three lines of retry code changed after a pass | fresh round scoped to the change, "It sets no panel size" | fresh round scoped to the change; "one independent verifier" |
+| D. Rebase needed a conflict resolution | fresh round | fresh round: "A conflict resolution changes the patch" |
+| E. "I only rebased, nothing changed", no comparison recorded | cannot use r1: "The author's claim ... is not evidence" | cannot use r1: "a claim that 'nothing changed' without it carries nothing" |
+| F. Only an AGENTS.md line telling agents to skip slow tests | fresh round | fresh round: "An agent's rules or skills ... are behaviour here, not docs" |
+| G. Verifier finds string-built SQL in an untouched endpoint on main | not blocking, reported | not blocking: "A defect the base already has is the base's, unless the change copies it or newly reaches it" |
+| H. Test-only edit; the earlier check drove a dev server | rerun | rerun: "A check with no build output ... cannot show this: rerun it" |
+
+The new text loosens exactly the two cases pstack loosens (A, B) and keeps
+every other round, including agent rules (F) and an unrecorded claim (E). In
+A, the new-text answer opened with "a fresh verification is needed" before
+concluding the verdict carries on a pass; the decision is right, the wording
+is a sample's. G and H already came out right under the old text.
+
+### Not checked
+
+- Real deliveries under the new rule. The dry run is one model's stated
+  decision per row.
+- Whether agents actually build twice to separate noise; nothing checks it
+  but the verifier and the reviewer of the record.
