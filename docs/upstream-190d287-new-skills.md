@@ -276,13 +276,13 @@ blocked outcome is appropriate for the unavailable code and verifier.
 - Read the ports against upstream for retained questions, workflow phases,
   code correspondence, mutation requirements, bounds, findings and sync rules.
 
-| File | Bytes |
-| --- | ---: |
-| `skills/sharpen/SKILL.md` | 739 |
-| `skills/in-your-own-words/SKILL.md` | 391 |
-| `skills/create-formal-verification-skill/SKILL.md` | 5266 |
-| `skills/maintain-formal-verification-skill/SKILL.md` | 5999 |
-| `ROUTING.md` | 2221 |
+| File | Bytes at round 2 | Bytes now (round 3) |
+| --- | ---: | ---: |
+| `skills/sharpen/SKILL.md` | 739 | 739 |
+| `skills/in-your-own-words/SKILL.md` | 391 | 391 |
+| `skills/create-formal-verification-skill/SKILL.md` | 5266 | 5363 |
+| `skills/maintain-formal-verification-skill/SKILL.md` | 5999 | 5835 |
+| `ROUTING.md` | 2221 | 2290 |
 
 ## Not checked and coordinator handoff
 

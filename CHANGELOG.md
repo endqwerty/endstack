@@ -11,8 +11,10 @@
   project skill that records the covered code and its sync commit) and
   `maintain-formal-verification-skill` (bring that check back in line after
   the code changed, and tell drift from a bug). Explicit-invocation; ROUTING
-  sends races, invariants and covered code changed since its sync commit to
-  them. create-verification-skill and create-formal-verification-skill link
+  sends a request to prove or model-check a property (a race, an invariant, a
+  case tests rarely reach), not an ordinary bug fix, to the first, and an
+  existing formal check whose covered code changed since its sync commit to
+  the second. create-verification-skill and create-formal-verification-skill link
   to each other.
 - Port notes [W6](docs/import-notes/W6.md); dry run and limits:
   [docs/upstream-190d287-new-skills.md](docs/upstream-190d287-new-skills.md).
