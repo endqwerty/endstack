@@ -31,4 +31,8 @@ Explaining code, reviewing and checking safety are tasks, short or not.
 - No scripted way to prove UI, CLI or service behaviour: `create-verification-skill`;
   keeping one accurate: `maintain-verification-skill`.
 
-Only when named: `bro`, `ketchup`, `recall`, `reflect`, `automate-me`.
+- A race, invariant or case tests rarely reach: `create-formal-verification-skill`;
+  covered code changed since its recorded sync commit: `maintain-formal-verification-skill`.
+
+Only when named: `bro`, `ketchup`, `recall`, `reflect`, `automate-me`,
+`sharpen`, `in-your-own-words`.

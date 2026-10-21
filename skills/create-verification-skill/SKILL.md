@@ -34,3 +34,5 @@ Run its own instructions end to end once: launch, doctor, drive ONE mapped featu
 ## 5. Offer the maintenance loop
 
 Point the user at [maintain-verification-skill](../maintain-verification-skill/SKILL.md) for keeping the map honest as the app changes. Suggest a cadence only if they ask.
+
+For property proofs, use the sibling [create-formal-verification-skill](../create-formal-verification-skill/SKILL.md).
