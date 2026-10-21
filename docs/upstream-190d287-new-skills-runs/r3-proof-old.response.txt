@@ -1,0 +1,14 @@
+I would open these skills:
+
+- **`create-formal-verification-skill`** is the main one. "Never lets two workers run the same job" is a mutual-exclusion invariant, and races like this are the case the index says tests rarely reach.
+- **`how`** is a likely second. Before I can state the invariant, I need the actual lease acquire, renew, expire and release flow, and where the code decides who owns a job.
+- **`unslop`** applies because it covers any prose, including my reply.
+
+I would not open these:
+
+- **`maintain-formal-verification-skill`**: it only applies if a formal-verification skill already exists and the covered code changed since its recorded sync commit. Nothing here says one does.
+- **`verify`**: it gates behaviour changes, and this request changes none.
+- **`build`**, **`tdd`** and **`principles`**: they are for implementing or fixing code, which isn't asked for.
+- **`bro`**, **`ketchup`**, **`recall`**, **`reflect`**, **`automate-me`**, **`sharpen`** and **`in-your-own-words`**: they only apply when named, and none was.
+
+If the proof turns up a real double-run bug, a fix would bring in `tdd`, `build` and `verify`, but that comes later.

@@ -55,6 +55,20 @@ The two mistakes require judgment about prompt meaning and list continuity;
 this round adds no generalized wording test or new agent rule. The coordinator
 owns the independent review, shared changelog and integration steps.
 
+## Follow-up round 3 checks
+
+Before editing, retain the verifier's failing routing evidence: the old index
+opened formal creation for both a cache race with a regression test and two
+workers receiving one job. The correction must route ordinary fixes without
+formal creation, while retaining creation for an explicit proof and maintenance
+for drift in an existing formal check. Run one old/new sample per request,
+with old fixed at `5bab0ed`, and save every full prompt and response in
+`upstream-190d287-new-skills-runs/`. Run both checkers and all script unit tests.
+Keep ROUTING.md below 2,600 bytes and both formal entrypoints below 6,000 bytes,
+with at least 150 bytes free in maintenance. Compare maintenance with its
+previous version to check that trimming removes no rule. The coordinator owns
+the new independent verdict and the installed homelab routing copy.
+
 ## What each skill does
 
 | Skill | Output and boundary |
@@ -66,10 +80,11 @@ owns the independent review, shared changelog and integration steps.
 
 ## How they are linked
 
-ROUTING.md lists the two prompt helpers only under “Only when named.” A new
-situation-first line beside the existing behaviour-verification pair routes
-races, invariants and cases tests rarely reach to the formal generator, and
-covered-code changes since the recorded sync commit to formal maintenance.
+ROUTING.md lists the two prompt helpers only under “Only when named.” A line
+beside the behaviour-verification pair routes requests to prove or model-check
+a property to the formal generator. Maintenance requires an
+existing formal check whose covered code changed since its recorded sync
+commit. Ordinary race fixes do not qualify just because they concern races.
 The two generators link to each other in one sentence each: a behaviour
 journey through the app versus a property within stated assumptions. Formal
 creation also links to formal maintenance; maintenance links back to creation.
@@ -123,10 +138,70 @@ deciding lines were recorded.
 | --- | --- | --- | --- |
 | Prove our job lease never lets two workers run the same job. | “no narrower playbook covers proving an invariant” (`figure-it-out`) | “Open `create-formal-verification-skill`.” | New formal route selected. |
 | The retry module that our model checker covers was refactored last week after its recorded in-sync commit; check the formal verification still matches. | “no skill is specific to spec drift” | “Open `maintain-formal-verification-skill`.” | New maintenance route selected. |
-| /sharpen write a migration guide | “`/sharpen` isn't in this index” | “Open `sharpen`.” | Explicit command discoverable; old arm would still try a catalog lookup. |
+| /sharpen write a migration guide | “`/sharpen` isn't in this index” | “Open `sharpen`.” | Named command discoverable with the new index; absent from the old index. |
 | /in-your-own-words I need customers to export invoices without waiting on support. | “`build`: this is a change request.” | “I would not open `build` yet” | Named restatement boundary improved in this sample. |
-| Fix the off-by-one in a date formatter with a cheap regression test. | “`tdd`: a bug fix with a cheap local test” | “Open `tdd`” | Both select build/test/verify, neither selects formal verification. No uplift. |
+| Fix the off-by-one in a date formatter with a cheap regression test. | “`tdd`: a bug fix with a cheap local test” | “Open `tdd`” | Both select `tdd`. No uplift in that selection. |
 | What time zone is Los Angeles in? | “No skill: this is a one-fact lookup.” | “No skill.” | Correct skip in both arms. No uplift. |
+
+### Round-3 concurrency routing rerun
+
+Old is ROUTING.md at `5bab0ed`; new is this round's final ROUTING.md. The
+same no-tool command above ran from a new `mktemp -d` scratch directory,
+with at most two processes at once and a 600-second limit per call. Each
+request got one completed sample per arm. The runner explicitly set each
+CLI subprocess working directory to the scratch directory. All ten calls
+exited 0. The scratch directory was deleted after recording
+the results. Full prompts, responses, exit codes and stderr are in
+[the round-3 runs](upstream-190d287-new-skills-runs/README.md).
+
+An earlier eight-response pilot inherited the repository working directory
+instead of scratch. It is excluded from the table because repository-local
+instructions could influence its answers. Those prompts and responses are
+retained in `pilot-repo-cwd/`, including a cache/new server-overload error and
+its successful retry. The correction sets `cwd=Path(__file__).parent` on the
+CLI subprocess, with the runner stored in scratch. The table uses only the
+subsequent scratch runs, without selecting among completed responses.
+
+The verifier's cache prompt was recorded with an ellipsis. This run uses the
+complete wording below rather than claiming an exact replay of its omitted
+text. The short worker prompt uses the wording in the follow-up. Both arms
+misread it as agent orchestration, so a separate pair uses the verifier's
+full queue wording from its saved findings. Each wording has one sample per
+arm; all responses are retained. The five requests were:
+
+1. Fix the race in our cache where two requests both refill the same key. Add a regression test.
+2. Two workers get the same job; find and fix the bug.
+3. Prove our job lease never lets two workers run the same job.
+4. The retry module that our model checker covers was refactored last week after its recorded in-sync commit; check the formal verification still matches.
+5. occasionally two workers get the same job off the queue; find and fix the bug
+
+| Request | Old at `5bab0ed`: quoted deciding text | New: quoted deciding text | Assessment |
+| --- | --- | --- | --- |
+| Cache race and regression test | Formal creation: "I'd open it if a deterministic test can't pin the interleaving down." | Under "Skills I would leave closed": formal creation "covers proving or model-checking a property, and the user asked for a fix and a regression test, not a proof." | Both select `tdd`; new closes formal creation for this fix request. |
+| Queue bug, verifier's full wording | Formal creation: "two workers getting the same job is a race on an invariant" | "You haven't asked for a proof, so I wouldn't open it up front." | Old opens formal creation; new starts with the fix/test workflow and retains conditional escalation if model-checking is needed. |
+| Two workers get one job | `swarm`: "Two workers get the same job, so this is parallel fan-out." | `arena`: "two workers given the same job is competing attempts at one artifact, which is what this skill covers." | Neither selects formal creation. Both misread the workers as delegated agents, so this prompt does not establish correct queue-bug routing. |
+| Prove job-lease exclusion | "`create-formal-verification-skill`" is "the main one." | "The request asks me to prove an invariant, that two workers never hold the same job lease at once." | Both select `create-formal-verification-skill`; no uplift in selection. |
+| Existing formal check drift | "The index routes it to covered code that changed after its recorded sync commit" | "A formal check already exists for the retry module, and the module changed after its recorded sync commit" | Both select maintenance; no uplift. |
+
+The full queue wording repeats the verifier's over-trigger in the old arm;
+the new arm defers formal creation until model-checking is needed and says
+it would not open it up front without a proof request. The cache old arm was
+already conditional, while its new arm closes formal creation for this fix.
+The short worker prompt is ambiguous in these samples: both arms chose an
+unrelated parallel-work skill. That result remains in the table and limits
+what the short wording establishes. These are single stated-routing samples,
+not measured rates or evidence that an agent follows a selected skill in a
+real task. No skill bodies were supplied, so this run does not exercise the
+new `tdd` boundary sentence or the instruction to open the maintenance report.
+
+Round-3 author checks: both checkers print `0 problem(s)`; script tests print
+`Ran 16 tests` and `OK`. Existing unclosed-file ResourceWarnings remain in the
+checker/test code. `git diff --check` passes. Final sizes are 2,290 bytes for
+ROUTING.md, 5,363 for formal creation and 5,835 for maintenance, leaving 165
+bytes of maintenance room. The report still matches upstream verbatim and
+maintenance steps 2 through 6 are unchanged. Step 1 retains discovery by
+function, every check's metadata, the missing-skill stop and the missing-sync
+fallback. The coordinator still owns independent verification of this patch.
 
 ### Skill scenarios
 

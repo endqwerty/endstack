@@ -1,0 +1,18 @@
+I'd open these:
+
+- **`how`**: to trace the queue's runtime flow (enqueue, claim, ack) and find where two workers can both claim the same job.
+- **`principles`**: a double-claim is stateful, branchy logic (a check-then-act gap or a missing atomic claim), so the fix is a design call.
+- **`tdd`**: a bug fix where a cheap local test (two concurrent claimers on one job) may reproduce it. I'd write the failing test first, if it can be made deterministic.
+- **`build`**: to implement the fix.
+- **`verify`**: the fix changes behavior, so it needs an independent verdict from a different provider before I call it done.
+- **`unslop`**: it applies to any prose, including my replies.
+
+Conditional:
+- **`typescript-best-practices`**: only if the code turns out to be `.ts` or `.tsx`.
+- **`architect`**: only if the fix ends up crossing function boundaries or adding a module.
+- **`create-formal-verification-skill`**: only if tests can't reach the race and a model-check is needed. You haven't asked for a proof, so I wouldn't open it up front.
+
+I'd skip the rest:
+- **`ship`** and **`autopilot-full`**: you haven't asked to merge or ship.
+- **`babysit`**: there's no PR yet.
+- **`bro`, `ketchup`, `recall`, `reflect`, `automate-me`, `sharpen`, `in-your-own-words`**: these run only when named.

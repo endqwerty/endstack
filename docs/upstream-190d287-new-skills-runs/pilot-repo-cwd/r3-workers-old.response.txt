@@ -1,0 +1,18 @@
+I'd open these skills:
+
+- **`build`**: this is a change request to find and fix a bug, so `build` is the main workflow. It stops at a checked PR and doesn't merge.
+- **`tdd`**: a duplicate-assignment bug probably has a cheap local test. I'd write a failing test where two workers claim the same job, watch it fail, then fix it.
+- **`verify`**: the fix changes behavior, so it needs a passing independent verdict before I call it done.
+- **`unslop`**: it applies to my reply and any PR text.
+- **`technical-writing`**: it applies if I write a PR description or commit message.
+
+I'd open these only if the evidence points that way:
+
+- **`principles`**: if the claim or assignment logic is stateful or branchy, or the fix is a design call.
+- **`create-formal-verification-skill`**: if the cause is a race or invariant that ordinary tests rarely reach, which is plausible here. I'd open `maintain-formal-verification-skill` instead if covered code has changed since its recorded sync commit.
+- **`how`**: if I first need to trace how jobs get dispatched at runtime.
+
+I wouldn't open these:
+
+- **`ship` and `autopilot-full`**: you haven't asked to merge, land or ship.
+- **`sharpen`, `in-your-own-words`, `bro`, `ketchup`, `recall`, `reflect` and `automate-me`**: they only run when named, and you haven't named them.

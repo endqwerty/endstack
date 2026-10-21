@@ -1,0 +1,18 @@
+Skills I would open, going only by the index:
+
+- **`build`**: this is a change request (find and fix a bug).
+- **`how`**: I need the runtime flow of how a worker claims a job before I can say where the double-claim happens.
+- **`tdd`**: this is a bug fix. If a cheap local test can reproduce the double-claim, I'd write it first and watch it fail. If the race is too timing-dependent for that, I'd say so.
+- **`create-formal-verification-skill`**: two workers getting the same job is a race on an invariant ("a job is claimed by at most one worker") that ordinary tests rarely reach.
+- **`principles`**: claim and ack logic is stateful, and the fix involves a design call (atomic claim, lock, or lease).
+- **`verify`**: required before I call the behaviour change done. The verdict has to come from a different provider than mine.
+- **`unslop`**: applies to any prose, including my reply.
+
+Conditional:
+- **`typescript-best-practices`**: only if the queue code turns out to be `.ts` or `.tsx`.
+- **`architect`**: only if the fix crosses function boundaries or adds a module.
+
+Not opened:
+- **`ship`, `autopilot-full`, `autopilot-stack`, `babysit`**: no merge, PR, or queue was requested.
+- **`bro`, `ketchup`, `recall`, `reflect`, `automate-me`, `sharpen`, `in-your-own-words`**: explicit-only, and none were named.
+- **`figure-it-out`**: narrower playbooks already fit.

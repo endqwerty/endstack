@@ -1,0 +1,11 @@
+I would open one skill: `maintain-formal-verification-skill`.
+
+The request is about an existing formal check (the model checker over the retry module). The module changed after the check's recorded sync commit, and the user wants to know whether the two still match. That is the case the index assigns to the maintain skill: "an existing formal check covers code changed since its recorded sync commit".
+
+I would not open `create-formal-verification-skill`. It is for proving a new property, and nothing new is being modeled here.
+
+I'm skipping `sharpen`, `in-your-own-words`, `bro`, `ketchup`, `recall`, `reflect` and `automate-me`. They only apply when the user names them, and this request doesn't.
+
+Two more skills might apply, depending on what the check turns up:
+- `verify`, if the check leads to a behaviour change that needs an independent verdict.
+- `unslop`, for the prose in my report. The index applies it to any prose, my reply included.

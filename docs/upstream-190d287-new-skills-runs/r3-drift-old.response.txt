@@ -1,0 +1,11 @@
+I would open these skills:
+
+- **`maintain-formal-verification-skill`** is the main one. The index routes it to covered code that changed after its recorded sync commit, which is exactly this case: the retry module was refactored after its in-sync commit, so the model checker's spec needs checking against the new code.
+- **`unslop`** applies to any prose, including my reply reporting what still matches and what drifted.
+
+I would not open these:
+
+- `create-formal-verification-skill`: a model checker already covers the module, so nothing needs creating.
+- `verify`: this is a drift check on an existing spec, not a behaviour change I am calling done. It would apply if the check leads me to change the retry code or the spec.
+- `how`: the maintenance skill should cover reading the refactored flow. I would reach for `how` only if the new retry logic is hard to follow.
+- Explicit-only helpers (`bro`, `ketchup`, `recall`, `reflect`, `automate-me`, `sharpen`, `in-your-own-words`): you did not name any, so I leave them closed.

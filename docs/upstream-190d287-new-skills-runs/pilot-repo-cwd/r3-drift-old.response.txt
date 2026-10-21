@@ -1,0 +1,13 @@
+I would open these skills:
+
+1. **`maintain-formal-verification-skill`** (main one). The index routes here when covered code has changed since its recorded sync commit. That is the case here: the retry module was refactored after the model checker's recorded in-sync commit. This skill checks whether the formal verification still matches the code.
+
+2. **`verify`** (possibly). The user is asking whether a behaviour-changing refactor is still safe, and `verify` is the gate for that. It would be a secondary check on the refactor itself. The main job is still keeping the formal model in sync.
+
+3. **`unslop`**. This applies to any prose in my reply, including the report on whether the model still matches.
+
+I would not open `create-formal-verification-skill`. A verification skill already exists, so this is maintenance and not creation.
+
+I would not open `how` or `why` unless I needed to understand the refactored retry flow. I would also leave out `build`, `ship` and the other merge skills, because nothing here asks me to change code or merge it.
+
+None of the explicit-only helpers (`bro`, `ketchup`, `recall`, `reflect`, `automate-me`, `sharpen`, `in-your-own-words`) are named, so I would leave them closed.

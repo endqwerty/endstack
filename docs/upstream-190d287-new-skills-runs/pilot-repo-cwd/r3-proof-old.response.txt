@@ -1,0 +1,14 @@
+I would open these skills:
+
+- **`create-formal-verification-skill`**: the request is to prove an invariant (mutual exclusion on a job lease). The index sends "a race, invariant or case tests rarely reach" to this skill. Lease races are the standard case, so it should shape how I model and check the property.
+- **`principles`**: a lease is stateful, branchy logic (acquire, expire, renew, reclaim). I would open it to judge what the invariant is and which states and transitions matter.
+- **`how`**: before proving anything I need the real runtime flow of the lease code, meaning who acquires, renews and releases it, and where it can expire. The proof has to match the code, not my guess about it.
+- **`unslop`**: it applies to any prose, including my final reply.
+
+I would not open these:
+
+- **`maintain-formal-verification-skill`**: it applies only when covered code changed since a recorded sync commit. No such skill exists yet.
+- **`verify`**: it applies if I later change behavior. Here I'm only proving a property, so I would hold it back unless a fix comes out of the work.
+- **`sharpen`, `in-your-own-words`, and the other named-only helpers**: the user didn't name them.
+
+If the proof finds a bug and I fix it, `build`, `tdd` and `verify` would come into play then.
