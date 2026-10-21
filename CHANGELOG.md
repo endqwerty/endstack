@@ -8,7 +8,8 @@
   the change's checks run on the combined result and a pass keeps it. A patch
   changed only in tests, docs or lint configuration keeps each built check's
   result when the build matches apart from noise, and the changed part gets a
-  scoped independent review. One verifier is enough after a conflict
+  scoped independent review. The patch identity keeps whitespace, so an
+  indentation change is never the same patch. One verifier is enough after a conflict
   resolution or small fix. The verifier names the patch it judged, and a
   defect the base already has is not charged to the change unless the change
   copies it or newly reaches it.

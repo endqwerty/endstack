@@ -61,9 +61,10 @@ as covering a patch, not a revision, for three reasons it states:
 - In a stack, a rebase moves every request above it to a new revision
   "without failing any check", so a revision-keyed verdict goes stale on every
   rebase while the code it judged is unchanged. pstack compares a patch
-  identity (`git patch-id` of the base-to-head diff) instead: exact, cheap and
+  identity (`git patch-id` of the base-to-head diff) instead: cheap and
   mechanical, where endstack's "a base touching nothing it uses" was a
-  judgment.
+  judgment. But that command ignores whitespace by default, so it is not
+  exact; see "Review" below.
 - A base that moved under an unchanged patch is a merge-prep question, not a
   review question: "When trunk changed a caller of the patch or something the
   patch depends on, ... run the patch's checks on the merge result and merge
@@ -132,12 +133,28 @@ the old `verify` text or the new text with its reference; one sample each.
 | F. Only an AGENTS.md line telling agents to skip slow tests | fresh round | fresh round: "An agent's rules or skills ... are behaviour here, not docs" |
 | G. Verifier finds string-built SQL in an untouched endpoint on main | not blocking, reported | not blocking: "A defect the base already has is the base's, unless the change copies it or newly reaches it" |
 | H. Test-only edit; the earlier check drove a dev server | rerun | rerun: "A check with no build output ... cannot show this: rerun it" |
+| I. Rebase plus a re-indent of `return amount` into an `if`; fingerprints from a whitespace-blind tool match (2 samples each, text at `d0abbec` vs the fix) | refuse, 2 of 2: "Ignoring whitespace is not the same thing" | refuse, 2 of 2: "a fingerprint that ignores whitespace gives an indentation change ... the same identity" |
 
 The new text loosens exactly the two cases pstack loosens (A, B) and keeps
 every other round, including agent rules (F) and an unrecorded claim (E). In
 A, the new-text answer opened with "a fresh verification is needed" before
 concluding the verdict carries on a pass; the decision is right, the wording
-is a sample's. G and H already came out right under the old text.
+is a sample's. G and H already came out right under the old text. Row I shows no uplift
+because the scenario discloses the re-indent; the fix matters when an author
+relies on the fingerprint alone, which the reference now forbids for a
+whitespace-blind one.
+
+### Review
+
+Codex GPT 6.1 Sol (medium), read-only, on `d0abbec`: **fail**. The rule as
+first written followed pstack's `git patch-id`, which ignores whitespace. Two
+Python patches, one returning `amount` after an `if` and one with that line
+indented into the `if`, got the same identity (`927fcabc...`) while
+`bill(5)` returned `5` and `None`: an indentation change would have inherited
+the earlier verdict. Fixed: the identity must keep every byte of the changed
+lines, whitespace included (`git patch-id --verbatim` does; reproduced here,
+default `82c0e9f49cda` for both patches, verbatim `2e55bbde6f8c` and
+`da4b49fd06f1`). Dry-run row I below was added with the fix.
 
 ### Not checked
 

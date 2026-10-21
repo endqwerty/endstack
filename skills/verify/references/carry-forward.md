@@ -7,8 +7,11 @@ nobody changed. Judge by patch instead.
 
 At each verdict, record the revision, the base and the patch identity: a
 fingerprint of the base-to-head diff that ignores line offsets and commit
-metadata, so the same diff on a new base gives the same identity. Compare the
-recorded identity with the current one before relying on the verdict. The
+metadata, so the same diff on a new base gives the same identity. It must
+keep every byte of the changed lines, whitespace included: a fingerprint that
+ignores whitespace gives an indentation change, which alters behaviour in
+some languages, the same identity. Compare the recorded identity with the
+current one before relying on the verdict. The
 author does the comparison and records it; a claim that "nothing changed"
 without it carries nothing.
 
