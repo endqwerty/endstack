@@ -15,4 +15,4 @@ Then rewrite my prompt to ask for exactly that.
 
 Leave choices that are mine to make open instead of deciding them.
 
-Return only the rewritten prompt. Do not carry out the task.
+Return the four answers and the rewritten prompt. Do not carry out the task.

@@ -38,11 +38,28 @@ verification. This document records author checks, not an independent verdict.
   to formal verification. The restatement arm preserved the open format choice
   but added discovery questions; the baseline emitted unavailable tool calls.
 
+## Follow-up round 2
+
+The coordinator found that sharpen's added "Return only the rewritten prompt"
+contradicted its four answer steps. Before editing, the author confirmed that
+line was present. The correction must return all four answers and the rewrite,
+preserve the user's choices, and leave the migration guide unwritten. Compare
+the skill with upstream to confirm every existing byte remains unchanged.
+Remove only the blank line before the formal-routing bullet, preserve the
+blank line before "Only when named", and rerun both checkers and script tests.
+
+The corrected skill adds only "Return the four answers and the rewritten
+prompt. Do not carry out the task." to the upstream text. A byte comparison
+passed. The routing edit removes one blank line without changing wording.
+The two mistakes require judgment about prompt meaning and list continuity;
+this round adds no generalized wording test or new agent rule. The coordinator
+owns the independent review, shared changelog and integration steps.
+
 ## What each skill does
 
 | Skill | Output and boundary |
 | --- | --- |
-| `sharpen` | Rewrites a deeper prompt using four questions about professional practice, raw material, methods and an outside check. Returns only the rewrite and preserves the user's choices. |
+| `sharpen` | Rewrites a deeper prompt using four questions about professional practice, raw material, methods and an outside check. Returns the four answers and the rewrite, preserves the user's choices, and does not carry out the task. |
 | `in-your-own-words` | Restates goals and the underlying problem. Does not provide a playbook or change code. |
 | `create-formal-verification-skill` | Selects a high-harm property tests rarely reach, verifies within explicit scope, and generates a rerunnable project-local skill with coverage and a sync commit. |
 | `maintain-formal-verification-skill` | Reconciles formal checks with covered-code changes, separates drift from product bugs, and rechecks mutation sensitivity before advancing sync records. |
@@ -82,6 +99,23 @@ No skill bodies were supplied for routing. The skill arms supplied the new
 entrypoint (and the linked maintenance report); baseline arms supplied only
 the same user request. These are response dry runs, not code execution or
 independent review. Text that looks like a tool call is not an executed tool.
+
+### Round-2 sharpen rerun
+
+Only sharpen was rerun, with the same migration-guide request above and the
+same command shape, model, effort, no tools, and no persistent session. Both
+arms ran from one new temporary directory outside the repository, with a
+600-second subprocess limit. The without-skill prompt was exactly the user
+request. The with-skill prompt was `Follow this skill:` plus a newline, the
+complete corrected entrypoint, then `User request:` on a new line and that
+same request. A first with-skill CLI launch began directly with the entrypoint's
+YAML delimiter and exited 1 with `error: unknown option '---`. It produced no
+model response. The introductory line fixed argument parsing; the corrected
+launch is the response reported below. The without-skill arm was launched only
+once in this round. It timed out at 600.0 seconds with zero response bytes, so
+there is no reply to assess for task execution. No other scenarios were rerun.
+Both processes have ended. The temporary directory was removed after these
+deciding lines were recorded.
 
 ### Routing results
 
@@ -129,7 +163,8 @@ The exact user requests were:
 
 | Skill | Without: quoted deciding lines | With: quoted deciding lines | Assessment |
 | --- | --- | --- | --- |
-| `sharpen` | “timed out after 240 seconds” (process timeout; no completed response retained). | “Treat these as the primary sources.” / “Pricing, rollout dates, deprecation and sunset timelines, and any commitments about support windows are my decisions.” | Skill arm returns a rewrite with raw sources, methods and outside checks. Baseline comparison is incomplete; no uplift claimed. It adds many deliverables, so this sample does not establish the “not bigger” constraint. |
+| `sharpen`, initial round | “timed out after 240 seconds” (process timeout; no completed response retained). | “Treat these as the primary sources.” / “Pricing, rollout dates, deprecation and sunset timelines, and any commitments about support windows are my decisions.” | Skill arm returns a rewrite with raw sources, methods and outside checks. Baseline comparison is incomplete; no uplift claimed. It adds many deliverables, so this sample does not establish the “not bigger” constraint. |
+| `sharpen`, round 2 | `{"arm": "without", "timeout": 600, "seconds": 600.0}` (process result; zero response bytes). No reply to quote; whether it carried out the task is unknown. | “Build the guide from a field-level diff.” / “The two endpoint specs themselves” / “`oasdiff` or `openapi-diff` for OpenAPI specs” / “every example request and response in the guide passes schema validation” / “## Rewritten prompt” / “Leave pricing and rollout dates as clearly marked placeholders for me to fill in.” | Skill arm exited 0 in 16.4 seconds. It returns all four answers and a rewrite, leaves pricing and dates open, and does not write the migration guide. It still expands deliverables, so deeper rather than bigger is not established. Baseline timed out; the comparison remains incomplete and no uplift is claimed. |
 | `in-your-own-words` | “I'll start by looking at what's in the working directory.” followed by unexecuted tool-call text. | “Customers should be able to get their invoice data out of the product themselves” / “Open: whether to offer CSV, XLSX, or both.” | Restates the goal, problem and open choice without code or an implementation plan. Adds “Gaps I'd want to close before building,” so the restatement-only boundary is imperfect. |
 | `create-formal-verification-skill` | “I'd skip the slug formatter.” / “A mutation check: reintroduce the split write and confirm the harness fails.” | “A broken lease charges someone twice” / “each model action lists the `lease.src` function and line it represents.” / “Broken variants must fail.” / “I'd label this property-based testing, not proof.” | Both choose the harmful race and request a mutation check: no uplift on those criteria. The skill arm adds explicit action correspondence, bounds and a clearer testing label. Neither executes a broken variant. |
 | `maintain-formal-verification-skill` | “The a111 pass is stale for b222.” / “It is not a proof” | “Outcome for the lease check: blocked.” / “Write the update from the code before rerunning.” / “The sync commit **stays at a111**.” | Both identify stale atomicity, preserve sync and distinguish testing from proof: no uplift on those criteria. The skill arm adds a mutation check and explicit blocked outcome. |
@@ -156,8 +191,9 @@ blocked outcome is appropriate for the unavailable code and verifier.
 - `python3 scripts/check-skills.py`: `0 problem(s)`.
 - `python3 scripts/check-routing.py`: `0 problem(s)`.
 - `python3 -m unittest discover -s scripts`: `Ran 16 tests`, `OK`.
-  The first run also emitted existing unclosed-file ResourceWarnings; the final
-  run suppresses only that warning category.
+  The initial round emitted existing unclosed-file ResourceWarnings; its final
+  run suppressed only that warning category. The round-2 rerun also passed all
+  16 tests and emitted those ResourceWarnings without suppression.
 - `git diff --check`: no whitespace errors.
 - Checked all new frontmatter and policy files against the existing shape.
   Descriptions are below 200 characters; the two formal descriptions were
@@ -167,11 +203,11 @@ blocked outcome is appropriate for the unavailable code and verifier.
 
 | File | Bytes |
 | --- | ---: |
-| `skills/sharpen/SKILL.md` | 723 |
+| `skills/sharpen/SKILL.md` | 739 |
 | `skills/in-your-own-words/SKILL.md` | 391 |
 | `skills/create-formal-verification-skill/SKILL.md` | 5266 |
 | `skills/maintain-formal-verification-skill/SKILL.md` | 5999 |
-| `ROUTING.md` | 2222 |
+| `ROUTING.md` | 2221 |
 
 ## Not checked and coordinator handoff
 
@@ -180,7 +216,8 @@ real-code mutation was demonstrated. The formal dry runs are proposed steps
 from small scenarios, not proof evidence. No live adapter discovery or actual
 hidden-skill loading was tested. The model already had ambient machine rules
 in its headless session; these are not clean-room measurements. There is one
-sample per arm, with no statistical claim. No provider-independent verdict on
+sample per arm in the initial round, plus the disclosed sharpen rerun, with no
+statistical claim. No provider-independent verdict on
 this revision is supplied by this implementation worker; the coordinator owns
 that gate before delivery.
 
@@ -196,7 +233,9 @@ was found in AGENTS.md or README.md.
 - Implementation and port notes committed as `2e599d2e7581b9fa3154e79be54be9037299662d`.
 - Nine no-tool dry runs returned; the remaining sharpen baseline reached the
   240-second process limit. Recorded the incomplete comparison without claiming
-  improvement. No retries or successful samples were substituted for it.
+  improvement. No retries or successful samples were substituted for it in the initial round.
+  Round 2 retried only sharpen as recorded above; the baseline timed out again
+  at 600 seconds, and the corrected with-skill response retained four answers.
 - Final checkers each printed `0 problem(s)`; all 16 script tests passed.
   The temporary dry-run directory is removed after its deciding lines and
   scenarios are recorded here. No servers or databases were started.
@@ -212,3 +251,17 @@ was found in AGENTS.md or README.md.
   See docs/import-notes/W6.md and this evidence document for author checks,
   paired dry runs and limits. Independent verification remains an integration
   gate, not a result of these response dry runs.
+
+## Round-2 local handoff
+
+- Branch: `t3/add-formal-verification-skills-r2`, based on the two earlier local
+  commits `2e599d2` and `c39b109`. Only the sharpen boundary, W6 notes, this
+  evidence document and one routing blank line changed.
+- Both checkers report `0 problem(s)`; the script suite reports `Ran 16 tests`
+  and `OK`. `git diff --check` reports no whitespace errors.
+- Against main, routing adds the formal pair directly under the existing
+  verification pair and adds sharpen and in-your-own-words under "Only when
+  named". The index is 2,221 bytes, below 2,600.
+- Independent verification, shared changelog and distribution updates remain
+  with the coordinator. This is a local implementation handoff, unverified
+  independently. No push, pull request or merge was performed.
