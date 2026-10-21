@@ -57,9 +57,9 @@ Turned down:
 
 - Copying upstream's shortening of the six other principles. It relies on a
   mode endstack dropped.
-- A reminder in `build` or `verify` to cite principles. Both already ask for
-  it in prose and are at their size caps; the measurement shows prose is what
-  failed. A check in the project's CI is the stronger guard (`correct`, level
+- Another reminder to cite principles. `build` and the principles index
+  already ask for it in prose, `build` and `verify` are near their size caps,
+  and the measurement shows prose is what failed. A check in the project's CI is the stronger guard (`correct`, level
   2), and Mainworthy, where 169 of the window's pull requests were opened,
   already runs one on every description.
 
