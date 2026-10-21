@@ -1,0 +1,17 @@
+I'd open these, going only by the index:
+
+- **`build`**: this is a change request, so it covers implementing the fix through to a PR.
+- **`tdd`**: it's a bug fix with a regression test asked for. A concurrent-refill test is probably cheap and local, so I'd write it first and watch it fail.
+- **`principles`**: a race on shared cache state is stateful, branchy logic and needs a design call (single-flight, per-key lock, or caching the in-flight promise).
+- **`verify`**: this changes behaviour, so I need an independent verdict before calling it done.
+- **`unslop`**: it applies to my reply and any PR text.
+- **`technical-writing`**: it applies if I write the PR description or commit message.
+
+Conditional:
+- **`typescript-best-practices`**: only if the cache code turns out to be `.ts` or `.tsx`.
+- **`create-formal-verification-skill`**: only if the race proves hard for ordinary tests to reach. The user asked for a regression test, so I'd start with `tdd`.
+
+I would not open:
+- **`ship` and `autopilot-full`**: the user didn't ask to merge, land, or ship.
+- **`babysit`, `autopilot-stack`**: no PR-greening or queue has been requested.
+- **Explicit-only helpers** (`bro`, `ketchup`, `recall`, `reflect`, `automate-me`, `sharpen`, `in-your-own-words`): the user didn't name them.

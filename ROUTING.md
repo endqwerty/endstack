@@ -30,8 +30,9 @@ Explaining code, reviewing and checking safety are tasks, short or not.
   AGENTS.md or another agent instruction file: `correct`.
 - No scripted way to prove UI, CLI or service behaviour: `create-verification-skill`;
   keeping one accurate: `maintain-verification-skill`.
-- A race, invariant or case tests rarely reach: `create-formal-verification-skill`;
-  covered code changed since its recorded sync commit: `maintain-formal-verification-skill`.
+- Asked to prove or model-check a property (a race, invariant or case tests
+  rarely reach): `create-formal-verification-skill`; an existing formal check
+  covers code changed since its recorded sync commit: `maintain-formal-verification-skill`.
 
 Only when named: `bro`, `ketchup`, `recall`, `reflect`, `automate-me`,
 `sharpen`, `in-your-own-words`.

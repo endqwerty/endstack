@@ -1,0 +1,12 @@
+I would open these skills:
+
+- **`build`**: this is a change request to implement, so `build` is the main workflow.
+- **`tdd`**: it's a bug fix with a cheap local test, and the user asked for a regression test. I'd write the failing test first and watch it fail.
+- **`principles`**: a race on refilling a key is stateful, branchy logic. This skill helps decide the fix, such as single-flight or locking per key.
+- **`verify`**: this changes behaviour, so I'd check it before calling it done.
+- **`typescript-best-practices`**: only if the cache code is `.ts` or `.tsx`.
+- **`architect`**: only if the fix crosses a function boundary or adds a module, for example a new single-flight helper.
+- **`create-formal-verification-skill`**: optional. The user asked for a fix and a test, not a proof or model check, so I wouldn't open it unless they ask for one.
+- **`unslop`**: it applies to my reply and any PR text. I'd pair it with `technical-writing` for the PR description or commit message.
+
+I would not open `ship` or `autopilot-full`, because the user didn't ask to merge. I would not open `bro`, `ketchup`, `recall`, `reflect`, `automate-me`, `sharpen` or `in-your-own-words`, because they run only when named.

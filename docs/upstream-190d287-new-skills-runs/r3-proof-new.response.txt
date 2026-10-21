@@ -1,0 +1,12 @@
+I would open these:
+
+- **`create-formal-verification-skill`**: The request asks me to prove an invariant, that two workers never hold the same job lease at once. That is a race-style property that ordinary tests rarely reach, which is exactly what this entry covers.
+- **`unslop`**: It applies to any prose, including my reply that reports the result.
+
+I might also open **`how`** first, to trace the lease acquire, renew and expire flow in the code so the model matches what actually runs.
+
+I would not open:
+
+- **`maintain-formal-verification-skill`**: It applies only if a formal check already exists and the code has changed since its recorded sync commit. Nothing here says one exists, so I would check for one first.
+- **`build`, `verify`, `tdd`, `ship`**: This is not a change request, and nothing is being merged.
+- **The explicit-only helpers** (`bro`, `ketchup`, `recall`, `reflect`, `automate-me`, `sharpen`, `in-your-own-words`): You didn't name any of them.

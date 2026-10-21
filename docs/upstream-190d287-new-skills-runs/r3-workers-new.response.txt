@@ -1,0 +1,14 @@
+I would open these skills:
+
+- **`arena`**: two workers given the same job is competing attempts at one artifact, which is what this skill covers. I'd use it instead of `swarm`, since the workers aren't splitting up coverage.
+- **`build`**: this is a change request (find and fix), so it covers the implementation.
+- **`tdd`**: a bug fix usually has a cheap local test, so I'd write a failing test first and watch it fail before fixing.
+- **`verify`**: the fix changes behaviour, so it needs an independent verdict from a different provider before I call it done.
+- **`unslop`**: it applies to any prose, including my reply.
+- **`typescript-best-practices`**: only if the fix turns out to touch `.ts` or `.tsx` files.
+
+I would not open:
+
+- **`ship` or `autopilot-full`**: you haven't asked to merge or ship.
+- **`bro`, `ketchup`, `recall`, `reflect`, `automate-me`, `sharpen`, `in-your-own-words`**: these are explicit-only and you haven't named them.
+- **`swarm`**: `arena` fits better.

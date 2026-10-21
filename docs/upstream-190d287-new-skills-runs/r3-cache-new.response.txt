@@ -1,0 +1,16 @@
+Skills I would open, from the index alone:
+
+- **`tdd`**: this is a bug fix with a cheap local test, and a regression test was asked for. I'd write the test that makes two concurrent requests refill the same key and watch it fail before fixing.
+- **`build`**: this is a change request to implement.
+- **`principles`**: a race in a cache is stateful, branchy logic and the fix is a design call (per-key lock, single-flight, or in-flight promise sharing).
+- **`verify`**: this changes behaviour, so it needs an independent verdict from a different provider before I call it done.
+- **`unslop`**: it applies to any prose I write, including my final reply.
+- **`typescript-best-practices`**: only if the cache turns out to be `.ts` or `.tsx`. I don't know the language yet.
+
+Skills I would leave closed:
+
+- **`create-formal-verification-skill`**: it covers proving or model-checking a property, and the user asked for a fix and a regression test, not a proof.
+- **`ship`, `autopilot-full`**: the user did not ask to merge, land or ship.
+- **`architect`**: the fix is probably local to the cache. I'd open it only if the change grows into a new module or crosses function boundaries.
+- **`how`**: optional. I'd open it only if the cache's refill flow is unclear once I read the code.
+- **`bro`, `recall`, `reflect`, `automate-me`, `sharpen`, `in-your-own-words`, `ketchup`**: these run only when named, and none was.

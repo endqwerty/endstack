@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Maintain a formal verification skill
 
-A formal check proves a property of its description. When the code changes and the verification does not, the check can keep passing while it describes code that no longer exists. That pass is the dangerous case, because it looks like a proof. This skill is the upkeep loop for a verify skill that [create-formal-verification-skill](../create-formal-verification-skill/SKILL.md) generated, or for any project-local skill that runs a model checker, prover, or code-level verifier against named code. The project-local skill handles a change that an agent makes while it uses that skill. This skill handles the changes that skipped it: merges, edits made without the skill, and drift that builds up across many commits.
+A formal check proves a property of its description. When code changes without rechecking the verification, the check can keep passing on an obsolete description. That pass is dangerous because it looks like a proof. Maintain a verify skill that [create-formal-verification-skill](../create-formal-verification-skill/SKILL.md) generated, or any project-local skill running a model checker, prover, or code-level verifier against named code. The project-local skill handles changes made while using it. This skill handles skipped checks: merges, edits without the skill, and drift across commits.
 
 ## Outcomes
 
@@ -17,7 +17,7 @@ Give each check one outcome, and say which:
 - **bug**: the verification describes the current code, and the code breaks the property. This is a code finding, not drift.
 - **blocked**: the check could not be brought back in line or could not run. Say exactly why.
 
-A check can be both updated and bug: the update makes the verification describe the code again, and then the property fails on it.
+A check can be both updated and bug: the verification describes the code again, and the property fails on it.
 
 ## Edit scope
 
@@ -25,7 +25,7 @@ Edit only the verification: models, harnesses, property files, and the verify sk
 
 ## Pass
 
-1. **Find the checks.** A verify skill has no fixed name, so find it by what it does: a project skill that runs a model checker, a prover, or another verifier against named code. Read each one you find, or the one the user named. For each check, collect the property, the code it covers, the bounds and assumptions, the command that runs it, and the commit where it was last confirmed to describe the code. If no verify skill exists, stop and point at [create-formal-verification-skill](../create-formal-verification-skill/SKILL.md). If the skill does not record a sync commit, use the last commit that changed the verification files, and say that you did.
+1. **Find the checks.** Find verify skills by function, not name: project skills running a model checker, a prover, or another verifier against named code. Read each, or the one the user named. For each check, collect the property, the code it covers, the bounds and assumptions, the command that runs it, and the commit where it was last confirmed to describe the code. If no verify skill exists, stop and point at [create-formal-verification-skill](../create-formal-verification-skill/SKILL.md). If the skill does not record a sync commit, use the last commit that changed the verification files, and say that you did.
 
 2. **Run it as it is.** Run each check once before you change anything, and record the result. A pass here does not tell you that the code is correct. It tells you that the old description still holds. A failure here can be drift or a bug. Do not decide which until step 5.
 
@@ -45,4 +45,4 @@ Edit only the verification: models, harnesses, property files, and the verify sk
 
 ## Report
 
-Read [the report requirements](references/report.md) before handing off.
+Open [the report requirements](references/report.md) now and use them for the hand-off.

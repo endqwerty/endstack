@@ -1,0 +1,13 @@
+$ python3 scripts/check-skills.py
+0 problem(s)
+exit 0
+
+$ python3 scripts/check-routing.py
+0 problem(s)
+exit 0
+
+$ python3 -m unittest discover -s scripts
+Ran 16 tests in 0.047s
+OK
+ResourceWarning: existing unclosed-file warnings in checker/test code.
+exit 0

@@ -1,0 +1,16 @@
+Skills I would open:
+
+- **`figure-it-out`**: "Two workers get the same job; find and fix the bug" is ambiguous. It could mean a bug in how a job is dispatched to two workers, or a bug in the code the workers run. No narrower playbook fits yet, so this skill covers finding out which.
+- **`build`**: Fixing the bug is a change request, so `build` governs implementation and the checked, independently verified PR.
+- **`tdd`**: If the bug can be reproduced with a cheap local test, such as two workers claiming one job, I'd write the failing test first and watch it fail.
+- **`verify`**: A fix changes behaviour, so it needs an independent verdict before I call it done.
+- **`principles`**: If the bug is in stateful or branchy logic, such as claim, lock or dedupe handling, this applies. I'd open it only if that turns out to be the case.
+- **`unslop`**: Applies to any prose I write, including my reply.
+- **`technical-writing`**: Applies to the PR text and commit message.
+- **`typescript-best-practices`**: Only if the fix edits `.ts` or `.tsx` files.
+
+Not opened:
+
+- **`ship` and `autopilot-full`**: The user didn't ask to merge.
+- **`swarm`**: "Two workers" describes the bug, not a request for parallel fan-out.
+- **Explicit-only helpers** (`bro`, `ketchup`, `recall`, `reflect`, `automate-me`, `sharpen`, `in-your-own-words`): None were named.

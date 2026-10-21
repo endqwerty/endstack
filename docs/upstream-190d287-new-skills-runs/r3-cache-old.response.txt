@@ -1,0 +1,15 @@
+I'd open these skills:
+
+- **`build`**: this is a change request to implement a fix.
+- **`tdd`**: it's a bug fix with a regression test requested, so I'd watch the test fail before fixing.
+- **`principles`**: a cache refill race is stateful logic, and the fix (single-flight, locking, or similar) is a design call.
+- **`verify`**: this changes behavior, so it needs a passing independent verdict before I call it done.
+- **`create-formal-verification-skill`**: a race is the kind of case ordinary tests rarely reach. I'd open it if a deterministic test can't pin the interleaving down.
+- **`typescript-best-practices`**: only if the cache code turns out to be `.ts` or `.tsx`.
+- **`unslop`**: it applies to any prose, including my reply.
+
+I wouldn't open these:
+
+- **`architect`**: unless the fix turns out to add a module or cross function boundaries.
+- **`ship` and `autopilot-full`**: you didn't ask to merge or ship.
+- **Explicit-only helpers** (`bro`, `ketchup`, `recall`, `reflect`, `automate-me`, `sharpen`, `in-your-own-words`): you didn't name them.

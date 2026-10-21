@@ -1,0 +1,11 @@
+I would open these:
+
+- **`maintain-formal-verification-skill`**: This is the direct match. A formal check already exists for the retry module, and the module changed after its recorded sync commit, so the check has to be compared with the refactored code and brought back in sync.
+- **`unslop`**: The index applies it to any prose, including my reply, so it shapes how I report the result.
+
+I would hold two others in reserve:
+
+- **`how`**: I would open it only if the refactor's runtime flow is unclear and I need to understand the new retry behaviour before comparing it to the model.
+- **`verify`**: I would open it only if the sync ends up changing the code's behaviour. Re-syncing the model alone does not trigger it.
+
+I would not open `create-formal-verification-skill`, because a formal check already exists. I would also skip the explicit-only helpers (`bro`, `ketchup`, `recall`, `reflect`, `automate-me`, `sharpen`, `in-your-own-words`), since you named none of them.

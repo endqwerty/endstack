@@ -1,0 +1,11 @@
+I would open these skills:
+
+- **`figure-it-out`**: The task is to find and fix a bug, and no narrower playbook fits until the cause is known. It gives a general investigation approach.
+- **`swarm`**: Two workers get the same job, so this is parallel fan-out. `swarm` covers how to run them. If the workers produce competing fixes for one artifact, `arena` would fit too. The request describes duplicate coverage of one task, not rival attempts, so I would start with `swarm`.
+- **`tdd`**: If the bug has a cheap local test, this skill has me write a failing test first. I'd open it once the bug is located and a test looks cheap.
+- **`verify`**: A fix changes behaviour, so I need a passing independent verdict before calling it done.
+- **`unslop`**: It applies to any prose, including my final reply.
+
+I would also open `typescript-best-practices` if the fix edits `.ts` or `.tsx` files. `architect` and `principles` apply only if the fix crosses a function boundary or involves stateful logic.
+
+I would not open `ship`, `autopilot-full`, `bro`, `ketchup`, `recall`, `reflect`, `automate-me`, `sharpen` or `in-your-own-words`. The user didn't ask to merge, and the others are explicit-only and weren't named.

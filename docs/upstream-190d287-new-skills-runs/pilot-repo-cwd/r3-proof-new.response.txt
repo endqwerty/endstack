@@ -1,0 +1,11 @@
+I would open these skills:
+
+- **`create-formal-verification-skill`** (primary): The request asks to prove a property, mutual exclusion on the job lease, which is the kind of race or invariant that tests rarely reach. The index routes this kind of request to this skill.
+- **`unslop`**: It applies to any prose, including my reply.
+
+I would hold these back:
+
+- **`maintain-formal-verification-skill`**: It applies only when an existing formal check already covers code that has changed since its recorded sync commit. Nothing here suggests that.
+- **`build`**, **`verify`**, **`architect`** and **`principles`**: Possibly later, if the proof leads to code changes, but they aren't needed to start.
+- **`sharpen`** and **`in-your-own-words`**: These run only when named, and the user named neither.
+- **`ship`** and **`autopilot-full`**: The user didn't ask to merge.
