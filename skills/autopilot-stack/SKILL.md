@@ -13,7 +13,10 @@ Own the stack, never its landing.
 - Compose [build](../build/SKILL.md), [babysit](../babysit/SKILL.md) and
   [verify](../verify/SKILL.md) for each change. Before any code or brief for a
   change, read build's [design step](../build/references/design.md) and do it.
-  Delegate disjoint implementation ownership, with its note, when useful; keep one coordinator responsible for stack topology.
+  Delegate disjoint implementation ownership, with its note, when useful.
+  Topology has one writer, the coordinator: builders push only their own
+  branches, start a dependent item from its parent's branch, and never
+  rebase or retarget.
 - Produce one reviewable linear chain, bottom-up, with only its root targeting
   the delivery branch. Record each request's parent and exact reviewed revision.
   Do not collapse review boundaries to make the stack look green.

@@ -1,5 +1,21 @@
 # Change log
 
+## 2026-10-21 — a verdict covers the patch, not the revision
+
+- `verify`: step 5 points at a new reference, `references/carry-forward.md`,
+  taken from pstack's shipping and autopilot playbooks. The same patch on a
+  new base keeps its verdict; if the base changed something the patch uses,
+  the change's checks run on the combined result and a pass keeps it. A patch
+  changed only in tests, docs or lint configuration keeps each built check's
+  result when the build matches apart from noise, and the changed part gets a
+  scoped independent review. One verifier is enough after a conflict
+  resolution or small fix. The verifier names the patch it judged, and a
+  defect the base already has is not charged to the change unless the change
+  copies it or newly reaches it.
+- `autopilot-stack`: stack topology has one writer; builders never rebase or
+  retarget.
+- Why, dry run and limits: [docs/verify-carry-forward.md](docs/verify-carry-forward.md).
+
 ## 2026-10-21 — role skills follow upstream's later fixes
 
 - `create-verification-skill`: ready means usable. Launch reaches a usable

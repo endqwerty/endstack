@@ -19,14 +19,12 @@ A change needs evidence from someone who did not write it.
    A re-review covers what changed since the last verdict and what that can
    affect, with the earlier findings, never your reasons for dismissing them.
 5. Fix each real finding with a check that catches it again; rerun affected
-   checks; answer others with a reason. A new revision needs a fresh verdict,
-   unless it only rebased the change unchanged onto a base touching nothing it
-   uses, or only edited prose no tool or agent reads as instructions: then
-   record that evidence and rerun the required checks; the verdict carries
-   forward. Deliver only on an independent pass of all required checks and the
-   safety fact on the current revision, with no unresolved blockers. Report
-   non-blocking limits. A review limit is not approval: if review cannot run,
-   stop unverified.
+   checks; answer others with a reason. A verdict covers the patch, not the
+   revision: [carry-forward](references/carry-forward.md) says when it, or
+   one of its results, still stands; otherwise get a fresh one. Deliver only
+   on an independent pass of all required checks and the safety fact on the
+   current revision, with no unresolved blockers. Report non-blocking limits.
+   A review limit is not approval: if review cannot run, stop unverified.
 
 ## Verifier
 
@@ -34,12 +32,12 @@ A change needs evidence from someone who did not write it.
 - Name the fact the change's safety rests on; prove it by running the real
   code, or mark it unproven.
 - Try to break it: other inputs, failure paths, what else uses the
-  changed code, what the diff does not show.
+  changed code, what the diff does not show. A defect the base already has
+  is the base's, unless the change copies it or newly reaches it.
 - When a check fails, suspect your method first and reproduce it.
 - Answer each check: **pass**, **issues**, or **not checked**, with what you
   ran and the deciding lines. A check you could not run is never a pass.
-- Name the revision you judged. An older verdict is stale unless step 5
-  carries it.
+- Name the revision and patch you judged.
 - Change nothing.
 
 ## Never

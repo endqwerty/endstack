@@ -36,6 +36,11 @@ wording change:
    uses, or prose no tool or agent reads as instructions, carries the verdict forward once that evidence
    is recorded and the required checks rerun; any other change still needs a
    fresh verdict ([verify-carry-forward.md](verify-carry-forward.md)).
+   Revised 2026-10-21: a verdict covers the patch. The same patch on a base
+   that changed something it uses keeps the verdict when the change's checks
+   pass on the combined result; a patch changed only in tests, docs or lint
+   configuration keeps each built check's result when the build matches apart
+   from noise, and the changed part gets a scoped independent review.
 10. A current pass with an unresolved blocker still does not permit delivery;
     a current pass with only non-blocking limits permits delivery with those
     limits reported.
