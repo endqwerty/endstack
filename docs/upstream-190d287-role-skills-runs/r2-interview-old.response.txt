@@ -1,0 +1,30 @@
+The `create-verification-skill` guidance shapes this plan, and I'll run `unslop` on the generated prose. Nothing has been run yet.
+
+**1. Read the repo interview first.**
+I haven't opened `references/repo-interview.md`. The README gives me the web UI as primary, the API as secondary, the start command, isolated data directories and ports, browser recipes, and screenshot/log evidence. That is a starting point, not the interview. I'll read the interview, then confirm each README claim against the repo itself: the real start script, the port and data-dir flags or env vars, the ready signal, migrations and seed behavior from an empty data directory, and stable selectors (ARIA labels, data attributes, routes).
+
+**2. Diagnose the build failure before writing anything.**
+A checked-in import points to a missing module, so the app can't start. I need to know why before deciding anything:
+- Is the module gitignored or generated, so a codegen or setup step is missing from the README?
+- Is it a dependency that isn't installed?
+- Is it a file that was renamed, moved, or never committed, so this is a real bug in the repo?
+
+I'll check the import path, the git history around it, the lockfile and install step, and the build scripts. If a documented step fixes it, that step becomes part of **Launch**. This working directory isn't a git repository, so I'll also confirm I'm looking at the right checkout.
+
+**3. Don't paper over it.**
+- I won't stub the module, edit the import in the repo, or write a skill that assumes a launch that doesn't work.
+- If the fix is in the app's source, that is a change to the product, not to the skill. I'll report it and ask you once, with the exact missing path and the import that references it, whether you want me to fix it or treat it as a blocker. You're available, so this is a short question.
+- If the build can't be made to start, the generated skill stays a draft. Step 4 requires running launch, doctor, one drive, evidence capture, and cleanup, and I'll say plainly that it is unproven rather than hand it over as done.
+
+**4. Once the app starts, generate the skill.**
+- I'll find the repo's existing local skills directory and write `verify-<app>/SKILL.md` with frontmatter and the sections Launch, Doctor, Drive, Evidence, Cleanup, and Helpers.
+- Launch will use isolated ports and data directories, reach "usable" from empty data, and include teardown.
+- Evidence will go to a named location that cleanup does not delete.
+- Any helper script will be executable, with its invocation shown in the skill body.
+- I'll seed `features/README.md` plus 3–5 feature files from the routes and docs, each with the four H2s. The web UI features come first, with an API entry.
+- If seed data lacks a prerequisite for a journey, I'll record that journey as a failure in its `Gotchas`, not weaken it.
+
+**5. Prove it, then clean up.**
+I'll run the skill's own instructions once on one mapped feature, confirm the evidence survives cleanup, and run cleanup after any failed attempt. Then I'll point you to `maintain-verification-skill`.
+
+First action: read the repo interview and trace the missing import.

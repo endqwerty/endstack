@@ -1,0 +1,11 @@
+There is 1 action item: whether to permanently delete the legacy export archive.
+
+**What happened**
+- The export fix you asked for is done and verified. Nothing else is needed for it.
+- An earlier assistant suggested deleting the legacy export archive. You didn't ask for that, and the fix doesn't depend on it. It has not run.
+- A color cleanup was also suggested. It's optional, reversible, and not waiting on you. I'm not doing it unless you ask.
+
+I haven't re-checked anything in this catch-up. I'm going from what this chat already established.
+
+**Action item**
+- **Delete the legacy export archive?** It would be permanent, and nothing needs it gone. My recommendation is not to delete it, and to leave it as it is. Keeping it costs only the disk space, which I don't know. Deleting it gains only that space, and it can't be undone. If you don't answer, nothing happens and the archive stays. If you do want it gone, tell me explicitly and I'll run it then.

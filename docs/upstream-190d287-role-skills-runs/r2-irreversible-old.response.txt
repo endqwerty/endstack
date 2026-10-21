@@ -1,0 +1,19 @@
+There is 1 action item: whether to permanently delete the legacy export archive.
+
+**What happened**
+
+- Your export fix is done and verified. I have no PR link or CI run for it in this catch-up, so I can't point you to one.
+- An earlier assistant proposed deleting the legacy export archive. You never asked for that, and the fix doesn't need the archive. It has not run, and the archive is untouched.
+- The same assistant suggested a color cleanup. It's reversible, unrequested, and unnecessary, and nothing is waiting on you for it. I'm dropping it unless you say otherwise.
+
+Nothing is left for me to do myself.
+
+**Action item**
+
+- **Delete the legacy export archive permanently?**
+  - **Why it's on you:** the deletion can't be undone, and it was never your request. Nothing depends on it, so there's no deadline.
+  - **Options:**
+    - **Keep it.** This costs only the disk space. Nothing breaks, and you can delete it later if you decide to.
+    - **Delete it.** This frees the space, but the data is gone for good. I don't know what the archive contains, whether anything else reads it, or whether a backup exists, so I can't tell you what you'd lose.
+  - **Recommendation:** keep it. The fix works without the deletion, and the risk is all on the delete side. If you do want it gone, first confirm that a backup exists and that nothing else uses the archive. Then tell me explicitly to delete it.
+  - **If you don't answer:** nothing happens. The archive stays and I won't run the deletion.

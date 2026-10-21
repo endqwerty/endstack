@@ -10,7 +10,7 @@ Every serious project needs a scripted way to drive the real app and prove behav
 
 ## 1. Interview the repo, not the user
 
-Read [the repo interview](references/repo-interview.md) before generating the skill. Establish the real user surface, launch, drive, evidence, and isolation requirements from the repository.
+Open [the repo interview](references/repo-interview.md) now and answer its five questions: surface, run, drive, observe, and isolate. Answer from the codebase and ask the user only what you cannot observe. If the checkout does not build or start, fix it or report the failure precisely before generating the skill.
 
 ## 2. Generate the skill
 

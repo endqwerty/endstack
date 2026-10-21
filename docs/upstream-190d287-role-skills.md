@@ -63,8 +63,9 @@ substance. The final-text launch and journey dry runs include that reference.
   dismissals remain.
 
 [W5](import-notes/W5.md) records each upstream commit and the portability
-choices. No routing, invocation metadata, shared changelog, or other skill
-was changed.
+choices. The earlier author commits changed no routing, invocation metadata, shared
+changelog, or other skill. The coordinator subsequently added the shared CHANGELOG entry
+in `c67273c`.
 
 ## Checks
 
@@ -208,14 +209,16 @@ You lead a review. Reviewers independently confirmed seven separate reproducible
 
 ## Author commits
 
-Branch: `t3/port-role-skill-updates`, based on `b03c038`.
+Original branch: `t3/port-role-skill-updates`, based on `b03c038`. The
+coordinator rebased the port onto `t3/1b3c946a-role-skills`; the SHAs below
+name those rebased commits.
 
-- `6033e0d`: usable launch, complete journeys, and moved repo interview.
-- `a12d478`: factual visuals and complete catch-up calls.
-- `09c160d`: branded narrowing and existing-constructor guidance.
-- `1a20561`: review findings without numeric pressure.
+- `d10053d`: usable launch, complete journeys, and moved repo interview.
+- `21c0afa`: factual visuals and complete catch-up calls.
+- `01b5a15`: branded narrowing and existing-constructor guidance.
+- `97a14ef`: review findings without numeric pressure.
 
-The documentation commit adds this report and W5 import notes, and removes
+The documentation commit `0187b02` adds this report and W5 import notes, and removes
 a trailing blank line from the moved interview. These commits
 are local for the coordinator to integrate. No push, pull request, merge, or
 write to another checkout was performed.
@@ -227,3 +230,89 @@ production migration, large approval batch, compiler execution of the example,
 or multi-family review panel was exercised. Independent verification and
 publication belong to the coordinator. No claim
 of an independent passing verdict is made by this implementation handoff.
+
+## Follow-up round at c67273c
+
+Branch: `t3/1b3c946a-role-skills-r2`, starting at `c67273c`. This round
+addresses the independent verifier's notes on the earlier port. It restores
+the interview gates in section 1 and ports ketchup's omitted no-invented-call
+rule and its exception for unnecessary, unrequested irreversible steps already
+waiting on the user. W5 and CHANGELOG record those changes. The author-commit
+list above now uses the rebased SHAs, and the earlier no-changelog statement
+is limited to the earlier author's commits. The optional cosmetic rewrite was
+left out to keep the behavioral correction small.
+
+Before editing, planned checks were the three repository checkers, a whitespace
+check, byte limits, and paired decision simulations for a broken checkout,
+no pending call, and an unrequested irreversible step. All old-text responses
+completed before the first skill edit. Old means the skill at `c67273c`;
+new means the final text in this round. These are old-text/without-fix and
+new-text/with-fix controls, not no-skill controls.
+
+### Retained runs
+
+[Run files](upstream-190d287-role-skills-runs/) retain every exact prompt and
+response. Filenames pair `r2-<scenario>-old` with `r2-<scenario>-new`.
+`first-new` retains the initial revision's responses for all three scenarios;
+`second-new` retains the irreversible-step response after the first wording
+clarification. The final irreversible prompt uses the final ketchup text.
+The no-call response uses an earlier ketchup revision differing only in the
+irreversible-step exception, which that scenario does not exercise. The final
+interview response uses the final verification-skill text. Empty stderr files
+were omitted. Every command exited 0.
+
+The runs used Claude Sonnet 5.5, medium effort, on 2026-10-21. Each process ran
+from the same scratch directory created by `mktemp -d`, subsequently deleted.
+Only the skill entrypoint was supplied, deliberately leaving its linked
+interview unopened. No tools were enabled. The requested command was used
+without the isolation additions of the earlier round:
+
+```sh
+claude -p "$prompt" --model claude-sonnet-5-5 --effort medium --tools '' \
+  --no-session-persistence < /dev/null
+```
+
+Global instruction discovery was not disabled. The old interview response
+mentions `unslop` and says "This working directory isn't a git repository,"
+although neither fact is in the supplied scenario. This is contamination from
+the execution context, so the runs do not isolate the skill as the only cause.
+The raw responses retain those statements. These are simulations of proposed
+next steps, not actual repository inspection, repairs, or independent review.
+
+### Deciding lines and limits
+
+- Interview, old: "Read the repo interview first" and "Diagnose the build
+  failure before writing anything." It already defers generation and proposes
+  code inspection. New: "Then I'll answer its five questions (surface, run,
+  drive, observe, isolate) from the codebase" and "I won't generate a skill
+  for an app that can't start." It makes the five-question inventory explicit.
+  The new response checks the repository before asking about the missing
+  module, but also proposes asking whether the user wants a fix. No general
+  improvement in autonomy or reliable reference opening is established.
+- No call, old: "Nothing is waiting on you." New: "Nothing waits on you,
+  so there are no action items." Both avoid inventing a call. No measured
+  uplift in this scenario.
+- Irreversible step, old: "Delete the legacy export archive permanently?"
+  followed by a nested options and recommendation brief. The first new arm
+  also expands it into a nested brief, exposing the conflict with the later
+  all-items summary rule. The second new arm uses one long bullet. After
+  explicitly exempting this case from the brief and requiring one short
+  sentence, final new keeps one bullet and no visual: "My recommendation is
+  to leave the archive alone." It preserves the pending irreversible decision
+  and drops the color cleanup, but still uses several sentences. **Partial
+  adherence:** this run does not prove the short-sentence requirement works.
+  No visuals appear in either arm.
+
+### Follow-up checks and handoff
+
+- `python3 scripts/check-skills.py`: `0 problem(s)`.
+- `python3 scripts/check-routing.py`: `0 problem(s)`.
+- `python3 -m unittest discover -s scripts`: `Ran 16 tests`, `OK`.
+  Existing unclosed-file `ResourceWarning`s remain non-fatal.
+- `git diff --check`: no output, exit 0.
+- Final entrypoint sizes: create-verification-skill 5253 bytes; ketchup
+  4315 bytes. Both are below 6000 bytes. Invocation metadata is unchanged.
+
+Only the local follow-up branch is committed. No push, pull request, merge,
+or write to another checkout was performed. Current-revision independent
+verification belongs to the coordinator; this author handoff is unverified.
