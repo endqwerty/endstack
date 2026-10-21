@@ -9,9 +9,13 @@ Brand primitives so they can't be mixed up. Validate once at the boundary. Downs
 ```ts
 type AgentId = string & { readonly __brand: "AgentId" };
 
+function isAgentId(input: string): input is AgentId {
+  return isUUID(input);
+}
+
 function parseAgentId(input: string): AgentId {
-  if (!isUUID(input)) throw new Error(`Invalid agent id: ${input}`);
-  return input as AgentId;
+  if (!isAgentId(input)) throw new Error(`Invalid agent id: ${input}`);
+  return input;
 }
 
 function focusAgent(id: AgentId): void {
@@ -19,7 +23,9 @@ function focusAgent(id: AgentId): void {
 }
 ```
 
-Match the `readonly __brand: 'X'` shape. Don't invent a new convention.
+The guard delegates to the project's runtime UUID validator. Its body must verify the brand's invariant. TypeScript trusts a user-written predicate's return type. It does not prove that the body validates the claim, and `return true` would lie just as a cast can.
+
+Use the project's existing opaque-type constructor or schema validator when it already owns validated construction. The `readonly __brand` shape above is an example, not a required spelling. Don't introduce a second convention.
 
 ## Discriminated unions
 
