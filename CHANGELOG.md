@@ -1,5 +1,22 @@
 # Change log
 
+## 2026-10-21 — four new skills from upstream
+
+- `sharpen` (asks what a top professional would add, their raw material,
+  methods and an outside check, then hands back the rewritten prompt without
+  doing the task) and `in-your-own-words` (restates the user's goal and
+  problem): only when named, as in pstack.
+- `create-formal-verification-skill` (verify one high-harm property tests
+  rarely reach, show it fail on a broken variant, state bounds, and leave a
+  project skill that records the covered code and its sync commit) and
+  `maintain-formal-verification-skill` (bring that check back in line after
+  the code changed, and tell drift from a bug). Explicit-invocation; ROUTING
+  sends races, invariants and covered code changed since its sync commit to
+  them. create-verification-skill and create-formal-verification-skill link
+  to each other.
+- Port notes [W6](docs/import-notes/W6.md); dry run and limits:
+  [docs/upstream-190d287-new-skills.md](docs/upstream-190d287-new-skills.md).
+
 ## 2026-10-21 — a verdict covers the patch, not the revision
 
 - `verify`: step 5 points at a new reference, `references/carry-forward.md`,

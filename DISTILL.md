@@ -173,6 +173,27 @@ data-shape brief and its `poteto-agent` children. `build` now carries that as
 a design step read before code, and the index states each rule. Evidence,
 dry run and limits: [docs/design-step.md](docs/design-step.md).
 
+### Upstream review at 190d287 (2026-10-21)
+
+Daniel asked for upstream's changes after the snapshot (`cursor/plugins` at
+`190d287`, 44 pstack commits) to be read and the useful ones taken, plus four
+new skills. Taken, as a stack of four pull requests: four principles restated
+as reasoning and a readable `Principles:` line in the design note
+([docs/upstream-190d287-principles.md](docs/upstream-190d287-principles.md));
+role-skill fixes to create-verification-skill, ketchup,
+typescript-best-practices and interrogate
+([docs/upstream-190d287-role-skills.md](docs/upstream-190d287-role-skills.md),
+[W5](docs/import-notes/W5.md)); a verdict covers the patch, not the revision,
+and stack topology has one writer
+([docs/verify-carry-forward.md](docs/verify-carry-forward.md)); and sharpen,
+in-your-own-words, create-formal-verification-skill and
+maintain-formal-verification-skill, explicit-invocation only, routed as pstack
+links them ([docs/upstream-190d287-new-skills.md](docs/upstream-190d287-new-skills.md),
+[W6](docs/import-notes/W6.md)). Left out: six principles upstream only
+shortened (their rules live in a per-turn mode endstack does not have),
+per-job model and effort choice (homelab's routing owns it), packaging and
+plugin plumbing.
+
 ## Upstream (decided 2026-10-10: broken from)
 
 Daniel decided pstack is no longer tracked: endstack differs too much, and
