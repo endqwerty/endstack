@@ -1,0 +1,20 @@
+I won't write the skill yet. The build is broken, and I haven't done the interview step. Here is what I'll do, in order:
+
+1. **Open the repo interview** (`references/repo-interview.md`). I'd be guessing at the answers from the README alone, so I'll read it first. Then I'll answer its five questions (surface, run, drive, observe, isolate) from the codebase. The README already gives me a lot: the web UI is the primary surface and the API is secondary. It also gives the start command, the isolated data directories and ports, the browser drive recipes, and the screenshot and log evidence. I'll check each of those against the code and the package scripts instead of trusting the prose.
+
+2. **Reproduce the build failure and pin it down.** I'll run the build once and record the exact error and the checked-in import that points to the missing module. Then I'll work out why it's missing:
+   - a file that was never committed or was renamed,
+   - a gitignored generated artifact,
+   - a package or workspace dependency that isn't installed.
+
+3. **Fix it if the cause is clear and local.** For example, I'd run a codegen step, install dependencies, or correct a path. I'll use the smallest change that works. I won't stub the module or delete the import just to get the app to start, because the skill has to verify the real app.
+
+4. **If I can't fix it safely, stop and ask you.** You're available, so I'll report it once and precisely, with the failing command, the error text, the import and the module it expects, and what I checked. I'll ask whether the module should exist, where it lives, and whether you'd like me to fix it. I won't generate a skill for an app that can't start.
+
+5. **Once the app starts from an empty, isolated data directory,** I will:
+   - write `verify-<app>/SKILL.md` in the repo's existing local skill directory. It will have frontmatter and the Launch, Doctor, Drive, Evidence, Cleanup and Helpers sections, all grounded in what I found;
+   - seed `features/README.md` plus 3–5 feature files, each with the four required H2s;
+   - run the skill end to end once: launch, doctor, drive one mapped feature, capture evidence, clean up. Then I'll confirm the evidence survived cleanup, and run cleanup after any failed attempt;
+   - point you to `maintain-verification-skill` for keeping the map accurate.
+
+I have run nothing so far. Nothing is verified yet.

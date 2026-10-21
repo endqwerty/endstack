@@ -6,11 +6,14 @@
   state from empty data, with migrations and seeds done; a journey whose
   prerequisite is missing fails instead of being weakened; a proof on a
   substitute environment lists the setup the real target still lacks. The
-  repo interview moved to a reference (pstack `c49b37a`).
+  repo interview moved to a reference (pstack `c49b37a`). The follow-up keeps
+  its five-question interview and broken-checkout gates explicit at entry.
 - `ketchup`: visuals only from what the work already produced, never a drawn
   or fabricated screen; every item of a grouped call keeps its own link,
   impact, evidence and risk, and no count or link replaces an item
-  (`ea32d95`, `d00ba6e`, `c86f349`, `afd51cf`, `16541c6`, `bc14437`).
+  (`ea32d95`, `d00ba6e`, `c86f349`, `afd51cf`, `16541c6`, `bc14437`). Never
+  invent a call. An unnecessary, unrequested irreversible step already waiting
+  on the user gets one line and no visual.
 - `typescript-best-practices`: a brand comes from a validating type guard, not
   a cast; a project's existing opaque-type constructor wins (`0317eb8`).
 - `interrogate`: the lead no longer treats more than five findings as a sign

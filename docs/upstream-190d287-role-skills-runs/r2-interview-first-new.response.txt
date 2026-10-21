@@ -1,0 +1,25 @@
+I won't write the generated skill yet. The build failure and the unread interview come first, and I'm not running anything in this reply. Here is my plan.
+
+**1. Read the repo interview.**
+I haven't opened `references/repo-interview.md`, so I'd read it now. Then I'd answer its five questions (surface, run, drive, observe, isolate) from the codebase. The README gives me a start: the web UI is primary and the API secondary. It also gives me the start command, the isolated data directories and ports, the browser drive recipes, and the screenshot and log evidence. I'd check each of those against the code and scripts, not copy them from the README.
+
+**2. Diagnose the build failure.**
+The skill says that if the checkout doesn't build or start, I either fix it or report the failure precisely. I'd start with these read-only steps:
+- Reproduce the build and capture the exact error.
+- Find the checked-in import that points to a missing module.
+- Check whether the module was renamed or moved, is gitignored or generated, or was never committed.
+
+**3. Fix or report.**
+- If the fix is small and clearly correct, such as a stale path or a generated file that a documented step produces, I'd make it. I'd tell you about the change, because it's a change to your code and not just to the skill.
+- If the module is genuinely missing and I'd have to guess at its contents, I wouldn't invent it. I'd report the file, the import, and what I found. You're available, so I'd ask you once whether the module exists elsewhere, such as on another branch or in a private package.
+
+**4. Hold off on generating the skill.**
+I won't write `verify-<app>/SKILL.md` until the app launches from an empty data directory and is usable. A skill written against an app that can't start would be a draft built on guesses, and the Launch and Doctor sections need a real ready signal.
+
+**5. After the build works:**
+- Write `verify-<app>/SKILL.md` in the repo's established local skill directory. It needs frontmatter, plus Launch, Doctor, Drive, Evidence, Cleanup, and Helpers sections.
+- Seed `features/README.md` and one file per top feature, each with the four required H2s.
+- Run the skill once end to end: launch, doctor, drive one mapped feature, capture evidence, clean up. Then confirm the evidence survived cleanup.
+- Offer `maintain-verification-skill` for keeping the map accurate.
+
+**Question for you:** do you know where the missing module is supposed to come from? If you do, that's the quickest way to get past the build failure.

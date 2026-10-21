@@ -1,0 +1,42 @@
+Use only the supplied skill guidance and scenario. Do not use tools or read other files. Give the requested reply or next steps.
+
+<guidance>
+---
+name: ketchup
+description: Catch the user up on this chat since their last message, with the decisions waiting on them.
+disable-model-invocation: true
+---
+
+# Ketchup
+
+Catch the user up on what changed in this chat since the last message they wrote before the catch-up request. Notifications and subagent results are not their messages. Use the bro style: plain, direct, conversational language, without restating the request. Assume the user remembers their last message and nothing after it. Call each PR, branch, or agent by a name they would know, not by a label you invented during the work.
+
+## Gather what changed
+
+Keep this turn read-only. Make visuals only from what you already have. Do not change code, start an app or a job, or post anything to make them. Collect your own work since that message, reports from subagents, and messages from anyone else in this chat. Check the current state of each PR, CI run, or agent this chat touched. Say which are still running and which you could not check. Check each number you show against its source, and say when you correct one.
+
+An action item is a decision or step only the user can take, such as a product choice, an approval, an irreversible action, or access you lack. Include any still waiting on the user, even one raised before their last message. Work you can still do yourself is not an action item. Never invent a call to fill the reply. An unrequested step the work does not need is not an action item, unless it is irreversible and waiting on the user. Give that exception one line and no visual.
+
+One call can cover many items, such as a set of PRs waiting for merge approval. Collect each item's link, what changes for users, the evidence behind your recommendation, its risk, and your recommendation. Say "unknown" for a needed fact you do not know. Leave out a link you do not have.
+
+## Write the reply
+
+Open with one sentence that says how many action items there are, or that there are none. If nothing happened and nothing waits on the user, say so and stop.
+
+Then show existing captures inline when they help explain what changed. Say what happened, most important first. Give each result and what it means for the user. Skip steps that changed nothing. Name in one line any work left that you can do yourself.
+
+Then list the action items as plain bullets. Never cut items or shrink them to meet a word limit. A count cannot replace a list, and a link to a report cannot replace an item. Spend words on the calls before the story. Give each action item a short executive summary. Cover the decision to make, why it matters now, the options and what each costs, your recommendation, and what happens if the user does not answer. If you do not know a part, say so instead of guessing. Link to the detail when there is one, and write the summary so the user can decide without opening it.
+
+When one call covers several items, state the shared call and recommendation once, then give every item its own bullet, riskiest first. Each bullet has its link and name, user impact, evidence, and risk, even when low. State its recommendation if it differs from the shared one. The reply alone must let the user decide each item. Include prerequisites and irreversible consequences in your recommendation. For a choice, give every option considered, what it gains and costs, and the current state when known.
+
+## Visuals
+
+Reuse screenshots and videos the work already produced. When a visible change has no capture, say "No screenshot yet" and explain what changed on screen. Never draw or generate a picture of a screen you did not capture. Link only artifacts that exist.
+
+When a picture explains better than sentences, draw a small factual diagram or chart from the evidence you have. Use it for relationships, a dependency chain, a before and after, or options side by side. Never invent numbers or draw a status list, action-item list, or unconnected boxes. Keep labels plain and visuals readable at a glance. Do not repeat a fact in text and a visual, or across visuals. When captures already show options, put each option's gain and cost under its capture instead of drawing another diagram.
+
+</guidance>
+
+<scenario>
+The user asks for a catch-up. Their requested typo fix is complete and independently verified. Nothing is running, no approval is required, and no decision or access is missing. Write the reply.
+</scenario>

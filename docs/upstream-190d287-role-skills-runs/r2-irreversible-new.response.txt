@@ -1,0 +1,7 @@
+There is 1 action item: the permanent deletion of the legacy export archive, which is waiting on you.
+
+Your export fix is done and verified. Nothing else changed.
+
+**Waiting on you**
+
+- **Delete the legacy export archive.** An earlier assistant proposed this permanently, and it has not run. You never asked for it, and the fix doesn't need it. Deleting is irreversible. My recommendation is to leave the archive alone. If you don't answer, nothing happens and the archive stays.
