@@ -1,5 +1,21 @@
 # Change log
 
+## 2026-10-21 — four principles restated as reasoning; a readable design note
+
+- `principles`: Attack the Premise, Fix Root Causes, Make Operations
+  Idempotent and Test Behavior, Not Implementation take upstream's rewrites
+  (pstack `e5136d8`, `36cecbf`): test the premise directly instead of a census;
+  a guard is a fix only when the state it handles is legitimate, and a deep dig
+  ends with a proposed always-on signal; derive each step from the state that
+  exists; judge a test by breaking the behaviour and by changing the internals.
+  `correct` step 3 and design steps 7 and 8 follow.
+- `build`'s design note ends with one `Principles:` line (names and the choice
+  each changed, or `n/a: <reason>`) that a project's checks can read.
+  Mainworthy's description check now requires it: 3 of 169 of its pull
+  requests since the design step named a principle, though agents read the
+  index in nearly every code thread.
+- Why, dry run and limits: [docs/upstream-190d287-principles.md](docs/upstream-190d287-principles.md).
+
 ## 2026-10-16 — lessons go into code, not into rules files
 
 - `verify`: each real finding is fixed with a check that catches it again.
