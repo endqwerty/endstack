@@ -21,9 +21,8 @@ Own delivery inside an explicit boundary, not an unlimited backlog.
   participant a bounded change, ownership and that note. The coordinator owns
   dependency order and delivery. Land only the authorized verified frontier;
   do not skip blocked prerequisites or delegate away an operator-held decision.
-- Keep a [show-me-your-work](../show-me-your-work/SKILL.md) decision log, and
-  open each pull request with the choices made for the user and how to reverse
-  each. Track progress by artifacts and current checks, not status text.
+- Keep a [show-me-your-work](../show-me-your-work/SKILL.md) decision log.
+  Track progress by artifacts and current checks, not reassuring status text.
   Keep independent authorized work moving when one item is blocked. Stop at
   queue completion, an authority boundary, or an explicit stop. On stop, place
   all participants on a no-writes hold and report issued operations' known state.

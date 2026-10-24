@@ -13,16 +13,15 @@ Own the change through a reviewable pull request, not through landing.
 - Before the first edit to production code, read
   [references/design.md](references/design.md) and do its steps; keep its
   note. A delegated builder gets the note and reads the principles index and
-  that file before coding.
-  Report each principle that changed a choice.
+  that file before coding. Report each principle that changed a choice.
 - Implement the smallest complete change. Run the checks on the real artifact
   and keep their deciding output. Read the whole diff, including delegated work.
 - Use [verify](../verify/SKILL.md) for independent review and exemptions.
   Missing evidence or review means unverified, never ready or done.
-- A correction, or a mistake made before, gets the strongest guard
-  [correct](../correct/SKILL.md) names; an instruction-file rule is only for
-  judgment.
-- Prepare a non-draft pull request with a standalone brief: why, what changed,
+- A correction goes through [correct](../correct/SKILL.md): a recurring
+  defect gets a guard, a preference a note.
+- Prepare a non-draft pull request that opens with each choice made for the
+  user and how to reverse it, then a standalone brief: why, what changed,
   where to start reading, why this approach, checks and deciding evidence,
   reviewer and exact revision, findings and remaining limits. Follow the
   project's template. Do not bury required context in the conversation.

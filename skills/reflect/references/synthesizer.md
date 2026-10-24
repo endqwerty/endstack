@@ -17,7 +17,7 @@ Apply each criterion to every finding:
 - Existing-skill-first: propose `new skill via skill-authoring workflow:` only when no existing skill is a real home, the pattern recurs, and the topic deserves its own skill.
 - Convergence: findings echoed by 2+ reviewers carry higher confidence. Singletons must clear a higher bar on the other criteria.
 - Decision-changing: a future agent does something different because of the edit, not just reads more text.
-- Structural-mechanism check: route to Backlog when a lint rule, script, metadata flag, or runtime check already enforces the rule or could enforce it cheaply. Skill prose is for things mechanisms cannot enforce.
+- Structural-mechanism check: first classify the finding as a defect, preference or experiment (the correct skill). Only a recurring defect whose guard costs less than the mistake routes to Backlog when a lint rule, script, metadata flag, or runtime check already enforces it or could enforce it cheaply; a preference or experiment stays a revisable note. Skill prose is for things mechanisms cannot enforce.
 - Skill-was-used: accept only findings that route to a skill, tool, or connected source the parent invoked in the transcript. If the skill wasn't used but should have been, route to `tune description: <skill path>`. If neither, reject as `skill-not-used`.
 - Already-covered: read the target skill before accepting any body-edit row. If the proposal duplicates clear, well-placed existing guidance, reject as `already-covered`, because the issue is execution, not the skill. If the existing guidance is buried, weak, or easy to skip past, accept the row but reframe the proposal as a wording / placement improvement that makes it fire (not a duplicate addition).
 
