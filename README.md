@@ -51,7 +51,7 @@ in its `AGENTS.md`.
 
 ## Install
 
-Only `skills/` is installable (34 skills). Add `-s build -s verify ...` to take a subset.
+Only `skills/` is installable (29 skills). Add `-s build -s verify ...` to take a subset.
 
 **With npx** (any machine; installs to Claude Code, Codex and other agents):
 

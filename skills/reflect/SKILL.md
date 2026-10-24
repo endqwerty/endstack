@@ -32,7 +32,7 @@ Give the [synthesizer](references/synthesizer.md) to a separate worker, if avail
 
 ## 4. Structural enforcement check
 
-Move any Accepted item that a lint rule, script, metadata flag, or runtime check would enforce more reliably to Backlog, but only a recurring defect; a preference or an experiment stays a revisable note (the [correct](../correct/SKILL.md) skill says which is which). See the [encode-lessons-in-structure](../principles/references/encode-lessons-in-structure.md) principle.
+Move any Accepted item that a lint rule, script, metadata flag, or runtime check would enforce more reliably to Backlog, but only a recurring defect, and move any Backlog item that is not one back to Accepted; a preference or an experiment stays a revisable note (the [correct](../correct/SKILL.md) skill says which is which). See the [encode-lessons-in-structure](../principles/references/encode-lessons-in-structure.md) principle.
 
 ## 5. Apply
 

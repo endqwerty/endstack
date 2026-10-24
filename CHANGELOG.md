@@ -16,16 +16,20 @@ CI gate, and unanimous panels went unchallenged.
 - `correct` and `encode-lessons-in-structure`: classify a correction as a
   defect, preference or experiment; only a defect gets a guard, and a guard
   must cost less than the mistake. Preferences keep the user's words and stay
-  open; a first measurement is a baseline. Before 1.0 any rule may go.
+  open; a first measurement is a baseline. Before 1.0 any product or technical rule may go; safety, credential, money,
+  publishing and merge rules stay.
 - `build-the-lever`: build a tool when it saves work or makes the result
   checkable, not to show the principle was applied.
 - `build` design step: a settled fix answers three steps; the Principles line
   is for a reader, not for a check to parse.
 - `arena` and `interrogate`: when every candidate or reviewer agrees, one more
-  argues the opposite before the verdict. `architect`: a past rationale is
+  argues the opposite before the verdict. Arena runs one dissenter per
+  comparison, scores it on the rubric, and reframes at most once. `architect`: a past rationale is
   evidence, not a constraint. `reflect`: only a recurring defect goes to lint.
-- `autopilot-full` keeps a `show-me-your-work` log and opens each pull request
-  with the choices made for the user and how to reverse each.
+- `build` opens every pull request with each choice made for the user and how
+  to reverse it; a correction goes through `correct` (a recurring defect gets a
+  guard, a preference a note). `autopilot-full` also keeps a
+  `show-me-your-work` decision log.
 
 ## 2026-10-21 — four new skills from upstream
 
