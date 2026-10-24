@@ -42,4 +42,4 @@ Follow the generated skill once, as the next agent would, on a scratch change th
 
 Tell the user what you verified, which tool you used and why, the bounds, what the check found in plain words, how to run it, and what it does not cover. Suggest a second target only if you found a close one. Point the user at [maintain-formal-verification-skill](../maintain-formal-verification-skill/SKILL.md) for bringing the verification back in line after changes that did not recheck it.
 
-For a scripted behaviour journey through the real app, use the sibling [create-verification-skill](../create-verification-skill/SKILL.md); this skill checks a property within stated assumptions.
+This skill checks a property within stated assumptions; a scripted journey through the real app is a different job.

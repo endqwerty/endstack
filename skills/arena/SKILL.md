@@ -37,7 +37,7 @@ Pick the base a future maintainer can extend most easily without breaking invari
 
 Walk each losing candidate once more for what is worth porting into the base, usually one or two things per candidate, not most of it. Fold each graft in by hand, by redesigning from first principles, so the result stays coherent under one mental model. Don't paste mechanically.
 
-If the candidates converge on one shape, that is strong agreement. Note it and ship the consensus shape. No graft is needed. If they wildly diverge, Phase A was under-specified. Reframe and re-run rather than averaging the divergence.
+If the candidates converge on one shape, do not ship it yet: shared training can make agreement a shared blind spot. Run one dissenter, briefed with the consensus and asked for the strongest opposite or a far different shape. Ship the consensus if it survives, grafting what the dissenter found; otherwise reframe. If they wildly diverge, Phase A was under-specified. Reframe and re-run rather than averaging the divergence.
 
 ## Phase F: Verify
 
@@ -45,4 +45,4 @@ Verify the synthesized artifact like any other output, using [verify](../verify/
 
 ## Outputs
 
-One synthesized artifact, with a short synthesis note alongside naming the base and why, the cross-judge's verdict, each graft with its source candidate, what was rejected and why, any convergence or dropouts, and the verification result.
+One synthesized artifact, with a short synthesis note alongside naming the base and why, the cross-judge's verdict, each graft with its source candidate, what was rejected and why, any convergence, the dissenter and what it changed, any dropouts, and the verification result.

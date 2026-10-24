@@ -10,7 +10,7 @@ Own delivery inside an explicit boundary, not an unlimited backlog.
 - Establish the queue, dependencies, completion checks, merge authority and
   operator-held items before execution. The user must authorize both the work
   and its landing; a skill name, “autopilot” or “keep going” alone is insufficient.
-  Without landing authority, offer [autopilot-stack](../autopilot-stack/SKILL.md)
+  Without landing authority, build each item and leave landing to the user
   rather than silently assuming permission. Plan/help requests do not execute.
 - Compose [build](../build/SKILL.md), [babysit](../babysit/SKILL.md) and
   [ship](../ship/SKILL.md). Their boundaries and [verify](../verify/SKILL.md)'s
@@ -21,7 +21,9 @@ Own delivery inside an explicit boundary, not an unlimited backlog.
   participant a bounded change, ownership and that note. The coordinator owns
   dependency order and delivery. Land only the authorized verified frontier;
   do not skip blocked prerequisites or delegate away an operator-held decision.
-- Track progress by artifacts and current checks, not reassuring status text.
+- Keep a [show-me-your-work](../show-me-your-work/SKILL.md) decision log, and
+  open each pull request with the choices made for the user and how to reverse
+  each. Track progress by artifacts and current checks, not status text.
   Keep independent authorized work moving when one item is blocked. Stop at
   queue completion, an authority boundary, or an explicit stop. On stop, place
   all participants on a no-writes hold and report issued operations' known state.

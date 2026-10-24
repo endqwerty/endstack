@@ -1,5 +1,32 @@
 # Change log
 
+## 2026-10-23 — Fewer skills; corrections are classified; panels get a dissenter
+
+From a review of how agents built Mainworthy: tentative remarks became fixed
+rules, a first measurement became a ceiling, a Principles line became a parsed
+CI gate, and unanimous panels went unchallenged.
+
+- Dropped `autopilot-stack`, `automate-me`, `in-your-own-words`,
+  `create-verification-skill` and `maintain-verification-skill`: unused in
+  Daniel's transcripts (no project ever got a verification skill). Five core
+  delivery skills remain. `autopilot-full` without landing authority builds
+  each item and leaves landing to the user.
+- ROUTING: every task first decides whether to `swarm`; `benchmark-checklist`
+  covers any timing number reported, compared or turned into a limit.
+- `correct` and `encode-lessons-in-structure`: classify a correction as a
+  defect, preference or experiment; only a defect gets a guard, and a guard
+  must cost less than the mistake. Preferences keep the user's words and stay
+  open; a first measurement is a baseline. Before 1.0 any rule may go.
+- `build-the-lever`: build a tool when it saves work or makes the result
+  checkable, not to show the principle was applied.
+- `build` design step: a settled fix answers three steps; the Principles line
+  is for a reader, not for a check to parse.
+- `arena` and `interrogate`: when every candidate or reviewer agrees, one more
+  argues the opposite before the verdict. `architect`: a past rationale is
+  evidence, not a constraint. `reflect`: only a recurring defect goes to lint.
+- `autopilot-full` keeps a `show-me-your-work` log and opens each pull request
+  with the choices made for the user and how to reverse each.
+
 ## 2026-10-21 — four new skills from upstream
 
 - `sharpen` (asks what a top professional would add, their raw material,

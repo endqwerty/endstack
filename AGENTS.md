@@ -24,8 +24,7 @@ size, no tool or model names, links) and must pass.
   available", never a named one.
 - One skill, one job, one role. Deterministic work belongs in the `homelab` CLI
   with tests, not in a skill.
-- **Core delivery skills** (build, babysit, ship, autopilot-stack,
-  autopilot-full, verify): `SKILL.md` under about 2 KB, judgment and policy
+- **Core delivery skills** (build, babysit, ship, autopilot-full, verify): `SKILL.md` under about 2 KB, judgment and policy
   only; changes get a dry run in the PR.
 - **Imported role skills** (ported from pstack, see `candidates/README.md` and
   DISTILL.md): keep the role, identity, structure and judgment; `SKILL.md`
@@ -38,7 +37,7 @@ size, no tool or model names, links) and must pass.
   has it, and give such a skill `agents/openai.yaml` with
   `allow_implicit_invocation: false`, which keeps it out of Codex's catalog the
   way the frontmatter does for Claude Code ([docs/catalog-size.md](docs/catalog-size.md)).
-- Adding a skill beyond the six needs either a recurring failure or Daniel's
+- Adding a delivery skill beyond these five needs either a recurring failure or Daniel's
   request.
 
 ## Routing
