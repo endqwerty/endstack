@@ -1,10 +1,9 @@
 # Design before code
 
-Do this before the first edit to production code, for every feature and fix,
-and again at each phase boundary of a larger change. Keep one checklist line
-per step. A step that does not apply keeps its line with `n/a: <reason>`; never
-drop one silently. A one-line fix still answers steps 1, 2, 3 and 6, each in a
-sentence.
+Do this before the first edit to production code for a feature or a change of
+shape, and again at each phase boundary of a larger change, one line per step
+that applies. A fix whose shape is already settled answers steps 2, 6 and 8 in
+a sentence each and skips the rest.
 
 1. **Principles.** Open the [principles index](../../principles/SKILL.md) now
    and read all of it: one page, one rule per line. For each principle whose
@@ -52,10 +51,8 @@ sentence.
 ## The design note
 
 Write the outcome in a few lines: the shape and its structure, the consumers
-and which ones change, and what is deleted. End it with one line,
-`Principles: <name> (<the choice it changed>); ...`, or
-`Principles: n/a: <reason>` when none changed a choice; a project's checks can
-read that line. The note goes into the pull request's "why this approach" and
+and which ones change, and what is deleted. Name each principle that changed a choice, with the choice, and leave the
+line out when none did. It is for a reader, not for a check to parse. The note goes into the pull request's "why this approach" and
 into every brief, not into a file in the repository unless the project keeps
 design records.
 

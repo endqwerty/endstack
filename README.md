@@ -5,7 +5,7 @@
 Daniel Yang's agent stack: skills for Claude Code and Codex (through T3 Code),
 distilled from Lauren Tan's [pstack](https://github.com/cursor/plugins/tree/main/pstack).
 
-**State: six core delivery skills plus 28 imported role skills.** Build, babysit, ship, autopilot-stack,
+**State: five core delivery skills plus 24 imported role skills.** Build, babysit, ship,
 autopilot-full and verify keep implementation, readiness and merge authority
 separate. Start with the [command cookbook](docs/cookbook.md) for the full
 catalog, copyable prompts, outputs and stopping points. Distribution uses a
@@ -25,10 +25,10 @@ carry no tool, model or harness names; see the [skills table](#skills) and
 
 | Group | Skills |
 | --- | --- |
-| Delivery (core, about 2 KB each) | build, babysit, ship, autopilot-stack, autopilot-full, verify |
-| Explain and think | architect, how, why, teach, recall, figure-it-out, correct, ketchup, in-your-own-words, sharpen |
-| Review and process | reflect, interrogate, arena, swarm, show-me-your-work, benchmark-checklist, automate-me, bro |
-| Writing and code | technical-writing, unslop, no-comments, typescript-best-practices, tdd, create-verification-skill, maintain-verification-skill, create-formal-verification-skill, maintain-formal-verification-skill |
+| Delivery (core, about 2 KB each) | build, babysit, ship, autopilot-full, verify |
+| Explain and think | architect, how, why, teach, recall, figure-it-out, correct, ketchup, sharpen |
+| Review and process | reflect, interrogate, arena, swarm, show-me-your-work, benchmark-checklist, bro |
+| Writing and code | technical-writing, unslop, no-comments, typescript-best-practices, tdd, create-formal-verification-skill, maintain-formal-verification-skill |
 | Principles | principles (index; each principle is a reference read on demand) |
 
 All imported role skills are explicit-invocation (`/tdd`, `/arena`, ...), as in
@@ -68,7 +68,7 @@ disposable home; Codex's use of `~/.agents/skills` is not checked. Do not run th
 homelab sync already manages these names: both write the same directories.
 
 **On Daniel's machines** use homelab instead. Install its CLI from its checkout
-(`scripts/homelab install`); `homelab sync` installs the six skills into
+(`scripts/homelab install`); `homelab sync` installs the skills into
 `~/.codex/skills` and `~/.claude/skills` from the exact reviewed commit pinned in
 homelab's `skill-sources.json`. Run `homelab sync --check` and start a fresh
 agent session.

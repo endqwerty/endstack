@@ -2,7 +2,7 @@
 """Lint skills/: frontmatter, size, portability, links. Exit 1 on any problem."""
 import os, re, sys
 
-CORE = {"build", "babysit", "ship", "autopilot-stack", "autopilot-full", "verify"}
+CORE = {"build", "babysit", "ship", "autopilot-full", "verify"}
 CORE_MAX = 2200      # bytes, SKILL.md of a core delivery skill
 OTHER_MAX = 6000     # bytes, SKILL.md of any other skill; detail goes in references/
 DESCRIPTION_MAX = 200  # characters; a visible description is paid on every request

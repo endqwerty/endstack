@@ -12,7 +12,6 @@ repository names in its `AGENTS.md`. Background and the merge-policy design:
 | `build` | feature, bug-fix, opening-a-pr | Implement, check and verify a non-draft PR; neither watch nor merge automatically. |
 | `babysit` | babysit | Handle existing PR feedback and checks; stop at merge-ready. Status-only is one read-only pass. |
 | `ship` | shipping | Explicitly authorized landing of identified, currently verified work; confirm destination. |
-| `autopilot-stack` | autopilot-stack | Build a bounded, verified dependent PR chain; the operator lands it. |
 | `autopilot-full` | autopilot-full | Compose build, babysit and ship for a bounded queue with explicit merge authority. |
 | `verify` | principle-prove-it-works, interrogate (single reviewer), blast-radius | A verifier from a different provider than the author, read-only, answers each check pass / issues / not checked and tries to break the change; tied to the head it judged. |
 | PR brief (inside `build`, not another skill) | opening-a-pr, technical-writing, unslop | Short, standalone why, what, approach, checks, deciding evidence and reviewer. |

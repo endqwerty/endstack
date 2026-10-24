@@ -2,7 +2,7 @@
 
 ## What can I call?
 
-The six distilled skills are distributed through `homelab sync` from a pinned,
+The five delivery skills are distributed through `homelab sync` from a pinned,
 reviewed revision of endstack. A fresh agent session discovers them in its user
 skill directory. Use a named command when you want a particular workflow; an
 ordinary matching request can also select it automatically.
@@ -12,7 +12,6 @@ ordinary matching request can also select it automatically.
 | build | `$build` | `/build` |
 | babysit | `$babysit` | `/babysit` |
 | ship | `$ship` | `/ship` |
-| autopilot-stack | `$autopilot-stack` | `/autopilot-stack` |
 | autopilot-full | `$autopilot-full` | `/autopilot-full` |
 | verify | `$verify` | `/verify` |
 
@@ -26,12 +25,11 @@ the named skill and check that the agent loads its installed `SKILL.md`.
 | [build](../skills/build/SKILL.md) | A feature or bug fix | Checked, independently verified non-draft PR; no watcher or merge |
 | [babysit](../skills/babysit/SKILL.md) | Existing PR feedback and failed checks | Merge-ready PR; no merge. Status questions are read-only |
 | [ship](../skills/ship/SKILL.md) | Explicitly landing identified work | Confirmed revision in its destination, or a named blocker |
-| [autopilot-stack](../skills/autopilot-stack/SKILL.md) | A bounded dependent queue, with human landing | Verified bottom-up PR chain; you land it |
 | [autopilot-full](../skills/autopilot-full/SKILL.md) | A bounded queue with explicit merge authority | Verified, landed items; held items remain held |
 | [verify](../skills/verify/SKILL.md) | Independent evidence on an exact revision | Read-only pass / issues / not checked verdict; no merge authority |
 
-Only these six names are selected for installation. Upstream's other skills
-and its playbooks remain reference material, not extra endstack commands.
+The role skills (architect, swarm, tdd and the rest) install alongside them;
+ROUTING.md says when each applies. Upstream's playbooks remain reference only.
 
 ## Install and update
 
@@ -83,10 +81,6 @@ stale verdicts and operator holds still block. Merely asking how ship works
 does not execute it. Automatic merge-when-ready needs its own explicit request
 and safeguards for the verified revision; green checks alone do not grant it.
 
-**Autopilot stack:**
-> $autopilot-stack Implement [A, then B, then C] as a
-> reviewable PR chain. Verify every layer and leave all merges to me.
-
 **Full autopilot (the special case):**
 > $autopilot-full Implement and merge only [A, B, C],
 > in dependency order, after verification. I authorize those merges into
@@ -102,8 +96,9 @@ and safeguards for the verified revision; green checks alone do not grant it.
 ## Normal flow
 
 Build → you review → optionally babysit → you merge, or explicitly ask ship.
-Choose autopilot-stack for a larger dependent queue with the same human merge
-boundary. Choose autopilot-full only when you deliberately delegate landing.
+For a dependent queue you land yourself, build each item on its parent's
+branch. Choose autopilot-full only when you deliberately delegate landing.
+(autopilot-stack, which built such a chain, was dropped on 2026-10-23 as unused.)
 “Keep going”, unused allowance and ownership do not silently switch modes.
 This repository now uses review-first delivery; other repositories retain their
 own rules until deliberately migrated. Nothing here changes global rules.

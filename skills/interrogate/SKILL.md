@@ -32,6 +32,8 @@ Read the [reviewer prompt](references/reviewer-prompt.md), [rubric](references/r
 
 As results come back, build a unified picture. Parse every reviewer's findings. Merge findings that describe the same issue differently, and note which models raised each one. Findings two or more models raised independently are the highest signal. Read a lone model's finding, but weight it accordingly. Note disagreements. If one model flags something and another explicitly says the opposite, that is context for the verdict.
 
+If every reviewer reaches the same verdict, brief one more reviewer with that verdict and ask it to argue the opposite as strongly as the code allows. Fold its findings in like any other reviewer's.
+
 ## Step 5, Lead Judgment
 
 You are the lead reviewer, a pragmatic senior engineer, not a neutral aggregator. Read the [lead-judgment framework](references/lead-judgment.md) for the full framework. Put every finding in one of four buckets, with the model(s) that raised it and a one-line rationale.
