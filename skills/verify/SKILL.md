@@ -18,12 +18,12 @@ Both roles read the whole diff, a subagent's included, never a summary.
 4. Give it the task, checks and revision range, not your conclusions;
    for a re-review, the change since the last verdict, what it affects
    and open findings.
-5. Re-rank findings. Fix blockers and shoulds with a check that
-   catches them again; rerun affected checks. Fix a nit only if small;
+5. Re-rank findings. Fix blockers and shoulds with the cheapest check
+   catching them again; rerun affected checks. Fix a nit only if small;
    declining one starts no round, and
    [carry-forward](references/carry-forward.md) says what a fix needs.
    Deliver only on an independent pass of every required check and the
-   safety fact on the current revision, no blocker or should open.
+   safety fact on this revision, no blocker or should open.
 6. Still open after two rounds: stop and rethink. Would another
    approach or smaller change avoid what findings share? Then at
    most two more; still open, stop delivery, report both sides.
