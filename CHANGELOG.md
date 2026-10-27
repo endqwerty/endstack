@@ -3,9 +3,10 @@
 ## 2026-10-27 — A finding names what reaches it
 
 Daniel asked twice in Mainworthy for fewer guards against states the design
-rules out; agents kept adding them. Of 32 guards added there after a review
-finding, 4 guarded nothing reachable, and each came from a finding that named
-a bad outcome with no present path to it ("a future parser could…").
+rules out; agents kept adding them. Of 32 guards sampled there (30 asked for
+by a verifier or the audit), 4 guarded nothing reachable; each rested on a bad
+outcome with no present path to it ("a future parser could…"), three in a
+finding and one in the author's own reasoning.
 
 - `verify`: the verifier reports an issue only with what reaches it in this
   revision (an input or caller, stored or imported data, a race); a state only
