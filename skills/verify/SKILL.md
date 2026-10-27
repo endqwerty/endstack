@@ -5,6 +5,8 @@ description: Independent check before a behaviour, data, auth, money or deployme
 
 # Verify
 
+Both roles read the whole diff, a subagent's included, never a summary.
+
 ## Author
 
 1. Before editing, write checks on the real surface: command, page, API,
@@ -42,5 +44,4 @@ description: Independent check before a behaviour, data, auth, money or deployme
   result or warning, wording, extra tests or guards, small costs, what
   only later code makes. Data loss, security or a trust boundary is never
   a nit.
-- Read the whole diff yourself, a subagent's included, never a summary.
-  Name the revision and patch you judged. Change nothing.
+- Name the revision and patch you judged. Change nothing.

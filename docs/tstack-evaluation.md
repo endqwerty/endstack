@@ -212,9 +212,11 @@ What the replay shows:
   babysit it to ready, unmerged.
 - What it would have let through: nothing in the sample. The 13 rounds after
   nit-only rounds found no bug.
-- Saving: those rounds and disputes past round three, about 5–10% of verify
-  rounds. Answering bot findings targets 7 of the 17 escapes outside
-  Mainworthy.
+- Saving, as first drafted with a three-round stop: those rounds and
+  disputes past round three, about 5–10% of verify rounds. The adopted rule
+  (rethink after two, at most two more) was not re-measured: it moves the
+  pause earlier but still allows four rounds. Answering bot findings targets
+  7 of the 17 escapes outside Mainworthy.
 
 **C. Only the `verify` part of B.** The same saving, but it leaves the
 bot-finding escapes alone.
