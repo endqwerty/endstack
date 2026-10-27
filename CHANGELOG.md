@@ -12,8 +12,8 @@ three past Mainworthy rounds:
     or nit, and the author re-ranks; a contrived input that only gives a
     wrong result or warning is a nit, while data loss, security or a trust
     boundary never is;
-  - a nit is fixed only if small; declining it or a prose fix starts no
-    round, and other fixes follow carry-forward;
+  - a nit is fixed only if small; declining it starts no round, and a fix
+    follows carry-forward;
   - a re-review covers the change since the last verdict;
   - after three rounds, an open blocker or should stops delivery, with both
     sides reported;

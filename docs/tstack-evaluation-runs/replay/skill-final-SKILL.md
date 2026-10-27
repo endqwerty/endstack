@@ -20,11 +20,11 @@ A change needs evidence from someone who did not write it.
    affects, with open findings, not rebuttals.
 5. Re-rank findings. Fix blockers and shoulds with a check that
    catches them again; rerun affected checks. Fix a nit only if small;
-   declining one or a prose fix starts no round; for other revisions see
-   [carry-forward](references/carry-forward.md). Deliver only on an
-   independent pass of every required check and the safety fact on the
-   current revision, no blocker or should open. After three rounds an
-   open one stops delivery; report both sides.
+   declining one starts no round, and
+   [carry-forward](references/carry-forward.md) says what a fix needs.
+   Deliver only on an independent pass of every required check and the
+   safety fact on the current revision, no blocker or should open. After
+   three rounds an open one stops delivery; report both sides.
 
 ## Verifier
 
