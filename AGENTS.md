@@ -55,7 +55,10 @@ Delivery: review-first. Work on the T3 branch in your worktree and follow
 [build](skills/build/SKILL.md) through a checked, independently verified PR.
 The user reviews and merges by default. Opening a PR does not start a watcher;
 use [babysit](skills/babysit/SKILL.md) when requested. An explicit request to
-merge identified work invokes [ship](skills/ship/SKILL.md), with its gates.
+merge identified work invokes [ship](skills/ship/SKILL.md), with its gates;
+“autopilot” or “full send” on it invokes
+[autopilot-full](skills/autopilot-full/SKILL.md), which lands it without
+waiting for the user.
 “Keep going” and a budget request are not merge authority. Do not arm auto-merge
 or push directly to `main` to bypass the review boundary.
 Changes to a skill's behaviour get a dry run described in the PR (what the

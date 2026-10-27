@@ -24,11 +24,16 @@ three past Mainworthy rounds:
   - prefer fixes that delete or narrow code;
   - decline nits as follow-ups, and say nothing when nothing needs doing;
   - rerun checks when the base changed files the pull request touches.
-- `ship`: every finding, a bot's included, is answered before landing; "full
-  send" counts as an explicit request.
-- ROUTING: "full send" means build, babysit and ship that change; "full stop"
-  means the same, ending ready and unmerged. Homelab's copy of ROUTING in
-  `agents/AGENTS.md` must follow when this lands.
+- `ship`: every finding, a bot's included, is answered before landing;
+  "autopilot" or "full send" on the work counts as an explicit request.
+- `autopilot-full`: "autopilot" or "full send" on named work authorizes the
+  work and its landing, and nothing waits for Daniel's approval ("If I want to
+  give approval. I'd just not use the word autopilot"). `verify`'s
+  independent pass still gates each merge.
+- ROUTING and AGENTS.md: "autopilot" or "full send" on a change runs
+  `autopilot-full`; "full stop" means build and babysit to ready, unmerged
+  (before, `main` read "full stop" as an explicit stop). Homelab's copy of
+  ROUTING in `agents/AGENTS.md` must follow when this lands.
 
 ## 2026-10-27 — A finding names what reaches it
 
