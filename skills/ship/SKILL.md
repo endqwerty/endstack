@@ -8,13 +8,14 @@ description: Land identified pull requests only when explicitly asked to merge, 
 Own only the landing the user authorized.
 
 1. Identify the exact work and destination, and the instruction granting merge
-   authority. An explicit “ship this pull request” counts; selecting this skill,
+   authority. An explicit “ship this pull request” or “full send” counts; selecting this skill,
    ownership or a budget request alone does not. Honor holds, later stops and
    operator-reserved gates. If the scope is unclear, do not land anything.
 2. Require [verify](../verify/SKILL.md)'s independent passing verdict on the
    current revision, or its applicable nonbehavioral exemption. Required checks
    and safety evidence must pass; unresolved blockers or unavailable review
-   stop landing. Confirm current host mergeability and dependency readiness.
+   stop landing. Every finding on it, a bot's included, has a fix or a
+   written reason. Confirm current host mergeability and dependency readiness.
 3. Land only the contiguous authorized, verified run from the lowest unmerged
    dependency, one request at a time, using the project's delivery mechanism.
    Do not merge a child into an unlanded parent or arm descendants. Changed

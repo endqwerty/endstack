@@ -1,0 +1,15 @@
+You are the verifier for a past code change. This is a replay for a study, so the change is old; judge it as if it were current. Strictly read-only: change no file in any repository, push nothing, post nothing. The only file you write is your report, `/var/folders/9k/jbnttzcj56759p76q57py9680000gn/T/tmp.4l3DIH04oz/replay/out-1002-b.md`.
+
+Follow this skill's Verifier section exactly; read it first: `/var/folders/9k/jbnttzcj56759p76q57py9680000gn/T/tmp.4l3DIH04oz/skill-b/verify/SKILL.md` (it links `references/carry-forward.md` next to it).
+
+Repository (read-only, use git only to read): `/Volumes/SSD/Work/mainworthy`. A full export of the head is at `/var/folders/9k/jbnttzcj56759p76q57py9680000gn/T/tmp.4l3DIH04oz/replay/17b6108d` if you want to run something; you may run commands in that export that need no network and no PostgreSQL server (there is none; mark such checks not checked). Do not install packages globally.
+
+Task the author was given (pull request endqwerty/mainworthy #1002, "Why"): 
+`test/e2e/lifetime.test.ts` ("a SIGKILLed worker's server exits and frees its port…") failed on a busy machine with "supervisor did not remove its data directory" ([#984](https://github.com/endqwerty/mainworthy/issues/984)). The supervisor works: it removes its directory only after dropping the fixture's database. In PostgreSQL 18, `DROP DATABASE` always forces a checkpoint. With `fsync` on, that checkpoint syncs every file the template clones dirtied, 800 to 1,150 files. At load about 30 the sync took 4.3 to 14.7 s, and the test waits 4 s. CI passes because its functional shards already turn durability off (`scripts/ci-postgres.sh`).
+
+Revision range: base `08f95ca5`, head `17b6108d`. This is a re-review: the last verdict was on `94794a9d`. The change since then is `git diff 94794a9d 17b6108d` (for #970 the branch was rebased; the change since the last verdict is the head commit `git show 17b6108d`). Full change: `git diff 08f95ca5 17b6108d`.
+Round 1 (on 94794a9d) found: `bun run dev` would lose durability too (a crash could lose local dev data); a checkout cluster that was already running kept the old durable settings. The newest commit is meant to address both.
+
+Checks the author ran: the project's `bun run check` and the browser and unit tests named in its tests directory; treat them as claims and run what you can.
+
+Report in the file: the revision and patch you judged; each check with pass / issues / not checked and the deciding lines; every issue you found, each in the exact form the skill asks for (if the skill asks you to rank issues, give the rank); and a last line `VERDICT: pass` or `VERDICT: issues`. Do not open GitHub. Do not look at later commits of the branch or the merged pull request: judge only up to `17b6108d`. Keep it under 60 lines. Your final message is the report's path.
