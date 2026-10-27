@@ -18,8 +18,9 @@ deploy, the build CI runs, or someone answering a bot's comment.
 
 So the draft on this branch takes three things from tstack:
 
-- ranks on findings and a stop rule (nits start no round, three rounds cap a
-  dispute);
+- ranks on findings and a stop rule (nits start no round; two rounds with a
+  blocker or should still open mean rethinking the approach, and two more
+  cap the dispute);
 - its babysit habits (answer every finding, bots included, and stay quiet when
   nothing needs doing);
 - the "full send" and "full stop" phrases: "full send" (or "autopilot") runs
@@ -194,8 +195,10 @@ What the replay shows:
     follows carry-forward (prose nothing reads as instructions keeps the
     verdict; anything else gets the review carry-forward asks for);
   - a re-review covers the change since the last verdict and what it affects;
-  - after three rounds, an open blocker or should stops delivery with both
-    sides reported.
+  - after two rounds with a blocker or should still open, the author stops
+    and rethinks the approach, then gets at most two more rounds before
+    delivery stops with both sides reported (three rounds in the first
+    draft; Daniel's two, below).
 - `babysit` takes from tstack:
   - every finding from a person or a bot, earlier pushes included, gets a fix
     or a written reason;
@@ -249,6 +252,12 @@ Daniel's answers on 2026-10-27, after reading the options:
   write nothing (dry run 2 below). Babysitting to ready, not just opening the
   pull request, is an agent's choice: it matches tstack's "full stop" and
   makes the only difference from "full send" the merge.
+- **Two review rounds, then rethink**: "let's limit reviewers to 2 rounds
+  and if there are still issues, for the agent to pause and rethink before
+  trying again." Round 2 found 13 bugs in 80 rounds and round 3 found 1 in
+  37, so the pause lands where rounds stop paying. "Trying again" is capped
+  at two more rounds, then delivery stops with both sides reported: an
+  agent's choice, so a dispute cannot loop.
 - **The audit runs earlier** ("yes let it run earlier"): Mainworthy's rule,
   changed there in its own pull request. Its first round runs beside the
   first verify round on the same head; it runs again only on a head the

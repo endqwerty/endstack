@@ -15,8 +15,12 @@ three past Mainworthy rounds:
   - a nit is fixed only if small; declining it starts no round, and a fix
     follows carry-forward;
   - a re-review covers the change since the last verdict;
-  - after three rounds, an open blocker or should stops delivery, with both
-    sides reported;
+  - a blocker or should still open after two rounds stops the fixing: the
+    author rethinks the approach (would another one, or a smaller change,
+    avoid what the findings share?), then gets at most two more rounds
+    before delivery stops with both sides reported (Daniel: "limit reviewers
+    to 2 rounds and if there are still issues, for the agent to pause and
+    rethink before trying again");
   - a check the verifier could not run is "not checked", never an issue.
 - `babysit`, merged with tstack's `babysit-pr`:
   - every finding from a person or a bot, earlier pushes included, gets a fix
