@@ -9,8 +9,8 @@ outcome with no present path to it ("a future parser could…"), three in a
 finding and one in the author's own reasoning.
 
 - `verify`: the verifier reports an issue only with what reaches it in this
-  revision (an input or caller, stored or imported data, a race); a state only
-  a later change makes is a note. The author fixes reachable findings. Wording
+  revision (input, a caller, stored or imported data, a race, a setting it
+  accepts); what only later code makes is a note. The author fixes reachable findings. Wording
   trimmed to stay under the core size limit, with no change in meaning.
   Evidence and dry run: [docs/verify-reachable-findings.md](docs/verify-reachable-findings.md).
 

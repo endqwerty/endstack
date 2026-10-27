@@ -14,10 +14,10 @@ A change needs evidence from someone who did not write it.
 2. Run them on the real artifact; keep the deciding lines. Passing tests
    alone do not prove behaviour.
 3. Ask for a read-only verifier from a different provider, never another
-   session of your own. Without one, report unverified and do not deliver.
+   session of your own. Without one, report unverified; do not deliver.
 4. Give it the task, checks and exact revision range, not your conclusions.
    A re-review covers what changed since the last verdict and what it can
-   affect, with earlier findings, never your reasons to dismiss them.
+   affect, with earlier findings, never why you dismiss them.
 5. Fix each reachable finding with a check that catches it again; rerun
    affected checks; answer others with a reason. A verdict covers a patch:
    [carry-forward](references/carry-forward.md) says when it, or a result,
@@ -34,11 +34,11 @@ A change needs evidence from someone who did not write it.
 - Try to break it: other inputs, failure paths, what else uses the
   changed code, what the diff omits. A defect already in the base
   is the base's, unless the change copies it or newly reaches it.
-- An issue names what reaches it in this revision: an input or caller,
-  stored or imported data, a race. A state only a later change makes is a
-  note.
+- An issue names what reaches it in this revision: input, a caller, stored
+  or imported data, a race, a setting it accepts. What only later code makes
+  is a note.
 - A check fails: suspect your method; reproduce it.
-- Answer each check: **pass**, **issues**, or **not checked**, with what you
+- Answer each check: **pass**, **issues** or **not checked**, with what you
   ran and the deciding lines. A check you could not run is never a pass.
 - Name the revision and patch you judged.
 - Change nothing.
