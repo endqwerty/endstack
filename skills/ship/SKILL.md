@@ -8,9 +8,10 @@ description: Land identified pull requests only when explicitly asked to merge, 
 Own only the landing the user authorized.
 
 1. Identify the exact work and destination, and the instruction granting merge
-   authority. An explicit “ship this pull request” or “full send” counts; selecting this skill,
-   ownership or a budget request alone does not. Honor holds, later stops and
-   operator-reserved gates. If the scope is unclear, do not land anything.
+   authority. An explicit “ship this pull request”, or “autopilot” or “full
+   send” on it, counts; selecting this skill, ownership or a budget request
+   alone does not. Honor holds, later stops and operator-reserved gates. If
+   the scope is unclear, do not land anything.
 2. Require [verify](../verify/SKILL.md)'s independent passing verdict on the
    current revision, or its applicable nonbehavioral exemption. Required checks
    and safety evidence must pass; unresolved blockers or unavailable review

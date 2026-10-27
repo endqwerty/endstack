@@ -22,10 +22,12 @@ So the draft on this branch takes three things from tstack:
   dispute);
 - its babysit habits (answer every finding, bots included, and stay quiet when
   nothing needs doing);
-- the "full send" and "full stop" phrases.
+- the "full send" and "full stop" phrases: "full send" (or "autopilot") runs
+  `autopilot-full` and merges without waiting for Daniel; "full stop" builds
+  and babysits to a ready pull request, unmerged.
 
-It keeps endstack's independent verdict on the current revision. Three choices
-are Daniel's, listed under [Choices left open](#choices-left-open).
+It keeps endstack's independent verdict on the current revision. Daniel's
+answers to the open choices are under [Decided](#decided).
 
 ## What tstack is
 
@@ -202,8 +204,9 @@ What the replay shows:
   - rerun checks when the base changed files the pull request touches.
 - `ship`: every finding, a bot's included, has a fix or a written reason
   before landing.
-- `ROUTING.md`: "full send" means build, babysit and ship that change; "full
-  stop" means the same, ending ready and unmerged.
+- `ROUTING.md`: "full send" or "autopilot" on a change means `autopilot-full`
+  for it, merging without waiting for approval; "full stop" means build and
+  babysit it to ready, unmerged.
 - What it would have let through: nothing in the sample. The 13 rounds after
   nit-only rounds found no bug.
 - Saving: those rounds and disputes past round three, about 5–10% of verify
@@ -226,7 +229,32 @@ bot-finding escapes alone.
   rules already cover a pull request's text. The comment callout could be
   added later.
 
-## Choices left open
+## Decided
+
+Daniel's answers on 2026-10-27, after reading the options:
+
+- **B**, with `verify`, `babysit` and `ship` as drafted ("verify, babysit, ship
+  sound good"), so the draft's "should" below stands.
+- **"Full send" is autopilot**, and autopilot needs no approval: "autopilot-full
+  should not require approval in the future. If I want to give approval. I'd
+  just not use the word autopilot." `autopilot-full` now takes "autopilot" or
+  "full send" on named work as authority for both the work and its landing,
+  and waits for nothing from him. It still lands only on `verify`'s
+  independent pass on the current revision: the global rules require that for
+  every merge, and #983's round-5 blocker shows what dropping it costs.
+- **"Full stop" is build**, made explicit: "full stop is basically my build or
+  just telling the agent to do something, it may be worth making it more
+  explicit." ROUTING says it means build and babysit to ready, unmerged.
+  Without that line, `main`'s skills read "full stop" as an explicit stop and
+  write nothing (dry run 2 below). Babysitting to ready, not just opening the
+  pull request, is an agent's choice: it matches tstack's "full stop" and
+  makes the only difference from "full send" the merge.
+- **The audit runs earlier** ("yes let it run earlier"): Mainworthy's rule,
+  changed there in its own pull request. Its first round runs beside the
+  first verify round on the same head; it runs again only on a head the
+  verifier has passed.
+
+The choices as they were put to him:
 
 1. **Which option.** This branch is B; merging it picks B. C is B without the
    `babysit`, `ship` and `ROUTING.md` changes.
@@ -299,3 +327,21 @@ What this shows:
   not ready. It also says it would not merge.
 - Not exercised: a live pull request, a verifier answering round 3, the
   three-round stop, and `babysit` without "full send".
+
+## Dry run 2: autopilot, full send, full stop
+
+The same method after Daniel's answers: two Claude Sonnet 5.5 runs, one with
+`main`'s skills and one with this branch's, each given three unattended
+messages. Scenario and answers:
+[tstack-evaluation-runs/dry-run-2/](tstack-evaluation-runs/dry-run-2/).
+
+| Message | `main`'s skills | This branch |
+| --- | --- | --- |
+| "autopilot: add a retry…" | Builds a pull request and stops: "a skill name, 'autopilot' or 'keep going' alone is insufficient" | `autopilot-full`: builds, babysits, gets a pass, merges; "nothing then waits for the user's approval" |
+| "full send on #412" (one bot finding open) | No merge: "'Full send' names none of" merge, land or ship | Answers the finding, re-verifies if the patch changed, merges #412 only |
+| "full stop: add a retry…" | Writes nothing: reads it as "an explicit stop means no further writes" and asks | Builds and babysits to ready, unmerged, quoting ROUTING |
+
+Both runs keep the independent pass as the merge gate. Not exercised: a live
+pull request, or a host rule that requires an approving review (the branch's
+`autopilot-full` removes "the user's approval, never evidence or the host's
+protections", so that would stop it).
