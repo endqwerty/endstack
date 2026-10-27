@@ -74,6 +74,9 @@ scope but not shown to be hit. The records and both summaries are in
 records are left out because that repository is not Daniel's; its counts are
 in the summary. A round is one distinct (repository, pull request, round
 number), and `tables.py` there recomputes both tables from the records.
+everduet adds, as aggregates only: 15 first rounds and 4 second rounds; one
+later round after a non-pass with only nits or risks, one after a pass, and no
+bug after round 1.
 
 **Verify findings by round** (all repos; 140 pull requests had verification):
 
@@ -185,8 +188,9 @@ What the replay shows:
     nit is a contrived input that only gives a wrong result or warning,
     wording, extra tests or guards, small costs, or what only later code
     makes; data loss, security or a trust boundary is never a nit;
-  - a nit is fixed only if small; declining it or a prose fix starts no
-    round, and any other fix follows carry-forward;
+  - a nit is fixed only if small; declining it starts no round, and a fix
+    follows carry-forward (prose nothing reads as instructions keeps the
+    verdict; anything else gets the review carry-forward asks for);
   - a re-review covers the change since the last verdict and what it affects;
   - after three rounds, an open blocker or should stops delivery with both
     sides reported.
