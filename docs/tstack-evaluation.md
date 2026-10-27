@@ -8,9 +8,9 @@ review loops tedious and mostly nitpicking. He doesn't want `takeover`, and
 
 ## Answer
 
-Adopt tstack's ideas, not its files. Measured on 188 of Daniel's merged pull
-requests, extra verify rounds rarely find a bug. But the rounds that nits alone
-start are few (13 of 289). Most later rounds follow a finding that something
+Adopt tstack's ideas, not its files. Measured on 188 merged pull requests from
+Daniel's agents, extra verify rounds rarely find a bug. But the rounds that
+nits alone start are few (13 of 288). Most later rounds follow a finding that something
 real reaches, or a head that changed for another reason: in Mainworthy, a
 second loop (the security audit) and CI fixes. And the defects that actually
 shipped would not have been caught by another reading round. They needed a live
@@ -37,9 +37,9 @@ Nine skills, MIT, four commits from 2026-10-24 to 10-27:
 - `babysit-pr`, with a 25 KB `pr-wait` watcher.
 - `file-pr`, `leaving-pr-comments`, `takeover`, `modernize`.
 
-The skills name their tools (`gh`, T3 Code's `delegate_task` and
-`watch_pull_request`, a Sol model), so none passes `check-skills.py` as
-written.
+Most skills name their tools (`gh`, T3 Code's `delegate_task` and
+`watch_pull_request`, a Sol model): eight of the nine fail `check-skills.py` as
+written. Only `takeover` passes.
 
 ## Where the loops come from
 
@@ -48,7 +48,7 @@ written.
 | Reviewers per round | A swarm: two or more audit lanes, a live lane, a regression lane against trunk | One verifier from another provider | One Sol reviewer |
 | What starts another round | Any push that changes the patch; every proven finding, notes included | Any change to the patch that carry-forward doesn't cover; every reachable finding is fixed | An open blocker or should, or changed behaviour the last approval doesn't cover. Nits never do |
 | Severity | None | None: reachable or not | Blocker / should / nit, re-ranked by the author |
-| Cap | None (hourly audit ticks) | None: "a review limit is not approval" | 3 rounds; 5 for security, auth, data loss or concurrency |
+| Cap | None (hourly audit ticks) | None: "a review limit is not approval" | 3 rounds; 5 for security, auth, data loss or concurrency while a blocker or should stays open |
 | How it ends | A clean swarm verdict on the merge-ready head | An independent pass on the current revision | Approval of the current behaviour diff, or a dispute after two replies or budget end, which goes to the user |
 | Unattended merge gate | Clean verdict plus the operator's grant | `verify` pass plus an explicit `ship` | Own proof, green checks, bots answered, no human change request, up to date. The reviewer's approval is not part of the gate |
 | Scope creep | Not addressed | Not addressed | Explicit: decline nits, and cut first if review grew the diff |
@@ -66,12 +66,14 @@ description:
 - agent-factory, endstack and codex-reset-watch: all of each.
 - crosspoint-reader and everduet: the last 20 and 25.
 
-They tagged each finding as bug, risk, nit or false positive. A bug is
+Everduet is NovikovaYang's repository, where Daniel's agents also merge. They
+tagged each finding as bug, risk, nit or false positive. A bug is
 something the intended case or a real caller hits; a risk is plausible and in
 scope but not shown to be hit. The records and both summaries are in
 [tstack-evaluation-runs/](tstack-evaluation-runs/). everduet's per-round
 records are left out because that repository is not Daniel's; its counts are
-in the summary.
+in the summary. A round is one distinct (repository, pull request, round
+number), and `tables.py` there recomputes both tables from the records.
 
 **Verify findings by round** (all repos; 140 pull requests had verification):
 
@@ -90,11 +92,11 @@ in the summary.
 
 **What starts later rounds:**
 
-| Later verify rounds (149) | Count | Bugs found in them |
+| Later verify rounds (148) | Count | Bugs found in them |
 | --- | ---: | ---: |
-| After a round whose findings were only nits | 13 | 0 |
-| After a round whose findings were only nits or risks | 47 | 1, filed separately as out of scope |
-| After a round that passed (the head changed for another reason) | 44 (34 in Mainworthy) | 3 |
+| After a round that did not pass and found only nits | 13 | 0 |
+| After a round that did not pass and found only nits or risks | 46 | 0 (one more, already on `main`, was filed separately) |
+| After a round that passed, notes included (the head changed for another reason) | 44 (34 in Mainworthy) | 3 |
 | Beyond round 3 | 31 | 3, all on new heads |
 
 **Mainworthy's security audit is a second loop:**
@@ -135,7 +137,7 @@ cell, so a cell is a sample, not a rate.
 
 | Past round | What happened then | Current text (a) | This branch (b) |
 | --- | --- | --- | --- |
-| #970 round 2, `ed6050e2` | Two more rounds followed, finding only nits (pre-1970 years, extreme Jest times) | Found the same two; verdict issues, so another round | Found the same two and ranked both nit ("a rare runner input", "an extreme malformed numeric timestamp"): no further round. 4 rounds become 2 |
+| #970 round 2, `ed6050e2` | Two more rounds followed, finding only nits (pre-1970 years, extreme Jest times) | Found the same two; verdict issues, so another round | Found the same two and ranked both nit ("a rare runner input", "an extreme malformed numeric timestamp"): no further round. If the database checks then passed, 4 rounds would have become 2 |
 | #1002 round 2, `17b6108d` | Found `pg_ctl reload` returning before settings applied (needs a live server) | Missed it (no server); found a failed reload that is never retried, and a reload that ignores the replacement binaries | Found the same two and ranked both should (stored data reaches them): the round still runs |
 | #983 round 5, `b9a57179` | Found a blocker: the undo refresh broke a withdrawal's hold on rules | Found and reproduced it | Run 1 missed it, and ranked "checks I could not run" as a should. Run 2, on the final text: found and reproduced it twice, ranked should ("refreshed basis defeats the withdrawal guard on a policy change"), so the round runs |
 
@@ -146,9 +148,14 @@ What the replay shows:
 - Their weak point is a verifier filing its own environment limits as
   findings. The text now says a check it could not run is "not checked, never
   a pass or an issue".
-- The b runs for #970, #1002 and #983 run 1 used the text before that
-  sentence and a few trims for size; #983 run 2 used the final text, which is
-  `replay/skill-b-SKILL.md`. The "a" runs used `main`'s `verify`.
+- The b runs used earlier drafts, kept in `replay/`. After the replay, the
+  independent review found that "rare paths" in nit overlapped "input reaches
+  it" in should. The final text makes a contrived input a nit only when all it
+  gives is a wrong result or a missing warning, and never when it means data
+  loss, security or a trust boundary. #970's two findings are that kind, and
+  #1002's and #983's are not, so the final text ranks all three cases as the
+  replay did; it was not replayed again. The "a" runs used `main`'s
+  `verify`.
 
 ## Options
 
@@ -162,20 +169,24 @@ What the replay shows:
 - For a Codex author, the reviewer is the same family.
 - It conflicts with the global rule that nothing merges without an
   independent pass (homelab `agents/AGENTS.md`).
-- Every skill needs porting to pass `check-skills.py`.
+- Eight of the nine skills need porting to pass `check-skills.py`.
 - What it would have let through:
   - Rare paths become nits: #919's deadlocks, #970's crafted-archive read,
     #920's race that could undo a restore, and #1002's unretried reload.
   - Fixes pushed during babysitting get proof but no re-review: #983's round-5
     blocker and #901's round-5 defects.
-- Saving: roughly the 47 rounds after nit-or-risk rounds plus the rounds past
+- Saving: roughly the 46 rounds after nit-or-risk rounds plus the rounds past
   three, about a quarter of verify rounds.
 
 **B. Merge, keeping endstack's skeleton (drafted on this branch).**
 
 - `verify`:
-  - ranks findings blocker, should or nit;
-  - nits are fixed only if small and behaviour-free, and start no round;
+  - each issue names what reaches it and is ranked blocker, should or nit; a
+    nit is a contrived input that only gives a wrong result or warning,
+    wording, extra tests or guards, small costs, or what only later code
+    makes; data loss, security or a trust boundary is never a nit;
+  - a nit is fixed only if small; declining it or a prose fix starts no
+    round, and any other fix follows carry-forward;
   - a re-review covers the change since the last verdict and what it affects;
   - after three rounds, an open blocker or should stops delivery with both
     sides reported.
@@ -215,14 +226,19 @@ bot-finding escapes alone.
 
 1. **Which option.** This branch is B; merging it picks B. C is B without the
    `babysit`, `ship` and `ROUTING.md` changes.
-2. **How strict "should" is.** The draft makes any path that input, a caller,
-   stored or imported data, a race or a setting reaches in this revision a
-   should; only rare paths, wording, extra tests or guards and small costs are
-   nits. tstack makes every rare path a nit, except for security, auth, data
-   loss and concurrency. Its rule would skip up to 47 more rounds (about 16%).
-   The cost: findings like #919's deadlocks, #970's crafted archive and
-   #1002's unretried reload become follow-ups instead of fixes in the pull
-   request.
+2. **How strict "should" is.** Three settings:
+   - `main`'s: every reachable finding is fixed, so #970's malformed inputs
+     start rounds too.
+   - The draft: what ordinary use, a caller, stored or imported data, a race
+     or a setting reaches is a should. A contrived input that only gives a
+     wrong result or warning is a nit. Data loss, security or a trust boundary
+     is never a nit.
+   - tstack's: "Another path, rare case, or small cost is a nit, whatever label
+     it came with". It has no safety exception; only its round budget extends
+     to five for those subjects. That would skip up to 46 more rounds (about
+     16%). The cost: findings like #919's deadlocks, #970's crafted archive
+     and #1002's unretried reload become follow-ups instead of fixes in the
+     pull request.
 3. **Mainworthy's audit cadence.** Not part of this branch: it is that
    project's rule. Running the audit beside verify round 1 on the same head,
    then once on the final head, would let one fix round answer both. That
@@ -274,5 +290,8 @@ What this shows:
 - The current skills already handled the bot finding in this paper case, so
   the case for the bot rule rests on the escape data (7 of 17), not on this
   run.
-- Not exercised: a live pull request, a verifier answering round 3, and
-  `babysit` without "full send".
+- Run y's step 6 calls a pull request blocked after three rounds "ready but
+  unmerged". The skills don't allow that label: an open blocker or should is
+  not ready. It also says it would not merge.
+- Not exercised: a live pull request, a verifier answering round 3, the
+  three-round stop, and `babysit` without "full send".
