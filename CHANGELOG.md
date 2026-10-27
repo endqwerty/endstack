@@ -1,5 +1,18 @@
 # Change log
 
+## 2026-10-27 — A finding names what reaches it
+
+Daniel asked twice in Mainworthy for fewer guards against states the design
+rules out; agents kept adding them. Of 32 guards added there after a review
+finding, 4 guarded nothing reachable, and each came from a finding that named
+a bad outcome with no present path to it ("a future parser could…").
+
+- `verify`: the verifier reports an issue only with what reaches it in this
+  revision (an input or caller, stored or imported data, a race); a state only
+  a later change makes is a note. The author fixes reachable findings. Wording
+  trimmed to stay under the core size limit, with no change in meaning.
+  Evidence and dry run: [docs/verify-reachable-findings.md](docs/verify-reachable-findings.md).
+
 ## 2026-10-23 — Fewer skills; corrections are classified; panels get a dissenter
 
 From a review of how agents built Mainworthy: tentative remarks became fixed
