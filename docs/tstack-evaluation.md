@@ -356,3 +356,23 @@ Both runs keep the independent pass as the merge gate. Not exercised: a live
 pull request, or a host rule that requires an approving review (the branch's
 `autopilot-full` removes "the user's approval, never evidence or the host's
 protections", so that would stop it).
+
+## Dry run 3: two rounds, then rethink
+
+Two Claude Sonnet 5.5 runs, one with `a606ac9`'s skills (three-round stop) and
+one with this branch's, on one case: a cache pull request whose second round
+leaves two shoulds open (an import path that skips eviction, and a race that
+re-inserts a stale price). Scenario and answers:
+[tstack-evaluation-runs/dry-run-3/](tstack-evaluation-runs/dry-run-3/).
+
+| | Three-round stop | This branch |
+| --- | --- | --- |
+| After round 2 | Fixes both; still finds the shared cause through `principles` ("fix it there and in every place with the same fault") | Stops and rethinks, quoting step 6; names the shared cause, redoes `build`'s design step, deletes the earlier eviction hook, and leaves a shorter cache lifetime to the user as a product call |
+| Round 3 still open | Stops delivery, reports both sides | One more round allowed, then stops and reports both sides |
+| Merge | No (`build`) | No (`build`) |
+
+What this shows: in this case the old text also reached the root cause, but
+only because another skill pointed there. The new step makes the rethink a
+rule and sends the author back through the design step. It allows a fourth
+round where the old text stopped at three. Not exercised: a live pull request,
+or a dispute where the author is right.
