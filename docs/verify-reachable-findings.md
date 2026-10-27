@@ -39,9 +39,12 @@ The fix is narrow on purpose.
 
 ## What changed
 
-- Verifier: "An issue names what reaches it in this revision: an input or
-  caller, stored or imported data, a race. A state only a later change makes is
-  a note."
+- Verifier: "An issue names what reaches it in this revision: input, a caller,
+  stored or imported data, a race, a setting it accepts. What only later code
+  makes is a note." A setting counts because an operator can change it without
+  a new revision, so nothing would review the change that exposes the defect;
+  Mainworthy's security audit found that gap in the first wording ("a later
+  change" read as covering a changed setting).
 - Author step 5: "Fix each reachable finding" (was "each real finding").
 - To stay under the 2,200-byte core limit, wording elsewhere was shortened with
   no change in meaning; "if review cannot run, stop unverified" was dropped as a
