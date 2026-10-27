@@ -1,5 +1,32 @@
 # Change log
 
+## 2026-10-27 — Ranked findings, fewer rounds; "full send" and "full stop"
+
+Daniel found the review loops tedious and mostly nitpicking and asked whether
+tstack fits better. Measured on 188 merged pull requests, and replayed on
+three past Mainworthy rounds:
+[docs/tstack-evaluation.md](docs/tstack-evaluation.md).
+
+- `verify`:
+  - the verifier ranks each issue blocker, should or nit, and the author
+    re-ranks;
+  - nits are fixed only if small and behaviour-free, and start no round;
+  - a re-review covers the change since the last verdict;
+  - after three rounds, an open blocker or should stops delivery, with both
+    sides reported;
+  - a check the verifier could not run is "not checked", never an issue.
+- `babysit`, merged with tstack's `babysit-pr`:
+  - every finding from a person or a bot, earlier pushes included, gets a fix
+    or a written reason;
+  - prefer fixes that delete or narrow code;
+  - decline nits as follow-ups, and say nothing when nothing needs doing;
+  - rerun checks when the base changed files the pull request touches.
+- `ship`: every finding, a bot's included, is answered before landing; "full
+  send" counts as an explicit request.
+- ROUTING: "full send" means build, babysit and ship that change; "full stop"
+  means the same, ending ready and unmerged. Homelab's copy of ROUTING in
+  `agents/AGENTS.md` must follow when this lands.
+
 ## 2026-10-27 — A finding names what reaches it
 
 Daniel asked twice in Mainworthy for fewer guards against states the design
