@@ -1,0 +1,12 @@
+Routing: a behaviour change with a stateful race, so build (owns the PR), verify (the loop), principles (race and design call), tdd (S2 has a cheap local test). Swarm: no, S2 and S3 touch the same cache code, so one worker, in sequence.
+
+1. Both findings are shoulds, so I fix them. verify, Author 5: "Re-rank findings. Fix blockers and shoulds with a check that catches them again; rerun affected checks." S2 is "stored or imported data" and S3 is "a race", both named "Should" in the Verifier ranking. I do not rebut or decline either.
+2. Root cause, not a third patch. principles, Fix Root Causes: "fix it there and in every place with the same fault". S1 and S2 share the premise "the admin edit is the only writer". I write that premise down and invalidate where the price is stored, so the admin path and the nightly batch both evict (build design.md step 6: "Fixing one client and leaving its sibling broken is an unfinished change"). I also search for any other writer of prices.
+3. S3 (design.md step 7: "two actors at once: what is the end state"). Per Separate Before Serializing Shared State, I remove the sharing: a read inserts only if the price version is unchanged since it read, instead of adding a lock.
+4. tdd: failing tests first for S2 (batch import, then read, expect the new price) and S3 (a deterministic interleaving, not timing), each run red before the fix, then green. Rerun the S1 test and the other affected checks, keeping the deciding output.
+5. Read the whole diff. This is head C and a new patch with new behaviour, so carry-forward gives no shortcut: "Anything else: A fresh verdict on the current revision."
+6. Round 3: ask the same other-provider verifier. verify 4: "A re-review covers the change since the last verdict and what it affects, with open findings, not rebuttals." I give it the task, checks and revision range (B to C), plus S2 and S3 as open, not my conclusions.
+7. Stop rule, verify 5: "After three rounds an open one stops delivery; report both sides."
+   - Pass on every check and the safety fact on head C, no blocker or should open: update the PR (choices made for the user, design note, deciding lines, reviewer and revision C) and report it ready for review.
+   - A should still open after round 3: no round 4. I stop delivery, call it unverified, and report the verifier's finding and my position.
+8. Either way I stop there. build: "Do not merge, arm automatic merging". No babysit (not requested) and no ship (nobody asked to merge). The user reviews and merges.
