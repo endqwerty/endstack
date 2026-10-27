@@ -7,7 +7,11 @@
 - `*-escapes.jsonl`: defects a later pull request fixed, with what would have
   caught them.
 - `*-summary.md`: each mining agent's report.
-- `replay/`: briefs, the two `verify` texts ("a" is `main`'s, "b" this
-  branch's final text) and each verifier's report.
+- `replay/`: briefs, the `verify` texts and each verifier's report.
+  `skill-a-SKILL.md` is `main`'s; `skill-b-SKILL.md` is the draft the #983
+  run 2 replay used (the earlier b runs used a version before its last two
+  edits); `skill-final-SKILL.md` is the branch's text after the independent
+  review.
+- `tables.py`: recomputes the round tables from the records.
 - `dry-run/`: the babysit and ship scenario and the two answers ("x" current
   skills, "y" this branch).
