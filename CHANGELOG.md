@@ -1,5 +1,12 @@
 # Change log
 
+## 2026-10-27 — The cheapest check that catches a finding
+
+- `verify`: the author fixes blockers and shoulds "with the cheapest check
+  catching them again", so a finding seen in a browser whose cause is pure
+  logic gets a unit test, not a browser test. Dry run:
+  [docs/verify-cheapest-check.md](docs/verify-cheapest-check.md).
+
 ## 2026-10-27 — Ranked findings, fewer rounds; "full send" and "full stop"
 
 Daniel found the review loops tedious and mostly nitpicking and asked whether
