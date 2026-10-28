@@ -86,7 +86,10 @@ cost evidence here.
 `skills/verify/SKILL.md` and adds `references/review-rubric.md`. It is not
 applied. It retains the current trigger, provider requirement, independent
 execution of required checks, carry-forward rules and two-round rethink,
-with at most two further rounds. No new skill, hook or reviewer committee.
+with at most two further rounds. No new skill, hook or reviewer committee. The shorter "full diff" line
+drops the explicit "a subagent's included, never a summary" reminder, although
+the full-diff obligation remains. This wording choice is included in the
+unapplied proposal for review.
 
 The rubric supplies requirements, project constraints, the full diff, base
 and head, check evidence, and access to surrounding code. It excludes the
@@ -122,6 +125,8 @@ establishes neither savings nor provider equivalence, recall or safe
 exemptions. Equal outcomes are reported as equal, not as an improvement.
 Independent review found a factual-correction gap in the tested draft. The
 experiment record separates that draft from the corrected final rubric.
+The [scoped independent recheck](anthropic-review-proposal/review-round-2.md)
+passed the final patch and its paper regression cases.
 
 ## Choices left to Daniel
 

@@ -104,6 +104,32 @@ wording nits. The paired runs above used the earlier rubric, retained in
 references/review-rubric.md. They are not claimed as a run of the final text.
 
 Two nits were considered without more policy edits. The core's "full diff"
-still includes delegated changes; the reviewer agreed the duty is preserved.
+still includes delegated changes in substance, but the reviewer flagged the
+removal of the explicit "a subagent's included, never a summary" wording.
+That shortening remains in the proposal; it does not authorize summary-only
+review.
 The proposed one-first-pass default is a recommendation pending Daniel's
 choice, now stated explicitly in the report. It is not installed policy.
+
+## Final verification
+
+[Round 2](review-round-2.md), Claude Opus 5.5 in a fresh context, returned
+**PASS** on `7784b24ab1272aeec0a1e402e4ab2a32186863b6`. No blocker or should
+remained. It rechecked the final patch mechanically and exercised six paper
+cases, including factual correction, a purely local rename, an unrun check
+and a clean result. Those are paper dispositions, not new paired runtime
+trials. The core remains 2,162 bytes.
+
+After that verdict, only this explanatory record, the main report and the
+verdict attachment changed. The proposal patch, final rubric, policy snapshots
+and executable fixtures are byte-identical to the reviewed revision. The
+verdict therefore carries under the prose-only rule. Both repository checkers
+and patch validation were rerun. The full source audit was not repeated.
+
+Attention: round 1 audited a transcript snapshot with one truncated item,
+which was the parent's nested thread-read output. Round 2 checked the two
+subsequent trail corrections. The parent later logged the explicit-summary
+wording omission and documented it here. The rounds-to-pass and token-cost
+effects remain unmeasured. The reviewer noted that false facts in other docs
+are not explicitly named by the new exception; the existing reachability
+rule still governs them. No additional policy was added for that observation.
