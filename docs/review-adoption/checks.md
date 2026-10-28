@@ -65,3 +65,20 @@ real guarantees and evidence, not a new syntax gate:
 | "Validate unknown values once at the boundary that owns them" | boundary ownership and established guarantee |
 | "Do not extract single-use helpers preemptively" | readability benefit and meaningful boundary |
 | "Avoid try/catch where possible" followed by approval of the refined wording | recovery, boundary contract or necessary context, otherwise propagation |
+
+## Independent review corrections
+
+The first fresh verification found three shoulds: ship still restricted
+exemptions to nonbehavioral work, the router still stopped at a missing
+second provider, and the global gate omitted passing/current-revision wording.
+Ship now defers to verify's documented scope. Paper ship check: an exhaustive
+low-risk transform with recorded complete evidence may land under the
+exemption; auth and agent-rule changes still need a fresh passing verdict;
+missing required checks and unresolved findings block both paths. This is
+a rule application, not an observed hosted exempt merge.
+
+Homelab's new regression first failed twice, once for each sole available
+provider (`unexpectedly None`). The router now falls back to the available
+provider with a fresh-context requirement and native-subagent routing when
+appropriate. Cross-provider preference and allowance/exclusion limits remain.
+The shared gate explicitly requires a passing verdict on the current revision.
