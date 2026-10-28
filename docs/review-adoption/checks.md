@@ -82,3 +82,14 @@ provider (`unexpectedly None`). The router now falls back to the available
 provider with a fresh-context requirement and native-subagent routing when
 appropriate. Cross-provider preference and allowance/exclusion limits remain.
 The shared gate explicitly requires a passing verdict on the current revision.
+
+After the second review, the team paused and rethought the repeated landing
+mismatch. Ship repeated its gate when a base or revision moved. Both clauses
+now accept a passing verdict or documented exemption under verify's current
+scope and carry-forward rules. Paper regression cases include an exempt PR
+on a changed base and the next exempt layer after its parent lands. Both must
+rerun checks and reassess the exemption on the combined revision; neither
+requires a model pass solely because the base changed. Sensitive work, missing
+checks and unresolved findings still stop delivery. These are paper checks,
+not a hosted stack experiment. Homelab code and tests are unchanged since
+its passing 282-test suite and independent recheck.
