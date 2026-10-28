@@ -19,7 +19,7 @@ Gemini (through Antigravity) was a third provider from 2026-10-14 to
 | feature, bug-fix, refactoring, perf-issue, hillclimb work; arena and architect candidates | `author` |
 | how explorer, why investigators, reflect tooling reviewer, swarm workers | `worker` |
 | how explainer, why synthesizer, reflect judgment, divergent and synthesizer, arena cross-judge, interrogate panel, judgment and prose | `reviewer` |
-| the independent check in `verify` | `verifier` (always a different provider from the author) |
+| the independent check in `verify` | `verifier` (router prefers another provider; fresh context is required unless exempt) |
 | hardest tasks | `hard` |
 
 A panel (arena, architect, interrogate, reflect) puts one member on each

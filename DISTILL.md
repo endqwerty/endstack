@@ -214,9 +214,11 @@ not by fetching. Done in one cleanup:
 
 ## Open questions
 
-The [Anthropic review proposal](docs/anthropic-review-proposal.md) checks the
-source claims and supplies an unapplied patch and paired dry run. Provider
-independence and broader review exemptions remain undecided.
+The [Anthropic review proposal](docs/anthropic-review-proposal.md) records the
+source audit. Daniel approved adopting the review and coding defaults, making
+provider diversity optional and allowing justified low-risk review exemptions.
+[Adoption checks and evidence](docs/review-adoption/checks.md) describe the
+active changes and their limits.
 
 The [upstream prompt-reduction review](docs/upstream-token-review.md) confirms
 that PR #538 is already in our retained snapshot and records a controlled

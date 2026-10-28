@@ -38,7 +38,7 @@ Then execute the design. Add its steps to the tracked phase list as concrete ite
 Each unit is an experiment. State the hypothesis, make the smallest change, measure against the predicate on the real artifact, keep it if it advanced, revert it if it didn't. Apply the [sequence-verifiable-units](../principles/references/sequence-verifiable-units.md) principle, verifying each unit before starting the next instead of batching checks at the end.
 
 - Verify by inspecting the artifact, never a self-report. When something passes too easily, suspect the observation method before the system.
-- Give work to separate workers if the harness has them; otherwise do it yourself in sequence and say so. Pair delegated work with a judge from a different model family than yours, if available; otherwise say the judge is not independent. If a worker games the gate, reset and harden the contract. If the gate itself is wrong, fix the gate in its own change rather than routing around it.
+- Give work to separate workers if the harness has them; otherwise do it yourself in sequence and say so. Pair delegated work with a judge in fresh context independent of the author. A different model family is optional. If a worker games the gate, reset and harden the contract. If the gate itself is wrong, fix the gate in its own change rather than routing around it.
 - A verdict is VERIFIED, NOT VERIFIED, or INCONCLUSIVE. Inconclusive is not a pass. Don't hide a negative.
 
 ## Phase D: Keep the audit trail

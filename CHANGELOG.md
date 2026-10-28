@@ -1,5 +1,17 @@
 # Change log
 
+## 2026-10-28 — Adopt fresh review, exemptions and boundary defaults
+
+- `verify`: deterministic checks first, one fresh initial reviewer, provider
+  diversity optional, evidence-backed findings and no stylistic fix loop.
+  Recorded low-risk exemptions skip model review, never required checks.
+  Sensitive and agent-instruction changes still require review.
+- Principles: validate unknown values once at the owning boundary, trust
+  established guarantees, retain useful single-use helpers, and catch only
+  for recovery, boundary translation or necessary context. Remove the old
+  unconditional trust and automatic pure-function extraction instructions.
+- Evidence and paired dry-run limits: [adoption](docs/review-adoption/checks.md).
+
 ## 2026-10-27 — Review-policy evidence and an unapplied proposal
 
 - [Anthropic review proposal](docs/anthropic-review-proposal.md): checked

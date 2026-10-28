@@ -25,7 +25,7 @@ If a candidate produces no output, proceed with N-1 and note the dropout.
 
 ## Phase C: Cross-judge
 
-After all candidates complete, give a read-only judge the rubric and candidates by path label. Prefer a different model family than yours, if available; otherwise say the judge is not independent. Use a separate worker if the harness has one, otherwise apply the judge lens yourself in sequence and disclose this. The judge scores each criterion and recommends a base with rationale. It may run alongside your reading in Phase D, never while candidates are writing.
+After all candidates complete, give a read-only judge the rubric and candidates by path label. Use fresh context independent of the candidate authors. A different model family is optional. Use a separate worker if the harness has one, otherwise apply the judge lens yourself in sequence and disclose this. The judge scores each criterion and recommends a base with rationale. It may run alongside your reading in Phase D, never while candidates are writing.
 
 ## Phase D: Pick a base
 
