@@ -13,7 +13,7 @@ Own only the landing the user authorized.
    alone does not. Honor holds, later stops and operator-reserved gates. If
    the scope is unclear, do not land anything.
 2. Require [verify](../verify/SKILL.md)'s independent passing verdict on the
-   current revision, or its applicable nonbehavioral exemption. Required checks
+   current revision, or a documented exemption under its review scope. Required checks
    and safety evidence must pass; unresolved blockers or unavailable review
    stop landing. Every finding on it, a bot's included, has a fix or a
    written reason. Confirm current host mergeability and dependency readiness.

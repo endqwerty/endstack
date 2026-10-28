@@ -6,6 +6,8 @@
   diversity optional, evidence-backed findings and no stylistic fix loop.
   Recorded low-risk exemptions skip model review, never required checks.
   Sensitive and agent-instruction changes still require review.
+- `ship` accepts documented review-scope exemptions, including qualified
+  bounded behavior changes, instead of limiting them to nonbehavioral edits.
 - Principles: validate unknown values once at the owning boundary, trust
   established guarantees, retain useful single-use helpers, and catch only
   for recovery, boundary translation or necessary context. Remove the old

@@ -1,3 +1,7 @@
 ts	phase	decision	why	evidence	result
 2026-10-28T06:48:47Z	scope	Implement accepted defaults and sync homelab after landing	User explicitly authorized autopilot, optional providers, exemptions and sync	docs/review-adoption/checks.md	open
 2026-10-28T06:51:52Z	consistency	Remove provider-based independence labels from related judge and trail roles	The shared definition now depends on context independence; self-review remains disclosed	skills/verify/references/review-scope.md	changed
+2026-10-28T07:02:03Z	steering	Lift the provider gate and add justified exemptions after the user clarified both	Later user messages explicitly superseded the initial keep-gates assumption	docs/review-adoption/checks.md	accepted
+2026-10-28T07:02:03Z	design	Keep one author and use the existing skill owners; shorten redundant core wording to fit	Shared rules must agree; detailed real-surface examples and rethink question remain in the existing design reference	skills/build/references/design.md	recorded
+2026-10-28T07:02:03Z	consistency	Align carry-forward with exemptions after the paired runs	The dry-run bundle had the older carry-forward text; final review covers the clarification	skills/verify/references/carry-forward.md	recorded
+2026-10-28T07:02:04Z	correction	Fix ship, router fallback and current-revision passing gate	Fresh review found three shoulds; first router regression failed for both sole providers	docs/review-adoption/review-round-1.md	fixing
