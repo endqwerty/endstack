@@ -1,0 +1,13 @@
+--- a/quota.py
++++ b/quota.py
+@@ -1,2 +1,9 @@
+ def can_reserve(used, amount, limit):
+-    return used + amount <= limit
++    return used + amount < limit
++
++
++def restore(snapshot, limit):
++    used = snapshot["used"]
++    if used < 0:
++        raise ValueError("negative usage")
++    return used

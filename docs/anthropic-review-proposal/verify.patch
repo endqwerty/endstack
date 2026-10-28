@@ -1,0 +1,78 @@
+--- a/skills/verify/SKILL.md
++++ b/skills/verify/SKILL.md
+@@ -5,28 +5,26 @@
+ 
+ # Verify
+ 
+-Both roles read the whole diff, a subagent's included, never a summary.
++Both roles read the full diff and [rubric](references/review-rubric.md).
+ 
+ ## Author
+ 
+ 1. Before editing, write checks on the real surface: command, page, API,
+    stored value. A bug gets a failing check first.
+-2. Run them on the real artifact; keep deciding lines. Green tests
+-   alone prove no behaviour.
+-3. Ask a read-only verifier from another provider. Without one, report
+-   unverified.
++2. Run the checks first on the real artifact; keep deciding lines.
++   Green tests alone do not prove the contract.
++3. Ask one read-only verifier from another provider in fresh context.
++   Without one, report unverified.
+ 4. Give it the task, checks and revision range, not your conclusions;
+    for a re-review, the change since the last verdict, what it affects
+    and open findings.
+ 5. Re-rank findings. Fix blockers and shoulds with the cheapest check
+-   catching them again; rerun affected checks. Fix a nit only if small;
+-   declining one starts no round, and
+-   [carry-forward](references/carry-forward.md) says what a fix needs.
++   catching them again; rerun affected checks. Decline nits without edits or another round.
++   [Carry-forward](references/carry-forward.md) governs fixes.
+    Deliver only on an independent pass of every required check and the
+    safety fact on this revision, no blocker or should open.
+-6. Still open after two rounds: stop and rethink. Would another
+-   approach or smaller change avoid what findings share? Then at
+-   most two more; still open, stop delivery, report both sides.
++6. Still open after two rounds: stop and rethink the approach or scope.
++   Then at most two more; still open, stop delivery, report both sides.
+ 
+ ## Verifier
+ 
+--- /dev/null
++++ b/skills/verify/references/review-rubric.md
+@@ -0,0 +1,35 @@
++# Review the contract, filter the findings
++
++Give the reviewer the requirements, relevant project rules, full diff, base
++and head, check commands and results. Let it inspect surrounding code,
++callers, stored data and imports. Exclude the author's conversation,
++reasoning and desired verdict. Fresh context does not mean diff-only access.
++
++Run required deterministic checks before review. Fix their failures first;
++if one cannot run, record that gap. A requested review can investigate the
++gap, but cannot turn it into a pass. The verifier still runs every required
++check under this policy. Report commands, decisive output and revision;
++omit routine passing logs, while retaining full logs when needed to diagnose.
++
++Check the requirements and relevant regression, security, data and failure
++paths, including omissions in the diff. Do not limit safety review to a
++flawed or incomplete spec. For each candidate finding, trace a current path
++to an observable failure and check the claim against the code before
++reporting it. Supply the location, trigger, expected and actual behavior,
++and a reproducer or a concrete code trace. A code trace supports a finding;
++it does not replace an unrun required check.
++
++Skip style, naming, optional refactors, redundant tests and guards for
++hypothetical future code. A required compatibility or safety property is
++not style. Report blockers and shoulds with evidence, not a minimum count.
++Put a missing check or unresolved safety fact under not checked, not among
++confirmed defects. Do not label an evidenced security or data-loss path a
++nit because it is unusual. No findings is a valid result, but not checked
++still prevents a passing verdict when evidence is required.
++
++One first pass is the default, not a one-pass approval guarantee. Re-review
++only for fixes or new evidence that the carry-forward rules require, scoped
++to the changed behavior and its dependents. An unresolved required fact
++needs evidence, not another unfocused search. Preserve stricter project
++review requirements and the existing round cap. Do not add a reviewer just
++to seek more findings or reconsider a declined style suggestion.
