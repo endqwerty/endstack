@@ -1,0 +1,10 @@
+ts	phase	decision	why	evidence	result
+2026-10-28T06:02:13Z	frame	Prepare a proposal without changing live review gates	The accepted sharpened task leaves provider and exemption choices to Daniel	skills/verify/SKILL.md	open
+2026-10-28T06:08:45Z	evidence	Treat one reviewer as our default rather than a universal Anthropic rule	Primary sources also describe multiple review and validation agents	https://claude.dev/blog/solving-code-review-at-anthropic/	confirmed
+2026-10-28T06:08:45Z	experiment	Report equal dry-run outcomes without claiming savings	Both policies found both defects and declined both non-actionable suggestions	docs/anthropic-review-proposal/experiment.md	equal
+2026-10-28T06:08:45Z	proposal	Retain current review gates in the unapplied patch	Source guidance and this sample do not compare provider diversity or exemptions	docs/anthropic-review-proposal/verify.patch	open
+2026-10-28T06:15:13Z	correction	Classify false evidence as correctness rather than a wording nit	Round 1 showed the proposed blanket nit rule could reject a factual correction	docs/anthropic-review-proposal/review-round-1.md	fixed
+2026-10-28T06:15:13Z	clarification	Supersede the earlier retain-gates row: provider and exemption gates stay; extra-pass default is a proposal	The original row was too broad; three earlier rows were recorded together after the actions	docs/anthropic-review-proposal.md	corrected
+2026-10-28T06:19:23Z	disclosure	Keep the shortened full-diff wording and disclose the removed explicit summary reminder	Both reviews treat the duty as preserved in substance; this remains an unapplied wording choice	docs/anthropic-review-proposal.md	documented
+2026-10-28T06:20:27Z	verification	Accept the scoped independent pass and keep the final policy patch unchanged	No blocker or should remains; paper regressions distinguish factual errors from style	docs/anthropic-review-proposal/review-round-2.md	pass
+2026-10-28T06:20:27Z	delivery	Publish the proposal for review without installing it	User choices remain open and this repository reserves merge to Daniel	https://github.com/endqwerty/endstack/pull/24	open
