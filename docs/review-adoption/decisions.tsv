@@ -1,0 +1,3 @@
+ts	phase	decision	why	evidence	result
+2026-10-28T06:48:47Z	scope	Implement accepted defaults and sync homelab after landing	User explicitly authorized autopilot, optional providers, exemptions and sync	docs/review-adoption/checks.md	open
+2026-10-28T06:51:52Z	consistency	Remove provider-based independence labels from related judge and trail roles	The shared definition now depends on context independence; self-review remains disclosed	skills/verify/references/review-scope.md	changed

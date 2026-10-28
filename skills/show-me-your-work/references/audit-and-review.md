@@ -10,7 +10,7 @@ Correct the log, not the story. The audit never edits or removes a row, even an 
 
 ## Cross-model review of the trail
 
-Before handing back, give the trail to a separate reviewer on a different model family from yours, if available; otherwise say the review is not independent. Self-review is not a substitute. The reviewer reads the audit trail and the run's transcript, then flags what the user should pay attention to. Not a redo of the work, a scan for what's suboptimal or risky.
+Before handing back, give the trail to a separate reviewer in fresh context independent of the author. A different model family is optional. If no separate reviewer can run, say the review is not independent. Self-review is not a substitute. The reviewer reads the audit trail and the run's transcript, then flags what the user should pay attention to. Not a redo of the work, a scan for what's suboptimal or risky.
 
 - Decisions logged with weak or absent evidence.
 - Verification steps skipped or claimed without proof in the transcript.

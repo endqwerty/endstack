@@ -1,5 +1,9 @@
 # A narrower review policy
 
+Historical research and proposal. The [adoption record](review-adoption/checks.md)
+and active skills supersede the open choices below after Daniel approved
+provider-optional fresh review, appropriate exemptions and the coding defaults.
+
 Proposal, 2026-10-27. This document and its patch are review material, not
 active instructions. Nothing here changes the installed skills or merge gate.
 

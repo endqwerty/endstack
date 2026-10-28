@@ -50,8 +50,11 @@ evidence and rerun the required checks.
 
 ## Anything else
 
-A fresh verdict on the current revision. It covers what changed since the
-last verdict and what that can affect, with the earlier findings. One
+Apply [review scope](review-scope.md) to the current revision. A documented
+low-risk exemption may replace a new model verdict only when its full affected
+contract and earlier findings are resolved by current deterministic evidence.
+Otherwise get a fresh verdict covering what changed since the last verdict
+and what that can affect, with the earlier findings. One
 verifier is enough after a conflict resolution or a small fix; a full review
 again is for new behaviour, a redesign or a large new diff.
 

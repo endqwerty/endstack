@@ -5,28 +5,26 @@ description: Independent check before a behaviour, data, auth, money or deployme
 
 # Verify
 
-Both roles read the whole diff, a subagent's included, never a summary.
+Both roles read the whole diff, delegated work included, and the
+[rubric](references/review-rubric.md), never a summary.
 
 ## Author
 
-1. Before editing, write checks on the real surface: command, page, API,
-   stored value. A bug gets a failing check first.
-2. Run them on the real artifact; keep deciding lines. Green tests
-   alone prove no behaviour.
-3. Ask a read-only verifier from another provider. Without one, report
-   unverified.
+1. Before editing, write checks on the real surface. A bug gets a failing check first.
+2. Run the checks first on the real artifact; keep deciding lines.
+   Green tests do not prove the contract.
+3. Apply [review scope](references/review-scope.md). Unless exempt, ask
+   one fresh read-only verifier. Without one, report unverified.
 4. Give it the task, checks and revision range, not your conclusions;
    for a re-review, the change since the last verdict, what it affects
    and open findings.
 5. Re-rank findings. Fix blockers and shoulds with the cheapest check
-   catching them again; rerun affected checks. Fix a nit only if small;
-   declining one starts no round, and
-   [carry-forward](references/carry-forward.md) says what a fix needs.
-   Deliver only on an independent pass of every required check and the
-   safety fact on this revision, no blocker or should open.
-6. Still open after two rounds: stop and rethink. Would another
-   approach or smaller change avoid what findings share? Then at
-   most two more; still open, stop delivery, report both sides.
+   catching them again; rerun affected checks. Decline nits without edits or another round.
+   [Carry-forward](references/carry-forward.md) governs fixes.
+   Deliver only with every required check and safety fact proven on this
+   revision, a fresh pass or valid exemption, no blocker or should open.
+6. Open after two rounds: stop and rethink the approach or scope.
+   Then at most two more; still open, stop delivery, report both sides.
 
 ## Verifier
 
@@ -35,7 +33,7 @@ Both roles read the whole diff, a subagent's included, never a summary.
   lines; an unrun check is not checked.
 - Name the fact its safety rests on; prove it on the real code or mark
   it unproven.
-- Try to break it: other inputs, failure paths, callers, what the diff
+- Try to break it: inputs, failure paths, callers, what the diff
   omits. A base defect is the base's unless the change copies or newly
   reaches it.
 - Name what reaches each issue and rank it. Blocker: the intended case
@@ -44,4 +42,4 @@ Both roles read the whole diff, a subagent's included, never a summary.
   result or warning, wording, extra tests or guards, small costs, what
   only later code makes. Data loss, security or a trust boundary is never
   a nit.
-- Name the revision and patch you judged. Change nothing.
+- Name the revision and patch judged. Change nothing.
