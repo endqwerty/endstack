@@ -120,8 +120,8 @@ cases, including factual correction, a purely local rename, an unrun check
 and a clean result. Those are paper dispositions, not new paired runtime
 trials. The core remains 2,162 bytes.
 
-After that verdict, only this explanatory record, the main report and the
-verdict attachment changed. The proposal patch, final rubric, policy snapshots
+After that verdict, only this explanatory record, the main report, the
+verdict attachment and the [decision log](decisions.tsv) changed. The proposal patch, final rubric, policy snapshots
 and executable fixtures are byte-identical to the reviewed revision. The
 verdict therefore carries under the prose-only rule. Both repository checkers
 and patch validation were rerun. The full source audit was not repeated.
