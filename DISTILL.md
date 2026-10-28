@@ -214,6 +214,10 @@ not by fetching. Done in one cleanup:
 
 ## Open questions
 
+The [Anthropic review proposal](docs/anthropic-review-proposal.md) checks the
+source claims and supplies an unapplied patch and paired dry run. Provider
+independence and broader review exemptions remain undecided.
+
 The [upstream prompt-reduction review](docs/upstream-token-review.md) confirms
 that PR #538 is already in our retained snapshot and records a controlled
 compression follow-up. Its reported byte/word reductions are not runtime token

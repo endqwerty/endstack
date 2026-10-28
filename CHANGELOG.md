@@ -1,5 +1,13 @@
 # Change log
 
+## 2026-10-27 — Review-policy evidence and an unapplied proposal
+
+- [Anthropic review proposal](docs/anthropic-review-proposal.md): checked
+  primary sources, recent local review evidence, and exact proposed wording
+  for fresh context and filtering findings. Two isolated dry runs found the
+  same defects and declined the same suggestions under both policies.
+  No measured improvement or savings; active skills and global rules unchanged.
+
 ## 2026-10-27 — The cheapest check that catches a finding
 
 - `verify`: the author fixes blockers and shoulds "with the cheapest check

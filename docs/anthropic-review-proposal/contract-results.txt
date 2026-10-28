@@ -1,0 +1,35 @@
+quota.py: exit 1
+test_exact_limit_is_allowed (__main__.Contract.test_exact_limit_is_allowed) ... FAIL
+test_import_above_limit_is_rejected (__main__.Contract.test_import_above_limit_is_rejected) ... FAIL
+
+======================================================================
+FAIL: test_exact_limit_is_allowed (__main__.Contract.test_exact_limit_is_allowed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Volumes/SSD/Worktrees/endstack/t3-c14452ee/docs/anthropic-review-proposal/contract_checks.py", line 13, in test_exact_limit_is_allowed
+    self.assertTrue(quota.can_reserve(7, 3, 10))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_import_above_limit_is_rejected (__main__.Contract.test_import_above_limit_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Volumes/SSD/Worktrees/endstack/t3-c14452ee/docs/anthropic-review-proposal/contract_checks.py", line 16, in test_import_above_limit_is_rejected
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.001s
+
+FAILED (failures=2)
+
+fixed.py: exit 0
+test_exact_limit_is_allowed (__main__.Contract.test_exact_limit_is_allowed) ... ok
+test_import_above_limit_is_rejected (__main__.Contract.test_import_above_limit_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.000s
+
+OK
