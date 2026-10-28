@@ -51,7 +51,9 @@ this proposal does not relax that requirement.
 
 The remaining gaps are fresh context rather than merely a neutral brief,
 filtering before reporting, and the invitation to fix a nit if it is small.
-The proposal changes those. `check-skills.py` already checks names, sizes,
+The proposal changes those. Its one-first-pass wording implements the
+recommended option for the still-open extra-pass choice; it is not neutral
+between those options and is not active policy. `check-skills.py` already checks names, sizes,
 frontmatter and links. `check-routing.py` checks routing coverage and merge
 triggers. Neither proves that an agent follows a review policy.
 
@@ -95,7 +97,9 @@ specification must not hide a security or data-loss defect.
 A reported defect needs a location, a current trigger, expected and actual
 behavior, and a reproducer or a concrete code trace. Unrun required checks
 and unresolved safety facts remain `not checked`. They cannot become passes
-or fabricated defects. Style and hypothetical future guards prompt no edits
+or fabricated defects. The final rubric explicitly treats factual errors
+in evidence or requirements as correctness defects, not wording nits. Style
+and hypothetical future guards prompt no edits
 and no review round. Existing external comments still receive a written
 disposition under `babysit` and `ship`.
 
@@ -116,6 +120,8 @@ exact-limit acceptance and rejection of an over-limit import.
 This is a narrow rubric check, not a production reliability benchmark. It
 establishes neither savings nor provider equivalence, recall or safe
 exemptions. Equal outcomes are reported as equal, not as an improvement.
+Independent review found a factual-correction gap in the tested draft. The
+experiment record separates that draft from the corrected final rubric.
 
 ## Choices left to Daniel
 

@@ -72,9 +72,10 @@ failures, the fixed fixture passes both, each checker prints `0 problem(s)`,
 and patch validation exits 0. The intentionally failing fixture is evidence,
 not a required production check.
 
-The parent also applied the patch to a temporary copy of all skills and
+Before independent review, the parent applied the tested draft patch to a
+temporary copy of all skills and
 routing, ran both checkers there (`0 problem(s)` each), and compared the
-result byte-for-byte with proposed-policy.md. The proposed core is 2,162
+result byte-for-byte with proposed-policy.md and the tested rubric. The proposed core is 2,162
 bytes, under the 2,200-byte checker limit. Active skill files were unchanged.
 
 ## Not exercised
@@ -91,3 +92,18 @@ The parent read the complete reports and reran the decisive contract checks.
 B reported that it wrote its report at the end rather than incrementally;
 both runs nevertheless completed and left their evidence. This does not
 test interrupted-run recovery.
+
+## Independent review correction
+
+[Round 1](review-round-1.md), Claude Opus 5.5 at high effort, passed the source
+audit and mechanical evidence but found one should in the proposal: the
+blanket ban on nit fixes could suppress factual corrections to evidence.
+The final patch adds one exception in [final-rubric.md](final-rubric.md):
+factual errors in evidence or requirements are correctness defects, not
+wording nits. The paired runs above used the earlier rubric, retained in
+references/review-rubric.md. They are not claimed as a run of the final text.
+
+Two nits were considered without more policy edits. The core's "full diff"
+still includes delegated changes; the reviewer agreed the duty is preserved.
+The proposed one-first-pass default is a recommendation pending Daniel's
+choice, now stated explicitly in the report. It is not installed policy.
