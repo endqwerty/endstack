@@ -1,5 +1,13 @@
 # Change log
 
+## 2026-10-31 — One plain merge rule
+
+- ROUTING.md: the change-requests bullet says merging needs an explicit request to
+  land the work, and names `ship` and `autopilot-full` once, as the skills for it.
+- AGENTS.md: Delivery is shorter and says who merges in one sentence. Daniel:
+  "Models will get confused when you say ship but don't ship… I believe in
+  concise clear instructions."
+
 ## 2026-10-30 — Statechart for checked state diagrams
 
 - create-formal-verification-skill tells a generated TLA+ skill to read each
