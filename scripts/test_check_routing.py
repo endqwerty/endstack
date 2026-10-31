@@ -28,6 +28,11 @@ class T(unittest.TestCase):
         p = " ".join(cr.check(tree(GOOD + "`ghost`\n", SK + ("orphan",))))
         self.assertIn("`ghost` is not a skill", p); self.assertIn("skill orphan is not routed", p)
 
+    def test_external_skills_may_be_routed_but_not_twice(self):
+        self.assertEqual(cr.check(tree(GOOD + "- states: `statechart`, pictures `archify`\n", SK)), [])
+        self.assertIn("skill archify appears 2 times",
+                      " ".join(cr.check(tree(GOOD + "`archify` `archify`\n", SK))))
+
     def test_duplicate_route_and_named_conflict(self):
         self.assertIn("skill unslop appears 2 times", " ".join(cr.check(tree(GOOD.replace("docs", "`unslop` docs"), SK))))
         self.assertIn("skill c appears 2 times", " ".join(cr.check(tree(GOOD.replace("- merge", "- `c` merge"), SK))))

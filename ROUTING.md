@@ -36,5 +36,7 @@ Explaining code, reviewing and checking safety are tasks, short or not.
 - Asked to prove or model-check a property (a race, invariant or case tests
   rarely reach): `create-formal-verification-skill`; an existing formal check
   covers code changed since its recorded sync commit: `maintain-formal-verification-skill`.
+- A state diagram: `statechart` to draw it from a checked model or show a bug
+  as a path through states; `archify` for a picture only.
 
 Only when named: `bro`, `ketchup`, `recall`, `reflect`, `sharpen`.
