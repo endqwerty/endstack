@@ -44,6 +44,10 @@ a sentence each and skips the rest.
    the contract promises: it fails when that behaviour breaks and keeps
    passing when only the internals change. A test that avoids a failing state,
    instead of fixing it, is a finding, not a pass.
+   A test written only to prove this change, where the cause cannot recur (a
+   one-time script retired after its run, a removed path, a restated value),
+   leaves the suite in its own last commit; keep one that a plausible later
+   change could break unnoticed, including a migration new databases still run.
 9. **Throughput.** Name the blocking first steps, the workstreams with
    disjoint files, and the smallest safe split. If one worker is best, say why.
    Order the work as small units that each end in a check.
