@@ -62,7 +62,7 @@ npx skills add <path-or-owner/repo> -g -y -a claude-code -a codex
 `<path-or-owner/repo>` is a local checkout, or `endqwerty/endstack` (private,
 needs GitHub access). Without `-a`, a non-interactive run installs only to the shared
 `~/.agents/skills`, which Claude Code does not read. Add `--copy` to copy instead
-of symlink, and `-s <name>` for a subset (the skills link to each other, so
+of symlinking, and `-s <name>` for a subset (the skills link to each other, so
 install `verify` with `build`). Checked with Claude Code's directory layout in a
 disposable home; Codex's use of `~/.agents/skills` is not checked. Do not run this on a machine where
 homelab sync already manages these names: both write the same directories.
