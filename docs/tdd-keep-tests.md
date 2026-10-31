@@ -33,8 +33,10 @@ or, when the agent writes the test anyway, keeps it.
   bring the bug back unnoticed, it passes the two edits of
   test-behavior-not-implementation, it is fast and deterministic, and no
   existing test covers the case. Drop it when the bug cannot recur there (a
-  one-time script, migration or data repair, a path the fix removed, a test
-  that only restates a value). A dropped test comes out in its own last
+  one-time script or data repair retired after its run, a path the fix
+  removed, a test that only restates a value). A migration that new or
+  restored databases still run is code that stays, so its test stays (from
+  the review: an earlier draft listed every migration as one-time). A dropped test comes out in its own last
   commit, so the history still shows it fail and pass, and reverting that
   commit restores it. The final response says which tests stayed, which were
   dropped, and the dropping commit. The "would be deleted immediately" clause
@@ -74,10 +76,11 @@ its suite and has the `+=` fix.
 | --- | --- | --- | --- |
 | without 1 | kept | never written: "a test for it would go with it" | an unsaved inline script |
 | without 2 | kept | kept, three tests; a docstring line says to delete them with the script, "If it is left behind, the suite fails on the missing import" | failing test committed |
-| with 1 | kept | written, failed, then removed in its own last commit (`9e24cd1`) | failing test in history |
+| with 1 | kept | written, failed, then removed in its own commit (`9e24cd1`); a bytecode cleanup commit followed it, so not the last | failing test in history |
 | with 2 | kept | written, failed, then removed in its own last commit (`f32769c`) | failing test in history |
 
-With the change, both runs kept the product test, dropped the one-off test,
+With the change, both runs kept the product test, dropped the one-off test in
+a commit of its own (one run then added an unrelated cleanup commit after it),
 and left a red-then-green record a reviewer can replay. Without it, one run
 already avoided the test (through the clause this change removes) but kept no
 replayable proof, and the other committed a test that breaks the suite on the

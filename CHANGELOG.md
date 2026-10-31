@@ -4,10 +4,11 @@
 
 - `tdd` step 7: once a failing test has proved the fix, keep it only when a
   plausible later change to code that stays could bring the bug back
-  unnoticed. Otherwise (a one-time script or migration, a removed path, a
-  restated value) remove it in its own last commit, so the history still shows
+  unnoticed. Otherwise (a one-time script retired after its run, a removed
+  path, a restated value) remove it in its own last commit, so the history still shows
   it fail and pass. The final response names what stayed and what was
-  dropped. `build`'s design step and the sequence-verifiable-units principle
+  dropped. A migration new databases still run counts as code that stays.
+  `build`'s design step and the sequence-verifiable-units principle
   say the same in one sentence each. Dry run:
   [docs/tdd-keep-tests.md](docs/tdd-keep-tests.md).
 
