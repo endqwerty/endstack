@@ -11,10 +11,10 @@ Explaining code, reviewing and checking safety are tasks, short or not.
   say which way you decided.
 - Change requests: `build` to implement (it ends at a ready PR), `babysit`
   to get a PR green, `verify` before calling a behaviour change done or when
-  asked if one is safe. Merging needs an explicit request to land that work:
-  "merge", "land" or "ship" means `ship`; "autopilot" or "full send" means
-  `autopilot-full`, with no further approval. "Full stop" means build and
-  babysit to ready, unmerged.
+  asked if one is safe. An explicit request to land the work ("merge", "land",
+  "ship") means `ship`; "autopilot" or "full send" means `autopilot-full`,
+  with no further approval. "Full stop": build and babysit to ready, unmerged.
+  Whether you may merge at all: the Merging rules.
 - Any prose, your reply included: `unslop`. Docs, README, RFC, PR text, commit
   message: also `technical-writing`.
 - Understand or explain code, before changing it or not: `how` (runtime flow,
