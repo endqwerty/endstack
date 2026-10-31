@@ -8,6 +8,7 @@ cs = importlib.util.module_from_spec(spec); spec.loader.exec_module(cs)
 
 MAX = 2600  # bytes: read on every turn, so it stays small
 NAMED = "Only when named:"
+EXTERNAL = {"archify", "statechart"}  # installed by homelab from other pinned sources, not skills/
 
 
 def check(root):
@@ -24,8 +25,11 @@ def check(root):
             problems.append(f"ROUTING.md:{text.count(chr(10), 0, m.start()) + 1}: {why}: {m.group(0)[:40]!r}")
     skills = {d for d in os.listdir(os.path.join(root, "skills")) if os.path.isdir(os.path.join(root, "skills", d))}
     names = re.findall(r"`([a-z][a-z0-9-]*)`", text)
-    for name in sorted(set(names) - skills):
+    for name in sorted(set(names) - skills - EXTERNAL):
         problems.append(f"ROUTING.md: `{name}` is not a skill in skills/")
+    for name in sorted(EXTERNAL & set(names)):
+        if names.count(name) > 1:
+            problems.append(f"ROUTING.md: skill {name} appears {names.count(name)} times, expected once")
     for name in sorted(skills):
         n = names.count(name)
         if n == 0:

@@ -1,5 +1,15 @@
 # Change log
 
+## 2026-10-30 — Statechart for checked state diagrams
+
+- create-formal-verification-skill tells a generated TLA+ skill to read each
+  result with `statechart`, pstack's checked Mermaid statechart, which homelab
+  now installs from a pin. Upstream's paragraph, with a name for its link.
+- ROUTING.md: a state diagram drawn from a checked model or showing a bug path
+  goes to `statechart`, a picture to `archify`. `check-routing.py` accepts
+  those two external names. Why not consolidated, and dry runs:
+  [docs/statechart.md](docs/statechart.md).
+
 ## 2026-10-28 — Adopt fresh review, exemptions and boundary defaults
 
 - `verify`: deterministic checks first, one fresh initial reviewer, provider

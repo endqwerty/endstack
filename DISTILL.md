@@ -193,6 +193,12 @@ shortened (their rules live in a per-turn mode endstack does not have),
 per-job model and effort choice (homelab's routing owns it), packaging and
 plugin plumbing.
 
+### Statechart (2026-10-30)
+
+pstack's `statechart` is installed by homelab from a pin, not ported, and
+create-formal-verification-skill takes upstream's paragraph pointing to it
+([docs/statechart.md](docs/statechart.md)).
+
 ## Upstream (decided 2026-10-10: broken from)
 
 Daniel decided pstack is no longer tracked: endstack differs too much, and
