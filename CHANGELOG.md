@@ -2,8 +2,9 @@
 
 ## 2026-10-31 — One plain merge rule
 
-- ROUTING.md: the change-requests bullet says merging needs an explicit request to
-  land the work, and names `ship` and `autopilot-full` once, as the skills for it.
+- ROUTING.md: the change-requests bullet maps an explicit request to land the work
+  to `ship` (or `autopilot-full`), names each once, and leaves whether an agent may
+  merge at all to the global Merging rules.
 - AGENTS.md: Delivery is shorter and says who merges in one sentence. Daniel:
   "Models will get confused when you say ship but don't ship… I believe in
   concise clear instructions."
