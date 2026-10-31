@@ -24,12 +24,13 @@ When a step names a principle, read that reference before doing the step.
 4. **Run the new test before fixing.** Confirm it fails for the intended reason. If it passes or fails for an unrelated reason, correct the test or reproduction before editing the implementation. Where the history allows, commit the failing test before the fix. That is the canonical order of the [sequence-verifiable-units](../principles/references/sequence-verifiable-units.md) principle.
 5. **Fix the bug.** Make the smallest production change that satisfies the intended behavior while preserving nearby contracts. Fix the cause, not a guard downstream, in every consumer listed in step 1, or say why one is exempt.
 6. **Rerun the regression test.** Confirm the test now passes.
+7. **Decide whether the test stays.** It has proved the fix; joining the suite is a separate call, because every kept test is read and maintained. Keep it when a plausible later change to code that stays could bring the bug back unnoticed, it passes the two edits of the test-behavior-not-implementation principle, it is fast and deterministic, and no existing test covers the case (extend an existing case rather than add a file). Drop it when the bug cannot recur there: a one-time script, migration or data repair, a path the fix removed, a test that only restates a value. Remove a dropped test in its own last commit, so the history still shows it fail and pass, and reverting that commit restores it.
 
 ## If a Failing Test Is Impractical
 
 Use the closest executable regression check instead: a targeted script, manual reproduction command, browser automation, snapshot comparison, log assertion, or focused integration check.
 
-Prefer no new test over a bad test. A bad test is one that mostly tests mocks, encodes current implementation details, depends on timing or unrelated global state, needs expensive infrastructure for a small fix, or would be deleted immediately after proving the fix.
+Prefer no new test over a bad test. A bad test is one that mostly tests mocks, encodes current implementation details, depends on timing or unrelated global state, or needs expensive infrastructure for a small fix.
 
 ## Guardrails
 
@@ -45,6 +46,7 @@ Report the evidence, not just the outcome:
 
 - Name the failing-before test or executable check and the failure it produced.
 - Name the passing-after test run and any nearby validation performed.
+- Say which new tests stay and which were dropped, why, and the commit that dropped them.
 - If failing-before evidence could not be demonstrated, state why and describe the closest regression check used instead.
 - List the consumers checked for the same fault, which ones changed, and why any was left.
 - Name each principle that changed a choice, and the choice.
