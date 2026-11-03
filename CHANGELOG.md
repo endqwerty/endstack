@@ -1,5 +1,19 @@
 # Change log
 
+## 2026-11-02 — Review findings need evidence; interrogate drops its dissenter
+
+- `interrogate`: no extra reviewer to argue against a unanimous verdict. A
+  finding reaches Act on or Consider only with a reproducer or a
+  step-by-step trace; without one it is Noted, and an unsettled data-loss,
+  security or trust-boundary finding goes in Consider, marked unproven, with
+  the check that would settle it. The reviewer prompt asks for that evidence.
+- `verify`: a finding with no failing check or code trace behind it is a
+  nit; the rubric defines that evidence and sends an unbacked safety finding
+  to not checked.
+- `arena` keeps its dissenter, which builds and scores a competing design.
+  Why, and the dry runs:
+  [docs/2026-11-02-evidence-over-dissent.md](docs/2026-11-02-evidence-over-dissent.md).
+
 ## 2026-10-31 — tdd decides whether a test stays
 
 - `tdd` step 7: once a failing test has proved the fix, keep it only when a

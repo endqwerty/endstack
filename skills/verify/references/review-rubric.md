@@ -19,6 +19,14 @@ reporting it. Supply the location, trigger, expected and actual behavior,
 and a reproducer or a concrete code trace. A code trace supports a finding;
 it does not replace an unrun required check.
 
+That evidence is what "show what reaches it" means: a check that fails on
+this revision, or a trace that names each step through the real code from a
+caller, input or setting to the failure. A finding with neither is a nit,
+however serious it sounds, and the author declines it; one the code rules
+out is no finding. One on data loss, security or a trust boundary that can
+be neither shown nor ruled out goes under not checked instead, with the
+check that would settle it.
+
 Skip style, naming, optional refactors, redundant tests and guards for
 hypothetical future code. A required compatibility or safety property is
 not style. Factual errors in evidence or requirements are correctness
