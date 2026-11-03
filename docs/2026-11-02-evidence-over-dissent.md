@@ -19,8 +19,9 @@ The agent then kept arena's dissenter, for the reason below.
   can check, from a reviewer or the lead. For a defect: a reproducer, or a
   step-by-step trace from a caller, input or setting to the failure, through
   the real code (for a design, through the sketch and the code it would run
-  on). For a structural finding from the code-quality lens: the lines, sites
-  or existing helper it names, and the simpler version it proposes. Reviewer
+  on). For a structural finding, one that claims no failure, only a simpler
+  version with the same behaviour: the lines, sites or existing helper it
+  names, and that version; a changed contract is a defect. Reviewer
   agreement draws attention but is not evidence. Without evidence a finding
   is Noted (whose definition now says so); one the code rules out is
   Dismissed; a data-loss, security or trust-boundary finding that can be
@@ -126,12 +127,12 @@ behaviour" and calls a changed contract a defect.
 
 Recheck 2, a fresh lead on that wording, same panel plus a real structural
 finding (`print(" ".join(...))` can be `print(*shares)`). The return-contract
-change went to Noted: "A contract change needs defect evidence, meaning a
-caller that breaks. B shows only the changed line." The `print(*shares)`
-finding went to Consider as "a structural finding with evidence", after the
+change went to Noted: "This is a contract change, so it needs defect
+evidence: a caller that breaks." The `print(*shares)`
+finding went to Consider ("This is structural with evidence"), after the
 lead checked that both print `333 333 333`. The decompose finding was
-Dismissed again, the race went to Noted ("Two reviewers agree, but neither
-gives a trace"), path traversal went to Consider as unproven, and no extra
+Dismissed again, the race went to Noted ("The two agree, but neither gives
+a trace."), path traversal went to Consider as unproven, and no extra
 reviewer was briefed.
 
 Not exercised: a design review through `interrogate` (the sketch-trace
