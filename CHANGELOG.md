@@ -5,7 +5,7 @@
 - `interrogate`: no extra reviewer to argue against a unanimous verdict. A
   finding reaches Act on or Consider only with checkable evidence (a
   reproducer or a step-by-step trace; for a structural finding, the code it
-  names and the simpler version); without it it is Noted, and an unsettled data-loss,
+  names and a simpler version with the same behaviour); otherwise it is Noted, and an unsettled data-loss,
   security or trust-boundary finding goes in Consider, marked unproven, with
   the check that would settle it. The reviewer prompt asks for that evidence.
 - `verify`: a finding with no failing check or code trace behind it is a

@@ -107,18 +107,32 @@ read "technically valid" while also holding unbacked findings (the race
 landed there in the first run although the lead wrote "there is none");
 the homelab sentence kept a dissenter for designs, which interrogate is
 routed for; homelab had no CHANGELOG entry; and this record overstated
-three results. Declined nits: "unrun is not checked" drops its noun (the
-byte limit), and verify and interrogate treat an unproven safety finding in
+three results. A second review found the first recheck's misclassification
+(above) and three nits, all fixed: two quotes paraphrased, homelab pointing a
+design review at `verify` alone, and a CHANGELOG typo. Declined nits: "unrun
+is not checked" drops its noun (the byte limit), and verify and interrogate treat an unproven safety finding in
 untouched base code differently (verify keeps its base-defect rule;
 interrogate reports what the panel raised).
 
-Recheck: a fresh lead on the fixed `interrogate`, same panel plus two
-structural findings, one backed ("`return after` became `return shares`")
-and one not ("bill.py should be decomposed ... it mixes concerns"). The
-backed one went to Consider; the other was Dismissed: "It names no lines
-and offers no simpler version ... The file is 19 lines". The race went to
-Noted ("Neither named a concurrent caller"), path traversal to Consider as
-unproven, and no extra reviewer was briefed.
+Recheck 1, a fresh lead on `acf05f9`'s `interrogate`, same panel plus two
+findings: "bill.py should be decomposed ... it mixes concerns" (nothing named)
+and "`return after` became `return shares`" (a return-contract change). The
+first was Dismissed: "The finding names no lines, sites or simpler version,
+which the code-quality lens requires." The second went to Consider on its
+line citation alone. A second review pointed out that it is a contract change
+with no caller shown, not structure, so the rule now defines a structural
+finding as one that "claims no failure, only a simpler version with the same
+behaviour" and calls a changed contract a defect.
+
+Recheck 2, a fresh lead on that wording, same panel plus a real structural
+finding (`print(" ".join(...))` can be `print(*shares)`). The return-contract
+change went to Noted: "A contract change needs defect evidence, meaning a
+caller that breaks. B shows only the changed line." The `print(*shares)`
+finding went to Consider as "a structural finding with evidence", after the
+lead checked that both print `333 333 333`. The decompose finding was
+Dismissed again, the race went to Noted ("Two reviewers agree, but neither
+gives a trace"), path traversal went to Consider as unproven, and no extra
+reviewer was briefed.
 
 Not exercised: a design review through `interrogate` (the sketch-trace
 wording), a real multi-family panel, reviewers running the new prompt, and
