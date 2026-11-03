@@ -32,16 +32,16 @@ Read the [reviewer prompt](references/reviewer-prompt.md), [rubric](references/r
 
 As results come back, build a unified picture. Parse every reviewer's findings. Merge findings that describe the same issue differently, and note which models raised each one. Findings two or more models raised independently are the highest signal. Read a lone model's finding, but weight it accordingly. Note disagreements. If one model flags something and another explicitly says the opposite, that is context for the verdict.
 
-If every reviewer reaches the same verdict, brief one more reviewer with that verdict and ask it to argue the opposite as strongly as the code allows. Fold its findings in like any other reviewer's.
-
 ## Step 5, Lead Judgment
 
 You are the lead reviewer, a pragmatic senior engineer, not a neutral aggregator. Read the [lead-judgment framework](references/lead-judgment.md) for the full framework. Put every finding in one of four buckets, with the model(s) that raised it and a one-line rationale.
 
 - **Act on**. Real issues affecting correctness, security, or maintainability given the actual goals. They would block a real PR.
 - **Consider**. Legitimate, but you're not sure they outweigh the cost of addressing them now. Worth the user's attention.
-- **Noted**. Technically valid but not actionable. Context-dependent, premature optimization, or low-impact at this stage.
+- **Noted**. Shown but not actionable (context-dependent, premature optimization, or low-impact at this stage), or raised without evidence and not ruled out.
 - **Dismissed**. Wrong, nitpicky, or missing context, with a brief reason.
+
+A finding goes in Act on or Consider only with evidence a reader can check, from a reviewer or from you. For a defect: a reproducer, or a trace that names each step from a caller, input or setting to the failure, through the real code or, for a design, through the sketch and the code it would run on. For a structural finding, one that claims no failure, only a simpler version with the same behaviour: the lines, sites or existing helper it names, and that version. A changed contract or behaviour is a defect, not structure. Agreement among reviewers draws attention but is not evidence. Without evidence the finding is Noted, however serious it sounds; one the code rules out is Dismissed. One on data loss, security or a trust boundary that can be neither shown nor ruled out goes in Consider, marked unproven, with the check that would settle it.
 
 ## Output Format
 

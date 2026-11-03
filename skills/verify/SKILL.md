@@ -5,13 +5,13 @@ description: Independent check before a behaviour, data, auth, money or deployme
 
 # Verify
 
-Both roles read the whole diff, delegated work included, and the
+Both roles read the whole diff, delegated work too, and the
 [rubric](references/review-rubric.md), never a summary.
 
 ## Author
 
 1. Before editing, write checks on the real surface. A bug gets a failing check first.
-2. Run the checks first on the real artifact; keep deciding lines.
+2. Run them first on the real artifact; keep deciding lines.
    Green tests do not prove the contract.
 3. Apply [review scope](references/review-scope.md). Unless exempt, ask
    one fresh read-only verifier. Without one, report unverified.
@@ -24,22 +24,22 @@ Both roles read the whole diff, delegated work included, and the
    Deliver only with every required check and safety fact proven on this
    revision, a fresh pass or valid exemption, no blocker or should open.
 6. Open after two rounds: stop and rethink the approach or scope.
-   Then at most two more; still open, stop delivery, report both sides.
+   At most two more; still open, stop delivery, report both sides.
 
 ## Verifier
 
 - Run every check yourself; reproduce a failure, suspecting your
   method first. Answer each pass, issues or not checked, with deciding
-  lines; an unrun check is not checked.
+  lines; unrun is not checked.
 - Name the fact its safety rests on; prove it on the real code or mark
   it unproven.
 - Try to break it: inputs, failure paths, callers, what the diff
   omits. A base defect is the base's unless the change copies or newly
   reaches it.
-- Name what reaches each issue and rank it. Blocker: the intended case
-  is wrong. Should: ordinary use, a caller, stored or imported data, a
-  race or a setting reaches it. Nit: contrived input giving only a wrong
-  result or warning, wording, extra tests or guards, small costs, what
-  only later code makes. Data loss, security or a trust boundary is never
-  a nit.
+- Show what reaches each issue; rank it. Blocker: the intended case is
+  wrong. Should: ordinary use, a caller, stored or imported data, a race
+  or a setting reaches it. Nit: nothing shown reaches it, contrived input
+  giving only a wrong result or warning, wording, extra tests or guards,
+  small costs, what only later code makes. Data loss, security or a trust
+  boundary is never a nit.
 - Name the revision and patch judged. Change nothing.
