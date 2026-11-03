@@ -15,24 +15,29 @@ The agent then kept arena's dissenter, for the reason below.
 ## What changed
 
 - `interrogate`: the unanimous-verdict dissenter (added 2026-10-23) is gone.
-  Step 5 now puts a finding in Act on or Consider only when it shows what
-  reaches it: a reproducer, or a step-by-step trace from a caller, input or
-  setting to the failure, through the real code (for a design, through the
-  sketch and the code it would run on). Reviewer agreement draws attention
-  but is not that evidence. Without it a finding is Noted; one the code rules
-  out is Dismissed; a data-loss, security or trust-boundary finding that can
-  be neither shown nor ruled out goes in Consider, marked unproven, with the
-  check that would settle it. The reviewer prompt asks for that evidence and
-  says a finding without it is a nit.
+  Step 5 now puts a finding in Act on or Consider only with evidence a reader
+  can check, from a reviewer or the lead. For a defect: a reproducer, or a
+  step-by-step trace from a caller, input or setting to the failure, through
+  the real code (for a design, through the sketch and the code it would run
+  on). For a structural finding from the code-quality lens: the lines, sites
+  or existing helper it names, and the simpler version it proposes. Reviewer
+  agreement draws attention but is not evidence. Without evidence a finding
+  is Noted (whose definition now says so); one the code rules out is
+  Dismissed; a data-loss, security or trust-boundary finding that can be
+  neither shown nor ruled out goes in Consider, marked unproven, with the
+  check that would settle it. The reviewer prompt asks for the same evidence;
+  without it a finding is a nit, except a safety one, which keeps its
+  severity marked unproven.
 - `verify`: the verifier "shows" what reaches each issue, and "nothing shown
   reaches it" is the first kind of nit. The rubric defines "shown" (a check
   that fails on this revision, or a step-by-step code trace) and sends an
   unshown data-loss, security or trust-boundary finding to not checked, not
   to nit. `SKILL.md` stays under its 2,200-byte limit (2,196) by tightening
-  three phrases with no change of meaning.
+  four phrases with no change of meaning.
 - Homelab's global rule (`agents/AGENTS.md`, "Decide for yourself") keeps a
-  dissenter when opinions on a *choice* agree, and says a review of finished
-  work gets none: its findings need evidence instead.
+  dissenter when opinions on which option to take agree, and says a review,
+  of a change or of a single design, gets none: its findings need evidence
+  instead. Committed in homelab, not here.
 
 ## Kept, and why
 
@@ -80,16 +85,41 @@ were kept outside the repository; the deciding lines are quoted.
 
 | Arm | Before (`c56ff8f`) | After (this branch) |
 | --- | --- | --- |
-| interrogate, lead with three reviewers that all say "fix the remainder" | Briefed a fourth reviewer: "all three verdicts agreed ... the skill calls for one more reviewer to argue the opposite", and called the verdict unchallenged until it returns. Race: Dismissed. Path traversal: Dismissed, because "the party choosing the path already controls the process", which the fixture does not show. | "I did not convene any extra reviewer." Race: Noted, "Two reviewers agreeing drew my attention, but neither traced a concurrent caller." Path traversal: Consider, "can be neither shown nor ruled out", with the settling check "find the program that builds `config`". |
-| verify, verifier given the same three concerns | Remainder: blocker with a reproducer. Race and path: "no finding", base code with no current path. | Same ranks. A return-type change it found itself: "nit ... nothing shown reaches it". |
+| interrogate, lead with three reviewers that all say "fix the remainder" | Drafted a brief for a fourth reviewer and said it would wait for it (this dry run could not launch one): "all three verdicts agreed ... the skill calls for one more reviewer to argue the opposite", and called the verdict unchallenged until it returns. Race: Dismissed. Path traversal: Dismissed, because "the party choosing the path already controls the process", which the fixture does not show. | "I did not convene any extra reviewer." Race: Noted, "Two reviewers agreeing drew my attention, but neither traced a concurrent caller." Path traversal: Consider, "can be neither shown nor ruled out", with the settling check "find the program that builds `config`". |
+| verify, verifier given the same three concerns | Remainder: blocker with a reproducer. Race and path: "no finding", base code with no current path. | Same ranks for the three given concerns. One it found itself (`main` now returns a list, not the total) went from "no finding" before to "nit ... nothing shown reaches it". |
 
 Read: in `interrogate` the change does what it says. It saves a reviewer
 round on a verdict that already had a reproducer, and replaces an unbacked
-dismissal with an honest "unproven". In `verify` it changed nothing on this
-fixture: the rubric already said to "trace a current path to an observable
-failure ... before reporting it", and both arms did. There the change makes
-the consequence explicit for the author, who re-ranks findings from
-`SKILL.md`, and says where an unsettled safety finding goes.
+dismissal with an honest "unproven". In `verify` it moved one self-found
+finding from "no finding" to an explicit nit and nothing else: the rubric
+already said to "trace a current path to an observable failure ... before
+reporting it", and both arms did. There the change makes the consequence
+explicit for the author, who re-ranks findings from `SKILL.md`, and says
+where an unsettled safety finding goes.
+
+## Review
+
+A fresh Claude Opus 5.5 verifier judged `ce62399` with the homelab diff:
+no blockers, six shoulds. Fixed: the evidence rule had no form for the
+code-quality lens's structural findings, which have no failure to trace;
+the reviewer prompt made an unproven security finding a nit; Noted still
+read "technically valid" while also holding unbacked findings (the race
+landed there in the first run although the lead wrote "there is none");
+the homelab sentence kept a dissenter for designs, which interrogate is
+routed for; homelab had no CHANGELOG entry; and this record overstated
+three results. Declined nits: "unrun is not checked" drops its noun (the
+byte limit), and verify and interrogate treat an unproven safety finding in
+untouched base code differently (verify keeps its base-defect rule;
+interrogate reports what the panel raised).
+
+Recheck: a fresh lead on the fixed `interrogate`, same panel plus two
+structural findings, one backed ("`return after` became `return shares`")
+and one not ("bill.py should be decomposed ... it mixes concerns"). The
+backed one went to Consider; the other was Dismissed: "It names no lines
+and offers no simpler version ... The file is 19 lines". The race went to
+Noted ("Neither named a concurrent caller"), path traversal to Consider as
+unproven, and no extra reviewer was briefed.
 
 Not exercised: a design review through `interrogate` (the sketch-trace
-wording), a real multi-family panel, and arena (unchanged).
+wording), a real multi-family panel, reviewers running the new prompt, and
+arena (unchanged).
