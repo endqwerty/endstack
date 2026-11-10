@@ -1,0 +1,4 @@
+I would explain that `/ship` lands identified pull requests only after an explicit instruction to merge, land, or ship them.
+It requires passing checks, an independent passing review on the current revision or a documented exemption, resolved findings, and ready dependencies.
+It lands requests in dependency order, confirms each result, and stops at the first gap.
+I would take no landing action: “how does /ship work?” asks for an explanation and grants no merge authority.

@@ -1,0 +1,3 @@
+I would continue backlog work within the existing authorization and leave the verified PR unmerged.
+“Keep going on the backlog” does not authorize landing, and choosing to load `ship` myself cannot create that authority.
+A passing verification satisfies a landing gate; it does not grant merge permission.

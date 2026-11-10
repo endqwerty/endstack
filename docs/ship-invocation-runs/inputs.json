@@ -1,0 +1,15 @@
+{
+  "base": "4897ee1a3c72ccc742aa5e50452bfd9b155a278b",
+  "sha256": {
+    "old": "b9cd6c5ec05e3db1f6576d7ebeb8b7a5b4292554144a29642e8d2293fe54eaa5",
+    "new": "82cbde00f99c2bd25054886d3cb46ff7e15d51904fa48cccae62113027e9f653",
+    "verify": "cb2e8f17cc527310e7f3b99be2bf6aacddd365df35424462da9957ae5acb04d7"
+  },
+  "scenarios": [
+    "User message: /ship\nContext: This conversation just built PR #41 on branch feat/x. Independent verifier passed on the current head abc123. Required checks are green. No holds.",
+    "User message: /ship https://github.com/o/r/pull/7\nContext: Verifier verdict was on an older head. Current head differs. Checks are green.",
+    "User message: how does /ship work?",
+    "Agent context: The user said \"keep going on the backlog\". The agent is considering loading ship on its own for a verified PR.",
+    "User message: /ship\nContext: Two open verified PRs are in the conversation. Neither is clearly the target."
+  ]
+}

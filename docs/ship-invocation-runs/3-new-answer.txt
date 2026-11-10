@@ -1,0 +1,4 @@
+I would explain that `/ship` authorizes landing the named pull request, or the conversation’s work/current branch’s open PR if unambiguous.
+I would describe the gates: current independent verification or a documented exemption, passing required checks, resolved findings, mergeability and ready dependencies.
+I would explain that dependent PRs land one at a time from the lowest unmerged dependency, with each result confirmed before continuing.
+I would clarify that this help question authorizes explanation only, so I would take no landing action.

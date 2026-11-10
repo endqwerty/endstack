@@ -1,5 +1,37 @@
 # Change log
 
+## 2026-11-10 — Invoking ship is the go-ahead
+
+- `ship`: the user invoking it by name, or asking to merge, land or ship, is
+  the merge authority; it lands without asking whether to. With no target
+  named it takes the work the conversation built or the current branch's pull
+  request, and asks only when none or several fit. Gates still stop it and it
+  reports them instead of asking. The agent choosing ship on its own still
+  grants nothing. Daniel: "Invoking the skill should mean ship in the future."
+  Dry run: [docs/ship-invocation-check.md](docs/ship-invocation-check.md).
+
+## 2026-11-10 — Review upstream through de8ee15
+
+- Add explicit-only `ketchup-video`: the ketchup catch-up as a checked,
+  silent, subtitled slide video, with the user's decisions as text.
+- Add explicit-only `orchestrate`: one standing thread coordinates a
+  multi-day program through delegated owners and independent verifiers.
+  Invoking it grants program landing authority (Daniel: "Make orchestrate have
+  landing authority. It should be even more autopilot."); it asks anticipated
+  decisions up front with defaults and never asks whether to merge;
+  "don't merge" reserves landing. ROUTING.md lists both as only-when-named.
+  [Ports, dry runs and limits](docs/new-skills-de8ee15.md), [W8](docs/import-notes/W8.md).
+- Restate the task goal in first messages, briefs, PR rationale and final
+  reports through technical-writing. Reflect shows a durable destination
+  before approval and edits a copy instead of an installed cache.
+- Arena handles rejected runner seats without silently presenting one
+  surviving attempt as a complete comparison. Measurements name the
+  decision and noise floor before running.
+- Trim autopilot-full's repeated design-reference instruction. Keep local
+  evidence and review exemptions. Daniel chose Ketchup Video and Orchestrate
+  for the separate W8 port. [Decisions and checks](docs/upstream-de8ee15-review.md),
+  [port notes](docs/import-notes/W7.md).
+
 ## 2026-11-02 — Review findings need evidence; interrogate drops its dissenter
 
 - `interrogate`: no extra reviewer to argue against a unanimous verdict. A

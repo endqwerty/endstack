@@ -1,0 +1,5 @@
+ROUTING.md: skill ketchup-video is not routed
+ROUTING.md: skill orchestrate is not routed
+2 problem(s)
+
+rc=1

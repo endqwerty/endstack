@@ -1,0 +1,4 @@
+I would use ship to land PR #41; `/ship` supplies merge authority, so I would not ask again.
+I would confirm its head remains abc123, all findings are resolved, and host mergeability and dependencies are ready.
+If those gates pass, I would merge using the project’s delivery mechanism, preserving the verified revision.
+I would then confirm the landed revision in the intended destination, perform prescribed local cleanup, and report the result.

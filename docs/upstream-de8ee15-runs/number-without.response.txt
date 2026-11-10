@@ -1,0 +1,7 @@
+Pre-run note: The current end-to-end export takes 100ms. Replacing the serializer would cost two days of integration, and we have no measurement showing how much it would improve the export. Keep the current serializer while testing whether the replacement offers a worthwhile benefit. The 100ms baseline alone does not establish a performance problem or justify the integration cost.
+
+Next action: Run a controlled comparison on representative exports before integrating. Measure end-to-end latency for both serializers using the same inputs and environment, with repeated, interleaved runs. Check output compatibility and correctness as well. Report the estimated difference and its uncertainty; use that evidence alongside the integration and maintenance costs to decide.
+
+After measuring a 1ms improvement with 8ms run-to-run spread: The observed improvement is 1% of the baseline, but the spread makes that estimate uncertain. Spread alone does not establish statistical significance: we also need the sample count, what “spread” means, and how the runs were compared.
+
+This result does not yet justify spending two days on integration. Keep the current serializer. Inspect the comparison and quantify uncertainty; collect more measurements if resolving that uncertainty could change the decision. Even a confirmed 1ms gain would still need a practical reason to warrant the cost. No user threshold has been supplied, so I would not declare that gain sufficient or insufficient on the user’s behalf.

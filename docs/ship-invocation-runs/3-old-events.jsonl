@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1c557-593e-78b2-add5-f29af1845e21"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"I would explain that `/ship` lands identified pull requests only after an explicit instruction to merge, land, or ship them.\nIt requires passing checks, an independent passing review on the current revision or a documented exemption, resolved findings, and ready dependencies.\nIt lands requests in dependency order, confirms each result, and stops at the first gap.\nI would take no landing action: “how does /ship work?” asks for an explanation and grants no merge authority."}}
+{"type":"turn.completed","usage":{"input_tokens":23718,"cached_input_tokens":12288,"cache_write_input_tokens":0,"output_tokens":96,"reasoning_output_tokens":0}}

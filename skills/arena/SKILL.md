@@ -21,7 +21,7 @@ Every candidate gets the same prompt, so the prompt is the contract.
 
 If the harness has separate workers, launch all N in parallel, each with the same task, shared grounding, its own output path, and instructions to produce the artifact and a short rationale naming alternatives considered and rejected. Otherwise produce candidates yourself in sequence and disclose that they are not independent attempts.
 
-If a candidate produces no output, proceed with N-1 and note the dropout.
+If a runner cannot start, use an available replacement only when the task and harness permit it; otherwise drop the seat and say why. Keep at least two independent candidates for a comparison unless the user specified one. If that is impossible, report the comparison incomplete. If a started candidate produces no output, proceed with N-1 and note the dropout.
 
 ## Phase C: Cross-judge
 

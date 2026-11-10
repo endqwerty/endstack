@@ -1,0 +1,5 @@
+My next message would be: “The accepted lesson suggests a one-line correction to the vendor’s `reports` skill. I recommend keeping a corrected local copy outside the plugin cache. Shall I create it? Nothing will be published.”
+
+If approved, I would copy the skill to `/work/local-skills/reports/`, apply the correction in `/work/local-skills/reports/SKILL.md`, and record its vendor origin. I would leave `/opt/agent/plugins/cache/vendor/hash/skills/reports/` unchanged.
+
+The plan is local use only. Any upstream submission or other publication would require separate, explicit authorization.

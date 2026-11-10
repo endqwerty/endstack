@@ -1,0 +1,4 @@
+I would stop landing PR #7 because the verifier approved an older head; green checks do not establish approval of the current revision.
+I would request a fresh read-only review of the current head, supplying the revision range, changes since the prior verdict, affected behavior, checks, and open findings.
+I would require a current passing verdict or documented valid exemption, then confirm mergeability and dependency readiness before merging.
+The `/ship` instruction grants merge authority, but it does not waive verification.

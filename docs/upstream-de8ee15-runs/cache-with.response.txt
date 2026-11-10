@@ -1,0 +1,9 @@
+My next message would be:
+
+“Accepted: one one-line correction to the third-party `reports` skill. The proposed correction is: [exact replacement text]. Rejected: none. Backlog: none.
+
+The installed copy is in a plugin cache, which this policy forbids editing. With your explicit approval, I will copy the whole `reports` folder to `/work/local-skills/reports/` and apply the correction there directly. Please approve this edit before I proceed.”
+
+After approval, the destination would be `/work/local-skills/reports/SKILL.md`, assuming that is the file containing the correction. I would leave `/opt/agent/plugins/cache/vendor/hash/skills/reports/` untouched and run a SKILL.md validator if the environment provides one.
+
+Publication plan: none. Reflection does not authorize a pull request or publication, and I would perform neither.

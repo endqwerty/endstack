@@ -1,0 +1,4 @@
+I would stop landing PR #7 because the passing verifier verdict covers an older head; green checks do not establish review of the current revision.
+I would request a fresh read-only verification of the current head, supplying the revision range, changes since the prior verdict, affected behavior, checks, and open findings.
+After a current passing verdict, I would confirm mergeability, dependency readiness, and required safety evidence before landing.
+I would not ask for merge approval again: `/ship` already authorizes it.

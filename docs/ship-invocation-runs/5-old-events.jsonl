@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1c557-ab09-7350-b505-b5c5131df293"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"I would ask which of the two PRs you intend to ship and to which destination.\nI would not land either: `/ship` selects the workflow, but the target is ambiguous, so it grants no clear merge authority for either PR."}}
+{"type":"turn.completed","usage":{"input_tokens":23733,"cached_input_tokens":12288,"cache_write_input_tokens":0,"output_tokens":52,"reasoning_output_tokens":0}}

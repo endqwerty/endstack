@@ -1,0 +1,7 @@
+1. Record that Runner B was rejected before starting. It produced no candidate and cannot count toward the comparison.
+2. Start a second independent instance of Runner A, as the harness permits. Give both instances the same brief and constraints, separate contexts, and isolated outputs. Neither should see the other’s design before submitting.
+3. Check that both outputs satisfy the brief, then compare them using the same criteria. Preserve their separate provenance.
+
+Disclose that both candidates came from the same runner family, that B never started, and that no other family was available. The comparison has independent runs, but no cross-family diversity; shared blind spots remain possible. Do not present the replacement as B or imply two families participated.
+
+If no replacement can start, the requirement for two independent candidates remains unmet. Preserve A’s output as a single proposal and report the arena comparison as blocked or incomplete. A standalone review may still be useful, but it does not substitute for the missing candidate or establish an arena winner.

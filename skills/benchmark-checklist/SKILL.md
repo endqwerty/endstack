@@ -12,7 +12,7 @@ For a quick ballpark the user asked for, one run is enough. Still check question
 
 ## Before you run anything
 
-- Write down the claim you expect to make, in the words you would ship ("export is 30% faster at p50 on the 60k-row dataset"). The questions test that sentence.
+- Before measuring, apply [explain the number](../principles/references/explain-the-number.md): record the decision, the result that would change it, and the noise floor. Write the claim you expect to make ("export is 30% faster at p50 on the 60k-row dataset"). The questions test that sentence.
 - Read the measurement script. Note what it times, counts, and ignores.
 - Check the machine load and core count. If the machine is busy, find out what is running. If you cannot stop it, interleave the sides so both see the same noise, and say so in the report.
 
