@@ -1,0 +1,9 @@
+**Pre-run note:** The decision is whether replacing the production serializer justifies two days of integration. The supplied end-to-end baseline is 100 ms; its run count, spread, and limiter are unknown. No replacement benefit has been measured.
+
+A reproducible end-to-end improvement large enough to justify that integration cost could change the decision. No minimum worthwhile improvement has been supplied, so leave that threshold unresolved. The noise floor is also unknown and must be measured; do not claim a difference if run-to-run spread exceeds the effect.
+
+**Next action:** Inspect the measurement script, then benchmark both serializers with equivalent production tuning, realistic data, and concurrency. Check machine load and cores. Alternate at least five runs per side, recording end-to-end median and range, failures, output correctness, and evidence that serialization completed inside the timed region. Measure serialization’s share of the export to bound its possible benefit.
+
+Use a separate profiling run and system counters to identify the limiter, including any load-generator limit, and map it to source. Check for skipped or cached work, unequal tuning, and implausible time savings. Keep those checks and the limiter evidence with the results. Do not choose a replacement while these checks remain incomplete.
+
+**If the measured improvement is 1 ms with 8 ms run-to-run spread:** The verdict is **no measurable difference** under the supplied policy: the spread exceeds the effect. That result does not justify committing two days to replacement, and it does not prove the serializers perform identically. Retain the current serializer on the available evidence. Further measurement would need to reduce or explain the variation before supporting a speed claim; adoption would still require judging whether a reliable benefit warrants the integration cost.

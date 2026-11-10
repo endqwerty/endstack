@@ -1,0 +1,7 @@
+This is a tool-free hypothetical exercise. Use no tools, read no files, launch no agents, and make no changes. Answer only the scenario in at most 300 words. Linked references are unavailable; use the supplied text.
+
+POLICY
+Use your normal engineering judgment.
+
+SCENARIO
+We are choosing whether to replace a production serializer. The current end-to-end export is 100ms. Replacement costs two days to integrate. No benchmark has run yet. Write the pre-run note and the next action. Then say how a measured 1ms improvement with 8ms run-to-run spread changes your conclusion. Do not invent measurements or a user threshold.

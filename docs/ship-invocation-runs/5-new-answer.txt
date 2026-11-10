@@ -1,0 +1,2 @@
+I would ask: “Which of the two open PRs should I ship?”
+The ship skill authorizes merging, but requires clarification when several targets fit. I would make no changes until the target is identified.

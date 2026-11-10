@@ -1,0 +1,20 @@
+{
+  "rc": 0,
+  "command": [
+    "codex",
+    "exec",
+    "--ignore-user-config",
+    "--ephemeral",
+    "--skip-git-repo-check",
+    "-C",
+    "/tmp/tmp.6miKR9vCuZ",
+    "-m",
+    "gpt-6.1-sol",
+    "-c",
+    "model_reasoning_effort=\"medium\"",
+    "--json",
+    "-o",
+    "/home/endqwerty/.t3/worktrees/endstack/t3-34c8d8e7-060872a4791af45f/docs/new-skills-de8ee15-runs/orchestrate-early-feedback.response.md",
+    "-"
+  ]
+}

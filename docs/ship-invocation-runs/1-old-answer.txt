@@ -1,0 +1,4 @@
+I would not merge yet: `/ship` selects the skill but does not itself grant merge authority under the supplied policy.
+I would ask for explicit authorization to merge PR #41 and confirmation of its destination.
+The passing verdict on `abc123` and green checks satisfy those gates, but do not supply merge authority.
+Once authorized, I would confirm current mergeability and dependency readiness before landing.

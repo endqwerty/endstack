@@ -199,6 +199,28 @@ pstack's `statechart` is installed by homelab from a pin, not ported, and
 create-formal-verification-skill takes upstream's paragraph pointing to it
 ([docs/statechart.md](docs/statechart.md)).
 
+### Upstream review at de8ee15 (2026-11-10)
+
+Reviewed the 23 pstack commits after `190d287` through `de8ee15`. Adapted
+first-message and report goal reminders, Reflect's durable cache destination,
+Arena's rejected-seat handling, and decisions written before measurement.
+Trimmed autopilot-full's repeated design reference. Kept endstack's existing
+evidence policy, review exemptions and optional family diversity. Daniel chose Ketchup Video and agentic Orchestrate for a separate W8 port;
+that author and the coordinator own the new skills and index integration.
+Statechart remains the separately maintained homelab pin.
+[Per-commit decisions, checks and dry runs](docs/upstream-de8ee15-review.md),
+[W7 port notes](docs/import-notes/W7.md).
+
+### Video catch-up and standing coordinator (2026-11-10)
+
+Daniel asked for pstack's ketchup-video and orchestrate (at `de8ee15`). The
+first keeps the slide, subtitle and rendered-file checks with decisions in
+text. The second ports `c742dd6`'s agentic program coordinator as a
+standalone explicit-only skill. Invoking it grants program landing authority
+under verify's current-head verdict and ship's gates; it batches anticipated
+questions before the first unit; "don't merge" reserves landing. See
+[W8](docs/import-notes/W8.md) and [checks](docs/new-skills-de8ee15.md).
+
 ## Upstream (decided 2026-10-10: broken from)
 
 Daniel decided pstack is no longer tracked: endstack differs too much, and

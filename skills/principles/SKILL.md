@@ -37,7 +37,7 @@ In your reply, name each principle that shaped a decision and the specific choic
 - [Fix Root Causes](references/fix-root-causes.md) — when debugging symptoms or failures after restart. Reproduce, then trace back to the first place the system went wrong; fix it there and in every place with the same fault. A guard is a fix only when the state it handles is legitimate.
 - [Sequence work into verifiable units](references/sequence-verifiable-units.md) — when ordering multi-step work, commits, or pull requests. Break work into small units that each end in a check, and verify each before starting the next.
 - [Test Behavior, Not Implementation](references/test-behavior-not-implementation.md) — when writing, changing, or keeping a test. Assert what the code's users can observe, so the test fails when that behavior breaks and keeps passing when only the internals change.
-- [Explain the Number](references/explain-the-number.md) — before trusting, reporting, or acting on a measured number. Find what limits it and rule out that it measured something other than the work.
+- [Explain the Number](references/explain-the-number.md) — before measuring, trusting, reporting, or acting on a number. Find what limits it and rule out that it measured something other than the work.
 - Prove It Works is the [verify](../verify/SKILL.md) skill.
 
 **Delegation**

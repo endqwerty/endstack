@@ -5,7 +5,7 @@
 Daniel Yang's agent stack: skills for Claude Code and Codex (through T3 Code),
 distilled from Lauren Tan's [pstack](https://github.com/cursor/plugins/tree/main/pstack).
 
-**State: five core delivery skills plus 24 imported role skills.** Build, babysit, ship,
+**State: five core delivery skills plus 26 imported role skills.** Build, babysit, ship,
 autopilot-full and verify keep implementation, readiness and merge authority
 separate. Start with the [command cookbook](docs/cookbook.md) for the full
 catalog, copyable prompts, outputs and stopping points. Distribution uses a
@@ -26,8 +26,8 @@ carry no tool, model or harness names; see the [skills table](#skills) and
 | Group | Skills |
 | --- | --- |
 | Delivery (core, about 2 KB each) | build, babysit, ship, autopilot-full, verify |
-| Explain and think | architect, how, why, teach, recall, figure-it-out, correct, ketchup, sharpen |
-| Review and process | reflect, interrogate, arena, swarm, show-me-your-work, benchmark-checklist, bro |
+| Explain and think | architect, how, why, teach, recall, figure-it-out, correct, ketchup, ketchup-video, sharpen |
+| Review and process | reflect, interrogate, arena, swarm, orchestrate, show-me-your-work, benchmark-checklist, bro |
 | Writing and code | technical-writing, unslop, no-comments, typescript-best-practices, tdd, create-formal-verification-skill, maintain-formal-verification-skill |
 | Principles | principles (index; each principle is a reference read on demand) |
 
@@ -51,7 +51,7 @@ in its `AGENTS.md`.
 
 ## Install
 
-Only `skills/` is installable (29 skills). Add `-s build -s verify ...` to take a subset.
+Only `skills/` is installable (31 skills). Add `-s build -s verify ...` to take a subset.
 
 **With npx** (any machine; installs to Claude Code, Codex and other agents):
 

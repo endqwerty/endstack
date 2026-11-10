@@ -39,4 +39,5 @@ Explaining code, reviewing and checking safety are tasks, short or not.
 - A state diagram: `statechart` to draw it from a checked model or show a bug
   as a path through states; `archify` for a picture only.
 
-Only when named: `bro`, `ketchup`, `recall`, `reflect`, `sharpen`.
+Only when named: `bro`, `ketchup`, `ketchup-video`, `orchestrate`, `recall`,
+`reflect`, `sharpen`.

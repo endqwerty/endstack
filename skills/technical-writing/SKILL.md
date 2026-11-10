@@ -18,6 +18,10 @@ The codebase is the word list. Write the real symbol, file, flag, or command nam
 
 Don't invent jargon. Use the words a developer would say out loud: "move", "delete", "a budget that only decreases", not "evacuate", "ratchet", or "endgame". A named pattern is fine when the doc says what it means the first time. Propose a new offender and its replacement as an addition to `unslop`'s abstract-metaphor rule in your reply, with the diff. Don't edit that skill.
 
+## Keep the goal visible
+
+On the first task message, restate the user's goal and problem in your own words and, for a change, the smallest expected solution. Proceed without waiting for confirmation. Carry the goal into each delegated brief, the opening of the pull request's rationale, and the final report. Skip the final restatement for a fully specified one-line edit. If evidence rules out the requested change, show it and stop.
+
 ## Vary the rhythm
 
 A doc can obey every layer and still read machine-written: every sentence clipped short, no view anywhere, nothing specific.

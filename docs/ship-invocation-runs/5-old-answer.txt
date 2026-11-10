@@ -1,0 +1,2 @@
+I would ask which of the two PRs you intend to ship and to which destination.
+I would not land either: `/ship` selects the workflow, but the target is ambiguous, so it grants no clear merge authority for either PR.

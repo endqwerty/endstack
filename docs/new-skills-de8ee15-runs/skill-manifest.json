@@ -1,0 +1,18 @@
+{
+  "skills/ketchup-video/SKILL.md": {
+    "bytes": 3925,
+    "sha256": "1f47f4310525ca177e4669165dd41be13d685614b273dec358d47e3d9b65ecd3"
+  },
+  "skills/ketchup-video/agents/openai.yaml": {
+    "bytes": 43,
+    "sha256": "a1499d95abd8447558c535fe5554adcc3c9b988a0a39264a6283d430effe1e94"
+  },
+  "skills/orchestrate/SKILL.md": {
+    "bytes": 5976,
+    "sha256": "dae88b34f9e3b055eb6a682918de901841e8218570acc2f72550a7b8f83a91bf"
+  },
+  "skills/orchestrate/agents/openai.yaml": {
+    "bytes": 43,
+    "sha256": "a1499d95abd8447558c535fe5554adcc3c9b988a0a39264a6283d430effe1e94"
+  }
+}

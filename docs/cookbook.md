@@ -12,6 +12,8 @@ ordinary matching request can also select it automatically.
 | build | `$build` | `/build` |
 | babysit | `$babysit` | `/babysit` |
 | ship | `$ship` | `/ship` |
+| ketchup-video | `$ketchup-video` | `/ketchup-video` |
+| orchestrate | `$orchestrate` | `/orchestrate` |
 | autopilot-full | `$autopilot-full` | `/autopilot-full` |
 | verify | `$verify` | `/verify` |
 
@@ -25,6 +27,8 @@ the named skill and check that the agent loads its installed `SKILL.md`.
 | [build](../skills/build/SKILL.md) | A feature or bug fix | Checked, independently verified non-draft PR; no watcher or merge |
 | [babysit](../skills/babysit/SKILL.md) | Existing PR feedback and failed checks | Merge-ready PR; no merge. Status questions are read-only |
 | [ship](../skills/ship/SKILL.md) | Explicitly landing identified work | Confirmed revision in its destination, or a named blocker |
+| [ketchup-video](../skills/ketchup-video/SKILL.md) | Named video catch-up since your last message | Silent subtitled video, followed by all user decisions in text |
+| [orchestrate](../skills/orchestrate/SKILL.md) | Named multi-day program under one coordinator thread | Owners build, verify and land each PR; explicit no-merge stops at merge-ready |
 | [autopilot-full](../skills/autopilot-full/SKILL.md) | A bounded queue with explicit merge authority | Verified, landed items; held items remain held |
 | [verify](../skills/verify/SKILL.md) | Independent evidence on an exact revision | Read-only pass / issues / not checked verdict; no merge authority |
 
@@ -71,15 +75,31 @@ prefix; in Claude Code use `/` instead. Without installation, the fallback is
 > do not change anything or start a watcher.
 
 **Ship:**
-> $ship Merge [PR URL] into [destination] only if its
-> required checks and independent current-revision verdict already pass.
-> Otherwise report the blockers; do not watch or arm automatic merging.
+> $ship [PR URL]
 
-That grants landing authority for that work, not deployment authority. “Ship
-this PR” also grants it when the PR and destination are clear. Missing checks,
-stale verdicts and operator holds still block. Merely asking how ship works
-does not execute it. Automatic merge-when-ready needs its own explicit request
-and safeguards for the verified revision; green checks alone do not grant it.
+Invoking ship is the go-ahead: it lands the named work (or, with none named,
+what the conversation built or the current branch's pull request) without
+asking whether to. “Ship this PR” or “merge it” does the same. It grants
+landing, not deployment. Missing checks, a stale or missing independent
+verdict and operator holds still stop it, and it reports them rather than
+asking. Merely asking how ship works does not execute it. Automatic
+merge-when-ready needs its own explicit request and safeguards for the
+verified revision; green checks alone do not grant it.
+
+**Standing coordinator:**
+> $orchestrate Own [program] through [checkable completion goal].
+> Do not deploy or expand the program.
+
+Invoking orchestrate grants landing authority for the program. It asks the
+questions that could later hold a merge together before the first unit, with
+defaults, then never asks whether to merge. The coordinator never edits code
+or merges; each PR owner lands after an independent verdict on the current
+head and required checks, and failed gates go back to owners. "Don't merge,
+I'll land it" reserves landing. Deployment and destructive actions stay
+excluded.
+
+**Video catch-up:**
+> $ketchup-video Catch me up since my last message.
 
 **Full autopilot (the special case):**
 > $autopilot-full Implement and merge only [A, B, C],
