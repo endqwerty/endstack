@@ -46,3 +46,10 @@ Codex's `(file: ...)` suffix.
   Codex system skill with the policy set to false.
 - `python3 scripts/check-skills.py` and `check-routing.py`: 0 problems.
   `python3 -m unittest discover -s scripts`: 16 tests pass.
+
+## Later (2026-11-11)
+
+`unslop` became visible again in both harnesses (seven visible skills, about
+60 more catalog tokens per request): hidden, Claude Code agents loaded it in 4%
+of sessions against 81% for Codex. See
+[hidden-skill-loads.md](hidden-skill-loads.md).

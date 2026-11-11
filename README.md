@@ -31,8 +31,10 @@ carry no tool, model or harness names; see the [skills table](#skills) and
 | Writing and code | technical-writing, unslop, no-comments, typescript-best-practices, tdd, create-formal-verification-skill, maintain-formal-verification-skill |
 | Principles | principles (index; each principle is a reference read on demand) |
 
-All imported role skills are explicit-invocation (`/tdd`, `/arena`, ...), as in
+The imported role skills are explicit-invocation (`/tdd`, `/arena`, ...), as in
 pstack, so they add almost nothing to the catalog the agent sees every session.
+`unslop` is the exception: it applies to every reply, and Claude Code agents
+skipped it while it was hidden ([evidence](docs/hidden-skill-loads.md)).
 What replaces pstack's always-on router is [ROUTING.md](ROUTING.md), a 1.9 KB
 index of when to use which skill, installed in the global rules so every turn
 sees it ([evidence](docs/routing.md)).

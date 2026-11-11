@@ -72,6 +72,8 @@ Codex probe on the round 1 wording did add them.
 - Real sessions: the dry run is one small model's stated choice, not observed
   skill use in Claude Code or Codex, and one sample, not a rate. Whether the
   model really opens a hidden skill by reading its SKILL.md is unconfirmed.
+  Measured on 2026-11-11 from real sessions: it does, unevenly by harness
+  ([hidden-skill-loads.md](hidden-skill-loads.md)).
 - Cost and noise: the index adds about 1.9 KB per turn; whether it over-triggers
   on short turns is not measured. If it does, tighten the "casual turn" line.
 - Drift: the copy in homelab is checked by hand, not by a script.
