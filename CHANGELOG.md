@@ -1,5 +1,16 @@
 # Change log
 
+## 2026-11-11 — Open hidden skills by file; unslop visible
+
+- ROUTING.md: open a listed skill by name, any other by reading its SKILL.md,
+  never through a skill tool. Claude Code refuses its skill tool for a hidden
+  skill and tells the agent not to work around it; real sessions hit that refusal seven
+  times and recovered once.
+- `unslop` is visible again (no `disable-model-invocation`, no
+  `agents/openai.yaml`), with a description naming when to use it. Hidden,
+  Claude Code agents loaded it in 4% of sessions against 81% for Codex.
+- Evidence and dry run: [docs/hidden-skill-loads.md](docs/hidden-skill-loads.md).
+
 ## 2026-11-10 — Invoking ship is the go-ahead
 
 - `ship`: the user invoking it by name, or asking to merge, land or ship, is

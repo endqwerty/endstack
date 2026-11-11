@@ -1,10 +1,10 @@
 ## Skill routing
 
-Before acting on a new task, match it here. On a match, open the skill by name
-(if it is not in your skill list, read its SKILL.md from your skills directory),
-follow it, and say which one shaped a decision. Several can apply. Casual chat,
-a one-fact lookup (a time zone, a version), or the user opting out: skip this.
-Explaining code, reviewing and checking safety are tasks, short or not.
+Before acting on a new task, match it here. On a match, open the skill: by name
+if listed, else read its SKILL.md from your skills directory, never via a skill
+tool. Follow it and say which one shaped a decision. Several can apply. Casual
+chat, a one-fact lookup (a time zone, a version), or the user opting out: skip
+this. Explaining code, reviewing and checking safety are tasks, short or not.
 
 - Every task, first: decide whether it splits into independent parts (sources,
   files, questions, candidates) worth running at once. If it does, `swarm`;
