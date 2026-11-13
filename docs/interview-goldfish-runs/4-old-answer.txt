@@ -1,0 +1,6 @@
+1. I’ll treat this as a review of agent instructions, using `verify`; I won’t route it to `build` or edit it.
+2. I’ll first ground the review in the AGENTS.md diff, repository context and governing instructions, because consistency alone cannot establish whether it works.
+3. I’ll use `swarm` for independent checks of conflicting rules and practical workflow cases once that shared context is available.
+4. I’ll check precedence, authorization, routing, completion gates and whether an agent can follow the rules without getting stuck.
+5. I’ll test concrete scenarios against the wording and report confirmed findings with locations, consequences and suggested fixes.
+6. I’ll apply `unslop` to the review; if rule edits follow, I’ll route those through `correct`.

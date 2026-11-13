@@ -2,8 +2,8 @@
 
 ## What can I call?
 
-The five delivery skills are distributed through `homelab sync` from a pinned,
-reviewed revision of endstack. A fresh agent session discovers them in its user
+Every skill in `skills/` is distributed through `homelab sync` from a pinned,
+reviewed revision of endstack. The table lists the ones you call by name. A fresh agent session discovers them in its user
 skill directory. Use a named command when you want a particular workflow; an
 ordinary matching request can also select it automatically.
 
@@ -112,6 +112,14 @@ excluded.
 
 **Help, not execution:**
 > Explain which endstack skill fits [task] and draft a prompt. Do not start.
+
+**Interview before a feature:**
+> $interview I want [feature]. Question me before designing it, then propose
+> the first design yourself and write the design doc.
+
+**Goldfish a document:**
+> $goldfish Test [path to design doc or AGENTS.md] on fresh readers with
+> these tasks: [two to four tasks as I would ask them].
 
 ## Normal flow
 

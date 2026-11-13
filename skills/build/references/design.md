@@ -57,8 +57,32 @@ a sentence each and skips the rest.
 Write the outcome in a few lines: the shape and its structure, the consumers
 and which ones change, and what is deleted. Name each principle that changed a choice, with the choice, and leave the
 line out when none did. It is for a reader, not for a check to parse. The note goes into the pull request's "why this approach" and
-into every brief, not into a file in the repository unless the project keeps
-design records.
+into every brief.
+
+## The design doc
+
+A new feature or a change of shape also gets a design doc in the repository,
+so a fresh agent can resume or extend the work from the tree instead of from
+the conversation. A fix whose shape was already settled needs only the note.
+
+- **Before.** When the feature's result depends on the user's intent or
+  taste, run the [interview](../../interview/SKILL.md) skill before step 1
+  and build the doc from it.
+- **Where.** The place the project's rules name; otherwise
+  `docs/design/<short-name>.md`, one per feature. Extending a feature updates
+  its doc in the same change.
+- **Sections**, written one at a time: *Problem* (a few plain sentences a
+  casual reader understands); *Plan* (the parts and how they fit, a block
+  diagram if it helps, light on jargon); *Alternatives* (each option turned
+  down and why, so no later agent reopens it unknowingly); *Implementation*
+  (every file created or changed, and why); *Checks* (how done is judged);
+  *Open questions* (with the answer assumed meanwhile).
+- **Test it.** Before the first edit to production code, run the
+  [goldfish](../../goldfish/SKILL.md) skill on the doc and fix it until only
+  nits remain. Implementation follows the doc; a builder that has to depart
+  from it updates the doc in the same change and says why.
+- The pull request links the doc and still carries the note: the pull request
+  records what happened, the doc what is true now.
 
 ## Delegated builders
 
