@@ -27,7 +27,7 @@ Turned down:
 ## Checks (written before the file existed)
 
 1. `python3 scripts/check-routing.py`, tested by `scripts/test_check_routing.py`
-   (14 tests with the rest of `scripts/`). It enforces the mechanical parts:
+   (with the rest of `scripts/`). It enforces the mechanical parts:
    every skill in `skills/` named exactly once; no unknown backticked name; a
    non-empty "Only when named" list; one bullet routing prose to `unslop` and
    docs to `technical-writing`; `ship` and `autopilot-full` only in a bullet

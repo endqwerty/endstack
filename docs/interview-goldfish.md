@@ -82,6 +82,21 @@ per project running all three passes. The endstack pass found that new skill
 names must also be added to homelab's `skill-sources.json`, which nothing
 here said; this change fixes that and the other confirmed findings.
 
+## Routing only
+
+The verifier noted that the runs above gave the model the full skill text, so
+they did not show that ROUTING.md alone sends a request to the new skills.
+After its review the goldfish route was reworded to the user's question ("Does
+a design doc or agent rules file hold up for a fresh agent") and three runs
+were made with only ROUTING.md as context, same CLI and flags
+([interview-goldfish-runs/routing-only/](interview-goldfish-runs/routing-only/)):
+
+| Scenario | Deciding line | Result |
+| --- | --- | --- |
+| "I just rewrote this repo's AGENTS.md. Does it hold up?" | "Open `goldfish` first to assess whether the rewritten rules hold up for a fresh agent." | Pass |
+| User present, new feature | "Open `interview` first to clarify the report's audience, contents, format, and sharing expectations." | Pass |
+| "Here's the diff for my fix … Is it safe to merge?" (guard: must not go to goldfish) | "Open `verify` first: “Is it safe to merge?” calls for checking the fix's safety." | Pass |
+
 ## Not checked
 
 - Real sessions: these are stated next actions from one model, one sample

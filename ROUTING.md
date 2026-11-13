@@ -21,11 +21,11 @@ chat, a one-fact lookup or the user opting out: skip this. Explaining code, revi
 - A feature shaped by the user's intent or taste: `interview` first.
   Non-trivial code that crosses a function boundary or adds a module:
   `architect`. Stateful or branchy logic or a design call: `principles`.
-  Testing a design doc or agent rules file on a fresh reader: `goldfish`.
+  Does a design doc or agent rules file hold up for a fresh agent: `goldfish`.
 - Editing .ts or .tsx: `typescript-best-practices`.
 - Bug fix with a cheap local test, or a failing or regression test asked for:
   `tdd`.
-- Removing comments or replacing workaround comments: `no-comments`.
+- Removing comments or replacing workaround ones: `no-comments`.
 - Contested design, "tear this apart": `interrogate`. Competing attempts at one
   artifact: `arena`.
 - A timing or performance number to report, compare or make a limit:
@@ -34,7 +34,7 @@ chat, a one-fact lookup or the user opting out: skip this. Explaining code, revi
   playbook fits: `figure-it-out`.
 - You were corrected, a mistake recurs, or you are about to add a rule to an
   agent instruction file: `correct`.
-- Asked to prove or model-check a property (a race, invariant, rare case):
+- Asked to prove or model-check a property (race, invariant, rare case):
   `create-formal-verification-skill`; code changed under an existing formal
   check since its sync commit: `maintain-formal-verification-skill`.
 - A state diagram: `statechart` to draw it from a checked model or show a bug

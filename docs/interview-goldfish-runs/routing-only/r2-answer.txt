@@ -1,0 +1,4 @@
+Keep this local initially; intent clarification comes before work worth splitting with `swarm`.
+Open `interview` first to clarify the report’s audience, contents, format, and sharing expectations.
+Then `build` to implement; use `architect` for code crossing function boundaries and `principles` for design decisions.
+Use `unslop` for prose, `technical-writing` for report text, and `verify` before calling the behavior complete.

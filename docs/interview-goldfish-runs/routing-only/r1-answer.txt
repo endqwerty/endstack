@@ -1,0 +1,3 @@
+Keep this local: one AGENTS.md review does not warrant `swarm`.
+Open `goldfish` first to assess whether the rewritten rules hold up for a fresh agent.
+Also open `technical-writing` for clarity and `unslop` for the review prose.

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1d731-1dd4-7c61-b0f8-17f3bcfae36d"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Keep this local initially; intent clarification comes before work worth splitting with `swarm`.\nOpen `interview` first to clarify the report’s audience, contents, format, and sharing expectations.\nThen `build` to implement; use `architect` for code crossing function boundaries and `principles` for design decisions.\nUse `unslop` for prose, `technical-writing` for report text, and `verify` before calling the behavior complete."}}
+{"type":"turn.completed","usage":{"input_tokens":20678,"cached_input_tokens":12160,"cache_write_input_tokens":0,"output_tokens":93,"reasoning_output_tokens":0}}
