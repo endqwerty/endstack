@@ -1,0 +1,7 @@
+1. I’d keep this small fix with one worker; there is no useful independent split yet.
+2. I’d apply `build`, `how`, `tdd`, and `verify`; `unslop` shapes the reply. `interview` is unnecessary because the requested behavior is clear.
+3. I’d trace timestamp formatting on the posts page and find sibling consumers doing the same job.
+4. I’d record the settled fix’s design note: where formatting belongs, which consumers change, and checks proving viewer-local display.
+5. I’d add a test through the user-facing contract with a non-UTC viewer zone and watch it fail before changing production code.
+6. I’d fix formatting for each affected consumer, preserving the timestamp’s instant, then run the relevant checks.
+7. I’d obtain a fresh read-only verification of the current revision before calling it done, then follow project commit and PR rules without merging.

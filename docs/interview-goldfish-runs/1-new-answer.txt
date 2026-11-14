@@ -1,0 +1,8 @@
+1. I would keep the initial discovery with one worker because the report’s purpose needs clarification before implementation can split; `interview` shapes this decision.
+2. I would ground the interview in the QA product’s run and evidence flow, then summarize that understanding; this simulation supplies no code to inspect.
+3. I would ask who receives the report and what decision it supports; absent guidance, I would assume a teammate reviewing the run.
+4. I would ask what evidence it includes and what must stay private; I would assume selected evidence with sensitive fields excluded.
+5. I would ask whether “shareable” means a downloaded file or a hosted link, and what access or expiry it needs; I would tentatively assume a downloaded report.
+6. I would ask how you will judge success, including incomplete runs and missing evidence, so those answers become completion checks.
+7. After your answers settle, I would propose the first design, discuss alternatives, and write the design doc under `build` before production code.
+8. I would run `goldfish`’s three fresh-reader passes concurrently, fix substantive gaps, and repeat until only nits remain before implementation.

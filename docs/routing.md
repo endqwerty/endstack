@@ -6,7 +6,8 @@ used when Daniel named them, and nothing chained them (for example `build`
 writing docs never reached `unslop`). Asking him to think about 24 skills per
 message was the failure.
 
-What: [ROUTING.md](../ROUTING.md) is a 1.9 KB index, one line per situation. It
+What: [ROUTING.md](../ROUTING.md) is an index of at most 2.6 KB (1.9 KB when
+added), one line per situation. It
 is loaded on every turn through the global rules in homelab (`agents/AGENTS.md`),
 the only file both Claude Code and Codex read each session. The model matches the
 task against it, opens the named skill, and says which one shaped a decision. A
@@ -26,7 +27,7 @@ Turned down:
 ## Checks (written before the file existed)
 
 1. `python3 scripts/check-routing.py`, tested by `scripts/test_check_routing.py`
-   (14 tests with the rest of `scripts/`). It enforces the mechanical parts:
+   (with the rest of `scripts/`). It enforces the mechanical parts:
    every skill in `skills/` named exactly once; no unknown backticked name; a
    non-empty "Only when named" list; one bullet routing prose to `unslop` and
    docs to `technical-writing`; `ship` and `autopilot-full` only in a bullet
@@ -74,6 +75,6 @@ Codex probe on the round 1 wording did add them.
   model really opens a hidden skill by reading its SKILL.md is unconfirmed.
   Measured on 2026-11-11 from real sessions: it does, unevenly by harness
   ([hidden-skill-loads.md](hidden-skill-loads.md)).
-- Cost and noise: the index adds about 1.9 KB per turn; whether it over-triggers
+- Cost and noise: the index adds up to 2.6 KB per turn; whether it over-triggers
   on short turns is not measured. If it does, tighten the "casual turn" line.
 - Drift: the copy in homelab is checked by hand, not by a script.

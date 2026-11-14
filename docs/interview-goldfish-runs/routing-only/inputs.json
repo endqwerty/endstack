@@ -1,0 +1,5 @@
+{
+  "r1": "User message: I just rewrote this repo's AGENTS.md. Does it hold up?",
+  "r2": "User message (user is present): Add a feature to our QA product: let a user export one run's evidence as a shareable report.",
+  "r3": "User message: Here's the diff for my fix to the login retry bug. Is it safe to merge?"
+}

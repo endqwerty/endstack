@@ -13,9 +13,9 @@ repository names in its `AGENTS.md`. Background and the merge-policy design:
 | `babysit` | babysit | Handle existing PR feedback and checks; stop at merge-ready. Status-only is one read-only pass. |
 | `ship` | shipping | Explicitly authorized landing of identified, currently verified work; confirm destination. |
 | `autopilot-full` | autopilot-full | Compose build, babysit and ship for a bounded queue with explicit merge authority. |
-| `verify` | principle-prove-it-works, interrogate (single reviewer), blast-radius | A verifier from a different provider than the author, read-only, answers each check pass / issues / not checked and tries to break the change; tied to the head it judged. |
+| `verify` | principle-prove-it-works, interrogate (single reviewer), blast-radius | An independent read-only verifier (a different provider is optional), answers each check pass / issues / not checked and tries to break the change; tied to the head it judged. |
 | PR brief (inside `build`, not another skill) | opening-a-pr, technical-writing, unslop | Short, standalone why, what, approach, checks, deciding evidence and reviewer. |
-| `repro-first` (later, on a second failure) | bug-fix, tdd, fix-root-causes | Reproduce before fixing; a failing check first. |
+| `repro-first` (not built: `tdd` and the fix-root-causes principle cover it) | bug-fix, tdd, fix-root-causes | Reproduce before fixing; a failing check first. |
 
 Daniel's existing homelab skills (`use-gpt-budget`, `trmnl-screens`) stay
 where they are.
@@ -70,7 +70,8 @@ The [old preparation](docs/hand-off-preparation.md) is historical, not policy.
 
 All upstream playbooks remain verbatim because the mode, help and guide still
 link to them. Do not install them alongside the distilled catalog. Distribution
-selects only the six core skills at a reviewed revision. Migration of other
+first selected only the six core skills at a reviewed revision; it now selects
+every skill in `skills/` by name (homelab's `skill-sources.json`). Migration of other
 repositories/global rules remains separate; installing the skills does not
 perform that migration.
 
@@ -254,7 +255,7 @@ compression follow-up. Its reported byte/word reductions are not runtime token
 measurements. Distribution and the pointer-only global rule have landed.
 
 1. Distribution is decided: homelab's source manifest pins a reviewed endstack
-   revision and six names; content stays here. See
+   revision and the skill names it installs (six at first, every skill now); content stays here. See
    [distribution checks](docs/distribution-checks.md) for installation evidence.
 2. Live delivery and cross-machine discovery: Claude ran the delivery skills
    against real pull requests on this machine (delivery-dry-runs.md); watching a

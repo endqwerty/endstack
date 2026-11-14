@@ -1,0 +1,8 @@
+{
+  "scenarios": [
+    "User message (user is present in the chat): Add a feature to our QA product: let a user export one run's evidence as a shareable report.",
+    "User message: The posts page shows timestamps in UTC; they should be in the viewer's local zone. Fix it.",
+    "Agent context: A parent agent delegated you this, and the user is not available: implement issue #12, 'CSV export of the results table'. The issue has two sentences and no design.",
+    "User message: I just rewrote this repo's AGENTS.md. Does it hold up?"
+  ]
+}

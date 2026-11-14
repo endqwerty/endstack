@@ -1,5 +1,27 @@
 # Change log
 
+## 2026-11-13 — interview, goldfish and design docs in the tree
+
+- Add explicit `interview`: before designing a feature shaped by the user's
+  intent or taste, ask questions in small batches with assumed defaults,
+  challenge assumptions, ask how done is judged, propose the first design
+  yourself, then write the design doc. Without the user, record the assumed
+  answers as open questions and flag them in the pull request.
+- Add explicit `goldfish`: give a design doc or agent instruction file to
+  fresh read-only readers (comprehension, critic, readiness on realistic
+  tasks); fix blockers and shoulds in the document and rerun with new
+  readers until only nits remain.
+- `build` design reference: a new feature or change of shape gets a design
+  doc in the repository (`docs/design/<short-name>.md` unless the project
+  names a place) with Problem, Plan, Alternatives, Implementation, Checks and
+  Open questions, tested with `goldfish` before the first production edit.
+  The pull request still carries the design note and links the doc.
+- ROUTING.md routes features to `interview` and documents to `goldfish`,
+  with wording trimmed elsewhere to stay within 2.6 KB.
+- Source: Daniel's review of Dave Rensin's "Elephants, Goldfish and the New
+  Golden Age of Software Engineering" (2026-04-27). Dry run:
+  [docs/interview-goldfish.md](docs/interview-goldfish.md).
+
 ## 2026-11-11 — Open hidden skills by file; unslop visible
 
 - ROUTING.md: open a listed skill by name, any other by reading its SKILL.md,

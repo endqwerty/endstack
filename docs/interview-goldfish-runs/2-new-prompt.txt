@@ -1,0 +1,297 @@
+This is a tool-free policy simulation. Do not use tools, read files, or perform any real action. Apply only the supplied skill context to the scenario. State exactly what you do next and why, in at most 8 lines, in order. Describe intended actions, not completed actions.
+
+ROUTING:
+## Skill routing
+
+Before acting on a new task, match it here. On a match, open the skill: by name
+if listed, else read its SKILL.md from your skills directory, never via a skill
+tool. Follow it and say which one shaped a decision. Several can apply. Casual
+chat, a one-fact lookup or the user opting out: skip this. Explaining code, reviewing and checking safety are tasks, short or not.
+
+- Every task, first: decide whether it splits into independent parts (sources,
+  files, questions) worth running at once. If it does, `swarm`;
+  say which way you decided.
+- Change requests: `build` to implement, `babysit` to get a PR green,
+  `verify` before calling behaviour changes done or when asked if a change is
+  safe. `ship` or `autopilot-full` only when the user explicitly asks to merge,
+  land or ship; their gates apply. "Autopilot" or "full send" on a change
+  is that request: autopilot it, without waiting for approval. "Full stop"
+  means build it and babysit it to ready, unmerged.
+- Any prose, your reply included: `unslop`. Docs, README, RFC, PR text, commit
+  message: also `technical-writing`.
+- Understand or explain code: `how` (runtime flow, where it belongs), `why`
+  (history, rationale), `teach` (explain it to me).
+- A feature shaped by the user's intent or taste: `interview` first.
+  Non-trivial code that crosses a function boundary or adds a module:
+  `architect`. Stateful or branchy logic or a design call: `principles`.
+  Testing a design doc or agent rules file on a fresh reader: `goldfish`.
+- Editing .ts or .tsx: `typescript-best-practices`.
+- Bug fix with a cheap local test, or a failing or regression test asked for:
+  `tdd`.
+- Removing comments or replacing workaround comments: `no-comments`.
+- Contested design, "tear this apart": `interrogate`. Competing attempts at one
+  artifact: `arena`.
+- A timing or performance number to report, compare or make a limit:
+  `benchmark-checklist`.
+- Long, unattended or multi-phase work: `show-me-your-work`. No narrower
+  playbook fits: `figure-it-out`.
+- You were corrected, a mistake recurs, or you are about to add a rule to an
+  agent instruction file: `correct`.
+- Asked to prove or model-check a property (a race, invariant, rare case):
+  `create-formal-verification-skill`; code changed under an existing formal
+  check since its sync commit: `maintain-formal-verification-skill`.
+- A state diagram: `statechart` to draw it from a checked model or show a bug
+  as a path through states; `archify` for a picture only.
+
+Only when named: `bro`, `ketchup`, `ketchup-video`, `orchestrate`, `recall`,
+`reflect`, `sharpen`.
+
+
+BUILD DESIGN REFERENCE:
+# Design before code
+
+Do this before the first edit to production code for a feature or a change of
+shape, and again at each phase boundary of a larger change, one line per step
+that applies. A fix whose shape is already settled answers steps 2, 6 and 8 in
+a sentence each and skips the rest.
+
+1. **Principles.** Open the [principles index](../../principles/SKILL.md) now
+   and read all of it: one page, one rule per line. For each principle whose
+   situation matches this change, read its reference before the step it
+   governs.
+2. **Ground.** Trace where the behaviour lives and everything that uses the
+   code you will change, with the [how](../../how/SKILL.md) skill when the
+   subsystem is unfamiliar. List every consumer that does the same job: other
+   clients (web, mobile, command line), other call sites, sibling functions
+   with the same pattern.
+3. **Shape.** Name the data shape before writing logic: the states, the data
+   each one carries, and the structure that holds them (one tagged value over
+   independent flags and nullable fields, a table over branching, a parse at
+   the boundary into a named type). List the combinations the shape allows
+   that the domain does not, and make them unrepresentable. When the change
+   adds a state to an existing shape, redesign the shape as if that state had
+   been there from the start.
+4. **Alternatives.** Non-trivial code that crosses a function boundary or adds
+   a module: run [architect](../../architect/SKILL.md)'s ground and sketch
+   phases, take its synthesized sketch as this step's shape, and return here.
+   Its implement phase waits until the remaining steps are done and, under a
+   test-first workflow, until the failing test exists. A change whose shape is
+   already settled (a signature update across its callers, a bug with a clear
+   fix) is `n/a`. Several valid shapes with no clear winner go to
+   [arena](../../arena/SKILL.md); a contested one to
+   [interrogate](../../interrogate/SKILL.md).
+5. **Subtract.** Name what this change makes redundant (a check, a wrapper,
+   an old path, a guard) and delete it in the same change.
+6. **Every consumer.** A fix or improvement to behaviour several consumers
+   share goes into each of them, each verified, or the note says why one is
+   exempt. Fixing one client and leaving its sibling broken is an unfinished
+   change.
+7. **Failure.** For anything that can be retried, interrupted or run by two
+   actors at once: what is the end state, and how does the next run
+   recognise and reconcile what an interrupted one left behind? Split shared
+   state before serializing it.
+8. **Tests.** Each test calls the code the way its users do and asserts what
+   the contract promises: it fails when that behaviour breaks and keeps
+   passing when only the internals change. A test that avoids a failing state,
+   instead of fixing it, is a finding, not a pass.
+   A test written only to prove this change, where the cause cannot recur (a
+   one-time script retired after its run, a removed path, a restated value),
+   leaves the suite in its own last commit; keep one that a plausible later
+   change could break unnoticed, including a migration new databases still run.
+9. **Throughput.** Name the blocking first steps, the workstreams with
+   disjoint files, and the smallest safe split. If one worker is best, say why.
+   Order the work as small units that each end in a check.
+
+## The design note
+
+Write the outcome in a few lines: the shape and its structure, the consumers
+and which ones change, and what is deleted. Name each principle that changed a choice, with the choice, and leave the
+line out when none did. It is for a reader, not for a check to parse. The note goes into the pull request's "why this approach" and
+into every brief.
+
+## The design doc
+
+A new feature or a change of shape also gets a design doc in the repository,
+so a fresh agent can resume or extend the work from the tree instead of from
+the conversation. A fix whose shape was already settled needs only the note.
+
+- **Before.** When the feature's result depends on the user's intent or
+  taste, run the [interview](../../interview/SKILL.md) skill before step 1
+  and build the doc from it.
+- **Where.** The place the project's rules name; otherwise
+  `docs/design/<short-name>.md`, one per feature. Extending a feature updates
+  its doc in the same change.
+- **Sections**, written one at a time: *Problem* (a few plain sentences a
+  casual reader understands); *Plan* (the parts and how they fit, a block
+  diagram if it helps, light on jargon); *Alternatives* (each option turned
+  down and why, so no later agent reopens it unknowingly); *Implementation*
+  (every file created or changed, and why); *Checks* (how done is judged);
+  *Open questions* (with the answer assumed meanwhile).
+- **Test it.** Before the first edit to production code, run the
+  [goldfish](../../goldfish/SKILL.md) skill on the doc and fix it until only
+  nits remain. Implementation follows the doc; a builder that has to depart
+  from it updates the doc in the same change and says why.
+- The pull request links the doc and still carries the note: the pull request
+  records what happened, the doc what is true now.
+
+## Delegated builders
+
+A builder gets the design note, the files it owns, the checks that prove it
+done, and an instruction to read the principles index and this file before
+writing code. A builder that finds the shape does not fit reports back instead
+of redesigning alone. Review the returned diff against the note, not only
+against the checks.
+
+
+INTERVIEW SKILL:
+---
+name: interview
+description: Before designing a feature, question the user to draw out their intent and judgment, then propose the first design yourself and argue it to a design doc.
+disable-model-invocation: true
+---
+
+# Interview
+
+A feature's design rests on judgment only the user holds: what it is for,
+what good looks like, what to give up. Asking for it after the code exists
+is too late. This skill draws it out first, then writes it down where a
+fresh agent can find it.
+
+## When
+
+A new feature or a product change whose result depends on the user's
+intent, taste or priorities. Not for a bug with a clear fix, a mechanical
+change, a chore the request fully specifies, or when the user opts out. A
+project's own rules may name where it is required.
+
+## 1. Ground
+
+Read the docs and code the feature touches (the [how](../how/SKILL.md)
+skill for an unfamiliar subsystem). Tell the user in a short paragraph how
+you understand the relevant part of the system, so they can correct it
+before it shapes anything.
+
+## 2. Question, no code
+
+Write no code and no design yet. Ask questions in small batches, three to
+five, the ones that would change the design most first. Each question says
+why it matters and the answer you would assume without one.
+
+- Challenge assumptions. Name edges the user has not covered: failure,
+  scale, who else uses it, what it replaces, what it must never do.
+- Disagree when the evidence says so, and show the evidence. Agreeing is not
+  help. If you notice yourself praising, ask a harder question instead.
+- When an answer looks weak, ask why. When you are unsure of a fact, read
+  the file rather than guess.
+
+Stop when the user says so or when new answers stop changing the design.
+
+## 3. How done is judged
+
+Ask how the user will judge the result: what they will look at, try or
+measure. These become the change's checks.
+
+## 4. You propose the first design
+
+Propose the design yourself, in prose and a block diagram where it helps,
+pseudocode only where prose fails. Proposing first shows whether you
+understood; reacting to the user's design hides your blind spots. Argue it
+through with the user until it settles. Each option turned down, and why,
+is kept.
+
+## 5. Write the design doc
+
+Write the doc into the project as [build](../build/SKILL.md)'s
+[design reference](../build/references/design.md) describes, one section at
+a time, from this conversation. Then test it with the
+[goldfish](../goldfish/SKILL.md) skill before implementation starts; an
+answer the user gave only in chat goes into the doc.
+
+## Without the user
+
+If the user is not there to answer (unattended or delegated work), do not
+block. Answer each question yourself with the default you would assume,
+write the questions and your answers under the doc's open questions, and
+name them in the first lines of the pull request so the user can overturn
+them.
+
+
+GOLDFISH SKILL:
+---
+name: goldfish
+description: Test whether a design doc or agent instruction file stands alone, by giving it to fresh readers with no other context.
+disable-model-invocation: true
+---
+
+# Goldfish
+
+The author of a document holds context the document does not. A goldfish is a
+fresh reader with no memory: it gets only the document's paths and the files
+the document references, never the conversation, your conclusions or the
+answers. If it cannot understand and act on the document, the document is
+missing something, however clear it looks to you.
+
+## When
+
+- A design doc, before implementation starts and after any round of edits
+  that changes its plan.
+- An agent instruction file (`AGENTS.md`, a README agents start from, a
+  long reference such as a workstation or runbook file, a skill) after a
+  substantial edit, and in periodic passes over a project.
+
+## Roles
+
+- **Author**: you. You pick the tasks, judge the findings and edit the
+  document. You never answer the goldfish's questions in chat; an answer
+  goes into the document or it does not exist.
+- **Goldfish**: a separate read-only worker, from a different model family
+  if available. Each pass and each round gets a new one; a goldfish that has
+  seen an earlier draft is no longer a goldfish. If the harness has no
+  separate workers, say so and stop: reading your own document fresh is not
+  possible.
+
+## Passes
+
+Build each brief from [references/goldfish-prompt.md](references/goldfish-prompt.md).
+For a design doc, run the three passes as three goldfish at once. For a
+routine pass over agent instruction files, one goldfish may run all three in
+order.
+
+1. **Comprehension.** Explain what the document is for and how the system
+   it describes works. Compare the answer with what you know is true; each
+   misunderstanding is a gap in the document, not in the reader.
+2. **Critic.** Find what is missing, wrong, stale, contradictory or
+   ambiguous. The goldfish checks claims against the referenced files and,
+   read-only, against the real system where it can.
+3. **Readiness.** Give two to four realistic tasks, taken from recent or
+   planned work, stated the way the user would state them, with no hints.
+   The goldfish says how it would do each one using only what it read, every
+   question it would have had to ask, and where it guessed. For an agent
+   instruction file it also lists what it read and never needed, and where
+   length or order made it lose the thread: those are cut or move
+   candidates.
+
+## Judge and fix
+
+- Each finding names the file and line, quotes it, gives the evidence and a
+  proposed fix. Rank it: **blocker** (the reader would do the task wrong),
+  **should** (it would have to ask or guess), **nit** (wording, taste,
+  nothing shown reaches it).
+- Check each finding against the real files before acting; a goldfish can
+  be wrong too. Dismiss with a one-line reason.
+- Fix blockers and shoulds in the document. Prefer cutting and reordering
+  to adding: a longer file is harder for the next goldfish. A rule that
+  keeps being missed belongs in a check, not more prose (the
+  [correct](../correct/SKILL.md) skill).
+- Run a new round with new goldfish until only nits remain. After three
+  rounds with blockers still open, stop and report both sides: the document
+  may be the wrong shape.
+
+## Report
+
+The document and revision tested, the tasks given, each finding with its
+rank and what you did, the rounds run and the goldfish's model family.
+
+
+SCENARIO:
+User message: The posts page shows timestamps in UTC; they should be in the viewer's local zone. Fix it.

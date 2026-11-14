@@ -1,6 +1,7 @@
 # endstack: rules for coding agents
 
-Your global `~/.<agent>/AGENTS.md` applies.
+Your global agent rules apply (`~/.claude/CLAUDE.md` for Claude Code, `~/.codex/AGENTS.md`
+for Codex; their source is homelab's `agents/AGENTS.md`).
 Read [README.md](README.md) and [DISTILL.md](DISTILL.md) first.
 
 ## What this repository is
@@ -24,18 +25,19 @@ size, no tool or model names, links) and must pass.
   available", never a named one.
 - One skill, one job, one role. Deterministic work belongs in the `homelab` CLI
   with tests, not in a skill.
-- **Core delivery skills** (build, babysit, ship, autopilot-full, verify): `SKILL.md` under about 2 KB, judgment and policy
+- **Core delivery skills** (build, babysit, ship, autopilot-full, verify): `SKILL.md` at most 2,200 bytes, judgment and policy
   only; changes get a dry run in the PR.
-- **Imported role skills** (ported from pstack, see `candidates/README.md` and
-  DISTILL.md): keep the role, identity, structure and judgment; `SKILL.md`
-  under 6 KB, longer material in `references/` read on demand. Porting removes
+- **Role skills**, imported (ported from pstack, see `candidates/README.md` and
+  DISTILL.md) or new: keep an imported skill's role, identity, structure and
+  judgment; `SKILL.md` at most 6,000 bytes, longer material in `references/` read on demand. Porting removes
   tool, model and harness coupling and dead links; it does not rewrite the
   substance. Record what each port changed in `docs/import-notes/`.
 - Frontmatter `name` and `description` that trigger correctly from both Codex
   and Claude Code, the description at most 200 characters: a visible one is
   paid on every request. Keep `disable-model-invocation: true` where the source
-  has it, and give such a skill `agents/openai.yaml` with
-  `allow_implicit_invocation: false`, which keeps it out of Codex's catalog the
+  has it, and on any new role skill, and give such a skill `agents/openai.yaml`
+  copied byte for byte from an existing hidden skill (`policy:` then
+  `  allow_implicit_invocation: false`), which keeps it out of Codex's catalog the
   way the frontmatter does for Claude Code ([docs/catalog-size.md](docs/catalog-size.md)).
 - Adding a delivery skill beyond these five needs either a recurring failure or Daniel's
   request.
@@ -44,7 +46,10 @@ size, no tool or model names, links) and must pass.
 
 [ROUTING.md](ROUTING.md) is the always-on skill index: homelab copies it into
 the global rules so every turn sees it, and the hidden skills stay out of the
-catalog. Adding, renaming or dropping a skill means updating it too;
+catalog. Adding, renaming or dropping a skill means updating it, the README
+skill table and counts, and, after merge, the skill names in homelab's
+`skill-sources.json` (a name not listed there is not installed; your global
+rules say where the homelab checkout is);
 `python3 scripts/check-routing.py` must pass (every skill named once, the
 merge skills tied to an explicit request, 2.6 KB at most), and the copy in homelab's `agents/AGENTS.md` must match.
 Evidence and limits: [docs/routing.md](docs/routing.md).
@@ -61,5 +66,5 @@ merge identified work invokes [ship](skills/ship/SKILL.md), with its gates;
 waiting for the user.
 “Keep going” and a budget request are not merge authority. Do not arm auto-merge
 or push directly to `main` to bypass the review boundary.
-Changes to a skill's behaviour get a dry run described in the PR (what the
-agent did with and without the skill). Record changes in CHANGELOG.md.
+Changes to a skill's behaviour get a dry run described in the PR: what the
+agent did with the old text and the new, or without and with a new skill. Record changes in CHANGELOG.md.

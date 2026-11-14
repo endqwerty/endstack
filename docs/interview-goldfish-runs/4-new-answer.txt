@@ -1,0 +1,8 @@
+1. I would treat this as an instruction-file review and apply `goldfish`; its three independent passes warrant `swarm`.
+2. I would identify the rewritten `AGENTS.md`, its revision and referenced files, without assuming the rewrite is sound.
+3. I would prepare comprehension, critic and readiness briefs; readiness would include two to four realistic repository tasks.
+4. I would give separate fresh, read-only workers only the document paths and referenced files, withholding this conversation and my conclusions.
+5. I would check their findings against the evidence and rank them as blocker, should or nit, dismissing unsupported findings with reasons.
+6. I would fix confirmed blockers and shoulds in the document, then use new readers until only nits remain; after three rounds with blockers, I would stop and report both sides.
+7. I would report the revision, tasks, findings, dispositions, rounds and model families; without separate workers, I would stop rather than substitute self-review.
+8. I would keep the report plain and concise under `unslop`; all these actions remain hypothetical in this tool-free simulation.

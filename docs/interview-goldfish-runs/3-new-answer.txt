@@ -1,0 +1,8 @@
+1. I would keep initial discovery local; later, `swarm` would shape the three independent goldfish passes.
+2. I would use `build` and `interview`: inspect issue #12, project rules, the results table, existing exports and all relevant consumers.
+3. With the user unavailable, I would record assumed answers about exported rows, columns, formatting, escaping, scale and failure behavior, plus acceptance checks.
+4. Before production edits, I would read the principles index, define the data shape and use `architect` if the change crosses function boundaries or adds a module.
+5. I would propose the design and write its Problem, Plan, Alternatives, Implementation, Checks and Open questions, making assumptions explicit.
+6. I would run goldfish’s comprehension, critic and readiness passes concurrently with fresh read-only workers given only document paths and referenced files; without separate workers, I would stop and report that limitation.
+7. I would check findings, fix blockers and shoulds, and repeat with new readers until only nits remain; after three rounds with blockers, I would report the unresolved disagreement.
+8. I would then implement within delegated ownership, check every affected consumer, obtain `verify`, and return the diff and evidence to the parent; I would keep the report concise under `unslop`.

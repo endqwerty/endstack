@@ -1,0 +1,8 @@
+1. I would start with one worker: consumer discovery and data design come first; I would use `swarm` only once independent work is clear.
+2. I would route through `build`, `principles`, `how`, and `architect`; this feature needs a design before production edits.
+3. I would trace run evidence, access controls, existing exports, and every client that should offer the report.
+4. I would clarify whether “shareable” means a downloadable file or a hosted link, since that determines storage, access, and revocation.
+5. I would define the report’s data and states, then use architect’s ground and sketch phases to compare viable shapes before implementation.
+6. I would identify redundant paths and define failure recovery for generation, retries, interruption, and concurrent requests.
+7. I would write a short design note covering consumers, structure, deletions, and completion checks; then add a failing test through the user-facing contract.
+8. I would implement in checked units, verify every affected consumer, and apply `verify` before calling it done; I would prepare it for review without merging.

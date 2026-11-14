@@ -1,0 +1,7 @@
+1. I would keep the initial investigation local; the consumer map must be known before deciding whether `swarm` offers useful independent work.
+2. I would use `build` and `how` to trace timestamp rendering and identify sibling consumers doing the same job.
+3. I would settle the fix’s shape: preserve each timestamp’s instant and format it in the viewer’s local zone at display time.
+4. I would apply that behavior to every affected consumer, verifying each or explaining any exemption.
+5. I would use `tdd` to first reproduce the UTC display bug through the public rendering contract with a controlled non-UTC viewer zone.
+6. I would implement the smallest settled fix, then run the regression and relevant existing checks.
+7. I would use `verify` before calling the behavior fixed, and `unslop` to keep the delivery report clear.
