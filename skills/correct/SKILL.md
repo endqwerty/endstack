@@ -18,7 +18,7 @@ A guard taxes every later change. Add one only when the mistake recurs and costs
 
 ## One rule
 
-When you are about to add a rule to an agent instruction file, or were just corrected, classify it first. A preference or experiment ends with its note. For a defect, handle that one mistake instead of sweeping the repository: take it down the levels below, fix it at the highest level that works in the same change, and prove the guard fails on the mistake. A rule the user asked for is still written, as one row in the rule table naming what enforces it. State it as a plain instruction, without the user's quotes or dates; name the user only when the rule grants authority or settles credentials, money or safety. Otherwise write a rule only if it still needs judgment.
+When you are about to add a rule to an agent instruction file, or were just corrected, classify it first. A preference or experiment ends with its note. For a defect, handle that one mistake instead of sweeping the repository: take it down the levels below, fix it at the highest level that works in the same change, and prove the guard fails on the mistake. A rule the user asked for is still written, as one row in the rule table naming what enforces it. State it as a plain instruction, without the user's quotes or dates; name the user only when the rule grants authority or settles credentials, money or safety. A later user instruction may replace it. Otherwise write a rule only if it still needs judgment.
 
 ## Find the mistake classes
 
