@@ -4,7 +4,7 @@ Encode recurring fixes in mechanisms (tools, code, metadata, automation) instead
 
 Textual instructions are easy to miss. Structural mechanisms enforce the rule without cooperation.
 
-**Classify first.** A correction is a defect against something still wanted, a preference, or an experiment. Encode only the defect's invariant. Keep a preference in the user's words, with how firm it was, open to change; give an experiment the condition that ends it. A first measurement is a baseline, not a ceiling.
+**Classify first.** A correction is a defect against something still wanted, a preference, or an experiment. Encode only the defect's invariant. Keep a preference as a plain instruction, with how firm it was, open to change; give an experiment the condition that ends it. A first measurement is a baseline, not a ceiling.
 
 **Pattern:**
 When you catch yourself writing the same instruction a second time:

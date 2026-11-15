@@ -1,5 +1,13 @@
 # Change log
 
+## 2026-11-14 — correct writes plain rules, not quotes
+
+- `correct` and the `principles` lesson reference record a preference or a
+  requested rule as a plain instruction, without the user's quotes or dates.
+  The user is named only when a rule grants authority or settles credentials,
+  money or safety. Quoted rule tables cost tokens on every request and rarely
+  changed what an agent did. Dry run: in the pull request.
+
 ## 2026-11-13 — interview, goldfish and design docs in the tree
 
 - Add explicit `interview`: before designing a feature shaped by the user's
