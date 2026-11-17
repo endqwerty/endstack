@@ -6,8 +6,8 @@ used when Daniel named them, and nothing chained them (for example `build`
 writing docs never reached `unslop`). Asking him to think about 24 skills per
 message was the failure.
 
-What: [ROUTING.md](../ROUTING.md) is an index of at most 2.6 KB (1.9 KB when
-added), one line per situation. It
+What: [ROUTING.md](../ROUTING.md) is an index of at most 2.5 KB (1.9 KB when
+added, 2.6 KB before the 2026-11-16 trim), one line per situation. It
 is loaded on every turn through the global rules in homelab (`agents/AGENTS.md`),
 the only file both Claude Code and Codex read each session. The model matches the
 task against it, opens the named skill, and says which one shaped a decision. A
@@ -31,7 +31,7 @@ Turned down:
    every skill in `skills/` named exactly once; no unknown backticked name; a
    non-empty "Only when named" list; one bullet routing prose to `unslop` and
    docs to `technical-writing`; `ship` and `autopilot-full` only in a bullet
-   that says "explicit"; a casual-chat skip; at most 2.6 KB; no tool, model or
+   that says "explicit"; a casual-chat skip; at most 2.5 KB; no tool, model or
    provider names. Before `ROUTING.md` existed it printed `ROUTING.md: missing`
    (exit 1); now `0 problem(s)`.
    It cannot judge whether a line sends a skill to the right situation, or
@@ -68,6 +68,19 @@ safety checks reached the hidden skills, and the safety question did not reach
 `unslop` on the PR task, so routing is a nudge, not a guarantee; an independent
 Codex probe on the round 1 wording did add them.
 
+## Trim (2026-11-16)
+
+The index was at its 2.6 KB limit after `test-design` was added. It was
+reworded to about 2.46 KB without dropping a route: shorter preamble, the design
+skills in one bullet, and "with their gates" dropped from the merge line
+(each merge skill states its own gates). A review caught four routes the first trim had widened or narrowed (autopilot without "on a change", `architect` without "non-trivial", `tdd` without regression tests, the maintain formal check without its sync commit); all four were restored. The limit is now 2.5 KB so the
+saved space does not fill back up unnoticed. Dry run: the same 16 tasks,
+answered by a small model from the old and from the new index text, one
+run each. Every skill the old index chose, the new one chose too. The new
+text also added `unslop` on most replies and `verify` on changes, which the
+index asks for, and kept the casual question unrouted and "Is it safe to
+merge" away from `ship`.
+
 ## Not checked
 
 - Real sessions: the dry run is one small model's stated choice, not observed
@@ -75,6 +88,6 @@ Codex probe on the round 1 wording did add them.
   model really opens a hidden skill by reading its SKILL.md is unconfirmed.
   Measured on 2026-11-11 from real sessions: it does, unevenly by harness
   ([hidden-skill-loads.md](hidden-skill-loads.md)).
-- Cost and noise: the index adds up to 2.6 KB per turn; whether it over-triggers
+- Cost and noise: the index adds up to 2.5 KB per turn; whether it over-triggers
   on short turns is not measured. If it does, tighten the "casual turn" line.
 - Drift: the copy in homelab is checked by hand, not by a script.

@@ -1,44 +1,43 @@
 ## Skill routing
 
-Before acting on a new task, match it here. On a match, open the skill: by name
-if listed, else read its SKILL.md from your skills directory, never via a skill
-tool. Follow it and say which one shaped a decision. Several can apply. Casual
-chat, a one-fact lookup or the user opting out: skip this. Explaining code, reviewing and checking safety are tasks, short or not.
+Match each new task here before acting. On a match, open the skill: by name if
+listed, else read its SKILL.md from your skills directory, never through a
+skill tool. Follow it and say which skill shaped a decision; several can apply.
+Skip for casual chat, a one-fact lookup or when the user opts out. Explaining
+code, reviewing and checking safety are tasks, however short.
 
-- Every task, first: decide whether it splits into independent parts (sources,
-  files, questions) worth running at once. If it does, `swarm`;
-  say which way you decided.
-- Change requests: `build` to implement, `babysit` to get a PR green,
-  `verify` before calling behaviour changes done or when asked if a change is
-  safe. `ship` or `autopilot-full` only when the user explicitly asks to merge,
-  land or ship; their gates apply. "Autopilot" or "full send" on a change
-  is that request: autopilot it, without waiting for approval. "Full stop"
-  means build it and babysit it to ready, unmerged.
-- Any prose, your reply included: `unslop`. Docs, README, RFC, PR text, commit
-  message: also `technical-writing`.
-- Understand or explain code: `how` (runtime flow, where it belongs), `why`
-  (history, rationale), `teach` (explain it to me).
-- A feature shaped by the user's intent or taste: `interview` first.
-  Non-trivial code that crosses a function boundary or adds a module:
-  `architect`. Stateful or branchy logic or a design call: `principles`.
-  Does a design doc or agent rules file hold up for a fresh agent: `goldfish`.
+- Every task, first: if it splits into independent parts worth running at once,
+  `swarm`. Say which you chose.
+- Changes: `build` implements, `babysit` gets a PR green, `verify` before
+  calling a behaviour change done or when asked if one is safe. `ship` or
+  `autopilot-full` only on an explicit request to merge, land or ship;
+  "autopilot" or "full send" on a change is that request for the latter, with
+  no waiting for approval. "Full stop": build, then babysit to ready, unmerged.
+- Any prose, replies included: `unslop`. Docs, README, RFC, PR text, commit
+  messages: also `technical-writing`.
+- Understanding code: `how` (runtime flow, placement), `why` (history,
+  rationale), `teach` (explain it to me).
+- Design: `interview` first for a feature shaped by the user's intent or taste;
+  `architect` for non-trivial code crossing a function boundary or adding a
+  module; `principles` for stateful or branchy logic or a design call;
+  `goldfish` to test a design doc or agent rules on a fresh agent.
 - Editing .ts or .tsx: `typescript-best-practices`.
-- Bug fix with a cheap local test, or a failing or regression test asked for:
-  `tdd`.
+- Adding, keeping, moving or deleting a test: `test-design`. Bug fix with a
+  cheap local test, or a failing or regression test asked for: also `tdd`.
 - Removing comments or replacing workaround ones: `no-comments`.
-- Contested design, "tear this apart": `interrogate`. Competing attempts at one
-  artifact: `arena`.
-- A timing or performance number to report, compare or make a limit:
+- Contested design ("tear this apart"): `interrogate`. Competing attempts at
+  one artifact: `arena`.
+- A timing or performance number to report, compare or limit:
   `benchmark-checklist`.
-- Long, unattended or multi-phase work: `show-me-your-work`. No narrower
-  playbook fits: `figure-it-out`.
-- You were corrected, a mistake recurs, or you are about to add a rule to an
-  agent instruction file: `correct`.
-- Asked to prove or model-check a property (race, invariant, rare case):
-  `create-formal-verification-skill`; code changed under an existing formal
-  check since its sync commit: `maintain-formal-verification-skill`.
-- A state diagram: `statechart` to draw it from a checked model or show a bug
-  as a path through states; `archify` for a picture only.
+- Long, unattended or multi-phase work: `show-me-your-work`. Nothing narrower
+  fits: `figure-it-out`.
+- Corrected, a mistake recurs, or adding a rule to agent instructions:
+  `correct`.
+- Asked to prove or model-check a race, invariant or rare case:
+  `create-formal-verification-skill`. Code changed under a formal check since
+  its sync commit: `maintain-formal-verification-skill`.
+- State diagrams: `statechart` from a checked model or to show a bug as a path;
+  `archify` for a picture only.
 
 Only when named: `bro`, `ketchup`, `ketchup-video`, `orchestrate`, `recall`,
 `reflect`, `sharpen`.
