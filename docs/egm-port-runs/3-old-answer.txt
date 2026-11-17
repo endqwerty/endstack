@@ -1,0 +1,9 @@
+1. I would apply `goldfish` and choose parallel readers under `swarm`: the three passes are independent; `unslop` shapes this reply.
+2. I would start three fresh, read-only readers at once, preferably from a different model family; none would receive this conversation or my conclusions.
+3. Each would receive the supplied goldfish brief, starting at `docs/design/evening-weather.md` and following its references, with access to the whole document.
+4. The comprehension reader would explain the feature, its operation and governing rules, citing file lines and identifying gaps.
+5. The critic would check consistency, referenced evidence, domain omissions and Behaviour scenarios whose checks could pass despite broken behaviour.
+6. The readiness reader would assess realistic tasks drawn from the doc: implementing a planned scenario, handling a documented failure case and extending the feature, identifying questions and guesses.
+7. I would check each finding against its evidence, dismiss incorrect findings with reasons, and fix blockers and shoulds in the document; answers would go into the doc, never reader chat.
+8. After substantive fixes, I would repeat all three passes concurrently with new readers until only nits remain; the extra Goals and Non-goals sections alone would not require changes.
+9. After three rounds with blockers still open, I would stop and report the unresolved positions; otherwise I would report the tested revision, tasks, findings, fixes, rounds and model families before coding.

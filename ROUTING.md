@@ -3,8 +3,8 @@
 Match each new task here before acting. On a match, open the skill: by name if
 listed, else read its SKILL.md from your skills directory, never through a
 skill tool. Follow it and say which skill shaped a decision; several can apply.
-Skip for casual chat, a one-fact lookup or when the user opts out. Explaining
-code, reviewing and checking safety are tasks, however short.
+Skip for casual chat, a one-fact lookup or an opt-out. Explaining code,
+reviewing and checking safety are tasks, however short.
 
 - Every task, first: if it splits into independent parts worth running at once,
   `swarm`. Say which you chose.
@@ -20,7 +20,8 @@ code, reviewing and checking safety are tasks, however short.
 - Design: `interview` first for a feature shaped by the user's intent or taste;
   `architect` for non-trivial code crossing a function boundary or adding a
   module; `principles` for stateful or branchy logic or a design call;
-  `goldfish` to test a design doc or agent rules on a fresh agent.
+  `goldfish` to test a design doc or agent rules on a fresh agent; `drift`
+  to check design docs against code.
 - Editing .ts or .tsx: `typescript-best-practices`.
 - Adding, keeping, moving or deleting a test: `test-design`. Bug fix with a
   cheap local test, or a failing or regression test asked for: also `tdd`.

@@ -1,0 +1,10 @@
+1. I would use `goldfish`, with `swarm` for independent readers within each stage; implementation would wait for review.
+2. I would give each fresh, read-only reader only the document path, referenced files, assigned range, role and standard—no conversation or author conclusions.
+3. Stage 1: start zoom-out and design-pattern readers together on the whole document, then judge findings and fix the document.
+4. Stage 2: start one comprehension reader directly on the whole document; read its paraphrase and fix every comprehension gap.
+5. Stage 3: start design-critic, structure and style readers together on everything before *Implementation*; repeat with fresh readers until two consecutive clean rounds.
+6. Stage 4: start a fresh zoom-out reader on the whole document, without reopening settled stage-1 findings; resolve its findings.
+7. Stage 5: start implementation-readiness, codebase-details and style readers together on *Implementation* and *Tasks*, giving readiness two to four realistic tasks; repeat until two consecutive clean rounds.
+8. For stages with multiple readers, I would use a separate merging worker to start them and produce the ranked report; I would judge findings and fix between rounds.
+9. A clean round would require every reader to run and no unsettled blocker or should. At five rounds or churn in either loop, I would stop and ask whether to accept, continue beyond the cap, or return to drafting.
+10. After stage 5 converges, I would stop and report the revision, stages, rounds, reader statuses and model families, tasks, findings and report paths; unavailable separate readers would mean “untested,” never self-review.

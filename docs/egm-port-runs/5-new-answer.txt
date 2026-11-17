@@ -1,0 +1,8 @@
+1. I would choose `drift` for this audit and keep one worker: the skill requires checking one document at a time, in order.
+2. I would scope the six docs in `docs/design/`, rereading each current document and its referenced code.
+3. For each, I would extract Behaviour scenarios, named checks and Plan claims; a doc without scenarios would be “not checkable.”
+4. I would inspect the implementation and whether each named check actually proves its scenario, including edge and failure cases.
+5. I would run only cheap, local, read-only checks through the project’s test command, retaining deciding lines; unavailable checks would be “not run,” with reasons.
+6. I would report only differences, citing document lines, code locations and evidence, or “No drift” where supported.
+7. I would inspect history to recommend changing the doc for intended changes, the code for supported bugs, or asking one question when evidence cannot settle intent.
+8. I would write a dated report outside the tree and give its path, using `unslop` for clear prose; fixes would be separate `build` work.

@@ -67,13 +67,15 @@ the conversation. A fix whose shape was already settled needs only the note.
 
 - **Before.** When the feature's result depends on the user's intent or
   taste, run the [interview](../../interview/SKILL.md) skill before step 1
-  and build the doc from it.
+  and build the doc from its brief.
 - **Where.** The place the project's rules name; otherwise
   `docs/design/<short-name>.md`, one per feature. Extending a feature updates
   its doc in the same change.
 - **Sections**, written one at a time: *Problem* (a few plain sentences a
-  casual reader understands); *Plan* (the parts and how they fit, a block
-  diagram if it helps, light on jargon); *Behaviour* (numbered scenarios,
+  casual reader understands); *Goals* and *Non-goals* (what it will and will
+  not deliver); *Plan* (the parts and how they fit, a block
+  diagram if it helps, light on jargon, and its risks and limits: failure
+  modes, security, scale, and how each is handled); *Behaviour* (numbered scenarios,
   each "when … then …" about what a user or caller observes, each naming the
   test or command that proves it; edge and failure cases get their own);
   *Alternatives* (each option turned down and why, so no later agent reopens
@@ -82,8 +84,8 @@ the conversation. A fix whose shape was already settled needs only the note.
   session resumes from the doc); *Open questions* (with the answer assumed
   meanwhile).
 - **Test it.** Before the first edit to production code, run the
-  [goldfish](../../goldfish/SKILL.md) skill on the doc and fix it until only
-  nits remain. Implementation follows the doc; a builder that has to depart
+  [goldfish](../../goldfish/SKILL.md) skill on the doc and fix it until its
+  review converges. Implementation follows the doc; a builder that has to depart
   from it updates the doc in the same change and says why. Mark tasks done as
   they land.
 - **Finish it.** When the build is done and before the final
@@ -99,8 +101,10 @@ the conversation. A fix whose shape was already settled needs only the note.
   removes its scenarios in the same change, and re-adds *Implementation* and
   *Tasks* while it is in progress if it needs a plan. An older doc with
   *Checks* instead of *Behaviour* is converted when its feature next changes.
-  Where a scenario and its test disagree, the test and code are the truth and
-  the doc is fixed.
+  Where a scenario and its test disagree, intent decides, as the
+  [drift](../../drift/SKILL.md) skill sets out: an intended change fixes the
+  doc, and code that contradicts a user's decision with nothing showing intent
+  is a bug.
 - The pull request links the doc and still carries the note: the pull request
   records what happened, the doc what is true now.
 

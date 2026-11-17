@@ -1,5 +1,27 @@
 # Change log
 
+## 2026-11-17 — EGM review stages, concept brief and drift
+
+Ported from Google's Elephant-Goldfish Model (`72d06f5`); what each port
+kept and dropped is in [docs/import-notes/egm.md](docs/import-notes/egm.md).
+
+- `goldfish` reviews a design doc in five stages with eight reviewer roles
+  (zoom out, design pattern, comprehension, design critic, structure, style,
+  implementation readiness, codebase details) and a merging worker that
+  writes each stage's report to a file. The critic and readiness loops stop
+  after two clean rounds in a row, at five rounds, or on churn. Findings are
+  fixed, contested with evidence the reader could see, escalated to the user,
+  or declined; comprehension gaps cannot be contested and ranks cannot be
+  changed. Agent instruction files keep one goldfish with three passes.
+- `interview` asks one question at a time, writes a brief file that seven
+  concept reviewers critique, and reconciles the design doc against it
+  before deleting it.
+- `build`'s design doc gains *Goals* and *Non-goals*.
+- Add explicit `drift`: compare each design doc's scenarios and plan with
+  the code and its checks, report only differences, and say which side
+  should change.
+  Evidence and dry run: [docs/egm-port.md](docs/egm-port.md).
+
 ## 2026-11-16 — design docs carry behaviour scenarios and become the spec record
 
 - `build`'s design doc gains *Behaviour* (numbered "when … then …"

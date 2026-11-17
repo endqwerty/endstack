@@ -1,0 +1,8 @@
+1. I would keep this local: the rounding fix is narrow and offers no useful independent workstreams.
+2. I would use `build`; this is a bug with a settled fix, so `interview`, `architect`, and a new design doc are unnecessary.
+3. I would trace the percentage calculation, its callers, and sibling status displays, using `how` if unfamiliar.
+4. I would record the short design note: where rounding changes, every affected consumer or exemption, and the checks proving nearest rounding.
+5. I would use `test-design` and `tdd` to add a caller-facing regression check and watch it fail for a value that should round up.
+6. I would replace downward rounding with nearest rounding across affected consumers, then run the regression and relevant boundary checks.
+7. I would update any existing behaviour scenario affected by the fix and use `verify` before calling it done.
+8. I would prepare the checked change for review, stopping before merge under `build`, and use `unslop` for the delivery text.

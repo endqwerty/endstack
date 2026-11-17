@@ -1,0 +1,6 @@
+1. I would keep this local: the brief–doc contradiction needs one user decision before independent work is useful.
+2. Following `interview`, I would retain the brief and pause design work to reconcile it with the draft.
+3. I would quote both passages: the brief’s once-at-8-pm decision and the draft’s hourly-from-6-pm choice, explaining the scheduler constraint.
+4. I would ask: “Should we preserve one fetch at 8 pm and adapt scheduling, or change the requirement to hourly fetches from 6 pm? This changes when and how often the forecast updates.”
+5. After your answer, I would record the decision in the brief and doc, then check for any other contradictions or choices the brief never raised.
+6. Once reconciled, I would delete the brief in the same change and run `goldfish` on the doc before implementation, following `interview` and `build`.

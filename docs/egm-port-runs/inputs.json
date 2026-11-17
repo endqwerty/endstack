@@ -1,0 +1,11 @@
+{
+ "scenarios": [
+  "User message: I want the e-ink kitchen screen to show tomorrow's weather after 8 pm. Let's design it before you build it. (You are in a live conversation with the user.) Say what you do, in order, up to and including the design doc.",
+  "Agent context: You have finished questioning the user about 'evening weather on the e-ink screen' and docs/design/evening-weather.brief.md exists. The brief says the forecast is fetched once at 8 pm; while drafting docs/design/evening-weather.md you read the code and chose to fetch it hourly from 6 pm instead, because the existing scheduler only supports hourly jobs. The user is present. Say what you do next with the brief and the doc.",
+  "User message: Run goldfish on docs/design/evening-weather.md before we start coding. It has Problem, Goals, Non-goals, Plan, Behaviour, Alternatives, Implementation, Tasks and Open questions. Say which readers you start, in what order, on which parts, and when you stop.",
+  "Agent context: You are running goldfish on docs/design/evening-weather.md. Critic loop, round 1: a comprehension-style finding (should) says the term 'refresh slot' is never defined; you think it is obvious and was intentional. Round 2 just came back with no blocker or should, only two nits. Say what you do with the round 1 finding and whether the critic loop is finished.",
+  "User message: We have six design docs in docs/design/ from the last two months. Do they still match what the code actually does?",
+  "User message: The battery percentage on the status screen is off by one because it rounds down; round to nearest instead. Fix it.",
+  "User message: I just rewrote AGENTS.md for this repo. Does it hold up for a fresh agent?"
+ ]
+}

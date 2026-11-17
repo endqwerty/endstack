@@ -17,9 +17,14 @@ to the project would:
 
 {PATHS}
 
+Review this range: {RANGE} (the whole file for an agent instruction file)
+
 ## Pass
 
 {PASS}
+
+For an agent instruction file the pass is one of these three. For a design
+doc it is a reviewer role and its standard.
 
 - **comprehension**: In your own words, explain what this project or
   feature is for, how it works, and the rules an agent must follow in it.
@@ -27,9 +32,9 @@ to the project would:
   could not work out.
 - **critic**: List everything missing, wrong, stale, contradictory or
   ambiguous. Check claims against the referenced files and, read-only, the
-  real system where you can. For a design doc, also say what an expert in
-  this domain would do that the doc does not, and each behaviour scenario
-  missing, or whose named check could pass while the scenario is false.
+  real system where you can. A claim about current behaviour that the code
+  contradicts is a blocker. Before accepting a new helper or module, search
+  for an existing one.
 - **readiness**: For each task below, say how you would do it using only
   what you read, step by step, with the file and line each step rests on.
   List every question you would have to ask and every point where you

@@ -1,0 +1,795 @@
+This is a tool-free policy simulation. Do not use tools, read files, or perform any real action. Apply only the supplied skill context to the scenario. State exactly what you do next and why, in at most 10 lines, in order. Describe intended actions, not completed actions.
+
+ROUTING:
+## Skill routing
+
+Match each new task here before acting. On a match, open the skill: by name if
+listed, else read its SKILL.md from your skills directory, never through a
+skill tool. Follow it and say which skill shaped a decision; several can apply.
+Skip for casual chat, a one-fact lookup or an opt-out. Explaining code,
+reviewing and checking safety are tasks, however short.
+
+- Every task, first: if it splits into independent parts worth running at once,
+  `swarm`. Say which you chose.
+- Changes: `build` implements, `babysit` gets a PR green, `verify` before
+  calling a behaviour change done or when asked if one is safe. `ship` or
+  `autopilot-full` only on an explicit request to merge, land or ship;
+  "autopilot" or "full send" on a change is that request for the latter, with
+  no waiting for approval. "Full stop": build, then babysit to ready, unmerged.
+- Any prose, replies included: `unslop`. Docs, README, RFC, PR text, commit
+  messages: also `technical-writing`.
+- Understanding code: `how` (runtime flow, placement), `why` (history,
+  rationale), `teach` (explain it to me).
+- Design: `interview` first for a feature shaped by the user's intent or taste;
+  `architect` for non-trivial code crossing a function boundary or adding a
+  module; `principles` for stateful or branchy logic or a design call;
+  `goldfish` to test a design doc or agent rules on a fresh agent; `drift`
+  to check design docs against code.
+- Editing .ts or .tsx: `typescript-best-practices`.
+- Adding, keeping, moving or deleting a test: `test-design`. Bug fix with a
+  cheap local test, or a failing or regression test asked for: also `tdd`.
+- Removing comments or replacing workaround ones: `no-comments`.
+- Contested design ("tear this apart"): `interrogate`. Competing attempts at
+  one artifact: `arena`.
+- A timing or performance number to report, compare or limit:
+  `benchmark-checklist`.
+- Long, unattended or multi-phase work: `show-me-your-work`. Nothing narrower
+  fits: `figure-it-out`.
+- Corrected, a mistake recurs, or adding a rule to agent instructions:
+  `correct`.
+- Asked to prove or model-check a race, invariant or rare case:
+  `create-formal-verification-skill`. Code changed under a formal check since
+  its sync commit: `maintain-formal-verification-skill`.
+- State diagrams: `statechart` from a checked model or to show a bug as a path;
+  `archify` for a picture only.
+
+Only when named: `bro`, `ketchup`, `ketchup-video`, `orchestrate`, `recall`,
+`reflect`, `sharpen`.
+
+
+BUILD DESIGN REFERENCE:
+# Design before code
+
+Do this before the first edit to production code for a feature or a change of
+shape, and again at each phase boundary of a larger change, one line per step
+that applies. A fix whose shape is already settled answers steps 2, 6 and 8 in
+a sentence each and skips the rest.
+
+1. **Principles.** Open the [principles index](../../principles/SKILL.md) now
+   and read all of it: one page, one rule per line. For each principle whose
+   situation matches this change, read its reference before the step it
+   governs.
+2. **Ground.** Trace where the behaviour lives and everything that uses the
+   code you will change, with the [how](../../how/SKILL.md) skill when the
+   subsystem is unfamiliar. List every consumer that does the same job: other
+   clients (web, mobile, command line), other call sites, sibling functions
+   with the same pattern.
+3. **Shape.** Name the data shape before writing logic: the states, the data
+   each one carries, and the structure that holds them (one tagged value over
+   independent flags and nullable fields, a table over branching, a parse at
+   the boundary into a named type). List the combinations the shape allows
+   that the domain does not, and make them unrepresentable. When the change
+   adds a state to an existing shape, redesign the shape as if that state had
+   been there from the start.
+4. **Alternatives.** Non-trivial code that crosses a function boundary or adds
+   a module: run [architect](../../architect/SKILL.md)'s ground and sketch
+   phases, take its synthesized sketch as this step's shape, and return here.
+   Its implement phase waits until the remaining steps are done and, under a
+   test-first workflow, until the failing test exists. A change whose shape is
+   already settled (a signature update across its callers, a bug with a clear
+   fix) is `n/a`. Several valid shapes with no clear winner go to
+   [arena](../../arena/SKILL.md); a contested one to
+   [interrogate](../../interrogate/SKILL.md).
+5. **Subtract.** Name what this change makes redundant (a check, a wrapper,
+   an old path, a guard) and delete it in the same change.
+6. **Every consumer.** A fix or improvement to behaviour several consumers
+   share goes into each of them, each verified, or the note says why one is
+   exempt. Fixing one client and leaving its sibling broken is an unfinished
+   change.
+7. **Failure.** For anything that can be retried, interrupted or run by two
+   actors at once: what is the end state, and how does the next run
+   recognise and reconcile what an interrupted one left behind? Split shared
+   state before serializing it.
+8. **Tests.** Each test calls the code the way its users do and asserts what
+   the contract promises: it fails when that behaviour breaks and keeps
+   passing when only the internals change. A test that avoids a failing state,
+   instead of fixing it, is a finding, not a pass.
+   A test written only to prove this change, where the cause cannot recur (a
+   one-time script retired after its run, a removed path, a restated value),
+   leaves the suite in its own last commit; keep one that a plausible later
+   change could break unnoticed, including a migration new databases still run.
+9. **Throughput.** Name the blocking first steps, the workstreams with
+   disjoint files, and the smallest safe split. If one worker is best, say why.
+   Order the work as small units that each end in a check.
+
+## The design note
+
+Write the outcome in a few lines: the shape and its structure, the consumers
+and which ones change, and what is deleted. Name each principle that changed a choice, with the choice, and leave the
+line out when none did. It is for a reader, not for a check to parse. The note goes into the pull request's "why this approach" and
+into every brief.
+
+## The design doc
+
+A new feature or a change of shape also gets a design doc in the repository,
+so a fresh agent can resume or extend the work from the tree instead of from
+the conversation. A fix whose shape was already settled needs only the note.
+
+- **Before.** When the feature's result depends on the user's intent or
+  taste, run the [interview](../../interview/SKILL.md) skill before step 1
+  and build the doc from its brief.
+- **Where.** The place the project's rules name; otherwise
+  `docs/design/<short-name>.md`, one per feature. Extending a feature updates
+  its doc in the same change.
+- **Sections**, written one at a time: *Problem* (a few plain sentences a
+  casual reader understands); *Goals* and *Non-goals* (what it will and will
+  not deliver); *Plan* (the parts and how they fit, a block
+  diagram if it helps, light on jargon); *Behaviour* (numbered scenarios,
+  each "when … then …" about what a user or caller observes, each naming the
+  test or command that proves it; edge and failure cases get their own);
+  *Alternatives* (each option turned down and why, so no later agent reopens
+  it unknowingly); *Implementation* (every file created or changed, and why);
+  *Tasks* (step 9's units in order, each marked done or open, so a new
+  session resumes from the doc); *Open questions* (with the answer assumed
+  meanwhile).
+- **Test it.** Before the first edit to production code, run the
+  [goldfish](../../goldfish/SKILL.md) skill on the doc and fix it until its
+  review converges. Implementation follows the doc; a builder that has to depart
+  from it updates the doc in the same change and says why. Mark tasks done as
+  they land.
+- **Finish it.** When the build is done and before the final
+  [verify](../../verify/SKILL.md) pass, in a commit of its own, delete
+  *Implementation* and *Tasks*, make *Plan* describe the shape as built, and
+  drop answered open questions. A scenario whose test
+  [test-design](../../test-design/SKILL.md) dropped names the kept check that
+  covers it instead, or, when none is kept, why the test was dropped and the
+  pull request holding its proof. This rewrite needs no goldfish pass unless the
+  build departed from the plan. What remains is the feature's spec record;
+  fixes after it that change behaviour update its scenarios.
+- **Later changes.** A change to the feature's behaviour adds, edits or
+  removes its scenarios in the same change, and re-adds *Implementation* and
+  *Tasks* while it is in progress if it needs a plan. An older doc with
+  *Checks* instead of *Behaviour* is converted when its feature next changes.
+  Where a scenario and its test disagree, the test and code are the truth and
+  the doc is fixed.
+- The pull request links the doc and still carries the note: the pull request
+  records what happened, the doc what is true now.
+
+## Delegated builders
+
+A builder gets the design note, the files it owns, the checks that prove it
+done (the doc's scenarios, where there is a doc), and an instruction to read the principles index and this file before
+writing code. A builder that finds the shape does not fit reports back instead
+of redesigning alone. Review the returned diff against the note, not only
+against the checks.
+
+
+INTERVIEW SKILL:
+---
+name: interview
+description: Before designing a feature, question the user to draw out their intent and judgment, then propose the first design yourself and argue it to a design doc.
+disable-model-invocation: true
+---
+
+# Interview
+
+A feature's design rests on judgment only the user holds: what it is for,
+what good looks like, what to give up. Asking for it after the code exists
+is too late. This skill draws it out first, then writes it down where a
+fresh agent can find it.
+
+## When
+
+A new feature or a product change whose result depends on the user's
+intent, taste or priorities. Not for a bug with a clear fix, a mechanical
+change, a chore the request fully specifies, or when the user opts out. A
+project's own rules may name where it is required.
+
+## 1. Ground
+
+Read the docs and code the feature touches (the [how](../how/SKILL.md)
+skill for an unfamiliar subsystem). Tell the user in a short paragraph how
+you understand the relevant part of the system, so they can correct it
+before it shapes anything.
+
+## 2. Question, no code
+
+Write no code and no design yet. Ask one question at a time, the one that
+would change the design most first. Each question says why it matters and
+the answer you would assume without one.
+
+- Challenge assumptions. Name edges the user has not covered: failure,
+  scale, who else uses it, what it replaces, what it must never do.
+- Disagree when the evidence says so, and show the evidence. Agreeing is not
+  help. If you notice yourself praising, ask a harder question instead.
+- When an answer looks weak, ask why. When you are unsure of a fact, read
+  the file rather than guess.
+
+Stop when the user says so or when new answers stop changing the design.
+
+## 3. How done is judged
+
+Ask how the user will judge the result: what they will look at, try or
+measure. These become the doc's behaviour scenarios and their checks.
+
+## 4. Brief and concept review
+
+Write the brief as a file next to where the design doc will go
+(`<short-name>.brief.md` beside `docs/design/<short-name>.md` by default), so a
+new session can draft from it:
+
+- *Overview*: the feature, who it is for and why, in plain words.
+- *Goals* and *Non-goals*.
+- *Analysis*: the concept review below.
+- *Alternatives weighed*: each option turned down and why, credited to whoever
+  turned it down. The design doc copies these and has no other source.
+- *Key decisions*: what this conversation settled.
+
+For the analysis, a merging worker runs the seven concept reviewers from
+[goldfish](../goldfish/SKILL.md)'s
+[reviewer roles](../goldfish/references/reviewers.md) on the overview, goals
+and decisions, as fresh read-only workers. Show the user the two or three
+strongest objections and settle each, one question at a time, updating the
+brief, until no objection would change the design.
+
+## 5. You propose the first design
+
+Propose the design yourself, in prose and a block diagram where it helps,
+pseudocode only where prose fails. Proposing first shows whether you
+understood; reacting to the user's design hides your blind spots. Argue it
+through with the user until it settles. Each option turned down, and why,
+goes into the brief.
+
+## 6. Write the design doc
+
+Write the doc into the project as [build](../build/SKILL.md)'s
+[design reference](../build/references/design.md) describes, one section at
+a time, from the brief and this conversation. Then reconcile it with the
+brief: list each question the brief settled that the doc settles
+differently, quoting both, and each architecture, interface or dependency
+choice the brief never raised. The user decides each contradiction, one at a
+time; do not just make the doc match the brief, since drafting read code the
+brief did not. Then delete the brief in the same change and test the doc
+with [goldfish](../goldfish/SKILL.md) before implementation starts; an answer
+the user gave only in chat goes into the doc.
+
+## Without the user
+
+If the user is not there to answer (unattended or delegated work), do not
+block. Answer each question and contradiction yourself with the default you
+would assume, write the questions and your answers under the doc's open
+questions, and name them in the first lines of the pull request so the user
+can overturn them.
+
+
+GOLDFISH SKILL:
+---
+name: goldfish
+description: Test whether a design doc or agent instruction file stands alone, by giving it to fresh readers with no other context.
+disable-model-invocation: true
+---
+
+# Goldfish
+
+The author of a document holds context the document does not. A goldfish is a
+fresh reader with no memory: it gets only the document's paths and the files
+the document references, never the conversation, your conclusions or the
+answers. If it cannot understand and act on the document, the document is
+missing something, however clear it looks to you.
+
+## When
+
+- A design doc, before implementation starts and after any round of edits
+  that changes its plan.
+- An agent instruction file (`AGENTS.md`, a README agents start from, a
+  long reference such as a workstation or runbook file, a skill) after a
+  substantial edit, and in periodic passes over a project.
+
+## Roles
+
+- **Author**: you. You pick the tasks, judge the findings and edit the
+  document. You never answer a goldfish in chat; an answer goes into the
+  document or it does not exist.
+- **Goldfish**: a separate read-only worker, from a different model family
+  if available. Each stage and round gets new ones; a goldfish that has seen
+  an earlier draft is no longer a goldfish. Briefs come from
+  [references/goldfish-prompt.md](references/goldfish-prompt.md).
+- **Merging worker**: for a stage with two or more reviewers, a separate
+  worker starts them, merges and ranks their findings into a report file
+  outside the tree, and returns only statuses and counts
+  ([references/reviewers.md](references/reviewers.md)). Without nested
+  workers, start the reviewers yourself and merge the same way.
+
+If you cannot start separate workers (no harness support, or you are a
+delegated worker told not to), hand the review to whoever can, such as the
+agent that delegated you, or report the document untested: reading your own
+document fresh is not possible.
+
+## Agent instruction files
+
+One goldfish runs the brief's three passes in order: comprehension, critic,
+readiness. Readiness gets two to four realistic tasks from recent or planned
+work, stated the way the user would state them, with no hints. What it read
+and never needed, and where length or order lost it, are cut or move
+candidates. Repeat with a new goldfish under the loop rules below.
+
+## Design docs: five stages
+
+Roles are in [references/reviewers.md](references/reviewers.md), standards in
+[references/standards.md](references/standards.md). The feature part is
+everything before *Implementation*; the detail part is *Implementation* and
+*Tasks*. Run the stages in order, fixing between them.
+
+1. **Zoom out**: zoom-out and design-pattern reviewers, whole doc.
+2. **Comprehension**: one comprehension reviewer, started directly so you
+   read its paraphrase. Compare it with what you know is true; each
+   misunderstanding is a gap in the document.
+3. **Critic loop**: design critic, structure and style, feature part.
+4. **Zoom out again**: zoom-out reviewer, whole doc, not reopening what
+   stage 1 settled.
+5. **Readiness loop**: implementation readiness (with two to four realistic
+   tasks), codebase details and style, detail part.
+
+A doc with no detail part yet stops after stage 4.
+
+## Loops
+
+Stages 3 and 5 repeat with new reviewers until they converge.
+
+- A round is **clean** when no blocker or should is open that is not
+  settled; nits never block. A reviewer that did not run makes the round
+  not clean. Decide this before applying the round's fixes.
+- **Converged** is two clean rounds in a row: fresh readers sample
+  differently, so one clean round proves little.
+- A contested or declined finding is **settled** and stays closed when
+  raised again. A fixed finding raised again is reopened: the fix failed.
+- Stop at five rounds, or on **churn**: a new finding that reverting an
+  earlier fix would clear. List the open findings by rank. With the user
+  present, ask one question: accept, continue past the cap, or return the
+  document to drafting. Without the user, report both sides: the document
+  may be the wrong shape.
+
+## Judge and fix
+
+Each finding names the file and line, quotes it, gives evidence and a fix,
+and is ranked **blocker** (the reader would do the task wrong), **should**
+(it would have to ask or guess) or **nit** (wording, taste, nothing shown
+reaches it). Check it against the real files, then give it one category:
+
+- **Fix**: valid; edit the document.
+- **Contest**: wrong, shown by evidence the goldfish could read: a file and
+  symbol, or a decision the document records. "This was intentional" is not
+  evidence. You wrote the document; wanting to contest is not proof.
+- **Escalate**: wrong only by knowledge no file holds, such as a choice only
+  the user can make. Ask the user, one question at a time; without the user,
+  record it under the doc's open questions with the answer you assume. Either
+  way the answer goes into the document.
+- **Decline**: a nit not worth fixing.
+
+Never contest a comprehension gap: if a fresh reader could not follow it,
+context is missing. Never change a rank; contest it instead. Prefer cutting
+and reordering to adding: a longer file is harder for the next goldfish. A
+rule that keeps being missed belongs in a check, not more prose (the
+[correct](../correct/SKILL.md) skill).
+
+## Report
+
+The document and revision, the stages and rounds run, each reviewer's
+status and model family, the tasks given, each finding with its rank and
+category, and the report files.
+
+
+GOLDFISH BRIEF:
+# Goldfish brief
+
+Fill the placeholders. Give the goldfish nothing else: no conversation, no
+summary of the document, no hint about what you expect it to find.
+
+---
+
+You are reading documentation cold. You have no other context about this
+project, and that is the point: the documents must stand on their own. Do
+not edit anything. Read only; you may run read-only commands to check a
+claim against the real files or system.
+
+## Read
+
+Start from these files and follow the files they reference, as an agent new
+to the project would:
+
+{PATHS}
+
+Review this range: {RANGE}
+
+## Pass
+
+{PASS}
+
+For an agent instruction file the pass is one of these three. For a design
+doc it is a reviewer role and its standard.
+
+- **comprehension**: In your own words, explain what this project or
+  feature is for, how it works, and the rules an agent must follow in it.
+  Mark each statement with the file and line it came from. Say what you
+  could not work out.
+- **critic**: List everything missing, wrong, stale, contradictory or
+  ambiguous. Check claims against the referenced files and, read-only, the
+  real system where you can. A claim about current behaviour that the code
+  contradicts is a blocker. Before accepting a new helper or module, search
+  for an existing one.
+- **readiness**: For each task below, say how you would do it using only
+  what you read, step by step, with the file and line each step rests on.
+  List every question you would have to ask and every point where you
+  guessed. Then list what you read and never needed for any task, and
+  where length or order made you lose the thread.
+
+{TASKS}
+
+## Findings
+
+For each finding give:
+
+1. **Rank**: `blocker` (an agent would do a task wrong), `should` (it
+   would have to ask or guess), `nit` (wording or taste, nothing shown
+   reaches it).
+2. **Where**: file and line, with the words quoted.
+3. **Evidence**: what you read or ran that shows it.
+4. **Fix**: the smallest change to the document that removes it. Prefer
+   cutting or moving text to adding it.
+
+Every gap you find makes you more useful. Agreeing with the document is not
+help. Report a pass with no blocker or should only if you looked and found
+none, and say what you checked.
+
+
+GOLDFISH REVIEWER ROLES:
+# Reviewer roles
+
+Each design-doc stage and each concept review in
+[interview](../../interview/SKILL.md) uses these roles. Build every brief from
+[goldfish-prompt.md](goldfish-prompt.md): put the role's text below in place
+of `{PASS}`, the standard it names from [standards.md](standards.md), and the
+range of the document to read. Every reviewer is read-only, has no
+conversation history and reports no chatter, only findings.
+
+A role has two modes. **Review** audits a written document. **Concept**
+critiques a feature idea before any document exists; its findings become the
+brief's analysis.
+
+## Zoom out
+
+A skeptical architect who wants the simplest design that solves the root
+problem. Standard: zoom out.
+
+- Review: Is anything here not needed now (speculative features,
+  configuration, interfaces)? Is caching, sharding or queuing added before a
+  measured bottleneck? Does the high-level part drop into helper functions
+  and pseudocode instead of components, interfaces and data flow? Does it
+  patch a symptom instead of the root cause, or put logic in the wrong layer?
+  Does it block later growth? Whenever the design proposes a new utility,
+  module or helper, search the code for an existing one first and name it.
+- Concept: Does this need to exist now? Could an existing library, service
+  or piece of this code base do most of it? Search the code and say.
+
+## Design pattern
+
+An inventor who finds where a design accepts a false trade-off ("faster means
+less durable", "extensible means deep hierarchies") and names a known pattern
+that removes it. Theoretical limits are fixed, not contradictions. No
+standard.
+
+First decide whether a real contradiction exists. If the design already
+balances its forces, report exactly "No false compromise detected" and
+nothing else; do not invent transforms. Otherwise, for each one: the two
+parameters in conflict, a pattern from the catalog below, and the new costs
+that pattern brings. Every suggestion names its cost.
+
+- Review: findings are advisory, ranked `should` or `nit`, never `blocker`.
+  Look for compromises presented as laws, subsystems coupled where
+  extraction or an intermediary would remove contention, and failures
+  handled by logging instead of active mitigation.
+- Concept: two or three patterns per contradiction, and the ideal end
+  state: how the system delivers its core function with the least added
+  operating overhead.
+
+Catalog, with each pattern's cost:
+
+1. Segmentation: split into independent units (packages, worker pools,
+   shards). Cost: coordination, serialization at boundaries.
+2. Extraction: move a cross-cutting or interfering concern out (interceptor,
+   sidecar, separate process). Cost: call latency, more parts to run.
+3. Preliminary action: compute or allocate ahead (memoization, warm caches,
+   pools, ahead-of-time builds). Cost: idle memory, start-up delay.
+4. Cushioning in advance: prepare fallbacks (circuit breakers,
+   stale-while-revalidate, bounded fallback queues). Cost: stale data, a
+   second path to maintain.
+5. Inversion: invert control or data flow (dependency injection, reactive
+   streams, pull instead of push). Cost: indirection, harder stack traces.
+6. Dynamics: adapt to load (adaptive batching, autoscaling, dynamic limits).
+   Cost: less predictable behaviour at the edges.
+7. Turn harm into use: make failures signals (backpressure, dead-letter
+   rerouting, fault injection). Cost: more orchestration and queues.
+8. Intermediary: decouple through a coordinator (mediator, event bus, queue,
+   gateway). Cost: extra hops, a single point of failure without redundancy.
+9. Self-service: components heal or tune themselves (reconciliation loops,
+   watchdogs). Cost: runaway loops if the health check is wrong.
+10. Cheap disposables: replace durable stateful instances with ephemeral
+    ones (stateless workers, throwaway build containers). Cost: cold starts,
+    no local state.
+
+## Comprehension
+
+A capable engineer new to this project. You do not know this project; you do
+know software. No standard.
+
+- Review: Start with a paraphrase under two headings, **What this proposes**
+  and **How the existing system works, per this document**, two to five
+  sentences each. A section you cannot paraphrase is a `blocker`: a list of
+  undefined terms misses a document whose terms are all defined but whose
+  parts do not connect. Then flag project-specific terms, systems or steps
+  used without a definition or link (look elsewhere in the document before
+  flagging), workflows that assume setup the document never states, and
+  vague claims such as "the system handles this" with no how. Do not flag
+  general engineering terms.
+- Concept: Is the proposed interface or workflow intuitive for its users and
+  consistent with the conventions they already know? Are errors actionable?
+  Where does it add cognitive load?
+
+## Design critic
+
+A senior engineer who accepts no claim without support and looks past the
+text for risk. Standard: feature spec.
+
+- Review: Does the document answer what the standard requires? Which claims
+  about behaviour, performance, limits or other systems have no support?
+  Which failure modes, security issues, scaling limits or operating burdens
+  does the design introduce without mitigating? What would an expert in
+  this domain do that the doc does not? Which behaviour scenario is
+  missing, and which named check could pass while its scenario is false?
+- Concept: Cost and quota: peak load, storage, query load, model token
+  budgets. Bottlenecks: single points of failure, state that will not scale,
+  resource ceilings.
+
+## Structure
+
+A layout checker. Standard: feature spec (its sections), or the project's
+design-doc layout.
+
+- Review: Are the required sections present and correctly named? Are
+  heading levels nested without skips? Are tables, lists, code blocks and
+  links well formed, and do links resolve?
+- Concept: Coupling and maintenance: tight dependencies, brittle state
+  machines, what will be a burden in two years.
+
+## Style
+
+A technical copy editor. Review only, no concept mode. Standard: the
+project's writing rules, if any.
+
+- Review: Flag hyperbole, buzzwords, filler, subjective praise or blame of
+  code, and adjacent synonyms that repeat one idea. Each claim about existing
+  or tested behaviour must match its evidence. Classify each caveat or
+  uncalibrated claim: `DROP` (no reader decision depends on it), `CALIBRATE`
+  (narrow it to what was verified), `RELOCATE` (move it to the step where the
+  reader makes the choice) or `KEEP` (backed by evidence; not a finding).
+
+## Implementation readiness
+
+The engineer who will write the code. Standard: implementation readiness.
+
+- Review: Do I know exactly what to change, where and how? Flag every choice
+  the text leaves to the implementer (a schema, an interface, a dependency,
+  an error policy), every summary step ("update the auth service") that
+  should be a precise one, and every element the standard requires that is
+  missing. When the author gives tasks, do each as the readiness pass in the
+  brief describes: steps with the line each rests on, every question, every
+  guess.
+- Concept: Migration and compatibility: how existing clients and stored
+  data move; whether formats, schemas or interfaces break; how a rollout is
+  rolled back halfway.
+
+## Codebase details
+
+An auditor who checks the document against the code. Standard:
+implementation readiness.
+
+- Review: Find the source files the range describes and read them. A
+  statement about current behaviour that the code contradicts is a
+  `blocker`: every later reader inherits it. Check that every file,
+  function, endpoint or table the document says exists now does exist.
+  Flag logic, constants, environment variables, edge cases and failure
+  handling in the code that the document omits where it matters. Ignore
+  simple test files but check shared test helpers and fakes. Files the plan
+  proposes to create are not findings; if the plan lists files without
+  marking each create, change or delete, report that once as a `should`.
+- Concept: Observability: can key operations be traced, are metrics
+  actionable, how would someone diagnose a failure at 3 a.m.?
+
+## Merging worker
+
+Starts the stage's reviewers at once, each with its own brief. For a large
+or high-risk document it may start two independent instances of each
+reviewer. A reviewer that fails, times out or returns nothing is retried
+once, then recorded as `not run`, never as zero findings. It merges
+duplicates, keeps each finding's reviewer, rank, place, quote, evidence and
+fix, orders them blocker, should, nit, and writes the report file the author
+names:
+
+```markdown
+# Goldfish report: <document> (<range>), stage <n>, round <r>
+
+| Reviewer | Status |
+| --- | --- |
+| <role> | completed / not run |
+
+## Findings
+### <short name> (<rank>, <reviewer>)
+- Where: <file:line, quoted>
+- Evidence: <what was read or run>
+- Fix: <smallest change>
+```
+
+It returns only each reviewer's status, the counts by rank and the report
+path. The author reads the file.
+
+In concept mode it starts every role except style (seven) on the feature idea,
+merges their findings the same way and returns them for the brief's
+*Analysis*.
+
+
+GOLDFISH STANDARDS:
+# Document standards
+
+Reviewers judge a design doc against the standard their role names in
+[reviewers.md](reviewers.md). Each passes when a capable engineer, or a
+fresh agent, new to the code base could do what it describes.
+
+## Feature spec
+
+Applies to the feature part of a design doc: everything before
+*Implementation*.
+
+A reader new to the code base understands the feature, why it is needed and
+its trade-offs, and can confirm the major risks and alternatives were dealt
+with.
+
+- **Alternatives.** The doc fails if it proposes one path without showing
+  that other workable designs were considered and turned down, each for a
+  concrete technical or scope reason. A rejection is never credited to a
+  person without a link to where they said it.
+- **Risks and limits.** It names its own failure modes, security
+  implications and scaling limits, and how each is handled.
+- **Where they apply:** the problem, goals and non-goals, the plan
+  (components, data flow, how it fits the system), behaviour scenarios, the
+  alternatives, risks and their mitigations.
+
+## Implementation readiness
+
+Applies to *Implementation* and *Tasks*.
+
+A reader new to the code base could make the right change on the first
+attempt without guessing, asking or deciding the design.
+
+- **Zero decisions.** The plan fails if the implementer must still choose a
+  schema, an interface, a dependency or how to handle a new edge case.
+- **Phases.** Work is split into units that each leave the code building and
+  its checks passing.
+- **Where they apply:** each file to create, change or delete, by its path
+  (a glob only for generated files); the precise change in each; the test
+  cases, including edges and failures, tied to the behaviour scenarios.
+
+## Zoom out
+
+Applies to the whole doc.
+
+A design passes when it solves the root problem in the simplest way, reuses
+what exists, avoids speculative features and early optimization, and keeps
+its high-level parts at the level of components and interfaces.
+
+0. **Context.** If the reviewer cannot tell what the doc is trying to achieve
+   and why, the review fails at once and asks for that context.
+1. **Root problem.** It fixes the cause, not a symptom, and fits the goals
+   and design the project's own docs state.
+2. **Simplicity.** No abstraction, path or feature only for a guessed future
+   need; no caching, sharding or queues before a measured bottleneck; data
+   passes through as few components as it can; interfaces leave room to grow
+   without building the growth now.
+3. **Altitude.** High-level sections describe architecture, interfaces and
+   data flow, not helpers and loop variables. A structural fix in the right
+   component beats a local workaround; new logic sits in the layer that owns
+   it.
+4. **Reuse.** Search for and reuse existing utilities and patterns, as long as
+   they are maintained and do not cross a dependency boundary; prefer the
+   platform's standard tools to bespoke ones; flag known anti-patterns such
+   as bypassing authentication or hard-coded deployment settings.
+
+
+DRIFT SKILL:
+---
+name: drift
+description: Compare what each design doc says a feature does with what its code and checks actually do, and report only the differences and which side should change.
+disable-model-invocation: true
+---
+
+# Drift
+
+A design doc is its feature's spec record: its *Behaviour* scenarios say what
+should happen and its *Plan* how. Code changes without the doc, and the doc
+goes stale with nothing to say so. This skill finds where expected and actual
+behaviour differ. It reports; fixes go through [build](../build/SKILL.md).
+
+## When
+
+Periodic passes over a project with design docs (weekly while it is active),
+before extending a feature, or when asked whether the docs still hold.
+
+## 1. Scope
+
+The design doc directory the project's rules name, else `docs/design/`, or
+the docs named. Take one doc at a time, in order, and read the current files
+each time, never memory.
+
+## 2. Expected
+
+From the doc, list each behaviour scenario with its named check, and each
+claim the *Plan* makes about files, symbols, fields, states, data shapes and
+libraries. Open questions and alternatives turned down are not claims.
+
+## 3. Actual
+
+Find the code: follow the doc's links; where there are none, search for the
+symbols it names, and note the link the doc should carry so the next pass is
+cheaper. Read the code. For each scenario:
+
+- Does the named check exist, and does it assert the scenario rather than
+  something weaker that could pass while the scenario is false?
+- Run it when it is local, read-only and cheap, by the project's own test
+  command, and keep its deciding line. A check you could not run is
+  `not run` with the reason, never a pass.
+- Does the code do what the scenario says, including its edge and failure
+  cases?
+
+## 4. Differences
+
+Report only differences; what matches is not listed.
+
+- **Missing behaviour**: a scenario or plan claim the code does not
+  implement.
+- **Changed behaviour**: the code does something other than a scenario says.
+- **Broken check**: the named check is missing, fails, or could pass while
+  its scenario is false.
+- **Incomplete shape**: fields, states or types the plan names are missing.
+- **Shortcut**: a fixed value where the plan describes logic.
+- **Divergent design**: a different pattern, component or library than the
+  plan's.
+- **Unspecified behaviour**: user-visible behaviour in the feature's code
+  that no scenario covers.
+
+A doc with no scenarios (an older one with *Checks*) is reported as not
+checkable, not as clean.
+
+## 5. Which side changes
+
+For each difference, say which side should change and why:
+
+- **The doc**, when history (the pull request or commit that changed the
+  code) shows the change was intended. Tests and code are the truth for
+  intended behaviour.
+- **The code**, when a check fails, or nothing shows the change was
+  intended and the scenario records a decision the user made. That is a bug;
+  name it.
+- **The user**, when the evidence does not settle it. Ask one question at a
+  time, or list it as open when the user is not there.
+
+## Report
+
+One section per doc: each difference with the doc line quoted, the code
+location, the evidence (a deciding line or the file read), the side that
+should change and the smallest fix; or "No drift". Write it to a dated file
+outside the tree unless the project names a place, and give the summary with
+its path. Each fix that follows is its own change: doc-only fixes together,
+each code bug separately.
+
+
+SCENARIO:
+User message: I just rewrote AGENTS.md for this repo. Does it hold up for a fresh agent?

@@ -1,0 +1,4 @@
+1. Apply `goldfish`: treat round 1’s comprehension gap as **Fix**, keep its **should** rank, and define “refresh slot” in the document; “obvious” and “intentional” do not justify contesting it.
+2. Count round 1 as not clean: cleanliness is decided before fixes, so fixing it cannot make that round clean retroactively.
+3. Count round 2 as the first clean round; its two nits do not block convergence.
+4. Continue the critic loop with fresh reviewers in round 3: it finishes only after two consecutive clean rounds.

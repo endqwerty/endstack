@@ -1,0 +1,10 @@
+1. I’ll keep this design-only and local initially; `swarm` has no independent work until the intent is grounded.
+2. Following `interview` and `how`, I’ll trace the kitchen screen’s weather source, date selection and consumers, then explain my understanding for correction.
+3. I’ll ask first: “Should 8 pm follow the kitchen’s local time? I’d assume yes; that determines the date boundary.”
+4. I’ll continue one question at a time about tomorrow’s weather details, switching back, stale forecasts and failures, stating why each matters and my assumed answer.
+5. I’ll ask what you’ll look at or try to judge success, turning those answers into observable behaviour scenarios and checks.
+6. I’ll write the interview brief, then have a separate merging worker run all seven fresh, read-only concept reviewers; I’ll settle the strongest objections with you one at a time.
+7. Following `build`, I’ll read the principles index, ground every consumer, define the data shape, consider alternatives and recovery, and identify redundant logic and checked work units; `architect` applies if the change crosses function boundaries non-trivially.
+8. I’ll propose the first design myself and discuss it with you until settled, recording rejected alternatives and reasons in the brief.
+9. I’ll write the repository design doc section by section, including scenarios, checks, precise file changes and tasks; I’ll reconcile it against the brief, ask you to resolve contradictions or unraised choices, then delete the brief.
+10. I’ll run `goldfish`’s five stages with fresh readers, fix findings and repeat its loops to convergence; I’ll leave implementation pending and use `unslop` to keep the prose clear.
