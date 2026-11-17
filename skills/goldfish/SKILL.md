@@ -23,55 +23,92 @@ missing something, however clear it looks to you.
 ## Roles
 
 - **Author**: you. You pick the tasks, judge the findings and edit the
-  document. You never answer the goldfish's questions in chat; an answer
-  goes into the document or it does not exist.
+  document. You never answer a goldfish in chat; an answer goes into the
+  document or it does not exist.
 - **Goldfish**: a separate read-only worker, from a different model family
-  if available. Each pass and each round gets a new one; a goldfish that has
-  seen an earlier draft is no longer a goldfish. If you cannot start
-  separate workers (no harness support, or you are a delegated worker told
-  not to), hand the pass to whoever can, such as the agent that delegated
-  you, or report the document untested: reading your own document fresh is
-  not possible.
+  if available. Each stage and round gets new ones; a goldfish that has seen
+  an earlier draft is no longer a goldfish. Briefs come from
+  [references/goldfish-prompt.md](references/goldfish-prompt.md).
+- **Merging worker**: for a stage with two or more reviewers, a separate
+  worker starts them, merges and ranks their findings into a report file
+  outside the tree, and returns only statuses and counts
+  ([references/reviewers.md](references/reviewers.md)). Without nested
+  workers, start the reviewers yourself and merge the same way.
 
-## Passes
+If you cannot start separate workers (no harness support, or you are a
+delegated worker told not to), hand the review to whoever can, such as the
+agent that delegated you, or report the document untested: reading your own
+document fresh is not possible.
 
-Build each brief from [references/goldfish-prompt.md](references/goldfish-prompt.md).
-For a design doc, run the three passes as three goldfish at once. For a
-routine pass over agent instruction files, one goldfish may run all three in
-order.
+## Agent instruction files
 
-1. **Comprehension.** Explain what the document is for and how the system
-   it describes works. Compare the answer with what you know is true; each
-   misunderstanding is a gap in the document, not in the reader.
-2. **Critic.** Find what is missing, wrong, stale, contradictory or
-   ambiguous. The goldfish checks claims against the referenced files and,
-   read-only, against the real system where it can. On a design doc it also
-   names what a domain expert would add and weak or missing scenarios.
-3. **Readiness.** Give two to four realistic tasks, taken from recent or
-   planned work, stated the way the user would state them, with no hints.
-   The goldfish says how it would do each one using only what it read, every
-   question it would have had to ask, and where it guessed. For an agent
-   instruction file it also lists what it read and never needed, and where
-   length or order made it lose the thread: those are cut or move
-   candidates.
+One goldfish runs the brief's three passes in order: comprehension, critic,
+readiness. Readiness gets two to four realistic tasks from recent or planned
+work, stated the way the user would state them, with no hints. What it read
+and never needed, and where length or order lost it, are cut or move
+candidates. Repeat with a new goldfish under the loop rules below.
+
+## Design docs: five stages
+
+Roles are in [references/reviewers.md](references/reviewers.md), standards in
+[references/standards.md](references/standards.md). The feature part is
+everything before *Implementation*; the detail part is *Implementation* and
+*Tasks*. Run the stages in order, fixing between them.
+
+1. **Zoom out**: zoom-out and design-pattern reviewers, whole doc.
+2. **Comprehension**: one comprehension reviewer, started directly so you
+   read its paraphrase. Compare it with what you know is true; each
+   misunderstanding is a gap in the document.
+3. **Critic loop**: design critic, structure and style, feature part.
+4. **Zoom out again**: zoom-out reviewer, whole doc, not reopening what
+   stage 1 settled.
+5. **Readiness loop**: implementation readiness (with two to four realistic
+   tasks), codebase details and style, detail part.
+
+A doc with no detail part yet stops after stage 4.
+
+## Loops
+
+Stages 3 and 5 repeat with new reviewers until they converge.
+
+- A round is **clean** when no blocker or should is open that is not
+  settled; nits never block. A reviewer that did not run makes the round
+  not clean. Decide this before applying the round's fixes.
+- **Converged** is two clean rounds in a row: fresh readers sample
+  differently, so one clean round proves little.
+- A contested or declined finding is **settled** and stays closed when
+  raised again. A fixed finding raised again is reopened: the fix failed.
+- Stop at five rounds, or on **churn**: a new finding that reverting an
+  earlier fix would clear. List the open findings by rank. With the user
+  present, ask one question: accept, continue past the cap, or return the
+  document to drafting. Without the user, report both sides: the document
+  may be the wrong shape.
 
 ## Judge and fix
 
-- Each finding names the file and line, quotes it, gives the evidence and a
-  proposed fix. Rank it: **blocker** (the reader would do the task wrong),
-  **should** (it would have to ask or guess), **nit** (wording, taste,
-  nothing shown reaches it).
-- Check each finding against the real files before acting; a goldfish can
-  be wrong too. Dismiss with a one-line reason.
-- Fix blockers and shoulds in the document. Prefer cutting and reordering
-  to adding: a longer file is harder for the next goldfish. A rule that
-  keeps being missed belongs in a check, not more prose (the
-  [correct](../correct/SKILL.md) skill).
-- Run a new round with new goldfish until only nits remain. After three
-  rounds with blockers still open, stop and report both sides: the document
-  may be the wrong shape.
+Each finding names the file and line, quotes it, gives evidence and a fix,
+and is ranked **blocker** (the reader would do the task wrong), **should**
+(it would have to ask or guess) or **nit** (wording, taste, nothing shown
+reaches it). Check it against the real files, then give it one category:
+
+- **Fix**: valid; edit the document.
+- **Contest**: wrong, shown by evidence the goldfish could read: a file and
+  symbol, or a decision the document records. "This was intentional" is not
+  evidence. You wrote the document; wanting to contest is not proof.
+- **Escalate**: wrong only by knowledge no file holds, such as a choice only
+  the user can make. Ask the user, one question at a time; without the user,
+  record it under the doc's open questions with the answer you assume. Either
+  way the answer goes into the document.
+- **Decline**: a nit not worth fixing.
+
+Never contest a comprehension gap: if a fresh reader could not follow it,
+context is missing. Never change a rank; contest it instead. Prefer cutting
+and reordering to adding: a longer file is harder for the next goldfish. A
+rule that keeps being missed belongs in a check, not more prose (the
+[correct](../correct/SKILL.md) skill).
 
 ## Report
 
-The document and revision tested, the tasks given, each finding with its
-rank and what you did, the rounds run and the goldfish's model family.
+The document and revision, the stages and rounds run, each reviewer's
+status and model family, the tasks given, each finding with its rank and
+category, and the report files.

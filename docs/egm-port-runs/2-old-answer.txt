@@ -1,0 +1,6 @@
+1. I would keep this local for now: resolving the changed behaviour requires the user’s judgment before independent work is useful.
+2. Following `interview`, I would pause drafting and explain that hourly fetching from 6 pm changes the brief’s agreed once-at-8-pm behaviour; the scheduler limitation does not settle that choice.
+3. I would ask whether the user prefers preserving the 8 pm fetch by adapting scheduling or accepting hourly fetching from 6 pm; absent agreement, I would retain the brief’s behaviour.
+4. After settling that choice, I would update the brief and design doc together, recording the chosen behaviour, its rationale, the rejected alternative, and an observable check.
+5. Following `build` and `goldfish`, I would finish the design doc, then arrange fresh comprehension, critic, and readiness readers in parallel, giving them only document paths and referenced files.
+6. I would fix confirmed blockers and shoulds and repeat with fresh readers until only nits remain, before implementation.

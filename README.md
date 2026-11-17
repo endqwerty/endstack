@@ -27,7 +27,7 @@ carry no tool, model or harness names; see the [skills table](#skills) and
 | --- | --- |
 | Delivery (core, about 2 KB each) | build, babysit, ship, autopilot-full, verify |
 | Explain and think | interview, architect, how, why, teach, recall, figure-it-out, correct, ketchup, ketchup-video, sharpen |
-| Review and process | goldfish, reflect, interrogate, arena, swarm, orchestrate, show-me-your-work, benchmark-checklist, bro |
+| Review and process | goldfish, drift, reflect, interrogate, arena, swarm, orchestrate, show-me-your-work, benchmark-checklist, bro |
 | Writing and code | technical-writing, unslop, no-comments, typescript-best-practices, tdd, test-design, create-formal-verification-skill, maintain-formal-verification-skill |
 | Principles | principles (index; each principle is a reference read on demand) |
 
@@ -53,7 +53,7 @@ in its `AGENTS.md`.
 
 ## Install
 
-Only `skills/` is installable (34 skills). Add `-s build -s verify ...` to take a subset.
+Only `skills/` is installable (35 skills). Add `-s build -s verify ...` to take a subset.
 
 **With npx** (any machine; installs to Claude Code, Codex and other agents):
 

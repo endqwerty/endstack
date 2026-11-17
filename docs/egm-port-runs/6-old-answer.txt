@@ -1,0 +1,8 @@
+1. I would keep this local: a settled rounding fix offers no useful independent work to split under `swarm`.
+2. I would use `build`’s settled-fix path, answering only Ground, Every consumer and Tests; `interview`, a design doc and `goldfish` are unnecessary.
+3. I would trace the battery display calculation and all consumers doing the same job, using `how` if the subsystem is unfamiliar.
+4. I would identify the intended nearest-rounding rule, including half-percent values, from existing contracts and conventions.
+5. I would use `test-design` and `tdd` to add a user-facing regression check and watch it fail on the current round-down behaviour.
+6. I would change the rounding and cover equivalent consumers, documenting any exemption in the brief design note.
+7. I would run the regression and relevant checks, then apply `verify` before calling the behaviour fixed.
+8. I would use `unslop` for the delivery note and stop before merging, because `build` grants no merge authority.

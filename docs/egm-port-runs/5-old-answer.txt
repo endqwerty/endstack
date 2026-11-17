@@ -1,0 +1,7 @@
+1. I would choose `swarm`: the six document audits can run independently; `goldfish` shapes the cold-reader checks, and `verify` shapes the behaviour review.
+2. I would identify the six docs and the code, tests and references each points to, establishing the revision being checked.
+3. I would give each doc to a fresh read-only goldfish with only its paths and referenced files, without conversation context or my conclusions.
+4. I would run comprehension, critic and readiness passes concurrently for each doc; readiness tasks would exercise its claimed behaviour and failure cases.
+5. I would require file-and-line evidence for discrepancies, including scenarios whose named checks could pass while the documented behaviour is false.
+6. I would check each finding against current code and relevant deterministic checks, distinguishing stale documentation from a possible implementation bug.
+7. I would report each doc’s tested revision, findings ranked blocker/should/nit, proposed corrections and unchecked scope; I would not change files during this audit.

@@ -67,12 +67,13 @@ the conversation. A fix whose shape was already settled needs only the note.
 
 - **Before.** When the feature's result depends on the user's intent or
   taste, run the [interview](../../interview/SKILL.md) skill before step 1
-  and build the doc from it.
+  and build the doc from its brief.
 - **Where.** The place the project's rules name; otherwise
   `docs/design/<short-name>.md`, one per feature. Extending a feature updates
   its doc in the same change.
 - **Sections**, written one at a time: *Problem* (a few plain sentences a
-  casual reader understands); *Plan* (the parts and how they fit, a block
+  casual reader understands); *Goals* and *Non-goals* (what it will and will
+  not deliver); *Plan* (the parts and how they fit, a block
   diagram if it helps, light on jargon); *Behaviour* (numbered scenarios,
   each "when … then …" about what a user or caller observes, each naming the
   test or command that proves it; edge and failure cases get their own);
@@ -82,8 +83,8 @@ the conversation. A fix whose shape was already settled needs only the note.
   session resumes from the doc); *Open questions* (with the answer assumed
   meanwhile).
 - **Test it.** Before the first edit to production code, run the
-  [goldfish](../../goldfish/SKILL.md) skill on the doc and fix it until only
-  nits remain. Implementation follows the doc; a builder that has to depart
+  [goldfish](../../goldfish/SKILL.md) skill on the doc and fix it until its
+  review converges. Implementation follows the doc; a builder that has to depart
   from it updates the doc in the same change and says why. Mark tasks done as
   they land.
 - **Finish it.** When the build is done and before the final

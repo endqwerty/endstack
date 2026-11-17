@@ -1,0 +1,5 @@
+1. Apply `goldfish` to reassess the round 1 “should” against the document and referenced files; my familiarity and intentional wording do not justify dismissal.
+2. If “refresh slot” lacks a recoverable meaning, define or replace it in the document; otherwise dismiss the finding with a one-line, evidence-based reason.
+3. Treat round 2’s clean result as insufficient to erase an unresolved round 1 finding.
+4. If resolving that finding changes the plan, run another critic round with fresh goldfish; otherwise accept round 2 once the earlier finding is resolved.
+5. Finish the critic loop only when no blocker or should remains unresolved; the two nits alone do not require another round.

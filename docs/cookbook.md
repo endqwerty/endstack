@@ -121,6 +121,10 @@ excluded.
 > $goldfish Test [path to design doc or AGENTS.md] on fresh readers with
 > these tasks: [two to four tasks as I would ask them].
 
+**Check design docs against the code:**
+> $drift Compare the design docs in [directory] with the code and their
+> checks. Report only differences and which side should change.
+
 ## Normal flow
 
 Build → you review → optionally babysit → you merge, or explicitly ask ship.

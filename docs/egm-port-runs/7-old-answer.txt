@@ -1,0 +1,9 @@
+1. I would choose `goldfish` for the fresh-agent check; this is an instruction review, so `build` and `interview` do not apply.
+2. I would assess the split first: comprehension, criticism and readiness are independent; `swarm` routing favors parallel readers, each given only document paths and referenced files.
+3. I would start from the rewritten `AGENTS.md` and follow its references, without giving readers this conversation or my interpretation.
+4. I would prepare cold-reader briefs using the supplied template, with two to four realistic repository tasks for readiness.
+5. I would request read-only findings with ranks, file lines, quotations, evidence and the smallest proposed fixes.
+6. I would check each finding against the referenced files and system before accepting it.
+7. I would propose fixes for blockers and shoulds; after edits, I would use new readers until only nits remain, stopping after three rounds with blockers still open.
+8. I would report the revision, tasks, findings, dispositions, rounds and reader model families; without separate readers, I would report it untested.
+9. I would keep the report plain under `unslop` routing; this simulation would make no claim that any review ran.
