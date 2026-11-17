@@ -105,3 +105,7 @@ scenarios. Nits taken: later changes re-add *Implementation* and *Tasks*,
 older *Checks* docs convert when next changed, answered open questions are
 dropped, goldfish's skill names the new critic questions, delegated builders
 get the scenarios. The wording change after the dry run was not re-run.
+
+A second verifier (Codex, gpt-6.1-sol) on 8aca996 found nothing. After
+rebasing onto `test-design`, a scenario whose test that skill drops now
+names the kept check covering it.

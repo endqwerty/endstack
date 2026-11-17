@@ -89,7 +89,9 @@ the conversation. A fix whose shape was already settled needs only the note.
 - **Finish it.** When the build is done and before the final
   [verify](../../verify/SKILL.md) pass, in a commit of its own, delete
   *Implementation* and *Tasks*, make *Plan* describe the shape as built, and
-  drop answered open questions. This rewrite needs no goldfish pass unless the
+  drop answered open questions. A scenario whose test
+  [test-design](../../test-design/SKILL.md) dropped names the kept check that
+  covers it instead. This rewrite needs no goldfish pass unless the
   build departed from the plan. What remains is the feature's spec record;
   fixes after it that change behaviour update its scenarios.
 - **Later changes.** A change to the feature's behaviour adds, edits or
