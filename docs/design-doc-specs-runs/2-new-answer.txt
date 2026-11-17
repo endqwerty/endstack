@@ -1,0 +1,10 @@
+1. I would first locate the saved task state and assess independent work; I would keep initial recovery local because the remaining scope is unknown.
+2. I would use `build` to resume implementation, reading project rules, `docs/design/quiet-hours.md`, its references, and the branch diff before editing.
+3. I would compare the doc’s tasks and Behaviour scenarios with code and checks, using `how` where needed; I would treat completion claims as needing evidence.
+4. I would establish whether `interview` decisions and a `goldfish` pass cover the current plan; the doc’s existence alone proves neither.
+5. If intent remains unresolved, I would ask the design-changing questions before proposing a design; unattended, I would record explicit defaults.
+6. If the plan lacks a valid pass or has changed, I would run three fresh read-only `goldfish` workers concurrently, giving only document paths, references, and the prescribed briefs.
+7. I would fix confirmed blockers and shoulds in the doc and repeat with fresh readers until only nits remain; unavailable workers would leave it explicitly untested.
+8. Before production edits, I would apply the supplied design steps, read applicable principles, and establish contract checks, including a failing check for any bug.
+9. I would finish the remaining implementation and scenario updates, run required checks, then obtain fresh `verify` review of the current revision before calling it done.
+10. I would finalize the design doc and prepare the checked PR under project rules, without merging absent explicit authority; I would use `unslop` for the prose.

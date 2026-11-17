@@ -1,0 +1,7 @@
+1. Keep this local: preparing one PR has no independent work worth splitting.
+2. Apply `build`: compare the final implementation with `docs/design/quiet-hours.md`; update any stale plan, file list, checks or decisions so the doc describes what is true now.
+3. Apply `goldfish`: check whether the current design doc passed its required fresh-reader review; its existence alone does not prove that.
+4. If that review is missing or the plan changed, arrange three fresh read-only readers for comprehension, critic and readiness, using only document paths and references; fix blockers and shoulds and repeat as required.
+5. Apply `verify`: confirm the passing checks cover the final revision and that a fresh independent verdict or valid exemption exists; otherwise obtain it before calling the change ready.
+6. Prepare the PR with the design-doc link, a short design note, changes, trade-offs and deciding check evidence; use plain prose under `unslop`.
+7. Leave the PR unmerged: preparing it does not authorize shipping.

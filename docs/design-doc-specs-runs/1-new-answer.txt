@@ -1,0 +1,10 @@
+1. I would keep discovery and drafting with one worker because the schedule’s meaning must be settled first; later, `goldfish` calls for three independent review passes.
+2. I would follow `interview`’s unattended path: inspect relevant code and docs, then record assumed answers about timezone, overnight intervals, equal times, configuration, and resuming refreshes.
+3. **Problem:** I would describe issue #7’s intended outcome: suppress screen refreshes during a configurable daily interval, and state how success will be judged.
+4. **Plan:** Following `build`, I would describe the schedule’s data shape, refresh decision, configuration path, and every refresh consumer affected, using `principles` and `architect` where applicable.
+5. **Behaviour:** I would write numbered “when … then …” scenarios with named checks for disabled schedules, interval boundaries, overnight hours, timezone changes, restart, and refresh resumption.
+6. **Alternatives:** I would record rejected approaches and their trade-offs, including pausing the scheduler versus checking each refresh entry point.
+7. **Implementation:** After tracing the code, I would name every file to change and why, including redundant paths to remove.
+8. **Tasks:** I would list small, ordered units ending in checks, with implementation gated on design review and any required failing regression check.
+9. **Open questions:** I would record each unanswered question and my assumed answer; the PR’s opening lines would expose those assumptions for the user to overturn.
+10. Before production edits, I would request fresh comprehension, critic, and readiness `goldfish` passes using only document paths and references, fix substantive gaps, and later use `verify` before calling the implementation done.

@@ -1,0 +1,8 @@
+1. I would keep this local: a settled rounding fix is too small to benefit from parallel workers.
+2. I would use `build`’s settled-fix path, `how` to locate the calculation, and `tdd` for the regression; no interview or design doc is needed.
+3. I would trace the status display and sibling consumers, identifying which share the same percentage contract.
+4. Before editing, I would add and run a user-facing check that exposes truncation—for example, 79.6% displaying as 79% instead of 80%.
+5. I would change the calculation to round to nearest, covering each affected consumer or documenting its exemption.
+6. I would run the regression and relevant checks, including values below and above the rounding threshold and the percentage endpoints.
+7. I would apply `verify`: obtain a fresh read-only review unless a justified exemption applies, and resolve evidenced findings before calling it done.
+8. I would report the change and deciding checks in plain prose shaped by `unslop`, marking any required check or review that could not run as unverified.

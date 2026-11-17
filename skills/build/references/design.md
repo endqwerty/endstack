@@ -73,21 +73,41 @@ the conversation. A fix whose shape was already settled needs only the note.
   its doc in the same change.
 - **Sections**, written one at a time: *Problem* (a few plain sentences a
   casual reader understands); *Plan* (the parts and how they fit, a block
-  diagram if it helps, light on jargon); *Alternatives* (each option turned
-  down and why, so no later agent reopens it unknowingly); *Implementation*
-  (every file created or changed, and why); *Checks* (how done is judged);
-  *Open questions* (with the answer assumed meanwhile).
+  diagram if it helps, light on jargon); *Behaviour* (numbered scenarios,
+  each "when … then …" about what a user or caller observes, each naming the
+  test or command that proves it; edge and failure cases get their own);
+  *Alternatives* (each option turned down and why, so no later agent reopens
+  it unknowingly); *Implementation* (every file created or changed, and why);
+  *Tasks* (step 9's units in order, each marked done or open, so a new
+  session resumes from the doc); *Open questions* (with the answer assumed
+  meanwhile).
 - **Test it.** Before the first edit to production code, run the
   [goldfish](../../goldfish/SKILL.md) skill on the doc and fix it until only
   nits remain. Implementation follows the doc; a builder that has to depart
-  from it updates the doc in the same change and says why.
+  from it updates the doc in the same change and says why. Mark tasks done as
+  they land.
+- **Finish it.** When the build is done and before the final
+  [verify](../../verify/SKILL.md) pass, in a commit of its own, delete
+  *Implementation* and *Tasks*, make *Plan* describe the shape as built, and
+  drop answered open questions. A scenario whose test
+  [test-design](../../test-design/SKILL.md) dropped names the kept check that
+  covers it instead, or, when none is kept, why the test was dropped and the
+  pull request holding its proof. This rewrite needs no goldfish pass unless the
+  build departed from the plan. What remains is the feature's spec record;
+  fixes after it that change behaviour update its scenarios.
+- **Later changes.** A change to the feature's behaviour adds, edits or
+  removes its scenarios in the same change, and re-adds *Implementation* and
+  *Tasks* while it is in progress if it needs a plan. An older doc with
+  *Checks* instead of *Behaviour* is converted when its feature next changes.
+  Where a scenario and its test disagree, the test and code are the truth and
+  the doc is fixed.
 - The pull request links the doc and still carries the note: the pull request
   records what happened, the doc what is true now.
 
 ## Delegated builders
 
 A builder gets the design note, the files it owns, the checks that prove it
-done, and an instruction to read the principles index and this file before
+done (the doc's scenarios, where there is a doc), and an instruction to read the principles index and this file before
 writing code. A builder that finds the shape does not fit reports back instead
 of redesigning alone. Review the returned diff against the note, not only
 against the checks.
