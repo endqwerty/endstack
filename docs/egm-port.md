@@ -23,8 +23,8 @@ What each port kept and dropped: [import-notes/egm.md](import-notes/egm.md).
 - Most numbers have no stated reason (eight reviewers, five rounds, two
   instances per reviewer) and no recorded measurements. The exceptions, with
   reasons, are two clean rounds ("fresh reviewers sample differently") and
-  the separate design-pattern reviewer (merged into the critic, it gave
-  conflicting directions).
+  the separate design-pattern reviewer (EGM expects that merging it into the
+  critic would give conflicting directions).
 
 ## What changed
 
@@ -88,7 +88,7 @@ runner are in [egm-port-runs/](egm-port-runs/).
 | 3 | NEW | "Stage 1: start zoom-out and design-pattern readers together …" / "repeat with fresh readers until two consecutive clean rounds" | Pass |
 | 4 | OLD | "otherwise dismiss the finding with a one-line, evidence-based reason" / "Finish the critic loop only when no blocker or should remains" | Fail: may contest a comprehension gap; one clean round ends the loop |
 | 4 | NEW | "treat round 1’s comprehension gap as **Fix**" / "Continue the critic loop with fresh reviewers in round 3" | Pass |
-| 5 | OLD | "I would give each doc to a fresh read-only goldfish" | Fail: comprehension review, not a code comparison |
+| 5 | OLD | "I would give each doc to a fresh read-only goldfish" / "check each finding against current code and relevant deterministic checks, distinguishing stale documentation from a possible implementation bug" | Partial: compares with code, but only through findings from comprehension, critic and readiness passes; no scenario-by-scenario check |
 | 5 | NEW | "I would choose `drift` …" / "recommend changing the doc for intended changes, the code for supported bugs" | Pass |
 | 6 | OLD | "`interview`, a design doc and `goldfish` are unnecessary" | Pass |
 | 6 | NEW | "`interview`, `architect`, and a new design doc are unnecessary" | Pass |
@@ -99,8 +99,8 @@ All fourteen runs exited 0.
 
 ## Read of the result
 
-NEW passes all seven; OLD fails the five targeted cases and passes both
-guards. Several OLD failures hold by construction, since the old text has
+NEW passes all seven; OLD fails four targeted cases, half-passes the drift
+case and passes both guards. Several OLD failures hold by construction, since the old text has
 no stages, brief or drift skill. One run per arm per case, on one model:
 this shows the text is read as intended, not how often or what it costs. A
 full design-doc review now starts at least eight reviewer runs plus merging

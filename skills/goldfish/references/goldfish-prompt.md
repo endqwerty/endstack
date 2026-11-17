@@ -17,7 +17,7 @@ to the project would:
 
 {PATHS}
 
-Review this range: {RANGE}
+Review this range: {RANGE} (the whole file for an agent instruction file)
 
 ## Pass
 

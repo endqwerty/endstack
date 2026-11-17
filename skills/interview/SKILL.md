@@ -55,13 +55,15 @@ new session can draft from it:
 - *Goals* and *Non-goals*.
 - *Analysis*: the concept review below.
 - *Alternatives weighed*: each option turned down and why, credited to whoever
-  turned it down. The design doc copies these and has no other source.
+  turned it down. The design doc copies these, adding options turned down
+  later, such as architect's sketches.
 - *Key decisions*: what this conversation settled.
 
 For the analysis, a merging worker runs the seven concept reviewers from
 [goldfish](../goldfish/SKILL.md)'s
 [reviewer roles](../goldfish/references/reviewers.md) on the overview, goals
-and decisions, as fresh read-only workers. Show the user the two or three
+and decisions, as fresh read-only workers; if you cannot start workers,
+hand this step on as goldfish says. Show the user the two or three
 strongest objections and settle each, one question at a time, updating the
 brief, until no objection would change the design.
 

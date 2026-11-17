@@ -74,7 +74,8 @@ the conversation. A fix whose shape was already settled needs only the note.
 - **Sections**, written one at a time: *Problem* (a few plain sentences a
   casual reader understands); *Goals* and *Non-goals* (what it will and will
   not deliver); *Plan* (the parts and how they fit, a block
-  diagram if it helps, light on jargon); *Behaviour* (numbered scenarios,
+  diagram if it helps, light on jargon, and its risks and limits: failure
+  modes, security, scale, and how each is handled); *Behaviour* (numbered scenarios,
   each "when … then …" about what a user or caller observes, each naming the
   test or command that proves it; edge and failure cases get their own);
   *Alternatives* (each option turned down and why, so no later agent reopens
@@ -100,8 +101,10 @@ the conversation. A fix whose shape was already settled needs only the note.
   removes its scenarios in the same change, and re-adds *Implementation* and
   *Tasks* while it is in progress if it needs a plan. An older doc with
   *Checks* instead of *Behaviour* is converted when its feature next changes.
-  Where a scenario and its test disagree, the test and code are the truth and
-  the doc is fixed.
+  Where a scenario and its test disagree, intent decides, as the
+  [drift](../../drift/SKILL.md) skill sets out: an intended change fixes the
+  doc, and code that contradicts a user's decision with nothing showing intent
+  is a bug.
 - The pull request links the doc and still carries the note: the pull request
   records what happened, the doc what is true now.
 

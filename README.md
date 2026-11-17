@@ -5,7 +5,7 @@
 Daniel Yang's agent stack: skills for Claude Code and Codex (through T3 Code),
 distilled from Lauren Tan's [pstack](https://github.com/cursor/plugins/tree/main/pstack).
 
-**State: five core delivery skills plus 29 role skills.** Build, babysit, ship,
+**State: five core delivery skills plus 30 role skills.** Build, babysit, ship,
 autopilot-full and verify keep implementation, readiness and merge authority
 separate. Start with the [command cookbook](docs/cookbook.md) for the full
 catalog, copyable prompts, outputs and stopping points. Distribution uses a

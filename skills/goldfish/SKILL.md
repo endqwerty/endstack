@@ -30,7 +30,7 @@ missing something, however clear it looks to you.
   an earlier draft is no longer a goldfish. Briefs come from
   [references/goldfish-prompt.md](references/goldfish-prompt.md).
 - **Merging worker**: for a stage with two or more reviewers, a separate
-  worker starts them, merges and ranks their findings into a report file
+  worker starts them, merges and orders their findings into a report file
   outside the tree, and returns only statuses and counts
   ([references/reviewers.md](references/reviewers.md)). Without nested
   workers, start the reviewers yourself and merge the same way.
@@ -56,8 +56,8 @@ everything before *Implementation*; the detail part is *Implementation* and
 *Tasks*. Run the stages in order, fixing between them.
 
 1. **Zoom out**: zoom-out and design-pattern reviewers, whole doc.
-2. **Comprehension**: one comprehension reviewer, started directly so you
-   read its paraphrase. Compare it with what you know is true; each
+2. **Comprehension**: one comprehension reviewer, whole doc, started
+   directly so you read its paraphrase. Compare it with what you know is true; each
    misunderstanding is a gap in the document.
 3. **Critic loop**: design critic, structure and style, feature part.
 4. **Zoom out again**: zoom-out reviewer, whole doc, not reopening what
@@ -65,7 +65,8 @@ everything before *Implementation*; the detail part is *Implementation* and
 5. **Readiness loop**: implementation readiness (with two to four realistic
    tasks), codebase details and style, detail part.
 
-A doc with no detail part yet stops after stage 4.
+A doc with no detail part yet stops after stage 4. For a stage with one
+reviewer, you write its report file.
 
 ## Loops
 

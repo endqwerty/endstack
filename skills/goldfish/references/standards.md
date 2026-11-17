@@ -15,8 +15,8 @@ with.
 
 - **Alternatives.** The doc fails if it proposes one path without showing
   that other workable designs were considered and turned down, each for a
-  concrete technical or scope reason. A rejection is never credited to a
-  person without a link to where they said it.
+  concrete technical or scope reason. A rejection is credited to the author
+  or the user, or to anyone else only with a link to where they said it.
 - **Risks and limits.** It names its own failure modes, security
   implications and scaling limits, and how each is handled.
 - **Where they apply:** the problem, goals and non-goals, the plan

@@ -19,8 +19,8 @@ before extending a feature, or when asked whether the docs still hold.
 ## 1. Scope
 
 The design doc directory the project's rules name, else `docs/design/`, or
-the docs named. Take one doc at a time, in order, and read the current files
-each time, never memory.
+the docs named; skip interview briefs (`*.brief.md`). Take one doc at a time,
+in order, and read the current files each time, never memory.
 
 ## 2. Expected
 
@@ -63,14 +63,16 @@ checkable, not as clean.
 
 ## 5. Which side changes
 
-For each difference, say which side should change and why:
+For each difference, say which side should change and why. Intent decides,
+in this order:
 
 - **The doc**, when history (the pull request or commit that changed the
   code) shows the change was intended. Tests and code are the truth for
-  intended behaviour.
-- **The code**, when a check fails, or nothing shows the change was
-  intended and the scenario records a decision the user made. That is a bug;
-  name it.
+  intended behaviour. A check that fails only because it still asserts the
+  old scenario is stale: it changes with the doc.
+- **The code**, when nothing shows the change was intended and the scenario
+  records a decision the user made, or a check of the current intended
+  behaviour fails. That is a bug; name it.
 - **The user**, when the evidence does not settle it. Ask one question at a
   time, or list it as open when the user is not there.
 
