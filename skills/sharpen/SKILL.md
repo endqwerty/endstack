@@ -29,8 +29,9 @@ Then rewrite my prompt:
 - It asks for my deliverables, made deeper. Something new that passes the
   test (another deliverable, phase or artifact) is a proposal, with what it
   would change. It stays out of the prompt until I take it.
-- Keep how firm I was. A "maybe", an aside or a half-formed idea stays an
-  option the agent may take or skip, not a requirement or a question for me.
+- Keep how firm I was. What I asked for stays required. A "maybe", an aside
+  or a half-formed idea stays an option the agent may take or skip, not a
+  requirement or a question for me.
 - A question or research stays that: the rewrite adds no code, tests, commits
   or audits I did not ask for.
 - Decide what evidence and my known preferences can settle, and say what you

@@ -7,8 +7,8 @@
   dropped. New deliverables become proposals that stay out of the prompt until
   taken. Tentative ideas stay optional, a question stays a question, and the
   agent decides what evidence can settle and asks only what the user alone
-  can answer. Fifteen past sessions showed every question answered with a list
-  and every answer carried into the prompt. Evidence and dry run:
+  can answer. In past sessions every question came back as a list and every
+  answer went into the prompt. Evidence and dry run:
   [docs/sharpen-scope.md](docs/sharpen-scope.md).
 
 ## 2026-11-14 — correct writes plain rules, not quotes

@@ -90,6 +90,6 @@ the historical output stands in for the old text on the CI cost prompt.
 Limits: one sample per prompt. The final text still lists several methods
 under question 3 (the CI run named six, each with what it does here). The CI
 run marked "workflows that could become features" optional, though the user
-had listed it among the goals; "keep how firm I was" can read a list item as
-softer than meant. The comparison shows the test being applied, not a
+had listed it among the goals. After review the skill says "What I asked for
+stays required"; that line has no dry run of its own. The comparison shows the test being applied, not a
 measured rate.
