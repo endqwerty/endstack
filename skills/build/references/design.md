@@ -91,7 +91,8 @@ the conversation. A fix whose shape was already settled needs only the note.
   *Implementation* and *Tasks*, make *Plan* describe the shape as built, and
   drop answered open questions. A scenario whose test
   [test-design](../../test-design/SKILL.md) dropped names the kept check that
-  covers it instead. This rewrite needs no goldfish pass unless the
+  covers it instead, or, when none is kept, why the test was dropped and the
+  pull request holding its proof. This rewrite needs no goldfish pass unless the
   build departed from the plan. What remains is the feature's spec record;
   fixes after it that change behaviour update its scenarios.
 - **Later changes.** A change to the feature's behaviour adds, edits or
