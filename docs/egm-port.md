@@ -56,7 +56,8 @@ Turned down:
 
 Each scenario ran once with the old text (ROUTING.md, build's design
 reference, interview, goldfish and its brief at `origin/main` f270729) and once
-with the new (those plus the reviewer roles, standards and drift), in fresh
+with the new at 2db953f (those plus the reviewer roles, standards and drift;
+the review fixes after it were not rerun), in fresh
 `codex exec` sessions (`codex-cli 0.169.0`, `--ignore-user-config
 --ignore-rules --ephemeral --skip-git-repo-check -s read-only --json`, CLI
 default model) from `/tmp`, on 2026-11-17. Prompts, events, answers and the
