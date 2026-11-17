@@ -1,0 +1,7 @@
+1. I would keep this task local: preparing one PR and its design doc does not warrant independent workstreams.
+2. Under `build`, I would check the design doc against the finished implementation, remove *Implementation* and *Tasks* in the PR’s last commit, and make *Plan* describe the shape as built.
+3. I would ensure its behaviour scenarios match the code and tests, retaining the problem, alternatives and relevant open questions.
+4. I would check for a prior `goldfish` pass; if absent, or if these edits change the plan, I would require fresh comprehension, critic and readiness passes before proceeding.
+5. Under `verify`, I would confirm the passing checks cover every added or edited scenario on the final revision and obtain a fresh read-only verification unless a justified exemption applies.
+6. I would prepare the PR with a link to the design doc, the design note explaining shape, consumers and deletions, and concise check and review evidence.
+7. I would apply `unslop` to the PR text and open it for review, leaving it unmerged because this request invokes `build`, not `ship`.

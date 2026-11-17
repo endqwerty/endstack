@@ -43,7 +43,7 @@ Stop when the user says so or when new answers stop changing the design.
 ## 3. How done is judged
 
 Ask how the user will judge the result: what they will look at, try or
-measure. These become the change's checks.
+measure. These become the doc's behaviour scenarios and their checks.
 
 ## 4. You propose the first design
 

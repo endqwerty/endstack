@@ -1,5 +1,21 @@
 # Change log
 
+## 2026-11-16 — design docs carry behaviour scenarios and become the spec record
+
+- `build`'s design doc gains *Behaviour* (numbered "when … then …"
+  scenarios, each naming the test or command that proves it, in place of
+  *Checks*) and *Tasks* (ordered units marked done or open, so a new session
+  resumes from the doc). In the pull request's last commit *Implementation*
+  and *Tasks* are deleted and *Plan* describes the shape as built; the rest
+  stays as the feature's spec record, and later behaviour changes edit its
+  scenarios in the same change. Tests and code win where they disagree.
+- `goldfish`'s critic pass on a design doc also asks what a domain expert
+  would add and which scenario is missing or has a check that could pass
+  while it is false.
+- `verify`'s rubric treats a design doc's scenarios as requirements.
+- `interview`'s "how done is judged" answers become those scenarios.
+  Evidence and dry run: [docs/design-doc-specs.md](docs/design-doc-specs.md).
+
 ## 2026-11-16 — test-design
 
 - Add explicit `test-design`: before writing a test, name the reachable

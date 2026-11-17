@@ -1,0 +1,10 @@
+1. I would keep this local initially: intent and system tracing must settle before independent implementation work is useful; `interview` and build’s design reference shape the next steps.
+2. I would intend to trace refresh scheduling, configuration and every refresh consumer with `how`, then read the principles index before choosing a design.
+3. With the user unavailable, I would answer interview questions using explicit defaults and record them for reversal, including how success will be judged.
+4. **Problem:** I would describe configurable daily quiet hours that pause screen refreshes, identifying the affected screens and refresh paths from that tracing.
+5. **Plan:** I would propose one quiet-hours configuration and scheduling rule: start inclusive, end exclusive, overnight ranges supported, local timezone, equal times disabling the window; refresh once on exit without replaying missed refreshes.
+6. **Alternatives:** I would record why I rejected clearing the screen, queuing missed refreshes, and separate rules per refresh caller; unresolved trade-offs would remain explicit.
+7. **Implementation:** I would name each actual file to change, its purpose, all affected consumers, redundant logic to remove, and behavior after restart, clock changes or interrupted work.
+8. **Checks:** I would specify observable tests for both boundaries, overnight windows, disabled configuration, timezone changes, restart inside quiet hours, every refresh entry point and resumption.
+9. **Open questions:** I would record assumed answers about timezone, manual refresh overrides, defaults and invalid configuration, and flag these assumptions to the parent for the PR’s opening lines.
+10. Before production edits, I would ask the parent to run three fresh, parallel `goldfish` passes using only document paths and references; I would resolve blockers and shoulds, then implement with checks and `verify`.

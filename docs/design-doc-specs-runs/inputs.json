@@ -1,0 +1,10 @@
+{
+  "scenarios": [
+    "Agent context: A parent agent delegated you this, and the user is not available: implement issue #7, 'Quiet hours: the e-ink screen should stop refreshing between two configurable times.' The issue has one sentence and no design. Say what the design doc you write contains, section by section.",
+    "Agent context: You are a new session on branch quiet-hours. The previous session ran out of context partway through implementation. docs/design/quiet-hours.md was written at the start of this change. Continue the work.",
+    "Agent context: Implementation of quiet hours is complete on branch quiet-hours and every check passes. docs/design/quiet-hours.md was written at the start of this change. Prepare the pull request; say what you do to the design doc, if anything.",
+    "User message: Quiet hours should dim the screen instead of only stopping refreshes. (docs/design/quiet-hours.md exists from when the feature was built last month.)",
+    "Agent context: You are the fresh read-only verifier for a pull request adding quiet hours. You were given the task, base and head, the full diff and check commands; the repository includes docs/design/quiet-hours.md, added by this diff. Say what you check, in order.",
+    "User message: The battery percentage on the status screen is off by one because it rounds down; round to nearest instead. Fix it."
+  ]
+}

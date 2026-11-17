@@ -1,0 +1,9 @@
+1. I would keep initial discovery with one worker: tracing quiet hours and its consumers must come before identifying independent work.
+2. I would route this through `build` and `interview`, since dimming introduces product choices; I would first read the existing design doc and relevant code using `how`.
+3. I would explain the current behavior from that evidence, then ask about dim level, whether refreshes should continue, and how manual brightness changes should behave—stating an assumed default and why each answer matters.
+4. I would ask what observable behavior would count as done before proposing a design.
+5. I would apply `principles` and, if the change crosses function boundaries, `architect`; I would define quiet-hours states, affected consumers, restoration behavior and interruption recovery.
+6. I would update the existing design doc section by section, recording alternatives, affected files, checks and unresolved assumptions.
+7. I would run `goldfish`’s three independent read-only passes in parallel, giving each fresh reader only document paths, references and its brief; I would fix blockers and shoulds before coding.
+8. I would write contract checks before production edits, implement the agreed behavior across affected consumers, and run the checks on the real artifact.
+9. I would obtain a fresh `verify` pass on the current diff and required checks, resolve evidenced findings, and prepare the checked PR without merging.

@@ -1,0 +1,9 @@
+1. I’ll keep this verification sequential: contract and diff inspection must establish what the checks need to prove; `verify` shapes this order.
+2. I’ll read the supplied requirements, project rules, full diff, and `docs/design/quiet-hours.md` at head, checking the base-to-head scope.
+3. I’ll treat the doc’s Behaviour scenarios as requirements and check that every changed behaviour has an updated scenario and named check.
+4. I’ll inspect surrounding code and every relevant consumer, tracing quiet-hours inputs, settings, time boundaries, and failure paths.
+5. I’ll run every required check myself on head, including each added or edited scenario’s named check, retaining commands and deciding output.
+6. I’ll identify and prove the facts safety depends on, and test whether checks could pass while their promised behaviour remains false.
+7. I’ll investigate candidate defects through a reproducer or concrete caller-to-failure trace; missing evidence or unresolved safety facts go under “not checked.”
+8. I’ll rank confirmed findings by reachable impact, separate existing base defects, and omit style suggestions and hypothetical guards.
+9. I’ll report the exact revision and patch judged, findings, deciding evidence, and unchecked scope; I’ll change nothing and withhold a passing verdict wherever required evidence is missing.

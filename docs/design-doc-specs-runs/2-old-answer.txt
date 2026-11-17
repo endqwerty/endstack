@@ -1,0 +1,9 @@
+1. I would keep the initial handoff inspection local; I cannot identify independent workstreams until I know what remains.
+2. I would inspect project rules, branch status, the full current diff, and `docs/design/quiet-hours.md`, using `build` and `how` to reconstruct the implementation state.
+3. I would compare the design doc with the code, consumers, recorded checks and open questions; I would not assume the original doc still describes the current plan.
+4. I would establish whether `interview` decisions and a qualifying `goldfish` pass are recorded; I would ask only about unresolved intent that changes the design.
+5. Before further production edits, I would reconcile any plan changes into the doc and apply the relevant build design steps, including principles, failure recovery and completion checks.
+6. If the current plan lacks a recorded qualifying pass, I would run `goldfish` comprehension, critic and readiness concurrently with three fresh read-only workers, supplying only document paths, references and task briefs.
+7. I would check their findings, fix blockers and shoulds, and repeat with fresh readers until only nits remain, observing the three-round blocker limit.
+8. I would continue implementation against that plan, run the required contract checks, then obtain `verify` review on the current revision before calling the behavior done.
+9. I would use `unslop` for the handoff and report the resulting revision, checks and remaining integration step; “continue” alone does not authorize merging.

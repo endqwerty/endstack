@@ -27,7 +27,9 @@ to the project would:
   could not work out.
 - **critic**: List everything missing, wrong, stale, contradictory or
   ambiguous. Check claims against the referenced files and, read-only, the
-  real system where you can.
+  real system where you can. For a design doc, also say what an expert in
+  this domain would do that the doc does not, and each behaviour scenario
+  missing, or whose named check could pass while the scenario is false.
 - **readiness**: For each task below, say how you would do it using only
   what you read, step by step, with the file and line each step rests on.
   List every question you would have to ask and every point where you

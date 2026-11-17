@@ -73,14 +73,24 @@ the conversation. A fix whose shape was already settled needs only the note.
   its doc in the same change.
 - **Sections**, written one at a time: *Problem* (a few plain sentences a
   casual reader understands); *Plan* (the parts and how they fit, a block
-  diagram if it helps, light on jargon); *Alternatives* (each option turned
-  down and why, so no later agent reopens it unknowingly); *Implementation*
-  (every file created or changed, and why); *Checks* (how done is judged);
-  *Open questions* (with the answer assumed meanwhile).
+  diagram if it helps, light on jargon); *Behaviour* (numbered scenarios,
+  each "when … then …" about what a user or caller observes, each naming the
+  test or command that proves it; edge and failure cases get their own);
+  *Alternatives* (each option turned down and why, so no later agent reopens
+  it unknowingly); *Implementation* (every file created or changed, and why);
+  *Tasks* (step 9's units in order, each marked done or open, so a new
+  session resumes from the doc); *Open questions* (with the answer assumed
+  meanwhile).
 - **Test it.** Before the first edit to production code, run the
   [goldfish](../../goldfish/SKILL.md) skill on the doc and fix it until only
   nits remain. Implementation follows the doc; a builder that has to depart
-  from it updates the doc in the same change and says why.
+  from it updates the doc in the same change and says why. Mark tasks done as
+  they land.
+- **Finish it.** In the pull request's last commit, delete *Implementation*
+  and *Tasks* and make *Plan* describe the shape as built. What remains is the
+  feature's spec record. A later change to the feature's behaviour adds, edits
+  or removes its scenarios in the same change. Where a scenario and its test
+  disagree, the test and code are the truth and the doc is fixed.
 - The pull request links the doc and still carries the note: the pull request
   records what happened, the doc what is true now.
 

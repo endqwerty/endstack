@@ -1,0 +1,8 @@
+1. I would keep this local: a clear rounding fix does not justify independent workstreams or `swarm`.
+2. I would use `build` and `tdd` for the fix, `verify` for completion, and `unslop` for the prose; `interview` is unnecessary because the requested behavior is clear.
+3. I would trace the displayed percentage, its rounding operation, and every consumer doing the same calculation.
+4. I would record the settled fix: round to nearest, cover affected consumers or explain exemptions, and test the observable display; no new design doc is needed.
+5. I would add a cheap regression check through the status screen’s real interface and watch it fail on a percentage that should round up.
+6. I would change the rounding operation and run relevant checks, including values below, at, and above the halfway point.
+7. I would obtain a fresh read-only verification of the current diff and required checks, resolving any evidenced blockers or shoulds before calling it done.
+8. I would prepare the checked change for review and report its evidence, leaving merging to an explicitly authorized workflow.

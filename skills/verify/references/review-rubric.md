@@ -4,6 +4,9 @@ Give the reviewer the requirements, relevant project rules, full diff, base
 and head, check commands and results. Let it inspect surrounding code,
 callers, stored data and imports. Exclude the author's conversation,
 reasoning and desired verdict. Fresh context does not mean diff-only access.
+When the change has a design doc, its *Behaviour* scenarios are requirements:
+each one the change adds or edits has its named check run on this revision,
+and behaviour the diff changes has its scenarios updated in the same diff.
 
 Run required deterministic checks before review. Fix their failures first;
 if one cannot run, record that gap. A requested review can investigate the
