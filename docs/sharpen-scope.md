@@ -45,7 +45,8 @@ The skill now defines deeper (rawer sources, better methods, an outside check)
 against bigger (more deliverables, phases, frameworks, review rounds or
 process). The rewrite keeps the user's deliverables. Anything new goes in a
 "Left out" list of at most three lines that approving the rewrite does not
-approve. Tentative ideas stay optional. A question stays a question. Inputs get
+approve; an outside check that judges a requested deliverable cheaply stays in
+the prompt. Tentative ideas stay optional. A question stays a question. Inputs get
 defaults from the repository and conversation, and at most three choices stay
 open, each with a recommendation. Methods are named only when they change the
 result, in plain words. Before returning, the agent lists the user's

@@ -4,7 +4,8 @@
 
 - `sharpen` keeps the user's deliverables and moves anything new into a
   "Left out" list of at most three lines that approving the rewrite does not
-  approve. Tentative ideas stay optional, a question stays a question, inputs
+  approve; a cheap outside check on a requested deliverable stays in the
+  prompt. Tentative ideas stay optional, a question stays a question, inputs
   get defaults, and at most three choices stay open, each with a
   recommendation. Methods are named only when they change the result, in
   plain words. Fifteen past sessions showed rewrites adding deliverables,
