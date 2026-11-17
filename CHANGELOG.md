@@ -15,6 +15,18 @@
 - Source: the owner's testing feedback in Mainworthy threads, 2026-10-25 to
   2026-11-16. Evidence and dry run: [docs/test-design.md](docs/test-design.md).
 
+## 2026-11-16 — sharpen keeps what changes the result
+
+- `sharpen` states the user's goal first and keeps only what would change
+  that result or how far it can be trusted, most important first; the rest is
+  dropped. New deliverables become proposals that stay out of the prompt until
+  taken. What the user asked for stays required, tentative ideas stay
+  optional, a question stays a question, and the
+  agent decides what evidence can settle and asks only what the user alone
+  can answer. In past sessions every question came back as a list and every
+  answer went into the prompt. Evidence and dry run:
+  [docs/sharpen-scope.md](docs/sharpen-scope.md).
+
 ## 2026-11-14 — correct writes plain rules, not quotes
 
 - `correct` and the `principles` lesson reference record a preference or a
