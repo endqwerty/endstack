@@ -21,8 +21,9 @@ Then rewrite my prompt to ask for exactly that, inside my scope:
 
 - Keep my deliverables and their size. Every line of the rewrite serves
   something I asked for. A new deliverable, phase, artifact (pull request,
-  doc, dashboard), reviewer or later stage goes in a "Left out" list of at most
-  three lines after the prompt, never in it.
+  doc, dashboard), review round or later stage goes in a "Left out" list of at
+  most three lines after the prompt, never in it. Answer 4's check belongs in
+  the prompt when it judges one of my deliverables and costs little beside it.
 - Keep how firm I was. A "maybe", an aside or a half-formed idea stays an
   option the agent may skip, not a requirement or a question for me.
 - A question or research stays that. Do not add code, tests, commits or

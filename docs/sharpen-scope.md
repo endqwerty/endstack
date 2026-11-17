@@ -9,8 +9,8 @@ this sample does not establish the 'not bigger' constraint"
 
 ## Evidence from use
 
-Fifteen Claude Code and Codex sessions from 2026-10-25 to 2026-11-14 invoked
-`sharpen`. Four kinds of overreach show up, and each was followed by the user
+Fifteen Claude Code and Codex session transcripts from 2026-10-25 to
+2026-11-14, delegated runs included, invoked `sharpen`. Four kinds of overreach show up, and each was followed by the user
 pulling the scope back or correcting the rewrite:
 
 - **Added deliverables and frameworks.** A request for a competitor review,
@@ -25,11 +25,13 @@ pulling the scope back or correcting the rewrite:
   opened a pull request and ran the repository's checks and audit. The user
   asked: "why do you need to run tests, why are tests modified for a research
   question?"
-- **Half-formed ideas hardened.** "Or leave it there for now and somehow mark
-  it as available for future use... idk" became a requirement to keep visible
-  abandoned experiments open for product review. The user later said those
-  were optional, "only if feasible and able to be done without making the
-  project overly complex".
+- **Half-formed ideas hardened.** "Might be worth adding a flag to all
+  entities noting if it's claimed and in use or unclaimed... idk" became a
+  full ownership model ("Define ownership and demand alongside placement"),
+  and "or leave it there for now and somehow mark it as available" became an
+  open product question about visible abandoned experiments. The user then
+  said they were optional, "only if feasible and able to be done without
+  making the project overly complex".
 - **Too many open choices.** Rewrites carried five or six bracketed choices
   with no recommendation. The UI-rubric session took four more turns of
   answers before "give me the full prompt now", and the CI session ended with
@@ -55,8 +57,8 @@ deciding them" is replaced: users asked for defaults, not an open form.
 ## Dry run
 
 Fresh read-only agents ran three past prompts with the old text and the new,
-grounded in the current repositories (mainworthy and agent-factory). Each saw
-only the skill file and the prompt.
+grounded in the current repositories (mainworthy and agent-factory). Each got
+only the skill file and the prompt, and read the repository itself.
 
 | Prompt | Old text | New text |
 | --- | --- | --- |
@@ -67,4 +69,7 @@ only the skill file and the prompt.
 Limits: one sample per arm. The old text also ran against repositories where
 earlier work already existed, so its outputs were milder than the historical
 ones. The comparison shows the new constraints being followed, not a measured
-rate.
+rate. No run used the CI cost prompt. After review, the "Left out" rule was
+narrowed so answer 4's outside check stays in the prompt when it judges a
+requested deliverable cheaply; the competitor-review run predates that and
+left its second-model check out.
