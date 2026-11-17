@@ -5,7 +5,7 @@
 - `build`'s design doc gains *Behaviour* (numbered "when … then …"
   scenarios, each naming the test or command that proves it, in place of
   *Checks*) and *Tasks* (ordered units marked done or open, so a new session
-  resumes from the doc). In the pull request's last commit *Implementation*
+  resumes from the doc). Before the final verify pass, in their own commit, *Implementation*
   and *Tasks* are deleted and *Plan* describes the shape as built; the rest
   stays as the feature's spec record, and later behaviour changes edit its
   scenarios in the same change. Tests and code win where they disagree.

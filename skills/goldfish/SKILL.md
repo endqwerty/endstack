@@ -45,7 +45,8 @@ order.
    misunderstanding is a gap in the document, not in the reader.
 2. **Critic.** Find what is missing, wrong, stale, contradictory or
    ambiguous. The goldfish checks claims against the referenced files and,
-   read-only, against the real system where it can.
+   read-only, against the real system where it can. On a design doc it also
+   names what a domain expert would add and weak or missing scenarios.
 3. **Readiness.** Give two to four realistic tasks, taken from recent or
    planned work, stated the way the user would state them, with no hints.
    The goldfish says how it would do each one using only what it read, every

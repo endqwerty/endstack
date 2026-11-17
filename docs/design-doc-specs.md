@@ -15,8 +15,8 @@ proposal file.
 
 - `build`'s design reference: *Checks* becomes *Behaviour*, numbered
   "when … then …" scenarios each naming the test or command that proves it.
-  A *Tasks* section lists step 9's units, marked done or open. In the pull
-  request's last commit *Implementation* and *Tasks* are deleted and *Plan*
+  A *Tasks* section lists step 9's units, marked done or open. Before the final
+  verify pass, in a commit of its own, *Implementation* and *Tasks* are deleted and *Plan*
   describes the shape as built; the rest is the feature's spec record, and a
   later behaviour change edits its scenarios in the same change. Where a
   scenario and its test disagree, the test and code are the truth.
@@ -70,7 +70,7 @@ on 2026-11-16. Prompts, events, answers and the runner are in
 | --- | --- | --- | --- |
 | 1 | OLD | "**Checks:** I would specify observable tests for both boundaries, overnight windows…" | Fail: a check list, no scenarios, no tasks |
 | 1 | NEW | "**Behaviour:** I would write numbered “when … then …” scenarios with named checks…" / "**Tasks:** I would list small, ordered units ending in checks" | Pass |
-| 2 | OLD | "I would inspect project rules, branch status, the full current diff, and `docs/design/quiet-hours.md` … to reconstruct the implementation state." | Fail: reconstructs state from the diff |
+| 2 | OLD | "I would inspect project rules, branch status, the full current diff, and `docs/design/quiet-hours.md` … to reconstruct the implementation state." | Partial: reads the doc but rebuilds progress from the diff; it has no task list to read |
 | 2 | NEW | "I would compare the doc’s tasks and Behaviour scenarios with code and checks" | Pass |
 | 3 | OLD | "update any stale plan, file list, checks or decisions so the doc describes what is true now." | Fail: keeps the file list |
 | 3 | NEW | "remove *Implementation* and *Tasks* in the PR’s last commit, and make *Plan* describe the shape as built." | Pass |
@@ -87,5 +87,21 @@ All twelve runs exited 0.
 
 NEW passes all six; OLD fails or half-passes the five cases the change
 targets and passes the guard. One run per arm per case, on one model, so
-this shows the text is read as intended, not how often. Not yet tried on a
-real feature; the first one built under it is the real test.
+this shows the text is read as intended, not how often. Several OLD
+failures are true by construction, since the old text has no *Behaviour* or
+*Tasks* to name. Not yet tried on a real feature; the first one built under
+it is the real test.
+
+## Review
+
+A fresh read-only verifier (Claude Opus) on 7106aba found no blockers and
+three shoulds, all from pinning the cleanup to "the pull request's last
+commit": it competed with `tdd`'s rule that a dropped test leaves in its own
+last commit, had no fixed point once review fixes added commits, and the
+*Plan* rewrite would have triggered a fresh goldfish pass. The cleanup now
+happens in its own commit before the final verify pass, needs no goldfish
+pass unless the build departed from the plan, and later fixes update the
+scenarios. Nits taken: later changes re-add *Implementation* and *Tasks*,
+older *Checks* docs convert when next changed, answered open questions are
+dropped, goldfish's skill names the new critic questions, delegated builders
+get the scenarios. The wording change after the dry run was not re-run.

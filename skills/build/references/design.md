@@ -86,18 +86,25 @@ the conversation. A fix whose shape was already settled needs only the note.
   nits remain. Implementation follows the doc; a builder that has to depart
   from it updates the doc in the same change and says why. Mark tasks done as
   they land.
-- **Finish it.** In the pull request's last commit, delete *Implementation*
-  and *Tasks* and make *Plan* describe the shape as built. What remains is the
-  feature's spec record. A later change to the feature's behaviour adds, edits
-  or removes its scenarios in the same change. Where a scenario and its test
-  disagree, the test and code are the truth and the doc is fixed.
+- **Finish it.** When the build is done and before the final
+  [verify](../../verify/SKILL.md) pass, in a commit of its own, delete
+  *Implementation* and *Tasks*, make *Plan* describe the shape as built, and
+  drop answered open questions. This rewrite needs no goldfish pass unless the
+  build departed from the plan. What remains is the feature's spec record;
+  fixes after it that change behaviour update its scenarios.
+- **Later changes.** A change to the feature's behaviour adds, edits or
+  removes its scenarios in the same change, and re-adds *Implementation* and
+  *Tasks* while it is in progress if it needs a plan. An older doc with
+  *Checks* instead of *Behaviour* is converted when its feature next changes.
+  Where a scenario and its test disagree, the test and code are the truth and
+  the doc is fixed.
 - The pull request links the doc and still carries the note: the pull request
   records what happened, the doc what is true now.
 
 ## Delegated builders
 
 A builder gets the design note, the files it owns, the checks that prove it
-done, and an instruction to read the principles index and this file before
+done (the doc's scenarios, where there is a doc), and an instruction to read the principles index and this file before
 writing code. A builder that finds the shape does not fit reports back instead
 of redesigning alone. Review the returned diff against the note, not only
 against the checks.
