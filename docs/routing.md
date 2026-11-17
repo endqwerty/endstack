@@ -71,9 +71,9 @@ Codex probe on the round 1 wording did add them.
 ## Trim (2026-11-16)
 
 The index was at its 2.6 KB limit after `test-design` was added. It was
-reworded to 2.4 KB without dropping a route: shorter preamble, the design
+reworded to about 2.46 KB without dropping a route: shorter preamble, the design
 skills in one bullet, and "with their gates" dropped from the merge line
-(each merge skill states its own gates). The limit is now 2.5 KB so the
+(each merge skill states its own gates). A review caught four routes the first trim had widened or narrowed (autopilot without "on a change", `architect` without "non-trivial", `tdd` without regression tests, the maintain formal check without its sync commit); all four were restored. The limit is now 2.5 KB so the
 saved space does not fill back up unnoticed. Dry run: the same 16 tasks,
 answered by a small model from the old and from the new index text, one
 run each. Every skill the old index chose, the new one chose too. The new

@@ -10,7 +10,7 @@
   what a failure costs. Routed for adding, keeping, moving or deleting a test.
 - `tdd` takes its keep and drop rules from `test-design` instead of its own
   copy, and keeps removing a dropped test in its own last commit.
-- ROUTING.md trimmed from 2,600 to about 2,400 bytes with every route kept,
+- ROUTING.md trimmed from 2,600 to about 2,460 bytes with every route kept,
   and its limit lowered to 2.5 KB. Dry run in [docs/routing.md](docs/routing.md).
 - Source: the owner's testing feedback in Mainworthy threads, 2026-10-25 to
   2026-11-16. Evidence and dry run: [docs/test-design.md](docs/test-design.md).
