@@ -39,38 +39,57 @@ pulling the scope back or correcting the rewrite:
   conversations for the inputs that need me". In the backlog session the user
   answered "Do 1, 2, and 3", choosing a subset of the four answers.
 
+## Root cause
+
+Thirteen of the past outputs that contained a rewrite had three to eight
+bullets under every question, and none said "nothing to add here". The old
+text caused that in four ways:
+
+- Every question had to be answered, and nothing tested whether an answer
+  mattered, so each answer became a list.
+- Nothing was judged against what the user wanted to get out of the task.
+  "What a top professional would do" has no edge.
+- "Rewrite my prompt to ask for exactly that" carried every answer into the
+  prompt.
+- "Leave choices that are mine to make open" handed every uncertainty back as
+  a blank instead of deciding what evidence could settle.
+
+A first fix capped counts (three open choices, a three-line "Left out" list).
+That treats the symptom and can push an important item off the list, so it was
+dropped.
+
 ## Change
 
-The skill now defines deeper (rawer sources, better methods, an outside check)
-against bigger (more deliverables, phases, frameworks, review rounds or
-process). The rewrite keeps the user's deliverables. Anything new goes in a
-"Left out" list of at most three lines that approving the rewrite does not
-approve; an outside check that judges a requested deliverable cheaply stays in
-the prompt. Tentative ideas stay optional. A question stays a question. Inputs get
-defaults from the repository and conversation, and at most three choices stay
-open, each with a recommendation. Methods are named only when they change the
-result, in plain words. Before returning, the agent lists the user's
-deliverables beside the rewrite's and cuts what does not trace.
-
-The upstream line "leave choices that are mine to make open instead of
-deciding them" is replaced: users asked for defaults, not an open form.
+The skill first states the goal: the decision, answer or change the task
+serves. Everything is judged by one test: would it change that result, or how
+far the user can trust it? What passes is kept, most important first. The rest
+is dropped without being listed, and "nothing here would change the result" is
+an allowed answer. The rewrite asks for the user's deliverables made deeper.
+New deliverables, phases or artifacts that pass the test become proposals,
+returned first with what they would change, and they stay out of the prompt
+until taken. Tentative ideas stay optional, and a question stays a question.
+The agent decides what evidence and the user's known preferences can settle,
+says what it assumed, and asks only what changes the outcome and only the user
+can answer, with a recommendation. Output order: goal, proposals and
+questions, the four answers, the rewrite.
 
 ## Dry run
 
-Fresh read-only agents ran three past prompts with the old text and the new,
-grounded in the current repositories (mainworthy and agent-factory). Each got
-only the skill file and the prompt, and read the repository itself.
+Fresh read-only agents ran past prompts against the current repositories
+(mainworthy and agent-factory). Each got only the skill file and the prompt,
+and read the repository itself. The old text ran on three prompts. The final
+text ran on the competitor review, the factory idea and the CI cost prompt;
+the historical output stands in for the old text on the CI cost prompt.
 
-| Prompt | Old text | New text |
+| Prompt | Old text | Final text |
 | --- | --- | --- |
-| Competitor review, SWOT, "from day 1" | Kept the asks, added a TOWS matrix and a cross-provider claim check in the prompt; four "ask me before" items. | Six numbered items, each mapping to an ask; "Read-only: no code, tests or commits. Give the answer in chat"; three choices with recommendations; "Left out" holds the PR, the second-model check and interviews. |
-| Factory placement idea ending "idk", "sharpen the ideas first" | "Then design ownership of standing entities as a set of users per entity"; "Lay out both options... without picking one"; three choices, no recommendations. | "You may add an owner record per placed entity... Skip it if removal works without it"; "Optionally, keep them and mark them unclaimed"; defaults filled ("default up to five"); two choices with recommendations; reuse matching left out. |
-| "Review the todos" | Added a pilot dependency chain; one bracketed choice, "[Report only / also apply...: pick one]". | "Read them only; change nothing"; defaults stated (39 issues, `origin/main`, two weeks of CI); one choice with a recommendation; Linear changes, fixes and other states left out. |
+| Competitor review, SWOT, "from day 1" | Kept the asks, added a TOWS matrix and a cross-provider claim check in the prompt; four "ask me before" items. | Goal first. Top item: whether trial accounts may be used to load the repo's own CI output, "the biggest gap". Rewrite: "research only: no code, tests or commits", all five asks kept; committing the result is a proposal. |
+| Factory placement idea ending "idk" | "Then design ownership of standing entities as a set of users per entity"; three open choices without recommendations. | Found the planner already plans before placing ghosts and entities already record owners. First question: "what prompted this, lines being skipped or fed by robots, or wanting a less regular layout?" Keep-for-reuse stays an option "you may take or drop". |
+| CI cost and agent validation (historical old output) | Four "currencies" with "exchange rates", DORA, value-stream mapping, Fleiss' kappa, nine open brackets. | Top item: "Continue the 2026-11-07 delivery review instead of starting a new one", since it already measures this. Assumptions stated instead of asked. Replaying past bugs against a slimmer test plan is a proposal. |
 
-Limits: one sample per arm. The old text also ran against repositories where
-earlier work already existed, so its outputs were milder than the historical
-ones. The comparison shows the new constraints being followed, not a measured
-rate. No run used the CI cost prompt. After review, the "Left out" rule was
-narrowed so answer 4's outside check stays in the prompt when it judges a
-requested deliverable cheaply; the competitor-review run predates that and
-left its second-model check out.
+Limits: one sample per prompt. The final text still lists several methods
+under question 3 (the CI run named six, each with what it does here). The CI
+run marked "workflows that could become features" optional, though the user
+had listed it among the goals; "keep how firm I was" can read a list item as
+softer than meant. The comparison shows the test being applied, not a
+measured rate.

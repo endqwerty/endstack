@@ -1,15 +1,14 @@
 # Change log
 
-## 2026-11-16 — sharpen stays inside the user's scope
+## 2026-11-16 — sharpen keeps what changes the result
 
-- `sharpen` keeps the user's deliverables and moves anything new into a
-  "Left out" list of at most three lines that approving the rewrite does not
-  approve; a cheap outside check on a requested deliverable stays in the
-  prompt. Tentative ideas stay optional, a question stays a question, inputs
-  get defaults, and at most three choices stay open, each with a
-  recommendation. Methods are named only when they change the result, in
-  plain words. Fifteen past sessions showed rewrites adding deliverables,
-  frameworks and pull requests the user then cut back. Evidence and dry run:
+- `sharpen` states the user's goal first and keeps only what would change
+  that result or how far it can be trusted, most important first; the rest is
+  dropped. New deliverables become proposals that stay out of the prompt until
+  taken. Tentative ideas stay optional, a question stays a question, and the
+  agent decides what evidence can settle and asks only what the user alone
+  can answer. Fifteen past sessions showed every question answered with a list
+  and every answer carried into the prompt. Evidence and dry run:
   [docs/sharpen-scope.md](docs/sharpen-scope.md).
 
 ## 2026-11-14 — correct writes plain rules, not quotes
