@@ -1,5 +1,19 @@
 # Change log
 
+## 2026-11-16 — test-design
+
+- Add explicit `test-design`: before writing a test, name the reachable
+  failure and who acts on it, find the test that already holds the fact, make
+  the code cheap to check, choose the cheapest layer, prefer an invariant and
+  place the test by cost; then prove it and keep it only when it earns its
+  place. Covers flaky tests, deleting overlapping tests and scaling checks to
+  what a failure costs. Routed for adding, keeping, moving or deleting a test.
+- `tdd` takes its keep and drop rules from `test-design` instead of its own
+  copy, and keeps removing a dropped test in its own last commit.
+- ROUTING.md reworded in five places to fit, keeping each trigger.
+- Source: the owner's testing feedback in Mainworthy threads, 2026-10-25 to
+  2026-11-16. Evidence and dry run: [docs/test-design.md](docs/test-design.md).
+
 ## 2026-11-14 — correct writes plain rules, not quotes
 
 - `correct` and the `principles` lesson reference record a preference or a

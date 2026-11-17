@@ -5,9 +5,8 @@ if listed, else read its SKILL.md from your skills directory, never via a skill
 tool. Follow it and say which one shaped a decision. Several can apply. Casual
 chat, a one-fact lookup or the user opting out: skip this. Explaining code, reviewing and checking safety are tasks, short or not.
 
-- Every task, first: decide whether it splits into independent parts (sources,
-  files, questions) worth running at once. If it does, `swarm`;
-  say which way you decided.
+- Every task, first: does it split into independent parts (sources, files,
+  questions) worth running at once? If so, `swarm`; say which way you decided.
 - Change requests: `build` to implement, `babysit` to get a PR green,
   `verify` before calling behaviour changes done or when asked if a change is
   safe. `ship` or `autopilot-full` only when the user explicitly asks to merge,
@@ -23,20 +22,20 @@ chat, a one-fact lookup or the user opting out: skip this. Explaining code, revi
   `architect`. Stateful or branchy logic or a design call: `principles`.
   Does a design doc or agent rules file hold up for a fresh agent: `goldfish`.
 - Editing .ts or .tsx: `typescript-best-practices`.
-- Bug fix with a cheap local test, or a failing or regression test asked for:
-  `tdd`.
+- A test added, kept, moved or deleted: `test-design`. Bug fix with a cheap
+  local test, or a failing or regression test asked for: also `tdd`.
 - Removing comments or replacing workaround ones: `no-comments`.
 - Contested design, "tear this apart": `interrogate`. Competing attempts at one
   artifact: `arena`.
-- A timing or performance number to report, compare or make a limit:
+- A timing or performance number to report, compare or limit:
   `benchmark-checklist`.
 - Long, unattended or multi-phase work: `show-me-your-work`. No narrower
   playbook fits: `figure-it-out`.
-- You were corrected, a mistake recurs, or you are about to add a rule to an
-  agent instruction file: `correct`.
-- Asked to prove or model-check a property (race, invariant, rare case):
-  `create-formal-verification-skill`; code changed under an existing formal
-  check since its sync commit: `maintain-formal-verification-skill`.
+- You were corrected, a mistake recurs, or you are adding a rule to agent
+  instructions: `correct`.
+- Asked to prove or model-check a race, invariant or rare case:
+  `create-formal-verification-skill`; code changed under a formal check
+  since its sync commit: `maintain-formal-verification-skill`.
 - A state diagram: `statechart` to draw it from a checked model or show a bug
   as a path through states; `archify` for a picture only.
 
