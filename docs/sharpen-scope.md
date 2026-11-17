@@ -67,7 +67,8 @@ is dropped without being listed, and "nothing here would change the result" is
 an allowed answer. The rewrite asks for the user's deliverables made deeper.
 New deliverables, phases or artifacts that pass the test become proposals,
 returned first with what they would change, and they stay out of the prompt
-until taken. Tentative ideas stay optional, and a question stays a question.
+until taken. What the user asked for stays required, tentative ideas stay
+optional, and a question stays a question.
 The agent decides what evidence and the user's known preferences can settle,
 says what it assumed, and asks only what changes the outcome and only the user
 can answer, with a recommendation. Output order: goal, proposals and
@@ -91,5 +92,7 @@ Limits: one sample per prompt. The final text still lists several methods
 under question 3 (the CI run named six, each with what it does here). The CI
 run marked "workflows that could become features" optional, though the user
 had listed it among the goals. After review the skill says "What I asked for
-stays required"; that line has no dry run of its own. The comparison shows the test being applied, not a
+stays required". A rerun of the CI prompt with that line listed "Goals, all
+required", features included, and again led with continuing the 2026-11-07
+review. The comparison shows the test being applied, not a
 measured rate.

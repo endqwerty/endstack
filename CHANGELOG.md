@@ -5,7 +5,8 @@
 - `sharpen` states the user's goal first and keeps only what would change
   that result or how far it can be trusted, most important first; the rest is
   dropped. New deliverables become proposals that stay out of the prompt until
-  taken. Tentative ideas stay optional, a question stays a question, and the
+  taken. What the user asked for stays required, tentative ideas stay
+  optional, a question stays a question, and the
   agent decides what evidence can settle and asks only what the user alone
   can answer. In past sessions every question came back as a list and every
   answer went into the prompt. Evidence and dry run:
