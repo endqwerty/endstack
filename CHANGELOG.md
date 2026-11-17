@@ -1,5 +1,16 @@
 # Change log
 
+## 2026-11-16 — sharpen stays inside the user's scope
+
+- `sharpen` keeps the user's deliverables and moves anything new into a
+  "Left out" list of at most three lines that approving the rewrite does not
+  approve. Tentative ideas stay optional, a question stays a question, inputs
+  get defaults, and at most three choices stay open, each with a
+  recommendation. Methods are named only when they change the result, in
+  plain words. Fifteen past sessions showed rewrites adding deliverables,
+  frameworks and pull requests the user then cut back. Evidence and dry run:
+  [docs/sharpen-scope.md](docs/sharpen-scope.md).
+
 ## 2026-11-14 — correct writes plain rules, not quotes
 
 - `correct` and the `principles` lesson reference record a preference or a
