@@ -1,5 +1,12 @@
 # Change log
 
+## 2026-11-18 — `hard` is for long-horizon and large-scope work
+
+- docs/model-roles.md: hillclimbs move from `author` to `hard`, and `hard`
+  is described as long-horizon or large-scope work (hillclimbs, multi-phase
+  or campaign-sized changes, large design panel seats) rather than "hardest
+  tasks". Matches homelab's `agents/AGENTS.md`.
+
 ## 2026-11-17 — Kiro install target
 
 - README: the `npx skills` install adds `-a kiro-cli`, which writes
