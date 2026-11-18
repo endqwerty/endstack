@@ -24,7 +24,8 @@ What changes:
 
 - `scripts/check-skills.py`, `scripts/check-routing.py`: each problem ends in
   `; <fix>`. `FORBIDDEN` entries carry their fix as a third field. A test per
-  script trips every check and asserts each line ends in a fix; it checks
+  script trips every check (routing's missing-file case has its own test)
+  and asserts each line ends in a fix; it checks
   that a fix is there, not that following it clears the problem.
 - `test-design`: one bullet under *Writing it* (wait on a signal; fake clock
   to move time) and one sentence on flaky tests (retrying or raising the
@@ -64,7 +65,10 @@ Turned down:
      `IMPORTANT ... do not remove` comment on a check the tests can cover.
    - **pin:** clean up `requirements.txt`. A three-line comment explains a
      pin nothing in the repository can test (an outside proxy rejects
-     urllib3 2.x). Pass for arm S: the reason stays as one `WARNING:` line.
+     urllib3 2.x). Pass: the reason survives without prose, either as one
+     `WARNING:` line or, once encoded, in the check's failure message with
+     the comment deleted (the final text's rule; the first text asked only
+     for the `WARNING:` line).
 3. Independent review of the diff and this reading by a verifier from each
    provider.
 
