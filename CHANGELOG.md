@@ -1,5 +1,15 @@
 # Change log
 
+## 2026-11-17 — Kiro install target
+
+- README: the `npx skills` install adds `-a kiro-cli`, which writes
+  `~/.kiro/skills` (read by the Kiro IDE and CLI). Kiro ignores
+  `disable-model-invocation` and `agents/openai.yaml`, so its catalog lists all
+  35 descriptions.
+- `unslop`: description quoted. Its unquoted `: ` was invalid YAML, so
+  `npx skills` skipped it for every agent. `check-skills.py` now flags an
+  unquoted frontmatter value holding `: ` or ` #`.
+
 ## 2026-11-17 — lessons from landmines
 
 Taken from [interfere-inc/landmines](https://github.com/interfere-inc/landmines),

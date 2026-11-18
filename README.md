@@ -55,10 +55,10 @@ in its `AGENTS.md`.
 
 Only `skills/` is installable (35 skills). Add `-s build -s verify ...` to take a subset.
 
-**With npx** (any machine; installs to Claude Code, Codex and other agents):
+**With npx** (any machine; installs to Claude Code, Codex, Kiro and other agents):
 
 ```sh
-npx skills add <path-or-owner/repo> -g -y -a claude-code -a codex
+npx skills add <path-or-owner/repo> -g -y -a claude-code -a codex -a kiro-cli
 ```
 
 `<path-or-owner/repo>` is a local checkout, or `endqwerty/endstack` (private,
@@ -66,7 +66,10 @@ needs GitHub access). Without `-a`, a non-interactive run installs only to the s
 `~/.agents/skills`, which Claude Code does not read. Add `--copy` to copy instead
 of symlinking, and `-s <name>` for a subset (the skills link to each other, so
 install `verify` with `build`). Checked with Claude Code's directory layout in a
-disposable home; Codex's use of `~/.agents/skills` is not checked. Do not run this on a machine where
+disposable home; Codex's use of `~/.agents/skills` is not checked. `-a kiro-cli`
+writes `~/.kiro/skills`, which the Kiro IDE and CLI both read. Kiro reads only
+`name` and `description`, so it lists every skill, the explicit-only ones
+included. Do not run this on a machine where
 homelab sync already manages these names: both write the same directories.
 
 **On Daniel's machines** use homelab instead. Install its CLI from its checkout

@@ -57,6 +57,12 @@ def check(root, only=None):
                 problems.append(f"{name}: empty description; say what the skill does and when to use it")
             elif len(fm["description"]) > DESCRIPTION_MAX:
                 problems.append(f"{name}: description over {DESCRIPTION_MAX} characters; cut it to the trigger, the body holds the rest")
+            for line in re.match(r"---\n(.*?)\n---\n", text, re.S).group(1).splitlines():
+                k, _, v = line.partition(": ")
+                v = v.strip()
+                # YAML rejects ": " in a plain scalar and cuts it at " #"; installers that parse strictly skip the skill.
+                if v and v[0] not in "\"'" and (": " in v or " #" in v or v.endswith(":")):
+                    problems.append(f"{name}: unquoted {k} value holds ': ' or ' #', which strict YAML rejects; quote the value")
             explicit = fm.get("disable-model-invocation") == "true"
             policy = os.path.join(d, POLICY)
             # Exact bytes, not YAML reading: endstack writes these files, so nothing else should pass.

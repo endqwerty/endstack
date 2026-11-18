@@ -45,6 +45,12 @@ class T(unittest.TestCase):
         for s in p:
             self.assertRegex(s, r"; \S", s)
 
+    def test_unquoted_colon_in_frontmatter_value(self):
+        bad = GOOD.replace("Does x. Use for x.", "Does x. Use it: for x.")
+        self.assertTrue(any("quote" in s for s in cs.check(tree({"skills/x/SKILL.md": bad}))))
+        quoted = GOOD.replace("Does x. Use for x.", '"Does x. Use it: for x."')
+        self.assertEqual(cs.check(tree({"skills/x/SKILL.md": quoted})), [])
+
     def test_size_limits(self):
         self.assertEqual(cs.check(tree({"skills/x/SKILL.md": GOOD + "word " * 1000})), [])
         core = GOOD.replace("name: x", "name: build") + "word " * 600
