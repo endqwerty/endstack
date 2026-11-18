@@ -32,6 +32,14 @@ What changes:
   timeout hides the defect).
 - `no-comments`: a *What may stay* section; step 1 points to it when the role
   definition is missing.
+- `typescript-best-practices`: a *Return types at the boundary* row.
+  Annotate exported functions and public methods, let local helpers and
+  callbacks infer, and keep each annotation as narrow as what the body
+  returns. This takes the opposite side from landmines'
+  `no-explicit-return-types`. On a public API, an annotation is the contract,
+  it fails where a refactor changes it, and it lets declarations be emitted
+  without checking the whole program. Inside a module, inference avoids a
+  second copy that can drift or widen.
 
 Turned down:
 
@@ -42,8 +50,9 @@ Turned down:
 - **A no-mocks rule in a skill.** `no-test-doubles.ts` is 2,356 lines,
   which shows how hard "a mock" is to define mechanically. The prose rule in
   `typescript-best-practices` stays as is.
-- **`no-explicit-return-types`.** That is a taste call, and many codebases
-  want explicit return types on exported functions.
+- **`no-explicit-return-types` as written.** It flags every annotated
+  return type. The middle ground above keeps annotations where they carry a
+  contract.
 - **Adopting the package.** That is a decision for each TypeScript project
   and too early at 0.1.0. Skills cannot name it anyway.
 
@@ -111,6 +120,19 @@ Reading:
   there, and it did not break anything either.
 - The check-script messages were not dry-run: no run tripped a check. The
   unit tests show that each problem carries a fix.
+
+- **ts** (added later, run on the final `typescript-best-practices` row):
+  add an exported function to `invoice.ts` that groups lines by sku.
+
+  | Arm | Claude | Codex |
+  | --- | --- | --- |
+  | N | exported function annotated `SkuGroup[]`, callback inferred; hit the 25-minute limit in its own review loop after committing | exported function annotated `Pick<Line, "sku" \| "qty">[]`, callback inferred |
+  | S | the same shape, annotated `SkuQuantity[]` | the same as N |
+
+  No uplift: both models already annotate exports and leave callbacks to
+  inference. The row records that practice so a project's lint or a later
+  agent does not reverse it. No run annotated the existing unannotated
+  `invoiceTotal`; the task did not ask for it.
 
 ## Not checked
 

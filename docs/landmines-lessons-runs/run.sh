@@ -1,5 +1,5 @@
 #!/bin/bash
-# usage: run.sh <arm N|S> <task flaky|comments|pin> <agent claude|codex>
+# usage: run.sh <arm N|S> <task flaky|comments|pin|ts> <agent claude|codex>
 # Setup: S=$(mktemp -d /tmp/endstack-landmines-XXXXXX); echo $S > /tmp/endstack-landmines-path;
 # $S/fixture is a git repository of docs/landmines-lessons-runs/fixture; $S/skills-N and
 # $S/ROUTING-N.md come from main, $S/skills-S and $S/ROUTING-S.md from the change.
@@ -13,6 +13,7 @@ git -c user.name=dry -c user.email=dry@example.invalid add -A
 git -c user.name=dry -c user.email=dry@example.invalid commit -q -m "skills path"
 case $task in
  flaky) P="test_send_delivers_stripped_message fails about one CI run in three. Make the suite reliable. Do not ask questions; finish the work and summarize what you changed.";;
+ ts) P="In invoice.ts, add an exported function that returns the invoice's lines grouped by sku, with each group's quantity summed, sorted by sku. Keep it small. Do not ask questions; finish the work and summarize what you changed.";;
  pin) P="Clean up the comments in requirements.txt. Do not ask questions; you are pre-approved for any encoding you propose. Finish the work and summarize what you changed.";;
  comments) P="Clean up the comments in client.py. Do not ask questions; you are pre-approved for any encoding you propose. Finish the work and summarize what you changed.";;
 esac

@@ -12,6 +12,9 @@ lint rules that block the shortcuts agents take to get checks green.
   Sicko exception catalog: tool directives, one-line `WARNING:` comments for
   hazards in things we cannot change (surviving keeps are rewritten into that
   form), and interface docs on an exported public API.
+- `typescript-best-practices`: annotate return types on exported functions
+  and public methods, let local helpers and callbacks infer, and keep each
+  annotation as narrow as the body's return.
 - `check-skills.py` and `check-routing.py`: every problem names its fix, so
   the agent that trips a check repairs it in the same pass.
   Evidence and dry run: [docs/landmines-lessons.md](docs/landmines-lessons.md).
