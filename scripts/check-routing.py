@@ -29,13 +29,13 @@ def check(root):
         problems.append(f"ROUTING.md: `{name}` is not a skill in skills/; fix the name, or add it to EXTERNAL if homelab installs it from elsewhere")
     for name in sorted(EXTERNAL & set(names)):
         if names.count(name) > 1:
-            problems.append(f"ROUTING.md: skill {name} appears {names.count(name)} times, expected once; keep it in one bullet")
+            problems.append(f"ROUTING.md: skill {name} appears {names.count(name)} times, expected once; keep one mention and delete the others")
     for name in sorted(skills):
         n = names.count(name)
         if n == 0:
             problems.append(f"ROUTING.md: skill {name} is not routed; add it to the bullet for its task, or to the '{NAMED}' line")
         elif n > 1:
-            problems.append(f"ROUTING.md: skill {name} appears {n} times, expected once; keep it in one bullet")
+            problems.append(f"ROUTING.md: skill {name} appears {n} times, expected once; keep one mention and delete the others")
     at = text.find(NAMED)
     if at < 0:
         problems.append(f"ROUTING.md: no '{NAMED}' line; add it as the last paragraph")
@@ -48,7 +48,7 @@ def check(root):
 
     prose = bullet_with("unslop")
     if "`technical-writing`" not in prose or "docs" not in prose.lower():
-        problems.append("ROUTING.md: one bullet must route prose to unslop and docs to technical-writing; put both in that bullet")
+        problems.append("ROUTING.md: one bullet must route prose to unslop and docs to technical-writing; name both in one bullet that also says docs")
     for name in ("ship", "autopilot-full"):
         if "explicit" not in bullet_with(name):
             problems.append(f"ROUTING.md: `{name}` must be routed only on an explicit request; say 'explicit' in its bullet")

@@ -27,9 +27,12 @@ class T(unittest.TestCase):
     def test_every_problem_names_its_fix(self):
         bad = "- `ghost` `a` `a` with Claude via `git push`\n" + "x" * 2600
         p = cr.check(tree(bad, ("a", "b", "ship", "autopilot-full", "unslop")))
-        self.assertGreater(len(p), 6)
+        p += cr.check(tree(GOOD.replace("`c`", "").replace("\n\nOnly", "\n- `archify` `archify`\n\nOnly"), SK))
+        self.assertGreater(len(p), 8)
         for s in p:
             self.assertRegex(s, r"; \S", s)
+        for kind in ("archify appears 2 times", "lists no skill"):
+            self.assertTrue(any(kind in s for s in p), kind)
 
     def test_unrouted_and_unknown_skills(self):
         p = " ".join(cr.check(tree(GOOD + "`ghost`\n", SK + ("orphan",))))

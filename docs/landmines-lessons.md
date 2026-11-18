@@ -24,7 +24,8 @@ What changes:
 
 - `scripts/check-skills.py`, `scripts/check-routing.py`: each problem ends in
   `; <fix>`. `FORBIDDEN` entries carry their fix as a third field. A test per
-  script trips every check and asserts each line names a fix.
+  script trips every check and asserts each line ends in a fix; it checks
+  that a fix is there, not that following it clears the problem.
 - `test-design`: one bullet under *Writing it* (wait on a signal; fake clock
   to move time) and one sentence on flaky tests (retrying or raising the
   timeout hides the defect).
@@ -73,24 +74,34 @@ Claude Opus 5.5 and GPT 6.2 Sol, both at medium effort.
 
 | Task | Arm | Claude | Codex |
 | --- | --- | --- | --- |
-| flaky | N | `join()` on the returned thread; read no skill | the same |
-| flaky | S | the same | the same |
+| flaky | N | read `test-design`; first committed `join(timeout=5)`, then dropped the timeout after its own review | read `test-design`; `join()` on the returned thread |
+| flaky | S | read `test-design`; `join()` straight away | the same as N |
 | comments | N | deleted the narration, the dead `_total` and the `IMPORTANT` comment, which became a test; kept the docstring | the same, but kept `_total` |
 | comments | S | the same as N | the same as N |
 | pin | N | comment deleted; reason moved into a new test's failure message | kept a two-line prose comment |
-| pin | S | one `WARNING:` line naming the hazard and its test, plus that test | one `WARNING:` line naming the hazard and who approves an upgrade |
+| pin | S (first text) | one `WARNING:` line naming the hazard and its test, plus that test, whose message dropped the reason | one `WARNING:` line naming the hazard and who approves an upgrade |
+| pin | S (final text) | test with the reason in its failure message; comment deleted | one `WARNING:` line naming the hazard and who approves an upgrade |
 
-Every flaky run's suite passed 40 of 40 reruns, and every comments run's
-suite passed. Each pin-task suite passes apart from the fixture's own flaky
-notifier test, which that task does not touch.
+Every flaky run's suite passed 40 of 40 reruns. In the comments and pin
+runs, every test the agent touched passed; the fixture's own flaky notifier
+test, which those tasks do not touch, failed now and then.
 
 Reading:
 
-- **pin** is where the change works. Without it, the two runs went two
-  different ways: one dropped the comment, the other kept a paragraph.
-  With it, both wrote the single-line `WARNING:` form, 2 of 2.
-- **flaky** and **comments** show no uplift. The flaky fix was easy enough
-  that no run read a skill: every run joined the thread. In the comments
+- **pin** is where the change works, on Codex. Without it, Codex kept a
+  two-line prose comment; with either text it wrote one `WARNING:` line.
+  Claude on `main` already did what step 5 asks: it encoded the pin as a
+  test, put the reason in the failure message and deleted the comment. The
+  first text made Claude keep a `WARNING:` line beside the test and drop the
+  reason from the test. Review caught that; the final text says an encoded
+  constraint keeps no comment, and the rerun on it went back to the test-only
+  result. So the change fixes Codex's prose keep and, in its final form, does
+  not regress Claude.
+- **flaky** shows little uplift. Every run read `test-design` and ended on
+  `join()`. The one difference is the arm-N Claude run, which first bounded
+  the wait with a timeout and removed it only after its own review; one sample
+  cannot say whether the new wording caused that.
+- **comments** shows no uplift. In the comments
   task the constraint could be tested, so both arms encoded it and deleted the
   comment, as step 5 already says. The new section did not change anything
   there, and it did not break anything either.
@@ -99,6 +110,11 @@ Reading:
 
 ## Not checked
 
+- The final-text pin runs used the wording before the last review round,
+  which scoped step 2's proof to hazard comments and fixed three check-script
+  messages. Both edits leave the pin case unchanged; neither was run again.
+  The final-text Claude run was stopped while it re-reviewed its own staged
+  test; its result is that staged diff.
 - One sample per cell: a direction, not a rate.
 - A flaky test that tempts an agent to retry or raise its timeout. This
   fixture's fix was too obvious to show that, so the `test-design` wording

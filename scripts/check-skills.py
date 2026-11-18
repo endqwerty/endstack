@@ -49,7 +49,7 @@ def check(root, only=None):
         text = open(main, encoding="utf-8").read()
         fm = frontmatter(text)
         if fm is None:
-            problems.append(f"{name}: missing frontmatter; start SKILL.md with --- name and description ---")
+            problems.append(f"{name}: missing frontmatter; start SKILL.md with a block of name: and description: lines between two --- lines")
         else:
             if fm.get("name") != name:
                 problems.append(f"{name}: frontmatter name {fm.get('name')!r} != directory; make them the same")

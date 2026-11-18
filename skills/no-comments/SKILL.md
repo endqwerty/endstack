@@ -16,10 +16,10 @@ Use the caller's files or diff. Otherwise use the current diff against the base 
 
 ## What may stay
 
-Every other comment is a candidate for deletion. Rationale belongs in the pull request.
+These are the exceptions step 2 means. Directives and interface docs stay without step 2's proof, though step 2 still audits suppressions; the proof applies to hazard comments. Every other comment is a candidate for deletion; rationale belongs in the pull request.
 
 - Directives a tool reads: lint and type-checker suppressions (audited in step 2), formatter and coverage ignores, bundler hints, licence headers, shebangs.
-- One line starting `WARNING:` that names a hazard in something we cannot change, which the next editor would hit again. Rewrite each surviving keep into this form, so a lint can tell keeps from prose.
+- One line starting `WARNING:` that names a hazard in something we cannot change and no check can catch, which the next editor would hit again. Rewrite each surviving hazard comment into this form, so a lint can tell keeps from prose. A constraint encoded in step 5 keeps no comment; its check's failure message carries the reason.
 - Interface docs on an exported public API, which readers see outside the source.
 
 ## Steps

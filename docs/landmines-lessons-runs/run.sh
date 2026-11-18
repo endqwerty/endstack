@@ -5,7 +5,8 @@
 # $S/ROUTING-N.md come from main, $S/skills-S and $S/ROUTING-S.md from the change.
 set -u
 S=$(cat /tmp/endstack-landmines-path); arm=$1; task=$2; agent=$3; id=$arm-$task-$agent
-rm -rf $S/runs/$id; mkdir -p $S/runs; git clone -q $S/fixture $S/runs/$id; cd $S/runs/$id
+rm -rf $S/runs/$id; mkdir -p $S/runs
+git clone -q $S/fixture $S/runs/$id && cd $S/runs/$id || exit 1
 { printf '\nYour skills directory for this repository is %s. Read a skill'"'"'s\nSKILL.md from there; skills installed anywhere else are out of date. The\nrouting below replaces the skill routing in your global rules.\n\n' "$S/skills-$arm"; cat $S/ROUTING-$arm.md; } >> AGENTS.md
 cp AGENTS.md CLAUDE.md
 git -c user.name=dry -c user.email=dry@example.invalid add -A
