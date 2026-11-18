@@ -9,6 +9,8 @@
 - `unslop`: description quoted. Its unquoted `: ` was invalid YAML, so
   `npx skills` skipped it for every agent. `check-skills.py` now flags an
   unquoted frontmatter value holding `: ` or ` #`.
+- AGENTS.md: use `git`, not `gh`, in this repository; the SSH remote has the
+  right account.
 
 ## 2026-11-17 — lessons from landmines
 

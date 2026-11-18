@@ -56,6 +56,11 @@ Evidence and limits: [docs/routing.md](docs/routing.md).
 
 ## Delivery
 
+Use `git` here, not `gh`: the remote's SSH host alias carries the account
+that owns this repository, and `gh` is logged in as one that cannot write to
+it. Push with `git`. If a pull request can't be opened without `gh`, give the
+user the compare URL that the push prints.
+
 Delivery: review-first. Work on the T3 branch in your worktree and follow
 [build](skills/build/SKILL.md) through a checked, independently verified PR.
 The user reviews and merges by default. Opening a PR does not start a watcher;
