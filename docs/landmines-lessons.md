@@ -33,12 +33,12 @@ What changes:
 - `no-comments`: a *What may stay* section; step 1 points to it when the role
   definition is missing.
 - `typescript-best-practices`: a *Return types at the boundary* row.
-  Annotate exported functions and public methods, let local helpers and
-  callbacks infer, and keep each annotation as narrow as what the body
-  returns. This takes the opposite side from landmines'
+  Annotate exported functions and public methods as callers should see them,
+  let local helpers and callbacks infer, and defer to a project's own lint
+  or convention. This takes the opposite side from landmines'
   `no-explicit-return-types`. On a public API, an annotation is the contract,
-  it fails where a refactor changes it, and it lets declarations be emitted
-  without checking the whole program. Inside a module, inference avoids a
+  the compiler checks each returned value against it, and it is part of what
+  a project needs to meet TypeScript's `isolatedDeclarations` option. Inside a module, inference avoids a
   second copy that can drift or widen.
 
 Turned down:
@@ -126,12 +126,12 @@ Reading:
 
   | Arm | Claude | Codex |
   | --- | --- | --- |
-  | N | exported function annotated `SkuGroup[]`, callback inferred; hit the 25-minute limit in its own review loop after committing | exported function annotated `Pick<Line, "sku" \| "qty">[]`, callback inferred |
-  | S | the same shape, annotated `SkuQuantity[]` | the same as N |
+  | N | exported function annotated `SkuGroup[]`, callback inferred; finished in 21 minutes; a leftover background wait then hit the 25-minute limit | exported function annotated `Pick<Line, "sku" \| "qty">[]`, callback inferred |
+  | S | the same pattern: exported function annotated `SkuQuantity[]`, callback inferred | the same as N |
 
   No uplift: both models already annotate exports and leave callbacks to
-  inference. The row records that practice so a project's lint or a later
-  agent does not reverse it. No run annotated the existing unannotated
+  inference. The row records that practice, so a later agent does not
+  reverse it without a reason; a project's own lint still wins. No run annotated the existing unannotated
   `invoiceTotal`; the task did not ask for it.
 
 ## Not checked
