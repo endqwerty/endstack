@@ -121,7 +121,9 @@ Reading:
 - The check-script messages were not dry-run: no run tripped a check. The
   unit tests show that each problem carries a fix.
 
-- **ts** (added later, run on the final `typescript-best-practices` row):
+- **ts** (added later; run on the row's first wording, "keep each annotation
+  as narrow as what the body returns", before review changed it to "as
+  callers should see it" with exceptions and lint deference; not run again):
   add an exported function to `invoice.ts` that groups lines by sku.
 
   | Arm | Claude | Codex |
