@@ -22,6 +22,7 @@ Apply the [type-system-discipline](../principles/references/type-system-discipli
 | Type guards | Must verify the claim. A lying guard is worse than `as` because the bug hides behind a name that says it's safe. Name them `isX` or `hasX`. |
 | Exhaustiveness | Inline `const _exhaustive: never = x;` in default arms so the compiler errors when a new variant is added. |
 | `satisfies` over `as` | Validates the value without widening literal types. |
+| Return types at the boundary | Annotate the return type of exported functions and public methods: it is the contract callers rely on, and the compiler checks ordinary returns against it. Write it as callers should see it (`readonly`, an interface) without dropping what they need, such as a literal union widened to `string`. Let local helpers and callbacks infer, except type predicates, assertion functions and recursive functions. A project's lint or convention on return types wins. |
 | Boundary validation | Parse where data crosses in, into a named domain type. `Record<string, unknown>` (however spelled) stops at that parse. Trust types inside. See the [boundary-discipline](../principles/references/boundary-discipline.md) principle. |
 | Schema-derived types | Reach for `Pick`/`Omit`/`Parameters`/`ReturnType`/`Awaited`/`typeof` before declaring a new interface. |
 | Object args | Pass objects, not positional, so argument order is self-documenting. Skip on hot paths (per-frame render, tokenizers, parsers). |

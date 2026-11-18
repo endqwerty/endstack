@@ -22,7 +22,17 @@ class T(unittest.TestCase):
         self.assertEqual(cr.check(tree(GOOD, SK)), [])
 
     def test_missing_file(self):
-        self.assertEqual(cr.check(tree(None)), ["ROUTING.md: missing"])
+        self.assertEqual(cr.check(tree(None)), ["ROUTING.md: missing; restore it from the default branch"])
+
+    def test_every_problem_names_its_fix(self):
+        bad = "- `ghost` `a` `a` with Claude via `git push`\n" + "x" * 2600
+        p = cr.check(tree(bad, ("a", "b", "ship", "autopilot-full", "unslop")))
+        p += cr.check(tree(GOOD.replace("`c`", "").replace("\n\nOnly", "\n- `archify` `archify`\n\nOnly"), SK))
+        self.assertGreater(len(p), 8)
+        for s in p:
+            self.assertRegex(s, r"; \S", s)
+        for kind in ("archify appears 2 times", "lists no skill"):
+            self.assertTrue(any(kind in s for s in p), kind)
 
     def test_unrouted_and_unknown_skills(self):
         p = " ".join(cr.check(tree(GOOD + "`ghost`\n", SK + ("orphan",))))

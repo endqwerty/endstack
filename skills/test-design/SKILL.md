@@ -28,6 +28,7 @@ Read the project's testing guide, if it has one, before the first test; it wins 
 - Follow the [test-behavior-not-implementation](../principles/references/test-behavior-not-implementation.md) principle: derive expected values from the requirement, not from a run of the code.
 - The title states the promise; a failure shows expected and actual in the user's terms, so the reader knows what broke without opening the code.
 - No sleeps, wall-clock deadlines, fixed ports, shared directories or order dependence. A test that fails only beside others shares something with them; fix the sharing.
+- Wait on a signal, not a deadline: await the operation, or a promise that the handler or callback recording the event resolves. Polling a recorder or spy until a timeout fails under load. To move time, use the framework's fake clock.
 
 ## Prove, then decide
 
@@ -38,7 +39,7 @@ Read the project's testing guide, if it has one, before the first test; it wins 
 
 ## Changing the suite
 
-- **A flaky test is a defect.** Give it one fix whose cause is shown: a shared resource, an unordered read, a deadline below the work. With no cause found, delete it or move it to a schedule that tolerates load. A test guarding a security boundary, stored data or a merge decision stays until the cause is known; its flake may be a real race.
+- **A flaky test is a defect.** Retrying it or raising its timeout hides the defect; neither is a fix. Give it one fix whose cause is shown: a shared resource, an unordered read, or a deadline below the work (wait on the signal instead). With no cause found, delete it or move it to a schedule that tolerates load. A test guarding a security boundary, stored data or a merge decision stays until the cause is known; its flake may be a real race.
 - **Deleting is normal.** Delete a test whose fact a cheaper kept test holds, whose state a refactor made unreachable, or whose feature is gone, and name the holder or the reason. When reading cannot tell which overlapping tests matter, measure: make small edits to the code they run and keep the smallest set that still fails on every edit.
 - **Scale checks to what a failure costs.** Production paths and stored data get the strongest checks. Internal tooling gets a proof, not a kept test, unless a mistake there is costly to undo.
 

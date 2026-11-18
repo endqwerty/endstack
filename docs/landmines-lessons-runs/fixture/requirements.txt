@@ -1,0 +1,4 @@
+# Pinned on purpose. The billing proxy rejects the TLS handshake that urllib3 2.x
+# sends, and nothing in this repository can test against it. Do not upgrade
+# until the proxy team says so.
+urllib3==1.26.20

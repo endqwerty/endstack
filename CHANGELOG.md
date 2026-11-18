@@ -1,5 +1,24 @@
 # Change log
 
+## 2026-11-17 — lessons from landmines
+
+Taken from [interfere-inc/landmines](https://github.com/interfere-inc/landmines),
+lint rules that block the shortcuts agents take to get checks green.
+
+- `test-design`: wait on a signal (the operation, or a promise the recording
+  handler resolves), not a poll against a deadline; retrying a flaky test or
+  raising its timeout hides the defect and is not a fix.
+- `no-comments`: a *What may stay* section in place of the lost Comment
+  Sicko exception catalog: tool directives, one-line `WARNING:` comments for
+  hazards in things we cannot change (surviving keeps are rewritten into that
+  form), and interface docs on an exported public API.
+- `typescript-best-practices`: annotate return types on exported functions
+  and public methods as callers should see them, let local helpers and
+  callbacks infer, and defer to a project's own lint or convention.
+- `check-skills.py` and `check-routing.py`: every problem names its fix, so
+  the agent that trips a check repairs it in the same pass.
+  Evidence and dry run: [docs/landmines-lessons.md](docs/landmines-lessons.md).
+
 ## 2026-11-17 — EGM review stages, concept brief and drift
 
 Ported from Google's Elephant-Goldfish Model (`72d06f5`); what each port
