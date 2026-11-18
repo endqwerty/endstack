@@ -8,13 +8,18 @@ OTHER_MAX = 6000     # bytes, SKILL.md of any other skill; detail goes in refere
 DESCRIPTION_MAX = 200  # characters; a visible description is paid on every request
 POLICY = "agents/openai.yaml"  # Codex reads allow_implicit_invocation here; false keeps a skill out of its catalog
 POLICY_TEXT = "policy:\n  allow_implicit_invocation: false\n"
+# Each problem names its fix, so the agent that trips a check can repair it in the same pass.
 FORBIDDEN = [
-    (r"`(?:gh|git|npm|bun|npx|pnpm|yarn|curl)\b[^`]*`", "command in backticks"),
-    (r"(?<![\w-])(?:Task|Read|Edit|Bash|Grep|TodoWrite) tool\b", "harness tool name"),
-    (r"/(?:loop|schedule)\b", "harness slash command"),
-    (r"\b(?:claude|anthropic|codex|openai|gpt|grok|opus|sonnet|haiku|gemini|composer)\b", "model or provider name"),
-    (r"\b(?:cursor|t3 ?code)\b", "harness name"),
-    (r"~/\.[a-z]|\.mdc\b", "harness config path"),
+    (r"`(?:gh|git|npm|bun|npx|pnpm|yarn|curl)\b[^`]*`", "command in backticks",
+     "state the outcome instead, such as 'open a pull request'"),
+    (r"(?<![\w-])(?:Task|Read|Edit|Bash|Grep|TodoWrite) tool\b", "harness tool name",
+     "name the role or action, such as 'a separate worker, if the harness has one'"),
+    (r"/(?:loop|schedule)\b", "harness slash command",
+     "describe the behaviour, such as 'if the harness can repeat a check, use it'"),
+    (r"\b(?:claude|anthropic|codex|openai|gpt|grok|opus|sonnet|haiku|gemini|composer)\b", "model or provider name",
+     "ask for 'a different provider or model family, if available'"),
+    (r"\b(?:cursor|t3 ?code)\b", "harness name", "say 'the harness'"),
+    (r"~/\.[a-z]|\.mdc\b", "harness config path", "say 'the global rules' or 'the project rules'"),
 ]
 
 
@@ -39,30 +44,30 @@ def check(root, only=None):
         if not os.path.isdir(d) or (only and name not in only):
             continue
         if not os.path.isfile(main):
-            problems.append(f"{name}: no SKILL.md")
+            problems.append(f"{name}: no SKILL.md; add one or delete the directory")
             continue
         text = open(main, encoding="utf-8").read()
         fm = frontmatter(text)
         if fm is None:
-            problems.append(f"{name}: missing frontmatter")
+            problems.append(f"{name}: missing frontmatter; start SKILL.md with --- name and description ---")
         else:
             if fm.get("name") != name:
-                problems.append(f"{name}: frontmatter name {fm.get('name')!r} != directory")
+                problems.append(f"{name}: frontmatter name {fm.get('name')!r} != directory; make them the same")
             if not fm.get("description"):
-                problems.append(f"{name}: empty description")
+                problems.append(f"{name}: empty description; say what the skill does and when to use it")
             elif len(fm["description"]) > DESCRIPTION_MAX:
-                problems.append(f"{name}: description over {DESCRIPTION_MAX} characters")
+                problems.append(f"{name}: description over {DESCRIPTION_MAX} characters; cut it to the trigger, the body holds the rest")
             explicit = fm.get("disable-model-invocation") == "true"
             policy = os.path.join(d, POLICY)
             # Exact bytes, not YAML reading: endstack writes these files, so nothing else should pass.
             hidden = os.path.isfile(policy) and open(policy, "rb").read() == POLICY_TEXT.encode()
             if explicit and not hidden:
-                problems.append(f"{name}: explicit-only skill needs {POLICY} with allow_implicit_invocation: false")
+                problems.append(f"{name}: explicit-only skill needs {POLICY} with allow_implicit_invocation: false; copy it byte for byte from another hidden skill")
             elif os.path.isfile(policy) and not explicit:
-                problems.append(f"{name}: has {POLICY} but not disable-model-invocation")
+                problems.append(f"{name}: has {POLICY} but not disable-model-invocation; add the flag or delete the file")
         limit = CORE_MAX if name in CORE else OTHER_MAX
         if len(text.encode()) > limit:
-            problems.append(f"{name}: SKILL.md {len(text.encode())} bytes > {limit}")
+            problems.append(f"{name}: SKILL.md {len(text.encode())} bytes > {limit}; move detail into references/ and link it, or cut")
         for dirpath, _, files in os.walk(d):
             for f in files:
                 if not f.endswith(".md"):
@@ -70,16 +75,16 @@ def check(root, only=None):
                 p = os.path.join(dirpath, f)
                 body = open(p, encoding="utf-8").read()
                 rel = os.path.relpath(p, root)
-                for pat, why in FORBIDDEN:
+                for pat, why, fix in FORBIDDEN:
                     for m in re.finditer(pat, body, re.I):
                         line = body.count("\n", 0, m.start()) + 1
-                        problems.append(f"{rel}:{line}: {why}: {m.group(0)[:40]!r}")
+                        problems.append(f"{rel}:{line}: {why}: {m.group(0)[:40]!r}; {fix}")
                 for m in re.finditer(r"\]\(([^)#\s]+)(?:#[^)]*)?\)", body):
                     t = m.group(1)
                     if re.match(r"(https?:|mailto:)", t):
                         continue
                     if not os.path.exists(os.path.normpath(os.path.join(dirpath, t))):
-                        problems.append(f"{rel}: broken link {t}")
+                        problems.append(f"{rel}: broken link {t}; fix the path or drop the link")
     return problems
 
 

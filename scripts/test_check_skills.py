@@ -34,6 +34,17 @@ class T(unittest.TestCase):
         p = " ".join(cs.check(t))
         self.assertIn("model or provider name", p); self.assertIn("broken link nope.md", p)
 
+    def test_every_problem_names_its_fix(self):
+        hidden = "---\nname: y\ndescription: " + "d" * 201 + "\ndisable-model-invocation: true\n---\n"
+        body = hidden + "Run `git push` with the Task tool, /loop, Opus, Cursor, ~/.x, [l](nope.md).\n" + "w " * 3000
+        p = cs.check(tree({"skills/x/SKILL.md": body, "skills/z/SKILL.md": "no frontmatter\n",
+                           "skills/v/SKILL.md": GOOD.replace("name: x", "name: v").replace("Does x. Use for x.", ""),
+                           "skills/w/SKILL.md": GOOD.replace("name: x", "name: w"), "skills/w/agents/openai.yaml": "policy:\n  allow_implicit_invocation: false\n",
+                           "skills/u/README.md": "x\n"}))
+        self.assertGreater(len(p), 12)
+        for s in p:
+            self.assertRegex(s, r"; \S", s)
+
     def test_size_limits(self):
         self.assertEqual(cs.check(tree({"skills/x/SKILL.md": GOOD + "word " * 1000})), [])
         core = GOOD.replace("name: x", "name: build") + "word " * 600
