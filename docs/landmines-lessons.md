@@ -37,7 +37,7 @@ What changes:
   let local helpers and callbacks infer, and defer to a project's own lint
   or convention. This takes the opposite side from landmines'
   `no-explicit-return-types`. On a public API, an annotation is the contract,
-  the compiler checks each returned value against it, and it is part of what
+  the compiler checks ordinary returns against it, and it is part of what
   a project needs to meet TypeScript's `isolatedDeclarations` option. Inside a module, inference avoids a
   second copy that can drift or widen.
 
