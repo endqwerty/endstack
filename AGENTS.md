@@ -56,20 +56,19 @@ Evidence and limits: [docs/routing.md](docs/routing.md).
 
 ## Delivery
 
-Use `git` here, not `gh`: the remote's SSH host alias carries the account
-that owns this repository, and `gh` is logged in as one that cannot write to
-it. Push with `git`. If a pull request can't be opened without `gh`, give the
-user the compare URL that the push prints.
+This repository grants agents merge authority. Work on the T3 branch in your
+worktree, follow [build](skills/build/SKILL.md) through a checked,
+independently verified PR, then merge it yourself with
+`gh pr merge --merge --match-head-commit <verified sha>`. When the merge
+changes an installed skill or `ROUTING.md`, update homelab's pin and copies as
+described under Routing. Do not arm auto-merge or push directly to `main`.
+Opening a PR does not start a watcher; use [babysit](skills/babysit/SKILL.md)
+when requested.
 
-Delivery: review-first. Work on the T3 branch in your worktree and follow
-[build](skills/build/SKILL.md) through a checked, independently verified PR.
-The user reviews and merges by default. Opening a PR does not start a watcher;
-use [babysit](skills/babysit/SKILL.md) when requested. An explicit request to
-merge identified work invokes [ship](skills/ship/SKILL.md), with its gates;
-“autopilot” or “full send” on it invokes
-[autopilot-full](skills/autopilot-full/SKILL.md), which lands it without
-waiting for the user.
-“Keep going” and a budget request are not merge authority. Do not arm auto-merge
-or push directly to `main` to bypass the review boundary.
+Use `gh` for pull requests. Where `gh auth status` shows no valid login (over
+SSH to the Mac, whose login keychain holds the token but stays locked), push
+with `git`, give the compare URL the push prints, and name opening and merging
+the PR as the pending step.
+
 Changes to a skill's behaviour get a dry run described in the PR: what the
 agent did with the old text and the new, or without and with a new skill. Record changes in CHANGELOG.md.
