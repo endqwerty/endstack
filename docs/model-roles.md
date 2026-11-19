@@ -6,9 +6,10 @@ to `max`. endstack does not import it: the skills name roles, never models (see
 [AGENTS.md](../AGENTS.md)), and the model table lives in homelab's
 `routing.json`, next to the allowance-based provider routing.
 
-Daniel uses Codex and Claude and wants a middle ground, not unlimited effort.
-Gemini (through Antigravity) was a third provider from 2026-10-14 to
-2026-10-15; homelab no longer routes to it, because it was unreliable in T3 Code.
+Daniel uses Codex, Claude and Gemini (through Antigravity) and wants a middle
+ground, not unlimited effort. Gemini is routed again since 2026-11-18: Neon at
+the Opus and Sol tier, Carbon at the Astra and Fable tier, so its `hard` and
+`lead` seats are Carbon. Every change is verified by the other two providers.
 `homelab route models` prints the table (add `--profile lean|balanced|deep`,
 `--role <class>`, `--json`). Balanced is the default.
 
@@ -16,11 +17,11 @@ Gemini (through Antigravity) was a third provider from 2026-10-14 to
 
 | pstack role (as the ported skills describe it) | Class |
 | --- | --- |
-| feature, bug-fix, refactoring, perf-issue, hillclimb work; arena and architect candidates | `author` |
+| feature, bug-fix, refactoring, perf-issue work; arena and architect candidates | `author` |
 | how explorer, why investigators, reflect tooling reviewer, swarm workers | `worker` |
 | how explainer, why synthesizer, reflect judgment, divergent and synthesizer, arena cross-judge, interrogate panel, judgment and prose | `reviewer` |
 | the independent check in `verify` | `verifier` (router prefers another provider; fresh context is required unless exempt) |
-| hardest tasks | `hard` |
+| long-horizon or large-scope work: hillclimbs, multi-phase or campaign-sized changes, large design panel seats | `hard` |
 
 A panel (arena, architect, interrogate, reflect) puts one member on each
 provider: the Codex and Claude rows of its class.
@@ -38,7 +39,9 @@ provider: the Codex and Claude rows of its class.
 There is no effort ceiling: high and xhigh may be the right default for a class
 or a job when the work needs them. The rule for agents is to choose for that
 reason and not to assume everything runs at xhigh. The premium models (Astra,
-Fable, which has its own weekly allocation) are for `hard` and `lead` only; a test
+Fable, which has its own weekly allocation) are for `hard` and `lead` only, and
+those classes are chosen by a job's horizon and scope, not its difficulty: a
+short, bounded change stays on `author` however hard it is. A test
 in homelab pins that, and that gathering never costs more effort than judging.
 `lean` falls back to Sol or Sonnet at high for `hard`; `deep` (about pstack's own
 "large") raises each class, uses Opus for the Claude judges, and goes to `xhigh`
