@@ -6,6 +6,9 @@
   is described as long-horizon or large-scope work (hillclimbs, multi-phase
   or campaign-sized changes, large design panel seats) rather than "hardest
   tasks". Matches homelab's `agents/AGENTS.md`.
+- docs/model-roles.md: Gemini is a routed provider again (Neon at the Opus
+  and Sol tier, Carbon at the Astra and Fable tier), and every change is
+  verified by the other two providers.
 
 ## 2026-11-17 — Kiro install target
 

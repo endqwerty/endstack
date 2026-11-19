@@ -6,9 +6,10 @@ to `max`. endstack does not import it: the skills name roles, never models (see
 [AGENTS.md](../AGENTS.md)), and the model table lives in homelab's
 `routing.json`, next to the allowance-based provider routing.
 
-Daniel uses Codex and Claude and wants a middle ground, not unlimited effort.
-Gemini (through Antigravity) was a third provider from 2026-10-14 to
-2026-10-15; homelab no longer routes to it, because it was unreliable in T3 Code.
+Daniel uses Codex, Claude and Gemini (through Antigravity) and wants a middle
+ground, not unlimited effort. Gemini is routed again since 2026-11-18: Neon at
+the Opus and Sol tier, Carbon at the Astra and Fable tier, so its `hard` and
+`lead` seats are Carbon. Every change is verified by the other two providers.
 `homelab route models` prints the table (add `--profile lean|balanced|deep`,
 `--role <class>`, `--json`). Balanced is the default.
 
