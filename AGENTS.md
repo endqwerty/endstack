@@ -65,9 +65,10 @@ described under Routing. Do not arm auto-merge or push directly to `main`.
 Opening a PR does not start a watcher; use [babysit](skills/babysit/SKILL.md)
 when requested.
 
-Use `gh` for pull requests. Where `gh auth status` shows no valid login (the
-Mac's token was invalid on 2026-11-18), push with `git`, give the compare URL
-the push prints, and name opening and merging the PR as the pending step.
+Use `gh` for pull requests. Where `gh auth status` shows no valid login (over
+SSH to the Mac, whose login keychain holds the token but stays locked), push
+with `git`, give the compare URL the push prints, and name opening and merging
+the PR as the pending step.
 
 Changes to a skill's behaviour get a dry run described in the PR: what the
 agent did with the old text and the new, or without and with a new skill. Record changes in CHANGELOG.md.

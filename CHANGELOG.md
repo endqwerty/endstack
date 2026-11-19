@@ -5,8 +5,9 @@
 - AGENTS.md: agents merge their own checked, independently verified PRs with
   `gh pr merge --merge --match-head-commit`; the review-first rule that left
   merging to Daniel is gone. `gh` works where it is logged in (omarchy); the
-  earlier "use git, not gh" note came from the Mac, whose `gh` token is invalid,
-  so a machine without a valid login falls back to `git` and a compare URL.
+  earlier "use git, not gh" note came from an SSH session on the Mac, where the
+  locked login keychain hides `gh`'s token, so a session without a valid login
+  falls back to `git` and a compare URL.
 
 ## 2026-11-18 — `hard` is for long-horizon and large-scope work
 
