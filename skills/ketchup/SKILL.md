@@ -10,7 +10,7 @@ Catch the user up on what changed in this chat since the last message they wrote
 
 ## Gather what changed
 
-Keep this turn read-only. Make visuals only from what you already have. Do not change code, start an app or a job, or post anything to make them. Collect your own work since that message, reports from subagents, and messages from anyone else in this chat. Check the current state of each PR, CI run, or agent this chat touched. Check each number you show against its source, and say when you correct one.
+Keep this turn read-only. Make visuals only from what you already have. Do not change code, start an app or a job, or post anything to make them. Collect your own work since that message, reports from subagents, and messages from anyone else in this chat. Check the current state of each PR, CI run, or agent this chat touched. Say which you could not check. Check each number you show against its source, and say when you correct one.
 
 An action item is a decision or step only the user can take, such as a product choice, an approval, an irreversible action, or access you lack. Include any still waiting on the user, even one raised before their last message. Work you can still do yourself is not an action item. Never invent a call to fill the reply. An unrequested step the work does not need is not an action item, unless it is irreversible and waiting on the user. Give that exception one short sentence and no visual, instead of the decision brief below.
 

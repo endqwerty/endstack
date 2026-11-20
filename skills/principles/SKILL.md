@@ -21,7 +21,7 @@ In your reply, name each principle that shaped a decision and the specific choic
 - [Outcome-Oriented Execution](references/outcome-oriented-execution.md) — during planned rewrites with explicit verification boundaries. Converge on the target architecture; do not preserve throwaway compatibility states.
 - [Experience First](references/experience-first.md) — when choosing product, user experience, or feature scope tradeoffs. Choose the user's experience over implementation convenience.
 - [Exhaust the Design Space](references/exhaust-the-design-space.md) — when a novel interaction or architecture has no established precedent. Build two or three competing sketches and compare them before committing.
-- [Build the Lever](references/build-the-lever.md) — when non-trivial work needs a rerunnable edit or proof. Build the tool that does or proves the work (codemod, script, generator); the tool is what a reviewer reruns.
+- [Build the Lever](references/build-the-lever.md) — when the work is more than a couple of obvious edits. Build the tool that does or proves it (codemod, script, generator, rerunnable check); the bar is triviality, not repetition.
 
 **Architecture**
 

@@ -69,8 +69,8 @@ Boundary, Type System, Fix Root Causes and Reader Load leaves. The old leaves
 words) both raised the guard hiding the bug, the catch returning success, the
 cast on disk data, the illegal-state `Account` type, the non-null assertion,
 the pass-through helpers, the hidden module cache and the missing test and
-signal; the final arm reached the restart cause through its reproduction
-test instead of a rule. `out-new.md` is an intermediate version.
+signal; the final arm named the disk-loaded cache as the likely cause and proposed
+a restart reproduction test, without a rule telling it to. `out-new.md` is an intermediate version.
 
 ## Endstack additions dropped (2026-11-20)
 
@@ -96,6 +96,14 @@ classification).
   when it is more than a delay, and no separate still-running line.
 - `no-comments`: the exception list is upstream's Comment Sicko list; the
   landmines list and `WARNING:` format go.
+  Dry run, tool-free, one sample each on Sonnet 5.5, nine comments in one
+  diff ([runs](principles-short-runs/no-comments/)): both arms keep the
+  licence header, API doc, platform note and formatter ignore and delete the
+  narration and the `IMPORTANT: do not remove` on our own code. The new arm
+  keeps the issue-link comment (upstream's list allows it) where the old arm
+  deleted it, keeps the platform note as written instead of rewriting it to
+  `WARNING:`, and deletes a coverage ignore on dead code that the old list
+  kept.
 - `interrogate`: upstream's 2.3 KB version (adversaries prove each finding
   with a run; unverified findings drop) replaces the 20.5 KB panel, rubric
   and four references. Dry run with tools on a fixture with three planted
