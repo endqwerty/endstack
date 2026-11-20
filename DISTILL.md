@@ -212,6 +212,14 @@ Statechart remains the separately maintained homelab pin.
 [Per-commit decisions, checks and dry runs](docs/upstream-de8ee15-review.md),
 [W7 port notes](docs/import-notes/W7.md).
 
+### Upstream review at 0b46ec3 (2026-11-20)
+
+Reviewed the five pstack commits after `de8ee15`. Took upstream's cuts to
+`why`, `how`, `architect`, `reflect`, `unslop` and `technical-writing`, and
+sharpen's prototype rule. Kept the principle leaves at full length, as at
+`190d287`. [Decisions, checks and dry runs](docs/upstream-0b46ec3-review.md),
+[W9 port notes](docs/import-notes/W9.md).
+
 ### Video catch-up and standing coordinator (2026-11-10)
 
 Daniel asked for pstack's ketchup-video and orchestrate (at `de8ee15`). The

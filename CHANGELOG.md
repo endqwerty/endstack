@@ -1,5 +1,18 @@
 # Change log
 
+## 2026-11-20 — Upstream cuts through 0b46ec3
+
+- `why`, `how`, `architect`, `reflect`: one short file each, as upstream cut
+  them; their worker prompts, rosters, templates and source playbooks are
+  deleted. `architect` sends large or contested designs to `arena`.
+- `unslop` and `technical-writing`: upstream's shorter bodies; rule numbers
+  stay, `references/style-layers.md` is folded in.
+- `sharpen`: the rewritten prompt asks to prototype choices an experiment can
+  settle. `recall`, `teach` and `build`'s design step stop pointing at removed
+  parts.
+- Not taken: the shorter principle leaves, model routing, poteto-mode and
+  statechart changes. [Review](docs/upstream-0b46ec3-review.md).
+
 ## 2026-11-18 — Agents merge their verified PRs
 
 - AGENTS.md: agents merge their own checked, independently verified PRs with
