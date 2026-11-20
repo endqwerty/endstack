@@ -69,3 +69,8 @@ Known nit: `build-design`'s consumer graders still credit a code line followed
 by a block comment that names an archive field (`foo(); /* t.archivedAt */`).
 Pattern graders cannot parse comments; this construction is unlikely in a real
 run.
+
+Known nit: `bugfix-shared-fault`'s final-run grader checks only what follows
+the last green summary in the final test command's result, so a command that
+fails, then prints a clean summary and exits 0 (possible only with `;`, not
+`&&`) would pass.
