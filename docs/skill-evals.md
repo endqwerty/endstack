@@ -64,3 +64,8 @@ What this run shows:
   order checks that accepted unrelated events, listings counted as reads,
   "email" and "mail" rejected by turns, a corrupt patch and a fixture that did
   not establish its constraint; each fixed with wrong and right controls.
+
+Known nit: `build-design`'s consumer graders still credit a code line followed
+by a block comment that names an archive field (`foo(); /* t.archivedAt */`).
+Pattern graders cannot parse comments; this construction is unlikely in a real
+run.
