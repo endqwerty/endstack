@@ -17,7 +17,9 @@ Own only the landing the user authorized.
    documented exemption on the current revision, required checks passing on
    the current base,
    every finding, a bot's included, fixed or answered, and the host reporting
-   it mergeable. Otherwise report the gap; do not ask for approval.
+   it mergeable. Otherwise report the gap; do not ask for approval. To wait
+   on pending checks, use the harness's pull request watcher if it has one,
+   else [pr-watch](../pr-watch/SKILL.md), never a polling loop.
 3. Land only the contiguous authorized, verified run from the lowest unmerged
    dependency, one request at a time, using the project's delivery mechanism.
    Do not merge a child into an unlanded parent or arm descendants.

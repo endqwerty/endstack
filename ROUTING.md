@@ -11,6 +11,7 @@ safety are tasks, however short.
   `autopilot-full` only on an explicit request to merge, land or ship;
   "autopilot" or "full send" on a change is that request for the latter, with
   no waiting for approval. "Full stop": build, then babysit to ready, unmerged.
+- Waiting on a pull request, yours or anyone's: `pr-watch`.
 - Independent parts worth running at once: `swarm`.
 - Any prose, replies included: `unslop`. Docs, README, RFC, PR text, commit
   messages: also `technical-writing`.

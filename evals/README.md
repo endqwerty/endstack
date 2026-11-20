@@ -142,4 +142,5 @@ trace instead.
 | unslop-prose | unslop | three pieces of prose without dashes, curly quotes, bold-label colons, rule 7's words or chatbot phrases |
 | principles-review | principles | guard hiding the bug, swallowed catch, cast on disk data |
 | why-retry | why | cites PR #812, marks inference, says the record does not show the rotation, advises keeping 7 |
+| pr-watch-wait | pr-watch | waiting for an upstream PR to merge runs the bundled watcher with `--until merged`, no sleep loop, no write to the PR; the reply ties the next step to the merge |
 | architect-ratelimit | architect | two shapes compared, router middleware with a shared counter, jobs exempt by construction |

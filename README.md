@@ -5,7 +5,7 @@
 Daniel Yang's agent stack: skills for Claude Code and Codex (through T3 Code),
 distilled from Lauren Tan's [pstack](https://github.com/cursor/plugins/tree/main/pstack).
 
-**State: five core delivery skills plus 23 role skills.** Build, babysit, ship,
+**State: five core delivery skills plus 24 role skills.** Build, babysit, ship,
 autopilot-full and verify keep implementation, readiness and merge authority
 separate. Start with the [command cookbook](docs/cookbook.md) for the full
 catalog, copyable prompts, outputs and stopping points. Distribution uses a
@@ -27,7 +27,7 @@ carry no tool, model or harness names; see the [skills table](#skills) and
 | --- | --- |
 | Delivery (core, about 2 KB each) | build, babysit, ship, autopilot-full, verify |
 | Explain and think | interview, architect, how, why, correct, ketchup, sharpen |
-| Review and process | goldfish, drift, interrogate, arena, swarm, orchestrate, show-me-your-work, benchmark-checklist, bro |
+| Review and process | goldfish, drift, interrogate, arena, swarm, orchestrate, show-me-your-work, benchmark-checklist, pr-watch, bro |
 | Writing and code | technical-writing, unslop, no-comments, typescript-best-practices, test-design, formal-verification |
 | Principles | principles (index; each principle is a reference read on demand) |
 
@@ -53,7 +53,7 @@ in its `AGENTS.md`.
 
 ## Install
 
-Only `skills/` is installable (28 skills). Add `-s build -s verify ...` to take a subset.
+Only `skills/` is installable (29 skills). Add `-s build -s verify ...` to take a subset.
 
 **With npx** (any machine; installs to Claude Code, Codex, Kiro and other agents):
 
@@ -83,6 +83,18 @@ points, update steps, prompts and stopping points.
 [Distribution checks](docs/distribution-checks.md) record the tested surface
 and remaining limits. First installation through homelab requires access to the
 private source repository; cached checks work offline.
+
+## Checks
+
+```sh
+python3 scripts/check-skills.py && python3 scripts/check-routing.py
+python3 -m unittest discover -s scripts -p 'test_*.py'
+python3 -m unittest discover -s skills/pr-watch/scripts
+python3 evals/check-evals.py
+```
+
+A skill that bundles a script keeps its tests beside it in `scripts/`; add
+its `unittest discover` line here.
 
 ## License
 

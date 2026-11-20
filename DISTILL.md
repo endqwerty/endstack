@@ -212,6 +212,16 @@ Statechart remains the separately maintained homelab pin.
 [Per-commit decisions, checks and dry runs](docs/upstream-de8ee15-review.md),
 [W7 port notes](docs/import-notes/W7.md).
 
+### pr-watch (2026-11-20)
+
+A new endstack skill, not from pstack: any agent can wait on any pull request
+it can read and act on each change. Delivery skills said "use the harness's
+watcher, not a polling loop" but gave nothing to use where the harness has
+none, which left each agent to improvise a wait. The waiting logic is deterministic,
+so it is a bundled script with tests rather than prose; AGENTS.md now allows
+that. Event subscriptions are a preview the account may not have (this
+account's returned HTTP 403), so the script detects that and polls.
+
 ### Standing skill evals (2026-11-20)
 
 Skill changes now carry a `homelab skill-eval` score table instead of a
