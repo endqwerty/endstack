@@ -36,7 +36,8 @@ Codex (`codex exec`), and graded by checks a machine decides.
 | why-retry | 1.00 | 1.00 |
 | **total** | **0.96** | **0.87** |
 
-Claude $3.81, judge $0.65. One run per case is a snapshot: Codex's
+Claude $3.81 (the full run plus a `review-routing` rerun after the grader
+fixes); Codex judge $0.39 for the Codex column. One run per case is a snapshot: Codex's
 `ship-explains` scored 0.86 in an earlier run and 0.57 here on a reasonable
 reply that did not name review findings or mergeability. Compare base and head
 with the default three runs.
