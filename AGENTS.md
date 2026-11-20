@@ -26,7 +26,7 @@ size, no tool or model names, links) and must pass.
 - One skill, one job, one role. Deterministic work belongs in the `homelab` CLI
   with tests, not in a skill.
 - **Core delivery skills** (build, babysit, ship, autopilot-full, verify): `SKILL.md` at most 2,200 bytes, judgment and policy
-  only; changes get a dry run in the PR.
+  only; changes get an eval score table in the PR (below).
 - **Role skills**, imported (ported from pstack, see `candidates/README.md` and
   DISTILL.md) or new: keep an imported skill's role, identity, structure and
   judgment; `SKILL.md` at most 6,000 bytes, longer material in `references/` read on demand. Porting removes
@@ -70,5 +70,9 @@ SSH to the Mac, whose login keychain holds the token but stays locked), push
 with `git`, give the compare URL the push prints, and name opening and merging
 the PR as the pending step.
 
-Changes to a skill's behaviour get a dry run described in the PR: what the
-agent did with the old text and the new, or without and with a new skill. Record changes in CHANGELOG.md.
+Changes to a skill's behaviour, or to ROUTING.md, get evidence from the standing
+evals in [evals/](evals/README.md): run `homelab skill-eval main HEAD` (at least
+the cases tagged with the touched skills, `--case`) and paste the score table in
+the PR. A skill with no case gets one in the same change; a hand-run dry run
+stays acceptable only for a behaviour no case can grade, and the PR says why.
+Record changes in CHANGELOG.md.
