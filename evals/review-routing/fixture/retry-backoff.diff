@@ -1,0 +1,55 @@
+diff --git a/src/queue/retry.ts b/src/queue/retry.ts
+index 5bdd431..b368584 100644
+--- a/src/queue/retry.ts
++++ b/src/queue/retry.ts
+@@ -1,11 +1,19 @@
+ export type RetryOptions = {
+   maxAttempts: number;
+-  delayMs: number;
++  baseMs: number;
++  capMs: number;
++  random?: () => number;
+   sleep?: (ms: number) => Promise<void>;
+ };
+ 
+ const realSleep = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
+ 
++export function backoffMs(attempt: number, opts: RetryOptions): number {
++  const random = opts.random ?? Math.random;
++  const exp = Math.min(opts.capMs, opts.baseMs * 2 ** attempt);
++  return exp + random() * opts.baseMs;
++}
++
+ export async function withRetry<T>(fn: () => Promise<T>, opts: RetryOptions): Promise<T> {
+   const sleep = opts.sleep ?? realSleep;
+   let attempt = 0;
+@@ -14,8 +22,8 @@ export async function withRetry<T>(fn: () => Promise<T>, opts: RetryOptions): Pr
+       return await fn();
+     } catch (err) {
+       attempt++;
+-      if (attempt >= opts.maxAttempts) throw err;
+-      await sleep(opts.delayMs);
++      if (attempt > opts.maxAttempts) throw err;
++      await sleep(backoffMs(attempt, opts));
+     }
+   }
+ }
+diff --git a/test/retry.test.ts b/test/retry.test.ts
+new file mode 100644
+index 0000000..3a1ecba
+--- /dev/null
++++ b/test/retry.test.ts
+@@ -0,0 +1,13 @@
++import { test } from "node:test";
++import assert from "node:assert/strict";
++import { withRetry } from "../src/queue/retry.ts";
++
++test("withRetry returns the first success", async () => {
++  let calls = 0;
++  const result = await withRetry(async () => {
++    calls++;
++    if (calls < 2) throw new Error("flaky");
++    return "ok";
++  }, { maxAttempts: 3, baseMs: 1, capMs: 10, sleep: async () => {} });
++  assert.equal(result, "ok");
++});
