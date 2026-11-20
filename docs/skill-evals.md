@@ -33,36 +33,31 @@ Codex (`codex exec`), and graded by checks a machine decides.
 | review-routing | 0.75 | 1.00 |
 | ship-explains | 1.00 | 0.86 |
 | unslop-prose | 0.88 | 1.00 |
-| why-retry | 0.83 | 0.83 |
-| **total** | **0.93** | **0.93** |
+| why-retry | 0.83 | 1.00 |
+| **total** | **0.93** | **0.95** |
 
 Claude $3.33, Codex judge $0.48. One run per case is a snapshot; compare base
-and head with the default three runs. An earlier run, before the grader fixes
-below, scored 0.96 and 0.87 and is superseded.
+and head with the default three runs. Codex's `why-retry` is regraded from its
+saved trace: its `for skill in why ...; do cat ...` read missed a grader bug
+fixed after the run (0.83 as run). An earlier run, before the grader fixes, is
+superseded.
 
-Known limits of this run: Claude's `review-routing` miss is plugin eval's own
-judge (votes FAIL, PASS, FAIL) on a reply that says "`maxAttempts` now allows
-one extra call", the same weakness the Codex judge had; plugin eval does not
-keep its traces, so Claude's `test-failed-before-fix` and `why-retry` misses
-could not be read back; the Codex judge's saved reasons started after this run.
+What this run shows:
 
-What the baseline found:
-
-- **Grader misfires, fixed:** skill reads done in a shell loop or a `{a,b}`
-  path were not counted; the extra-retry judge question demanded the `>=` to
-  `>` detail; the Codex judge, one strict vote, passed a correct reply 1 time
-  in 6 while its reason said the criterion was met (now 5 of 5, and 0 of 3 on
-  a reply that misses the point).
-- **Open questions, not yet skill gaps:** both agents deleted the issue-link
-  comment, but the fixture never showed the external constraint it cites, so
-  deletion was defensible; the fixture now establishes it. On
-  `interrogate-pager`, Codex's reply named all three bugs and included the
-  command it ran (`reply-shows-commands` passed), yet the three judge questions
-  that combine each bug with its evidence failed; read the judges' reasons on
-  the next run before calling this a skill gap.
-- **Graders that credited the unchanged fixture, fixed after review:** three
-  `bugfix-shared-fault` outcome graders matched text already in the fixture,
-  its order graders accepted unrelated events, a directory listing counted as a
-  read, and `build-design`'s consumer graders passed a whitespace-only edit. The
-  baseline above predates these fixes, so its `bugfix-shared-fault` and
-  `build-design` scores are upper bounds.
+- **Judge misses on correct replies (Claude arm):** `review-routing`'s reply
+  says "`maxAttempts` now allows one extra call", yet plugin eval's own judge
+  voted FAIL, PASS, FAIL; `why-retry`'s reply says the record cannot tell
+  whether the partner still rotates nightly, yet the judge voted FAIL three
+  times on `rotation-unknown`. The Claude arm's judge has the weakness the
+  Codex judge had before its fix; follow-up.
+- **Not readable back:** plugin eval keeps no trace, so Claude's
+  `bugfix-shared-fault` miss on `test-failed-before-fix` cannot be checked.
+- **Codex misses to read with the saved judge reasons on the next run:** one
+  of three pager bugs without its command (`interrogate-pager`), the issue-link
+  and platform-note comments (`no-comments-nine`), and the explicit-request
+  wording in `ship-explains`. The Codex judge started saving reasons after this
+  run.
+- **Grader fixes from review:** graders that credited the unchanged fixture,
+  order checks that accepted unrelated events, listings counted as reads,
+  "email" and "mail" rejected by turns, a corrupt patch and a fixture that did
+  not establish its constraint; each fixed with wrong and right controls.
