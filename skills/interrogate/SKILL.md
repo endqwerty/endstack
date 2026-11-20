@@ -14,7 +14,7 @@ The scope is what the user names. Otherwise it is the branch diff from its merge
 
 ## Fan out
 
-Run Phase A steps 3 and 4 and Phase B of the [arena](../arena/SKILL.md) skill, with three changes. Copy the scope's uncommitted changes into each adversary's checkout. Use separate workers if the harness has them; otherwise play each adversary yourself in sequence and say so, since the findings are then not independent. In place of the arena task and rubric, give each adversary the scope, the intent, and this brief:
+Choose at least two adversaries suited to the scope, from different model families if available. Give each its own isolated checkout and copy the scope's uncommitted changes into it. If the harness has separate workers, launch them all in parallel; otherwise play each adversary yourself in sequence and say so, since the findings are then not independent. If an adversary cannot start or returns nothing, continue with the rest and say so. Give each adversary the scope, the intent, and this brief:
 
 > Break this change. Prove each finding with a run against the real code, such as a failing test, a repro script, or command output that shows the wrong behavior. For a design or plan, run a prototype or probe the current tree. Report each finding with a title, the exact command, including any repro script's full text so it runs from the scope's own checkout, the output it printed, and the output the intent requires. Leave out anything you did not run. That covers style, naming, structure, and risks that need a future change to matter. No findings is a valid result.
 
@@ -22,7 +22,7 @@ Run Phase A steps 3 and 4 and Phase B of the [arena](../arena/SKILL.md) skill, w
 
 Rerun each finding's command. Keep a finding when the output shows the failure and the failure breaks the intent. Drop the rest. Merge findings that share a root cause.
 
-Skip arena Phases C, D, and E. Adversaries find different failures, so the verdict keeps every verified finding, not one adversary's list.
+There is no judge, base or graft: adversaries find different failures, so the verdict keeps every verified finding, not one adversary's list.
 
 ## Output
 

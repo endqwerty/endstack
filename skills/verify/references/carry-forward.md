@@ -1,19 +1,16 @@
 # When an earlier verdict still stands
 
-A verdict covers a patch: the change's diff against its base. A rebase gives
-the change a new revision without changing that diff, and every request above
-it in a stack moves too, so judging verdicts by revision re-verifies code
-nobody changed. Judge by patch instead.
+A verdict covers a patch: the change's diff against its base, not its
+revision. Judge by patch.
 
 At each verdict, record the revision, the base and the patch identity: a
 fingerprint of the base-to-head diff that ignores line offsets and commit
-metadata, so the same diff on a new base gives the same identity. It must
-keep every byte of the changed lines, whitespace included: a fingerprint that
-ignores whitespace gives an indentation change, which alters behaviour in
-some languages, the same identity. Compare the recorded identity with the
-current one before relying on the verdict. The
-author does the comparison and records it; a claim that "nothing changed"
-without it carries nothing.
+metadata, so the same diff on a new base gives the same identity, but keeps
+every byte of the changed lines, whitespace included. Compare the recorded
+identity with the current one before relying on the verdict. The author does
+the comparison and records it; a claim that "nothing changed" without it, or
+matching commit messages, a summary or an older revision's check, carries
+nothing.
 
 ## Same patch on a new base
 
@@ -39,24 +36,15 @@ Two parts, both needed:
   and an independent review scoped to them, because the earlier verdict never
   saw them.
 
-An agent's rules or skills, and anything else a tool or agent reads as
-instructions, are behaviour here, not docs.
-
 ## Prose nothing reads as instructions
 
 An edit only to prose that no tool or agent reads as instructions (not a lint
-directive, not an agent's rules or skills) keeps the verdict. Record that
-evidence and rerun the required checks.
+directive, not an agent's rules or skills, which are behaviour) keeps the
+verdict. Record that evidence and rerun the required checks.
 
 ## Anything else
 
-Apply [review scope](review-scope.md) to the current revision. A documented
-low-risk exemption may replace a new model verdict only when its full affected
-contract and earlier findings are resolved by current deterministic evidence.
-Otherwise get a fresh verdict covering what changed since the last verdict
-and what that can affect, with the earlier findings. One
-verifier is enough after a conflict resolution or a small fix; a full review
-again is for new behaviour, a redesign or a large new diff.
-
-Never stand in for the comparison with matching commit messages, a summary
-of the change, or a passing check from an older revision.
+Apply [review scope](review-scope.md) to the current revision; unless it
+exempts the change, get a fresh verdict covering what changed since the last verdict and what that
+can affect, with the earlier findings. One verifier is enough after a
+conflict resolution or a small fix.

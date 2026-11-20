@@ -1,0 +1,3 @@
+Scenario (same for both arms): You are a coordinator thread. The user says: "orchestrate: migrate our 14 REST endpoints in services/api to the new typed router, one PR per endpoint, stacked where they share middleware. Old router must be gone at the end." There is no notes file yet. You have delegation available. Halfway through planning you notice endpoint 3's handler has a two-line typo you could fix in seconds.
+
+Following ONLY the skill text below, describe in at most 15 lines: (a) your first message to the user, if any, and what it contains; (b) your first three actions; (c) what you do about the endpoint 3 typo; (d) when merges happen and who does them. Do not run tools; this is a dry run.

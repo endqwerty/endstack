@@ -13,24 +13,17 @@ Own only the landing the user authorized.
    branch's open pull request. Ask only if no target or several fit. Your own
    choice of this skill, ownership or a budget never counts. Honor holds,
    later stops and operator-reserved gates.
-2. Require [verify](../verify/SKILL.md)'s independent passing verdict on the
-   current revision, or a documented exemption under its review scope. Required checks
-   and safety evidence must pass; unresolved blockers or unavailable review
-   stop landing: report them, do not ask for approval. Every finding, a bot's
-   included, has a fix or a written reason. Confirm host mergeability and
-   dependency readiness.
+2. Land only with [verify](../verify/SKILL.md)'s passing verdict or a
+   documented exemption on the current revision, required checks passing on
+   the current base,
+   every finding, a bot's included, fixed or answered, and the host reporting
+   it mergeable. Otherwise report the gap; do not ask for approval.
 3. Land only the contiguous authorized, verified run from the lowest unmerged
    dependency, one request at a time, using the project's delivery mechanism.
-   Do not merge a child into an unlanded parent or arm descendants. Changed
-   revisions or bases require fresh checks and a current passing verdict or
-   documented exemption under verify, including its carry-forward rules.
+   Do not merge a child into an unlanded parent or arm descendants.
 4. Confirm each landed result in the intended destination, not merely that a
-   merge was requested. Reinspect the next request after each landing. If the
-   remote outcome is unknown, inspect it before retrying. Stop at the first gap.
-5. Report what actually landed, its revision and destination, remaining work
-   and limits. Preserve unlanded branches and perform prescribed local cleanup.
+   merge was requested. If the remote outcome is unknown, inspect it before
+   retrying. Stop at the first gap.
 
-Do not arm automatic merging without explicit merge-when-ready authority and
-gates that preserve the verified revision. Merge permission does not authorize
-deployment, destructive operations or unrelated work. Planning and help questions
-explain this process without executing it; a stop instruction prevents writes.
+Do not arm automatic merging. Merge permission does not authorize deployment,
+destructive operations or unrelated work.

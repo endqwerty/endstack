@@ -1,12 +1,32 @@
 ---
 name: show-me-your-work
-description: Keep a reviewable decision log for long, multi-phase or unattended work.
+description: Frame and run long, multi-phase or unattended work as verified experiments, with a reviewable decision log.
 disable-model-invocation: true
 ---
 
 # Show me your work
 
-Keep one canonical log.
+Frame the run, run each unit as an experiment, and keep one canonical log a human can audit after stepping away.
+
+## Before a long run
+
+Ground first, then commit. Don't start until you can state:
+
+- The definition of done as a falsifiable predicate (the [verify](../verify/SKILL.md) skill).
+- Scope, quantified: rough units and effort, plus the blockers grounding surfaced.
+- The rigor level, biased high. One-way doors and high blast radius get more; reversible low-stakes steps get less. Rigor is gates and artifacts, not "try harder".
+
+Present the framing and tradeoffs, then proceed on reversible work; a multi-hour run earns one checkpoint. Build the verification harness before the work, with the baseline captured from the pre-change state, so each check reads as "old value vs new value".
+
+## Run the loop
+
+Each unit is an experiment. State the hypothesis, make the smallest change, measure against the predicate on the real artifact, keep it if it advanced, revert it if it didn't. Verify each unit before starting the next instead of batching checks at the end (the [sequence-verifiable-units](../principles/references/sequence-verifiable-units.md) principle).
+
+- Verify by inspecting the artifact, never a self-report. When something passes too easily, suspect the observation method before the system.
+- Pair delegated work with a judge in fresh context independent of the author. If a worker games the gate, reset and harden the contract. If the gate itself is wrong, fix the gate in its own change rather than routing around it.
+- A verdict is VERIFIED, NOT VERIFIED, or INCONCLUSIVE. Inconclusive is not a pass. Don't hide a negative.
+
+Log a row as each unit lands, not the whole trail at the end. At the end, check the whole against the predicate on the real product, not just the harness.
 
 ## The format
 
@@ -50,7 +70,7 @@ Commit it only when the work is ambitious enough that a reviewer needs the trail
 ## Rules
 
 - Append-only. A wrong call gets a new row that supersedes it. Never edit or delete history.
-- Prefer evidence produced by committed scripts over hand-made one-offs (the [encode-lessons-in-structure](../principles/references/encode-lessons-in-structure.md) principle).
+- Prefer evidence produced by committed scripts over hand-made one-offs.
 
 ## Audit and review before handoff
 

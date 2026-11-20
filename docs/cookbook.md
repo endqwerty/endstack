@@ -12,7 +12,7 @@ ordinary matching request can also select it automatically.
 | build | `$build` | `/build` |
 | babysit | `$babysit` | `/babysit` |
 | ship | `$ship` | `/ship` |
-| ketchup-video | `$ketchup-video` | `/ketchup-video` |
+| ketchup | `$ketchup` | `/ketchup` |
 | orchestrate | `$orchestrate` | `/orchestrate` |
 | autopilot-full | `$autopilot-full` | `/autopilot-full` |
 | verify | `$verify` | `/verify` |
@@ -27,12 +27,12 @@ the named skill and check that the agent loads its installed `SKILL.md`.
 | [build](../skills/build/SKILL.md) | A feature or bug fix | Checked, independently verified non-draft PR; no watcher or merge |
 | [babysit](../skills/babysit/SKILL.md) | Existing PR feedback and failed checks | Merge-ready PR; no merge. Status questions are read-only |
 | [ship](../skills/ship/SKILL.md) | Explicitly landing identified work | Confirmed revision in its destination, or a named blocker |
-| [ketchup-video](../skills/ketchup-video/SKILL.md) | Named video catch-up since your last message | Silent subtitled video, followed by all user decisions in text |
+| [ketchup](../skills/ketchup/SKILL.md) | Named catch-up since your last message, as text or, when asked, a video | Summary with every decision waiting on you; the video form is a silent subtitled video plus the decisions in text |
 | [orchestrate](../skills/orchestrate/SKILL.md) | Named multi-day program under one coordinator thread | Owners build, verify and land each PR; explicit no-merge stops at merge-ready |
 | [autopilot-full](../skills/autopilot-full/SKILL.md) | A bounded queue with explicit merge authority | Verified, landed items; held items remain held |
 | [verify](../skills/verify/SKILL.md) | Independent evidence on an exact revision | Read-only pass / issues / not checked verdict; no merge authority |
 
-The role skills (architect, swarm, tdd and the rest) install alongside them;
+The role skills (architect, swarm, test-design and the rest) install alongside them;
 ROUTING.md says when each applies. Upstream's playbooks remain reference only.
 
 ## Install and update
@@ -99,7 +99,7 @@ I'll land it" reserves landing. Deployment and destructive actions stay
 excluded.
 
 **Video catch-up:**
-> $ketchup-video Catch me up since my last message.
+> $ketchup Catch me up since my last message, as a short video.
 
 **Full autopilot (the special case):**
 > $autopilot-full Implement and merge only [A, B, C],

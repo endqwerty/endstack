@@ -1,12 +1,14 @@
 ---
 name: ketchup
-description: Catch the user up on this chat since their last message, with the decisions waiting on them.
+description: Catch the user up on this chat since their last message, with the decisions waiting on them; as a short subtitled video when asked.
 disable-model-invocation: true
 ---
 
 # Ketchup
 
-Catch the user up on what changed in this chat since the last message they wrote before the catch-up request. Notifications and subagent results are not their messages. Use the bro style: plain, direct, conversational language, without restating the request. Assume the user remembers their last message and nothing after it. Call each PR, branch, or agent by a name they would know, not by a label you invented during the work.
+When a video catch-up is asked for, read [references/video.md](references/video.md) and follow it.
+
+Catch the user up on what changed in this chat since the last message they wrote before the catch-up request. Notifications and subagent results are not their messages. Use the [bro](../bro/SKILL.md) style: plain, direct, conversational language, without restating the request. Assume the user remembers their last message and nothing after it. Call each PR, branch, or agent by a name they would know, not by a label you invented during the work.
 
 ## Gather what changed
 

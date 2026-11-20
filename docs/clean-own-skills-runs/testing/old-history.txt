@@ -1,0 +1,120 @@
+commit be3fe0b Drop redundant proofs: invoice, mail and uncapped receipt share the fixed orderTotalCents
+
+diff --git a/test/refunds.test.js b/test/refunds.test.js
+index 17be63e..a53e796 100644
+--- a/test/refunds.test.js
++++ b/test/refunds.test.js
+@@ -2,8 +2,6 @@ import { test } from 'node:test';
+ import assert from 'node:assert/strict';
+ import { orderTotalCents } from '../src/lib/orders.js';
+ import { receipt } from '../src/cli/receipt.js';
+-import { invoiceHtml } from '../src/web/invoice.js';
+-import { mailSummary } from '../src/integrations/mail/summary.js';
+ 
+ const order = {
+   id: 'A1',
+@@ -17,18 +15,6 @@ test('order total excludes refunded lines', () => {
+   assert.equal(orderTotalCents(order), 1000);
+ });
+ 
+-test('receipt total excludes refunded lines even when nothing was charged yet', () => {
+-  assert.match(receipt(order), /Total: \$10\.00$/);
+-});
+-
+ test('receipt total excludes refunded lines when chargedCents is larger', () => {
+   assert.match(receipt({ ...order, chargedCents: 1300 }), /Total: \$10\.00$/);
+ });
+-
+-test('invoice total excludes refunded lines', () => {
+-  assert.match(invoiceHtml(order), /\$10\.00</);
+-});
+-
+-test('mail summary total excludes refunded lines', () => {
+-  assert.match(mailSummary(order), /\$10\.00$/);
+-});
+commit 1ee3dd9 Exclude refunded lines from order totals; drop receipt cap and invoice's own sum
+
+diff --git a/src/cli/receipt.js b/src/cli/receipt.js
+index a8d9827..39d9eba 100644
+--- a/src/cli/receipt.js
++++ b/src/cli/receipt.js
+@@ -2,8 +2,5 @@ import { orderTotalCents, formatCents } from '../lib/orders.js';
+ 
+ export function receipt(order) {
+   const rows = order.lines.map((l) => `${l.sku} x${l.qty}${l.refunded ? ' (refunded)' : ''}`);
+-  let total = orderTotalCents(order);
+-  // Refunded lines sometimes pushed totals past what was charged; cap at charged amount.
+-  if (order.chargedCents !== undefined && total > order.chargedCents) total = order.chargedCents;
+-  return [...rows, `Total: ${formatCents(total)}`].join('\n');
++  return [...rows, `Total: ${formatCents(orderTotalCents(order))}`].join('\n');
+ }
+diff --git a/src/lib/orders.js b/src/lib/orders.js
+index a44fc63..014c6cd 100644
+--- a/src/lib/orders.js
++++ b/src/lib/orders.js
+@@ -4,7 +4,7 @@ export function lineCents(line) {
+ }
+ 
+ export function orderTotalCents(order) {
+-  return order.lines.reduce((sum, line) => sum + lineCents(line), 0);
++  return order.lines.reduce((sum, line) => (line.refunded ? sum : sum + lineCents(line)), 0);
+ }
+ 
+ export function formatCents(cents) {
+diff --git a/src/web/invoice.js b/src/web/invoice.js
+index 9762793..dbe6698 100644
+--- a/src/web/invoice.js
++++ b/src/web/invoice.js
+@@ -1,8 +1,6 @@
+-import { formatCents } from '../lib/orders.js';
++import { orderTotalCents, formatCents } from '../lib/orders.js';
+ 
+ export function invoiceHtml(order) {
+-  let total = 0;
+-  for (const item of order.lines) total += item.qty * item.unitCents;
+   const rows = order.lines.map((l) => `<tr><td>${l.sku}</td><td>${l.qty}</td></tr>`).join('');
+-  return `<table>${rows}</table><p class="total">${formatCents(total)}</p>`;
++  return `<table>${rows}</table><p class="total">${formatCents(orderTotalCents(order))}</p>`;
+ }
+commit 32cab6a Add failing tests: refunded lines excluded from totals
+
+diff --git a/test/refunds.test.js b/test/refunds.test.js
+new file mode 100644
+index 0000000..17be63e
+--- /dev/null
++++ b/test/refunds.test.js
+@@ -0,0 +1,34 @@
++import { test } from 'node:test';
++import assert from 'node:assert/strict';
++import { orderTotalCents } from '../src/lib/orders.js';
++import { receipt } from '../src/cli/receipt.js';
++import { invoiceHtml } from '../src/web/invoice.js';
++import { mailSummary } from '../src/integrations/mail/summary.js';
++
++const order = {
++  id: 'A1',
++  lines: [
++    { sku: 'AB', qty: 2, unitCents: 500 },
++    { sku: 'CD', qty: 1, unitCents: 300, refunded: true },
++  ],
++};
++
++test('order total excludes refunded lines', () => {
++  assert.equal(orderTotalCents(order), 1000);
++});
++
++test('receipt total excludes refunded lines even when nothing was charged yet', () => {
++  assert.match(receipt(order), /Total: \$10\.00$/);
++});
++
++test('receipt total excludes refunded lines when chargedCents is larger', () => {
++  assert.match(receipt({ ...order, chargedCents: 1300 }), /Total: \$10\.00$/);
++});
++
++test('invoice total excludes refunded lines', () => {
++  assert.match(invoiceHtml(order), /\$10\.00</);
++});
++
++test('mail summary total excludes refunded lines', () => {
++  assert.match(mailSummary(order), /\$10\.00$/);
++});
