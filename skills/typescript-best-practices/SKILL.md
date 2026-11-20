@@ -12,7 +12,7 @@ Apply the [type-system-discipline](../principles/references/type-system-discipli
 | Rule | Summary |
 |------|---------|
 | Discriminated unions | Model variants with a `kind` literal discriminant so impossible states can't be represented. No optional-field bags. |
-| Branded types | Brand primitives so they can't be mixed up. Validate once at the boundary through a verifying type guard, not a cast. Respect existing validated opaque-type constructors and schema validators. |
+| Branded types | Brand primitives with `& { readonly __brand: "X" }` so they can't be mixed up. Validate once at the boundary. A brand comes from a verifying type guard (`input is AgentId`), never from `as`. |
 | Constructive modeling | Build the shape so the illegal value can't be constructed. `[T, ...T[]]` for non-empty, `[T, T][]` for even length, `start` plus `duration` for a range. Not a runtime guard, not a wish for refinement types. |
 | Simplest total type | Keep `T[]` while every operation on it stays total. Strengthen to `NonEmpty<T>` only where the loose type forces `!`, a cast, or a "should never happen" throw. |
 | `unknown` over `any` | External data is `unknown`. |
@@ -22,7 +22,6 @@ Apply the [type-system-discipline](../principles/references/type-system-discipli
 | Type guards | Must verify the claim. A lying guard is worse than `as` because the bug hides behind a name that says it's safe. Name them `isX` or `hasX`. |
 | Exhaustiveness | Inline `const _exhaustive: never = x;` in default arms so the compiler errors when a new variant is added. |
 | `satisfies` over `as` | Validates the value without widening literal types. |
-| Return types at the boundary | Annotate the return type of exported functions and public methods: it is the contract callers rely on, and the compiler checks ordinary returns against it. Write it as callers should see it (`readonly`, an interface) without dropping what they need, such as a literal union widened to `string`. Let local helpers and callbacks infer, except type predicates, assertion functions and recursive functions. A project's lint or convention on return types wins. |
 | Boundary validation | Parse where data crosses in, into a named domain type. `Record<string, unknown>` (however spelled) stops at that parse. Trust types inside. See the [boundary-discipline](../principles/references/boundary-discipline.md) principle. |
 | Schema-derived types | Reach for `Pick`/`Omit`/`Parameters`/`ReturnType`/`Awaited`/`typeof` before declaring a new interface. |
 | Object args | Pass objects, not positional, so argument order is self-documenting. Skip on hot paths (per-frame render, tokenizers, parsers). |

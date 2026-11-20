@@ -1,10 +1,7 @@
 # Guard the Context Window
 
-The context window is finite and non-renewable within a session. Every token should be worth its cost.
+Context overflow degrades reasoning and halts progress.
 
-**Why:** Context overflow degrades reasoning quality, creates compression artifacts, and halts progress.
-
-**Pattern:**
-- **Isolate large payloads.** Give verbose outputs, screenshots, and large documents to a separate worker, if the harness has one; otherwise process them yourself in sequence and say so. The main context gets summaries, not raw data.
-- **Keep frequently used content inline.** Templates and references used on every invocation belong in the skill file, not in separate files that cost a read each time.
-- **Size phases and cap scope.** Limit files per phase, set turn budgets, account for mechanism costs.
+- Give verbose outputs, screenshots, and large documents to a separate worker or a file, if the harness allows; the main thread gets summaries, not raw payloads.
+- Keep content used on every invocation inline, not in a file that costs a read each time.
+- Size phases and cap scope. Limit files per phase, set turn budgets, account for mechanism costs.

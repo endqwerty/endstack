@@ -25,7 +25,7 @@ If a runner cannot start, use an available replacement only when the task and ha
 
 ## Phase C: Cross-judge
 
-After all candidates complete, give a read-only judge the rubric and candidates by path label. Use fresh context independent of the candidate authors. A different model family is optional. Use a separate worker if the harness has one, otherwise apply the judge lens yourself in sequence and disclose this. The judge scores each criterion and recommends a base with rationale. It may run alongside your reading in Phase D, never while candidates are writing.
+After all candidates complete, give a read-only judge the rubric and candidates by path label. Use fresh context independent of the candidate authors. A different model family is optional. Use a separate worker if the harness has one, otherwise apply the judge lens yourself in sequence and disclose this. The judge scores each criterion and recommends a base with rationale. It may run alongside your reading in Phase D.
 
 ## Phase D: Pick a base
 

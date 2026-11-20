@@ -14,10 +14,6 @@ Write so a tired engineer understands on the first read.
 - Write the real symbol, file, flag, or command name, not a synonym or a description of it.
 - Don't invent jargon. Use the words a developer would say out loud. Say what a named pattern means the first time.
 
-## Keep the goal visible
-
-On the first task message, restate the user's goal and problem in your own words and, for a change, the smallest expected solution. Proceed without waiting for confirmation. Carry the goal into each delegated brief, the opening of the pull request's rationale, and the final report. Skip the final restatement for a fully specified one-line edit. If evidence rules out the requested change, show it and stop.
-
 ## Vary the rhythm
 
 - Mix sentence lengths. Split the sentence that carries two thoughts. Keep the long sentence that carries one.

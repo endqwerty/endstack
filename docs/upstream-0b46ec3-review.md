@@ -41,19 +41,76 @@ signals; `reflect`'s three lenses, synthesizer and routing table;
 offenders. `unslop` keeps every rule number; rule 26 loses the rarer metaphor
 nouns (evacuate, endgame, gold-plating and others).
 
-## Turned down: the 14 shorter principle leaves
+## Principle leaves: first turned down, then taken (2026-11-20)
 
-The 190d287 review turned down the same kind of shortening because pstack's
-per-turn mode restates the rules and endstack has no such mode. That still
-holds, and the new bodies drop rules endstack relies on: Fix Root Causes loses
-"after a restart, suspect persisted state" and the long-comment workaround
-rule; Type System Discipline keeps "reject impossible states" as one line
-but loses the sum-type guidance and examples, exhaustive matching, casts and
-partiality, which the index line and `build`'s design step rely on; Minimize
-Reader Load's new "inline one-caller wrappers" contradicts endstack's "one
-caller alone is not a reason to remove a useful helper"; Boundary Discipline
-loses the error-catching rules. The leaves load only when one applies, so the
-saving is small.
+#41 kept the leaves at full length. Daniel then asked for shorter ones and,
+after reviewing the endstack-only rules kept on top of upstream's text, to
+drop those too. The 13 leaves upstream shortened at `0b46ec3` now carry its
+bodies verbatim, with links pointed at endstack's paths. Upstream's 190d287
+versions of Encode Lessons, Exhaust the Design Space, Guard the Context
+Window, Laziness Protocol and Migrate Callers are fragments that lean on
+pstack's per-turn mode, so those five are rewritten short and complete from
+the old text. Five leaves were already upstream's length. Total: 33.3 KB to
+15.6 KB.
+
+Dropped endstack rules and where they still live, if anywhere: sum types,
+exhaustive matches, casts and partiality (`typescript-best-practices`,
+`build` design step 3); a proof-only test in a last commit (`build` design
+step 8, `test-design`); classifying a correction (`correct`); keeping a
+useful one-caller helper, persisted state after a restart, the
+error-catching rules, the softer build-the-lever bar (gone). Three index
+lines in `principles/SKILL.md` follow the new bodies.
+
+Dry run, one sample per arm on Claude Sonnet 5.5, tool-free
+([runs](principles-short-runs/)): review a TypeScript fix that hides a crash
+after restart behind a guard, a cast and a swallowed error, given the
+Boundary, Type System, Fix Root Causes and Reader Load leaves. The old leaves
+(`out-old.md`, 689 words) and the final upstream leaves (`out-final.md`, 645
+words) both raised the guard hiding the bug, the catch returning success, the
+cast on disk data, the illegal-state `Account` type, the non-null assertion,
+the pass-through helpers, the hidden module cache and the missing test and
+signal; the final arm named the disk-loaded cache as the likely cause and proposed
+a restart reproduction test, without a rule telling it to. `out-new.md` is an intermediate version.
+
+## Endstack additions dropped (2026-11-20)
+
+Daniel asked which other rules endstack had added on top of upstream. Three
+read-only workers compared each of the 24 imported skills with pstack at
+`0b46ec3` ([A](principles-short-runs/A.md), [B](principles-short-runs/B.md),
+[C](principles-short-runs/C.md)). He chose to drop the low-evidence extras,
+the stale `interrogate` and the borrowed `ketchup` and `no-comments` text, and
+to keep the additions with recorded evidence (`tdd`'s consumer and
+subtraction checks, `arena`'s dissenter, `sharpen`, `correct`'s
+classification).
+
+- `typescript-best-practices`: upstream's text; the return-types row goes
+  ([landmines-lessons.md](landmines-lessons.md) recorded no uplift).
+- `technical-writing`: "Keep the goal visible" goes (no uplift at de8ee15).
+- `tdd`: the two lines that only asked to cite principles go.
+- `swarm`: the intro paragraph and the duplicate result-table line go.
+- `correct`: the sentences that repeat the global rules go.
+- `create-formal-verification-skill`: the `tdd` pointer (ROUTING.md routes
+  it) and the dead "scripted journey" line go.
+- `arena`: "never while candidates are writing" goes.
+- `ketchup`: upstream's opener (what waits on the user), cost of waiting only
+  when it is more than a delay, and no separate still-running line.
+- `no-comments`: the exception list is upstream's Comment Sicko list; the
+  landmines list and `WARNING:` format go.
+  Dry run, tool-free, one sample each on Sonnet 5.5, nine comments in one
+  diff ([runs](principles-short-runs/no-comments/)): both arms keep the
+  licence header, API doc, platform note and formatter ignore and delete the
+  narration and the `IMPORTANT: do not remove` on our own code. The new arm
+  keeps the issue-link comment (upstream's list allows it) where the old arm
+  deleted it, keeps the platform note as written instead of rewriting it to
+  `WARNING:`, and deletes a coverage ignore on dead code that the old list
+  kept.
+- `interrogate`: upstream's 2.3 KB version (adversaries prove each finding
+  with a run; unverified findings drop) replaces the 20.5 KB panel, rubric
+  and four references. Dry run with tools on a fixture with three planted
+  bugs ([runs](principles-short-runs/interrogate/)), one sample each on
+  Sonnet 5.5: both arms found all three; the old arm in 678 words with
+  reviewer roles and buckets, the new arm in 293 words with each finding's
+  command and output.
 
 ## Checks
 

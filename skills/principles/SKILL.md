@@ -17,16 +17,16 @@ In your reply, name each principle that shaped a decision and the specific choic
 - [Redesign From First Principles](references/redesign-from-first-principles.md) — when integrating a new requirement into an existing design. Redesign as if the requirement had been there from day one; do not bolt it on.
 - [Attack the Premise](references/attack-the-premise.md) — when two fixes sharing a premise fail the same gate. Write the premise down and test it directly before writing another fix that assumes it.
 - [Subtract Before You Add](references/subtract-before-you-add.md) — when sequencing additions, refactors, or rewrites. Remove dead weight first, then build on the simpler base.
-- [Minimize Reader Load](references/minimize-reader-load.md) — when code takes too many layers or too much hidden state to trace. Count layers and hidden state, avoid speculative helpers, keep useful named boundaries, shrink mutable scope.
+- [Minimize Reader Load](references/minimize-reader-load.md) — when code takes too many layers or too much hidden state to trace. Count layers and hidden state, collapse one-caller wrappers and pass-throughs, shrink mutable scope.
 - [Outcome-Oriented Execution](references/outcome-oriented-execution.md) — during planned rewrites with explicit verification boundaries. Converge on the target architecture; do not preserve throwaway compatibility states.
 - [Experience First](references/experience-first.md) — when choosing product, user experience, or feature scope tradeoffs. Choose the user's experience over implementation convenience.
 - [Exhaust the Design Space](references/exhaust-the-design-space.md) — when a novel interaction or architecture has no established precedent. Build two or three competing sketches and compare them before committing.
-- [Build the Lever](references/build-the-lever.md) — when non-trivial work needs a rerunnable edit or proof. Build the tool that does or proves the work (codemod, script, generator); the tool is what a reviewer reruns.
+- [Build the Lever](references/build-the-lever.md) — when the work is more than a couple of obvious edits. Build the tool that does or proves it (codemod, script, generator, rerunnable check); the bar is triviality, not repetition.
 
 **Architecture**
 
 - [Model the Domain](references/model-the-domain.md) — when stateful logic branches or repeats shape assumptions. Name the data shape first and encode it in a structure (state type, tagged union, table or registry, reducer) instead of scattered conditionals and flags.
-- [Boundary Discipline](references/boundary-discipline.md) — when placing validation, error handling, or framework adapters. Validate once at the owning boundary, trust established guarantees, and catch errors only where handling helps.
+- [Boundary Discipline](references/boundary-discipline.md) — when placing validation, error handling, or framework adapters. Validate and handle errors where data crosses a boundary, trust internal types, keep business logic in pure functions.
 - [Type System Discipline](references/type-system-discipline.md) — when designing types, function signatures, or statically typed code. Make illegal states unrepresentable, brand primitives, parse external data at boundaries.
 - [Make Operations Idempotent](references/make-operations-idempotent.md) — when operations must survive crashes, restarts, and retries. Derive each step from the state that exists and apply only the difference, so a repeat or a resumed run converges.
 - [Migrate Callers Then Delete Legacy APIs](references/migrate-callers-then-delete-legacy-apis.md) — when replacing an internal API without external compatibility obligations. Migrate every caller and delete the old API in one wave.
@@ -34,7 +34,7 @@ In your reply, name each principle that shaped a decision and the specific choic
 
 **Verification**
 
-- [Fix Root Causes](references/fix-root-causes.md) — when debugging symptoms or failures after restart. Reproduce, then trace back to the first place the system went wrong; fix it there and in every place with the same fault. A guard is a fix only when the state it handles is legitimate.
+- [Fix Root Causes](references/fix-root-causes.md) — when debugging symptoms. Reproduce, then trace back to the first place the system went wrong; fix it there and in every place with the same fault. A guard is a fix only when the state it handles is legitimate.
 - [Sequence work into verifiable units](references/sequence-verifiable-units.md) — when ordering multi-step work, commits, or pull requests. Break work into small units that each end in a check, and verify each before starting the next.
 - [Test Behavior, Not Implementation](references/test-behavior-not-implementation.md) — when writing, changing, or keeping a test. Assert what the code's users can observe, so the test fails when that behavior breaks and keeps passing when only the internals change.
 - [Explain the Number](references/explain-the-number.md) — before measuring, trusting, reporting, or acting on a number. Find what limits it and rule out that it measured something other than the work.
