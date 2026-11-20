@@ -20,27 +20,31 @@ Codex (`codex exec`), and graded by checks a machine decides.
 - Codex runs are graded by the same graders; judge questions go to a small
   model that reasons first and takes the majority of three votes.
 
-## Baseline at `2508bde` plus grader fixes (one run per case)
+## Baseline at `1a256b1` (one run per case, both agents in one run)
 
 | case | Claude | Codex |
 | --- | --- | --- |
 | architect-ratelimit | 1.00 | 1.00 |
-| bugfix-shared-fault | 1.00 | 0.89 |
-| build-design | 1.00 | 0.86 |
-| interrogate-pager | 0.86 | 0.57 |
-| no-comments-nine | 0.90 | 0.80 |
+| bugfix-shared-fault | 0.86 | 1.00 |
+| build-design | 1.00 | 1.00 |
+| interrogate-pager | 1.00 | 0.86 |
+| no-comments-nine | 1.00 | 0.80 |
 | principles-review | 1.00 | 1.00 |
-| review-routing | 1.00 | 1.00 |
-| ship-explains | 1.00 | 0.57 |
+| review-routing | 0.75 | 1.00 |
+| ship-explains | 1.00 | 0.86 |
 | unslop-prose | 0.88 | 1.00 |
-| why-retry | 1.00 | 1.00 |
-| **total** | **0.96** | **0.87** |
+| why-retry | 0.83 | 0.83 |
+| **total** | **0.93** | **0.93** |
 
-Claude $3.81 (the full run plus a `review-routing` rerun after the grader
-fixes); Codex judge $0.39 for the Codex column. One run per case is a snapshot: Codex's
-`ship-explains` scored 0.86 in an earlier run and 0.57 here on a reasonable
-reply that did not name review findings or mergeability. Compare base and head
-with the default three runs.
+Claude $3.33, Codex judge $0.48. One run per case is a snapshot; compare base
+and head with the default three runs. An earlier run, before the grader fixes
+below, scored 0.96 and 0.87 and is superseded.
+
+Known limits of this run: Claude's `review-routing` miss is plugin eval's own
+judge (votes FAIL, PASS, FAIL) on a reply that says "`maxAttempts` now allows
+one extra call", the same weakness the Codex judge had; plugin eval does not
+keep its traces, so Claude's `test-failed-before-fix` and `why-retry` misses
+could not be read back; the Codex judge's saved reasons started after this run.
 
 What the baseline found:
 
