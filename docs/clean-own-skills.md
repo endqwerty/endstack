@@ -25,9 +25,10 @@ Skills: 35 to 28 (5 core, 23 role). All skill files: 182 KB to 144 KB.
 - **Removed:** `recall` back to `candidates/` (no loads in six weeks); three
   principle leaves nobody read (never-block-on-the-human,
   outcome-oriented-execution, encode-lessons-in-structure).
-- **Delivery skills:** the "plan explains, stop means no writes, preserve the
-  branch, report what landed" tail copied into four skills goes; `build`
-  2,178 to 976 bytes, its design step 7.2 KB to 4.7 KB; `babysit`, `ship`,
+- **Delivery skills:** the "plan explains, preserve the branch, report what
+  landed" tail copied into four skills goes (build and babysit keep "an
+  explicit stop means no further writes" and the ban on closing the pull
+  request); `build` 2,178 to 1,042 bytes, its design step 7.2 KB to 4.7 KB; `babysit`, `ship`,
   `autopilot-full`, `verify` each lose rules that repeat the global rules,
   ROUTING or each other. Kept: ship's land-without-asking, its rule that an
   agent's own choice never authorizes a merge, holds and reserved gates;
@@ -64,9 +65,9 @@ One fresh agent per arm, old text against new, one sample each
 - **test-design with tdd merged** (a fault shared by two consumers plus a
   copy): both found all three places, deleted the redundant cap and committed
   failing tests first; the new arm wrote 2 tests, the old 5 and dropped 3.
-- **orchestrate** (14-endpoint migration): both sent one early message of
-  questions with defaults, piloted one unit, left a typo to its owner and let
-  owners land through ship; the new text kept "don't merge" stopping owners.
+- **orchestrate** (14-endpoint migration, tool-free): both said they would
+  send one early message of questions with defaults, pilot one unit, leave a
+  typo to its owner and let owners land through ship; the new text kept "don't merge" stopping owners.
 
 Limits: one sample per arm, one model; re-measure usage after
 2026-12-20 for the skills G held (orchestrate, arena, sharpen, interview,
