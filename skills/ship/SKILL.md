@@ -14,7 +14,8 @@ Own only the landing the user authorized.
    choice of this skill, ownership or a budget never counts. Honor holds,
    later stops and operator-reserved gates.
 2. Land only with [verify](../verify/SKILL.md)'s passing verdict or a
-   documented exemption on the current revision, required checks passing,
+   documented exemption on the current revision, required checks passing on
+   the current base,
    every finding, a bot's included, fixed or answered, and the host reporting
    it mergeable. Otherwise report the gap; do not ask for approval.
 3. Land only the contiguous authorized, verified run from the lowest unmerged

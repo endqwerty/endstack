@@ -27,7 +27,7 @@ Skills: 35 to 28 (5 core, 23 role). All skill files: 182 KB to 144 KB.
   outcome-oriented-execution, encode-lessons-in-structure).
 - **Delivery skills:** the "plan explains, stop means no writes, preserve the
   branch, report what landed" tail copied into four skills goes; `build`
-  2,178 to 976 bytes, its design step 7.2 KB to 4.8 KB; `babysit`, `ship`,
+  2,178 to 976 bytes, its design step 7.2 KB to 4.7 KB; `babysit`, `ship`,
   `autopilot-full`, `verify` each lose rules that repeat the global rules,
   ROUTING or each other. Kept: ship's land-without-asking, its rule that an
   agent's own choice never authorizes a merge, holds and reserved gates;
@@ -51,14 +51,15 @@ One fresh agent per arm, old text against new, one sample each
 
 - **build** (archive-tasks feature): both produced the same tagged-state
   shape, fixed the web and CLI consumers through one shared filter, named
-  tests, and ran architect, the design doc and goldfish. The new arm skipped
+  tests, and planned architect, the design doc and goldfish (tool-free arms
+  describe these steps; they did not run them). The new arm skipped
   `interview`, whose trigger now lives only in ROUTING, which the arm did not
   see.
 - **ship** ("how would you ship PR #12?"): both explained and acted on
   nothing, so the dropped plan-explains sentence changed nothing.
-- **routing** (review a diff before merge): the old routing opened `swarm` as
-  a forced first step and then declined it; the new routing opened only
-  `verify` and `unslop`. Neither arm loaded `how` or `why` here, so the
+- **routing** (review a diff before merge): the old routing said it would
+  open `swarm` as a forced first step and then decline it; the new routing
+  said it would open only `verify` and `unslop`. Neither arm loaded `how` or `why` here, so the
   measured misrouting did not reproduce in one shot.
 - **test-design with tdd merged** (a fault shared by two consumers plus a
   copy): both found all three places, deleted the redundant cap and committed

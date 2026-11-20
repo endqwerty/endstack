@@ -41,7 +41,7 @@ If a failing test would need broad harness setup, brittle mocks, production-only
 
 ## Changing the suite
 
-- **A flaky test is a defect.** Fix its cause: a shared resource, an unordered read, or a deadline below the work. Retries and longer timeouts are not fixes.
+- **A flaky test is a defect.** Fix its cause: a shared resource, an unordered read, or a deadline below the work. Retries and longer timeouts are not fixes. Make it deterministic and document the signal being locked down.
 - **Deleting is normal.** Delete a test whose fact a cheaper kept test holds, whose state a refactor made unreachable, or whose feature is gone, and name the holder or the reason.
 - Internal tooling gets a proof, not a kept test, unless a mistake there is costly to undo.
 

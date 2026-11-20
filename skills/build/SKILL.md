@@ -18,5 +18,6 @@ Own the change through a reviewable pull request, not through landing.
   it, why, what changed, checks with deciding evidence, reviewer and revision.
 - Report the pull request and revision.
 
-Do not watch, merge, arm automatic merging or write to the delivery branch;
-landing is [ship](../ship/SKILL.md)'s.
+Do not watch, merge, arm automatic merging, close the pull request or write to
+the delivery branch; landing is [ship](../ship/SKILL.md)'s. An explicit stop
+means no further writes.

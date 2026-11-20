@@ -20,9 +20,12 @@ Own readiness of the requested pull request; the user owns the merge decision.
   with the smallest change; decline nits with a reason. Diagnose a failed
   check before retrying; tell a flake from a real failure.
 - Recheck affected behaviour and get [verify](../verify/SKILL.md)'s current
-  verdict after revisions. Ready means a current independent verdict or valid
+  verdict after revisions; rerun checks when the base has since changed files
+  the pull request touches. Ready means a current independent verdict or valid
   exemption, passing required checks, no unresolved blocker, no conflict, and
   the host reporting it mergeable.
 
 Report readiness, fixes, declined findings with reasons, and remaining gates.
-Never merge or arm automatic merging; landing is [ship](../ship/SKILL.md)'s.
+Never merge, arm automatic merging, close the pull request or write to the
+delivery branch; landing is [ship](../ship/SKILL.md)'s. Owner approval is a
+wait, not a gate to bypass. An explicit stop means no further writes.
