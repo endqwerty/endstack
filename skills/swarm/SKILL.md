@@ -6,8 +6,6 @@ disable-model-invocation: true
 
 # Swarm
 
-Coordinate N workers in parallel when the harness supports them. They may cover separate slices, race the same brief, or mix both. The parent waits, aggregates, and returns one report.
-
 ## Start
 
 Track the phases with one entry per phase before launching anything.
@@ -38,8 +36,6 @@ If a worker drops out, proceed with N-1 and note it.
 ## Phase C: Aggregate
 
 Read the terminal results. Drop a result that does not record the SHAs and method its brief names, and repeat that worker once. After a second miss, record a gap. A gap does not count as a pass. For coverage, every required slice needs a result. For a race, apply the selection rule declared up front. Use first pass, rank all, or best-of. Do not paste raw worker dumps.
-
-Keep a compact result table, one-line evidenced issues, and explicit gaps or dropouts.
 
 ## Phase D: Report
 

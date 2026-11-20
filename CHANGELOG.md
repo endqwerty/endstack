@@ -1,5 +1,14 @@
 # Change log
 
+## 2026-11-20 — Endstack additions dropped
+
+- `interrogate` takes upstream's run-proven version; its four references go.
+- Low-evidence additions go from `typescript-best-practices`,
+  `technical-writing`, `tdd`, `swarm`, `correct`,
+  `create-formal-verification-skill` and `arena`; `ketchup` and `no-comments`
+  take upstream's wording and exception list.
+  [Record](docs/upstream-0b46ec3-review.md).
+
 ## 2026-11-20 — Shorter principle files
 
 - `principles/references/`: the 13 leaves upstream shortened take its bodies

@@ -16,11 +16,13 @@ Use the caller's files or diff. Otherwise use the current diff against the base 
 
 ## What may stay
 
-These are the exceptions step 2 means. Directives and interface docs stay without step 2's proof, though step 2 still audits suppressions; the proof applies to hazard comments. Every other comment is a candidate for deletion; rationale belongs in the pull request.
+These are the exceptions step 2 means. When it is unclear whether one applies, the comment goes.
 
-- Directives a tool reads: lint and type-checker suppressions (audited in step 2), formatter and coverage ignores, bundler hints, licence headers, shebangs.
-- One line starting `WARNING:` that names a hazard in something we cannot change and no check can catch, which the next editor would hit again. Rewrite each surviving hazard comment into this form, so a lint can tell keeps from prose. A constraint encoded in step 5 keeps no comment; its check's failure message carries the reason.
-- Interface docs on an exported public API, which readers see outside the source.
+- Legal or license headers.
+- Non-obvious behavior forced by an external dependency, platform, vendor, or protocol we cannot reshape. Surprises in our own code are not exceptions: delete them and flag the symbol for a rename, extract, type, or redesign that makes the behavior obvious.
+- Formatter ignores. Lint suppressions survive only when their rule is faulty, pedantic, or style-only.
+- Doc comments that define a public API contract.
+- Issue or RFC links that explain a constraint code cannot express.
 
 ## Steps
 

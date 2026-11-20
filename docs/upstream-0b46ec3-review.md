@@ -72,6 +72,38 @@ the pass-through helpers, the hidden module cache and the missing test and
 signal; the final arm reached the restart cause through its reproduction
 test instead of a rule. `out-new.md` is an intermediate version.
 
+## Endstack additions dropped (2026-11-20)
+
+Daniel asked which other rules endstack had added on top of upstream. Three
+read-only workers compared each of the 24 imported skills with pstack at
+`0b46ec3` ([A](principles-short-runs/A.md), [B](principles-short-runs/B.md),
+[C](principles-short-runs/C.md)). He chose to drop the low-evidence extras,
+the stale `interrogate` and the borrowed `ketchup` and `no-comments` text, and
+to keep the additions with recorded evidence (`tdd`'s consumer and
+subtraction checks, `arena`'s dissenter, `sharpen`, `correct`'s
+classification).
+
+- `typescript-best-practices`: upstream's text; the return-types row goes
+  ([landmines-lessons.md](landmines-lessons.md) recorded no uplift).
+- `technical-writing`: "Keep the goal visible" goes (no uplift at de8ee15).
+- `tdd`: the two lines that only asked to cite principles go.
+- `swarm`: the intro paragraph and the duplicate result-table line go.
+- `correct`: the sentences that repeat the global rules go.
+- `create-formal-verification-skill`: the `tdd` pointer (ROUTING.md routes
+  it) and the dead "scripted journey" line go.
+- `arena`: "never while candidates are writing" goes.
+- `ketchup`: upstream's opener (what waits on the user), cost of waiting only
+  when it is more than a delay, and no separate still-running line.
+- `no-comments`: the exception list is upstream's Comment Sicko list; the
+  landmines list and `WARNING:` format go.
+- `interrogate`: upstream's 2.3 KB version (adversaries prove each finding
+  with a run; unverified findings drop) replaces the 20.5 KB panel, rubric
+  and four references. Dry run with tools on a fixture with three planted
+  bugs ([runs](principles-short-runs/interrogate/)), one sample each on
+  Sonnet 5.5: both arms found all three; the old arm in 678 words with
+  reviewer roles and buckets, the new arm in 293 words with each finding's
+  command and output.
+
 ## Checks
 
 Written before the edits:
