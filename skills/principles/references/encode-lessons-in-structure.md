@@ -1,24 +1,9 @@
 # Encode Lessons in Structure
 
-Encode recurring fixes in mechanisms (tools, code, metadata, automation) instead of textual instructions. Every error, human correction, and unexpected outcome is a learning signal. Capture it, route it, and close the loop.
+When an instruction or correction recurs, encode it as a lint rule, type, metadata flag, runtime check, or script instead of more text, and delete the instruction.
 
-Textual instructions are easy to miss. Structural mechanisms enforce the rule without cooperation.
+- Classify first. Encode only a defect against something still wanted. A preference stays a plain instruction, open to change; an experiment gets the condition that ends it.
+- Pick the strongest mechanism the recurrence justifies: an unrepresentable state, then a lint or banned API that fails CI, then a canonical helper, then a runtime check. A guard must cost less than the mistake it stops.
+- If the lesson needs judgment and cannot be encoded, make the instruction more prominent and add an example of the failure mode.
 
-**Classify first.** A correction is a defect against something still wanted, a preference, or an experiment. Encode only the defect's invariant. Keep a preference as a plain instruction, with how firm it was, open to change; give an experiment the condition that ends it. A first measurement is a baseline, not a ceiling.
-
-**Pattern:**
-When you catch yourself writing the same instruction a second time:
-1. Ask: can this be a lint rule, a metadata flag, a runtime check, or a script?
-2. If yes, encode it. Delete the instruction
-3. If no (requires judgment), make the instruction more prominent and add an example of the failure mode
-
-**Pick the strongest mechanism the recurrence justifies.** A guard taxes every later change, so it must cost less than the mistake it stops. When more than one mechanism would work, choose the strongest the situation allows (an unrepresentable state that cannot compile, then a lint or banned API that fails CI, then a canonical helper, then a runtime check), because agents copy whatever the surrounding code already does and a weaker guard becomes the next template.
-
-**Corollary:** If the fix is structural, only use the structural fix. The instruction is the symptom.
-
-When the human intervenes or tests fail, decide if it's a one-off or a pattern. Route it: one-off -> durable project note, recurring fix -> skill or lint rule, systemic issue -> principle. Close the loop: don't just record; apply now or create a concrete follow-up task.
-
-**Anti-patterns:**
-- Acknowledging without recording ("I'll keep that in mind" does not persist)
-- Recording without routing (a durable project note about a lint rule that should exist is wasted unless the lint rule gets implemented)
-- Fixing without generalizing (fixing one instance while leaving the recurring pattern intact)
+If the fix is structural, only use the structural fix. The instruction is the symptom.

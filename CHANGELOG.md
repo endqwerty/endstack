@@ -1,5 +1,11 @@
 # Change log
 
+## 2026-11-20 — Shorter principle files
+
+- `principles/references/`: 18 files take upstream's short bodies, 33.3 KB to
+  17.3 KB; endstack's own rules stay as single lines. Reverses #41's decision
+  to keep them long. [Record](docs/upstream-0b46ec3-review.md).
+
 ## 2026-11-20 — Upstream cuts through 0b46ec3
 
 - `why`, `how`, `architect`, `reflect`: one short file each, as upstream cut

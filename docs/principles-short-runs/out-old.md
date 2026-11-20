@@ -1,0 +1,21 @@
+# Review
+
+1. **Symptom fix, not root cause (Fix Root Causes).** The crash appears only after a restart, and the cache is loaded from disk on boot. That points to persisted state: the cache file holds entries that do not match `Account`, for example an old schema with no `plan` or a differently shaped entry. The `!acct || !acct.plan` guard hides the bug where it surfaced. Fix: reproduce by restarting with the existing cache file. Inspect the actual entries. Find what wrote or migrated them badly, then fix that and migrate or discard the bad entries. Look for other places that read the same cache, since the pattern matters as well as this instance.
+
+2. **Guard silently skips billing (Fix Root Causes, Boundary Discipline).** `return { ok: true }` when the account or plan is missing tells the caller the charge succeeded when nothing was charged. That is a successful-looking default. Fix: return or throw a typed error such as `AccountNotFound` or `NoPlan`, or make the state impossible (see 5).
+
+3. **The catch swallows every failure (Boundary Discipline, Fix Root Causes).** `catch (e) { return { ok: true } }` turns Stripe failures, declined cards, network errors and programmer bugs into success. This is revenue loss and it hides evidence. The original cause is dropped and nothing is logged. Fix: remove the catch. Let the error propagate. If there is a recovery or translation to make, catch only the narrow `stripeCharge` call, translate known Stripe errors into the module's error contract with the cause preserved, and let unexpected errors propagate.
+
+4. **`as Account` is a cast lying to the compiler (Type System Discipline, Boundary Discipline).** The cache is external data from disk and is untyped until parsed. The cast validates nothing and is the likely source of the runtime crash. Fix: parse and validate at load time with a schema (for example zod) that turns the raw disk data into `Account`, so bad entries are rejected or migrated at the boundary. Then `cache.get` returns a typed value with no cast.
+
+5. **`Account` allows illegal states (Type System Discipline).** `{ active: boolean; cancelledAt?: Date; plan?: Plan }` allows `active: true` with a `cancelledAt`, or active with no plan, which is probably the source of the missing `plan`. Fix: use a sum type such as `{ kind: 'active'; plan: Plan } | { kind: 'cancelled'; at: Date; plan?: Plan }`. Then `chargeAccount` narrows on `kind` and needs no `plan` check. Strengthen the type where partiality appears: here the `!` and the `plan` check mark that spot. Brand `id` as `AccountId` too, if it is mixed with other string ids.
+
+6. **Non-null assertion `acct.plan!` (Type System Discipline).** `priceOf` asserts away the same fact the new guard checks, so there are two disagreeing ways of handling it. This is a latent crash. Fix: make the type guarantee `plan` (see 5) and remove the `!`.
+
+7. **Pass-through layers and dead code (Minimize Reader Load).** `getPlanPrice` forwards to `priceOf`, which does `acct.plan.priceCents`. `getPlanPrice` has one caller and adds no abstraction. `chargeAccount` does not use either helper and reads `acct.plan.priceCents` directly. Fix: delete `getPlanPrice`. Inline `priceOf` or have `chargeAccount` use it. Do not keep two paths to the same value.
+
+8. **Hidden module state (Minimize Reader Load).** `cache` is a module-level global that `chargeAccount` reads implicitly, so a reader has to ask where it comes from and what can change it. Fix: pass the account, or a repository, in as an argument, or at least name the owner and invariant at the boundary.
+
+9. **Return type inconsistency (Type System Discipline, Boundary Discipline).** `{ ok: true }` and whatever `stripeCharge` returns are likely different shapes, so callers cannot tell a real charge from a skipped one. Fix: define a discriminated result type (`charged | skipped | failed`) and match on it exhaustively.
+
+10. **No test or visibility (Fix Root Causes).** Nothing proves the fix, and the deciding fact took a deep dig to find. Fix: add a regression test that loads a stale cache file and checks `chargeAccount` behaviour. Add an always-on signal, such as a log or metric when a cache entry fails validation at load.
