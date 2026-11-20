@@ -47,8 +47,9 @@ The 190d287 review turned down the same kind of shortening because pstack's
 per-turn mode restates the rules and endstack has no such mode. That still
 holds, and the new bodies drop rules endstack relies on: Fix Root Causes loses
 "after a restart, suspect persisted state" and the long-comment workaround
-rule; Type System Discipline loses illegal states, exhaustive matching, casts
-and partiality, which the index line and `build`'s design step cite; Minimize
+rule; Type System Discipline keeps "reject impossible states" as one line
+but loses the sum-type guidance and examples, exhaustive matching, casts and
+partiality, which the index line and `build`'s design step rely on; Minimize
 Reader Load's new "inline one-caller wrappers" contradicts endstack's "one
 caller alone is not a reason to remove a useful helper"; Boundary Discipline
 loses the error-catching rules. The leaves load only when one applies, so the
@@ -74,8 +75,10 @@ checks links). 3, in [upstream-0b46ec3-runs](upstream-0b46ec3-runs/):
   302 words).
 - `architect`: per-customer rate limiting across four replicas, with jobs
   that call handlers directly. Both arms chose router middleware with a Redis
-  counter, so jobs are exempt by construction, and both named the same
-  failure modes. The old arm wrote three candidates, a red-flag table and the
+  counter, so jobs are exempt by construction, and both let requests through
+  when Redis fails. Their other failure cases differ: the old arm covered
+  retries overcounting, the new arm a Postgres outage and a request with no
+  customer ID. The old arm wrote three candidates, a red-flag table and the
   rationale template (1601 words); the new arm wrote two shapes, a comparison
   by owner, one way per task and caller knowledge, and the failure policy
   (1034 words).
