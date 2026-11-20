@@ -51,7 +51,9 @@ What this run shows:
   times on `rotation-unknown`. The Claude arm's judge has the weakness the
   Codex judge had before its fix; follow-up.
 - **Not readable back:** plugin eval keeps no trace, so Claude's
-  `bugfix-shared-fault` miss on `test-failed-before-fix` cannot be checked.
+  `bugfix-shared-fault` miss on `test-failed-before-fix` cannot be checked;
+  its Claude branch is tested only on synthetic traces. One run with
+  `--keep-temp` settles it (follow-up).
 - **Codex misses to read with the saved judge reasons on the next run:** one
   of three pager bugs without its command (`interrogate-pager`), the issue-link
   and platform-note comments (`no-comments-nine`), and the explicit-request
