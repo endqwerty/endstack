@@ -6,7 +6,8 @@
   no-comments, unslop, principles, why, architect) turned from earlier dry
   runs, with 69 graders; `evals/check-evals.py` validates them.
 - AGENTS.md: skill and routing changes carry the `homelab skill-eval main HEAD`
-  score table in the PR instead of a hand-run dry run.
+  score table in the PR instead of a hand-run dry run. Baseline and findings:
+  [docs/skill-evals.md](docs/skill-evals.md).
 
 ## 2026-11-20 — Endstack's own skills cleaned up
 

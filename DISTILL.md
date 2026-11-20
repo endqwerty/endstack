@@ -212,6 +212,11 @@ Statechart remains the separately maintained homelab pin.
 [Per-commit decisions, checks and dry runs](docs/upstream-de8ee15-review.md),
 [W7 port notes](docs/import-notes/W7.md).
 
+### Standing skill evals (2026-11-20)
+
+Skill changes now carry a `homelab skill-eval` score table instead of a
+hand-run dry run. [Record and baseline](docs/skill-evals.md).
+
 ### Own skills cleaned up (2026-11-20)
 
 Catalog 35 to 28 skills; routing, delivery and the other endstack-written
