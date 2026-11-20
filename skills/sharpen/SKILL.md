@@ -37,6 +37,9 @@ Then rewrite my prompt:
 - Decide what evidence and my known preferences can settle, and say what you
   assumed. Ask me only what changes the outcome and only I can answer, with
   your recommendation.
+- Have the rewritten prompt ask the agent to prototype any choice an
+  experiment can settle and recommend an option from what it observed. Product
+  and preference choices that no experiment can settle stay with me.
 
 Return, in this order: the goal; proposals and questions for me, most
 important first; the four answers; the rewritten prompt. Do not carry out the
