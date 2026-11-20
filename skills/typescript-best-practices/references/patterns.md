@@ -23,9 +23,7 @@ function focusAgent(id: AgentId): void {
 }
 ```
 
-The guard delegates to the project's runtime UUID validator. Its body must verify the brand's invariant. TypeScript trusts a user-written predicate's return type. It does not prove that the body validates the claim, and `return true` would lie just as a cast can.
-
-Use the project's existing opaque-type constructor or schema validator when it already owns validated construction. The `readonly __brand` shape above is an example, not a required spelling. Don't introduce a second convention.
+Match the `readonly __brand: 'X'` shape. Don't invent a new convention.
 
 ## Discriminated unions
 
@@ -33,12 +31,12 @@ Model variants with a literal discriminant. Every variant shares the field name 
 
 ```ts
 // Don't. Boolean + optionals lets contradictory states exist.
-type DiffState = { loading: boolean; diff?: Diff; error?: string };
+type DiffState = { loading: boolean; diff?: GitDiff; error?: string };
 
 // Do. Only valid states exist.
 type DiffState =
   | { kind: "loading" }
-  | { kind: "ready"; diff: Diff }
+  | { kind: "ready"; diff: GitDiff }
   | { kind: "error"; error: string };
 ```
 
