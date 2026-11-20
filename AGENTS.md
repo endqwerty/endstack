@@ -71,9 +71,11 @@ with `git`, give the compare URL the push prints, and name opening and merging
 the PR as the pending step.
 
 Changes to a skill's behaviour, or to ROUTING.md, get evidence from the standing
-evals in [evals/](evals/README.md): run `homelab skill-eval main HEAD` on at
-least the cases tagged with the touched skills (`--case` takes case folder names;
-the README shows how to find a skill's cases) and paste the score table in the
-PR. A skill with no case gets one in the same change; a hand-run dry run
+evals in [evals/](evals/README.md). Keep the check short: run only the cases
+tagged with the touched skills (`--case` takes case folder names; the README
+shows how to find a skill's cases), once each, in parallel:
+`homelab skill-eval --runs 1 --jobs 8 --case <cases> main HEAD`, about ten
+minutes. Paste the score table in the PR. Repeat with more runs only to confirm
+a surprising difference before acting on it. A skill with no case gets one in the same change; a hand-run dry run
 stays acceptable only for a behaviour no case can grade, and the PR says why.
 Record changes in CHANGELOG.md.
