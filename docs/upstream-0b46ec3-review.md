@@ -76,9 +76,8 @@ checks links). 3, in [upstream-0b46ec3-runs](upstream-0b46ec3-runs/):
 - `architect`: per-customer rate limiting across four replicas, with jobs
   that call handlers directly. Both arms chose router middleware with a Redis
   counter, so jobs are exempt by construction, and both let requests through
-  when Redis fails. Their other failure cases differ: the old arm covered
-  retries overcounting, the new arm a Postgres outage and a request with no
-  customer ID. The old arm wrote three candidates, a red-flag table and the
+  when Redis fails and skip a request with no customer ID. The old arm also
+  covered retries overcounting; the new arm also covered a Postgres outage. The old arm wrote three candidates, a red-flag table and the
   rationale template (1601 words); the new arm wrote two shapes, a comparison
   by owner, one way per task and caller knowledge, and the failure policy
   (1034 words).
