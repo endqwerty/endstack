@@ -1,0 +1,85 @@
+commit 7864287 Exclude refunded lines from order totals; drop receipt cap workaround; invoice uses shared total
+
+diff --git a/src/cli/receipt.js b/src/cli/receipt.js
+index a8d9827..39d9eba 100644
+--- a/src/cli/receipt.js
++++ b/src/cli/receipt.js
+@@ -2,8 +2,5 @@ import { orderTotalCents, formatCents } from '../lib/orders.js';
+ 
+ export function receipt(order) {
+   const rows = order.lines.map((l) => `${l.sku} x${l.qty}${l.refunded ? ' (refunded)' : ''}`);
+-  let total = orderTotalCents(order);
+-  // Refunded lines sometimes pushed totals past what was charged; cap at charged amount.
+-  if (order.chargedCents !== undefined && total > order.chargedCents) total = order.chargedCents;
+-  return [...rows, `Total: ${formatCents(total)}`].join('\n');
++  return [...rows, `Total: ${formatCents(orderTotalCents(order))}`].join('\n');
+ }
+diff --git a/src/lib/orders.js b/src/lib/orders.js
+index a44fc63..014c6cd 100644
+--- a/src/lib/orders.js
++++ b/src/lib/orders.js
+@@ -4,7 +4,7 @@ export function lineCents(line) {
+ }
+ 
+ export function orderTotalCents(order) {
+-  return order.lines.reduce((sum, line) => sum + lineCents(line), 0);
++  return order.lines.reduce((sum, line) => (line.refunded ? sum : sum + lineCents(line)), 0);
+ }
+ 
+ export function formatCents(cents) {
+diff --git a/src/web/invoice.js b/src/web/invoice.js
+index 9762793..dbe6698 100644
+--- a/src/web/invoice.js
++++ b/src/web/invoice.js
+@@ -1,8 +1,6 @@
+-import { formatCents } from '../lib/orders.js';
++import { orderTotalCents, formatCents } from '../lib/orders.js';
+ 
+ export function invoiceHtml(order) {
+-  let total = 0;
+-  for (const item of order.lines) total += item.qty * item.unitCents;
+   const rows = order.lines.map((l) => `<tr><td>${l.sku}</td><td>${l.qty}</td></tr>`).join('');
+-  return `<table>${rows}</table><p class="total">${formatCents(total)}</p>`;
++  return `<table>${rows}</table><p class="total">${formatCents(orderTotalCents(order))}</p>`;
+ }
+commit 1b87bd7 Add failing tests: refunded lines must not count toward totals
+
+diff --git a/test/invoice.test.js b/test/invoice.test.js
+new file mode 100644
+index 0000000..30280e5
+--- /dev/null
++++ b/test/invoice.test.js
+@@ -0,0 +1,13 @@
++import { test } from 'node:test';
++import assert from 'node:assert/strict';
++import { invoiceHtml } from '../src/web/invoice.js';
++
++test('invoice total excludes refunded lines', () => {
++  const order = {
++    lines: [
++      { sku: 'A', qty: 2, unitCents: 500, refunded: false },
++      { sku: 'B', qty: 1, unitCents: 300, refunded: true },
++    ],
++  };
++  assert.match(invoiceHtml(order), /<p class="total">\$10\.00<\/p>/);
++});
+diff --git a/test/orders.test.js b/test/orders.test.js
+index 2bfc7cb..aa7e8a0 100644
+--- a/test/orders.test.js
++++ b/test/orders.test.js
+@@ -5,3 +5,15 @@ import { formatCents } from '../src/lib/orders.js';
+ test('formatCents shows dollars with two decimals', () => {
+   assert.equal(formatCents(1234), '$12.34');
+ });
++
++import { orderTotalCents } from '../src/lib/orders.js';
++
++test('orderTotalCents excludes refunded lines', () => {
++  const order = {
++    lines: [
++      { sku: 'A', qty: 2, unitCents: 500, refunded: false },
++      { sku: 'B', qty: 1, unitCents: 300, refunded: true },
++    ],
++  };
++  assert.equal(orderTotalCents(order), 1000);
++});

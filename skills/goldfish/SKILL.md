@@ -14,11 +14,10 @@ missing something, however clear it looks to you.
 
 ## When
 
-- A design doc, before implementation starts and after any round of edits
-  that changes its plan.
-- An agent instruction file (`AGENTS.md`, a README agents start from, a
-  long reference such as a workstation or runbook file, a skill) after a
-  substantial edit, and in periodic passes over a project.
+- A design doc, before implementation starts and after edits that change
+  its plan.
+- An agent instruction file (`AGENTS.md`, a README agents start from, a long
+  reference or runbook, a skill) after a substantial edit.
 
 ## Roles
 
@@ -26,14 +25,10 @@ missing something, however clear it looks to you.
   document. You never answer a goldfish in chat; an answer goes into the
   document or it does not exist.
 - **Goldfish**: a separate read-only worker, from a different model family
-  if available. Each stage and round gets new ones; a goldfish that has seen
-  an earlier draft is no longer a goldfish. Briefs come from
+  if available, new for every stage and round. Briefs come from
   [references/goldfish-prompt.md](references/goldfish-prompt.md).
-- **Merging worker**: for a stage with two or more reviewers, a separate
-  worker starts them, merges and orders their findings into a report file
-  outside the tree, and returns only statuses and counts
-  ([references/reviewers.md](references/reviewers.md)). Without nested
-  workers, start the reviewers yourself and merge the same way.
+- **Merging worker**: for a stage with two or more reviewers, as
+  [references/reviewers.md](references/reviewers.md) describes.
 
 If you cannot start separate workers (no harness support, or you are a
 delegated worker told not to), hand the review to whoever can, such as the
@@ -44,33 +39,30 @@ document fresh is not possible.
 
 One goldfish runs the brief's three passes in order: comprehension, critic,
 readiness. Readiness gets two to four realistic tasks from recent or planned
-work, stated the way the user would state them, with no hints. What it read
-and never needed, and where length or order lost it, are cut or move
-candidates. Repeat with a new goldfish under the loop rules below.
+work, stated the way the user would state them. What it read and never
+needed, and where length or order lost it, are cut or move candidates.
+Repeat with a new goldfish under the loop rules below.
 
-## Design docs: five stages
+## Design docs: four stages
 
-Roles are in [references/reviewers.md](references/reviewers.md), standards in
-[references/standards.md](references/standards.md). The feature part is
-everything before *Implementation*; the detail part is *Implementation* and
-*Tasks*. Run the stages in order, fixing between them.
+Roles are in [references/reviewers.md](references/reviewers.md). The feature
+part is everything before *Implementation*; the detail part is
+*Implementation* and *Tasks*. Run the stages in order, fixing between them.
 
 1. **Zoom out**: zoom-out and design-pattern reviewers, whole doc.
 2. **Comprehension**: one comprehension reviewer, whole doc, started
-   directly so you read its paraphrase. Compare it with what you know is true; each
-   misunderstanding is a gap in the document.
-3. **Critic loop**: design critic, structure and style, feature part.
-4. **Zoom out again**: zoom-out reviewer, whole doc, not reopening what
-   stage 1 settled.
-5. **Readiness loop**: implementation readiness (with two to four realistic
+   directly so you read its paraphrase. Compare it with what you know is
+   true; each misunderstanding is a gap in the document.
+3. **Critic loop**: design critic and style, feature part.
+4. **Readiness loop**: implementation readiness (with two to four realistic
    tasks), codebase details and style, detail part.
 
-A doc with no detail part yet stops after stage 4. For a stage with one
+A doc with no detail part yet stops after stage 3. For a stage with one
 reviewer, you write its report file.
 
 ## Loops
 
-Stages 3 and 5 repeat with new reviewers until they converge.
+Stages 3 and 4 repeat with new reviewers until they converge.
 
 - A round is **clean** when no blocker or should is open that is not
   settled; nits never block. A reviewer that did not run makes the round
@@ -79,37 +71,27 @@ Stages 3 and 5 repeat with new reviewers until they converge.
   differently, so one clean round proves little.
 - A contested or declined finding is **settled** and stays closed when
   raised again. A fixed finding raised again is reopened: the fix failed.
-- Stop at five rounds, or on **churn**: a new finding that reverting an
-  earlier fix would clear. List the open findings by rank. With the user
-  present, ask one question: accept, continue past the cap, or return the
-  document to drafting. Without the user, report both sides: the document
-  may be the wrong shape.
+- Stop after five rounds without converging and report the open findings by
+  rank: the document may be the wrong shape.
 
 ## Judge and fix
 
-Each finding names the file and line, quotes it, gives evidence and a fix,
-and is ranked **blocker** (the reader would do the task wrong), **should**
-(it would have to ask or guess) or **nit** (wording, taste, nothing shown
-reaches it). Check it against the real files, then give it one category:
+Findings come ranked as the brief defines. Check each against the real
+files, then give it one category:
 
 - **Fix**: valid; edit the document.
 - **Contest**: wrong, shown by evidence the goldfish could read: a file and
   symbol, or a decision the document records. "This was intentional" is not
-  evidence. You wrote the document; wanting to contest is not proof.
+  evidence.
 - **Escalate**: wrong only by knowledge no file holds, such as a choice only
   the user can make. Ask the user, one question at a time; without the user,
-  record it under the doc's open questions with the answer you assume. Either
-  way the answer goes into the document.
+  record it as [interview](../interview/SKILL.md)'s "Without the user" says.
 - **Decline**: a nit not worth fixing.
 
 Never contest a comprehension gap: if a fresh reader could not follow it,
-context is missing. Never change a rank; contest it instead. Prefer cutting
-and reordering to adding: a longer file is harder for the next goldfish. A
-rule that keeps being missed belongs in a check, not more prose (the
-[correct](../correct/SKILL.md) skill).
+context is missing.
 
 ## Report
 
-The document and revision, the stages and rounds run, each reviewer's
-status and model family, the tasks given, each finding with its rank and
-category, and the report files.
+The stages and rounds run, each reviewer's status, and each finding with
+its rank and category.

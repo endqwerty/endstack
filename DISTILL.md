@@ -212,6 +212,12 @@ Statechart remains the separately maintained homelab pin.
 [Per-commit decisions, checks and dry runs](docs/upstream-de8ee15-review.md),
 [W7 port notes](docs/import-notes/W7.md).
 
+### Own skills cleaned up (2026-11-20)
+
+Catalog 35 to 28 skills; routing, delivery and the other endstack-written
+skills lose duplicated and unmeasured rules.
+[Record, audits and dry runs](docs/clean-own-skills.md).
+
 ### Upstream review at 0b46ec3 (2026-11-20)
 
 Reviewed the five pstack commits after `de8ee15`. Took upstream's cuts to

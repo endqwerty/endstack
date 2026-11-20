@@ -60,10 +60,10 @@ queue.
 | Prompt | Before | After |
 | --- | --- | --- |
 | Draw a checkout order's states for a PM | `how` | `archify`, "Nobody asked for a checked model" |
-| Show, checked against a model, how "Synced" shows for an unsaved edit | `create-formal-verification-skill` | `statechart`, formal creation first if no model exists |
+| Show, checked against a model, how "Synced" shows for an unsaved edit | `formal-verification` | `statechart`, formal creation first if no model exists |
 | Draw the payment service architecture | `how` | `archify` |
 | Fix a double-pickup race with a regression test | `tdd`, `build`, `verify` | the same; no formal or statechart route |
-| Prove the lease protocol never has two writers | `create-formal-verification-skill` | the same |
+| Prove the lease protocol never has two writers | `formal-verification` | the same |
 
 The generated skill from the new entrypoint says "Read every result with the
 `statechart` skill" and "Do not copy its commands into this file"; the one

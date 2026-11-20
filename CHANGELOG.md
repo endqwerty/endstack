@@ -1,5 +1,16 @@
 # Change log
 
+## 2026-11-20 — Endstack's own skills cleaned up
+
+- 35 skills to 28: `tdd` into `test-design`, `teach` into `how`, `reflect`
+  into `correct`, `ketchup-video` into `ketchup`, the two formal-verification
+  skills into `formal-verification`, `figure-it-out` into
+  `show-me-your-work`; `recall` back to `candidates/`.
+- ROUTING.md: `how`/`why` only when asked; no "every task, first: swarm".
+- Delivery, test-design, interview, goldfish, drift, orchestrate and the
+  principles index lose duplicated and unmeasured rules; three unread
+  principle leaves go. [Record](docs/clean-own-skills.md).
+
 ## 2026-11-20 — Endstack additions dropped
 
 - `interrogate` takes upstream's run-proven version; its four references go.

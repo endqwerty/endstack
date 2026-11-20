@@ -1,7 +1,6 @@
 # Goldfish brief
 
-Fill the placeholders. Give the goldfish nothing else: no conversation, no
-summary of the document, no hint about what you expect it to find.
+Fill the placeholders and give the goldfish nothing else.
 
 ---
 
@@ -23,8 +22,7 @@ Review this range: {RANGE} (the whole file for an agent instruction file)
 
 {PASS}
 
-For an agent instruction file the pass is one of these three. For a design
-doc it is a reviewer role and its standard.
+For an agent instruction file the pass is one of these three:
 
 - **comprehension**: In your own words, explain what this project or
   feature is for, how it works, and the rules an agent must follow in it.
