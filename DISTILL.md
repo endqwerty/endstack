@@ -216,7 +216,7 @@ Statechart remains the separately maintained homelab pin.
 
 Reviewed the five pstack commits after `de8ee15`. Took upstream's cuts to
 `why`, `how`, `architect`, `reflect`, `unslop` and `technical-writing`, and
-sharpen's prototype rule. Then, on request, shortened 18 principle leaves too. [Decisions, checks and dry runs](docs/upstream-0b46ec3-review.md),
+sharpen's prototype rule. Then, on request, took upstream's short principle leaves and dropped endstack's additions to them. [Decisions, checks and dry runs](docs/upstream-0b46ec3-review.md),
 [W9 port notes](docs/import-notes/W9.md).
 
 ### Video catch-up and standing coordinator (2026-11-10)

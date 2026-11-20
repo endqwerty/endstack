@@ -43,28 +43,34 @@ nouns (evacuate, endgame, gold-plating and others).
 
 ## Principle leaves: first turned down, then taken (2026-11-20)
 
-#41 kept the leaves at full length. Daniel then asked for shorter ones. 18 of
-the 23 now take upstream's short bodies (33.3 KB to 17.3 KB in total); five
-were already upstream's length. Where the short body drops a rule endstack
-relies on, the rule stays as one line: persisted state after a restart (Fix
-Root Causes); sum types, exhaustive matches, casts and partiality (Type System
-Discipline); keeping a useful one-caller helper (Minimize Reader Load); the
-error-catching rules (Boundary Discipline); the build-the-lever bar of saved
-work or a checkable result; the last-commit rule for a test that only proved
-the change (Sequence Verifiable Units). Upstream's 190d287 versions of Encode
-Lessons, Exhaust the Design Space, Guard the Context Window, Laziness Protocol
-and Migrate Callers are fragments that lean on pstack's per-turn mode, so
-those five are rewritten short and complete instead.
+#41 kept the leaves at full length. Daniel then asked for shorter ones and,
+after reviewing the endstack-only rules kept on top of upstream's text, to
+drop those too. The 13 leaves upstream shortened at `0b46ec3` now carry its
+bodies verbatim, with links pointed at endstack's paths. Upstream's 190d287
+versions of Encode Lessons, Exhaust the Design Space, Guard the Context
+Window, Laziness Protocol and Migrate Callers are fragments that lean on
+pstack's per-turn mode, so those five are rewritten short and complete from
+the old text. Five leaves were already upstream's length. Total: 33.3 KB to
+15.6 KB.
 
-Dry run, one sample each on Claude Sonnet 5.5, tool-free
+Dropped endstack rules and where they still live, if anywhere: sum types,
+exhaustive matches, casts and partiality (`typescript-best-practices`,
+`build` design step 3); a proof-only test in a last commit (`build` design
+step 8, `test-design`); classifying a correction (`correct`); keeping a
+useful one-caller helper, persisted state after a restart, the
+error-catching rules, the softer build-the-lever bar (gone). Three index
+lines in `principles/SKILL.md` follow the new bodies.
+
+Dry run, one sample per arm on Claude Sonnet 5.5, tool-free
 ([runs](principles-short-runs/)): review a TypeScript fix that hides a crash
-after restart behind a guard, a cast and a swallowed error, with the old and
-the new Boundary, Type System, Fix Root Causes and Reader Load leaves. Both
-arms raised the same nine problems (the guard hides the bug, the catch
-returns success, the cast on disk data, persisted state after restart, the
-illegal-state `Account` type, the non-null assertion, the pass-through
-helpers, the hidden module cache, no regression test or signal), in 689 and
-703 words.
+after restart behind a guard, a cast and a swallowed error, given the
+Boundary, Type System, Fix Root Causes and Reader Load leaves. The old leaves
+(`out-old.md`, 689 words) and the final upstream leaves (`out-final.md`, 645
+words) both raised the guard hiding the bug, the catch returning success, the
+cast on disk data, the illegal-state `Account` type, the non-null assertion,
+the pass-through helpers, the hidden module cache and the missing test and
+signal; the final arm reached the restart cause through its reproduction
+test instead of a rule. `out-new.md` is an intermediate version.
 
 ## Checks
 

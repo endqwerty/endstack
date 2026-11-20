@@ -2,7 +2,7 @@
 
 Reader load is the work a reader must do to understand code. It has two independent axes: layers to trace between the question and the answer, and hidden or mutable state to hold in their head. Guard both.
 
-- Collapse layers that only forward: pass-through methods, adapters with no second implementation, speculative indirection. Keep a helper that is reused, hides a complex boundary, or has a name that makes the caller clearer; one caller alone is not a reason to inline it.
+- Collapse layers that only forward: wrappers with one caller, adapters with no second implementation, pass-through methods. Inline them.
 - Shrink state scope: returns over mutations, locals over fields, fields over module state, module state over globals. Derive instead of sync.
 - Name an invariant once at the boundary, not in every consumer.
 
