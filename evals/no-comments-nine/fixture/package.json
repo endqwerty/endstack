@@ -1,0 +1,1 @@
+{ "name": "app", "private": true, "type": "module", "dependencies": { "@acme/api": "file:vendor/acme-api" } }

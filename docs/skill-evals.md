@@ -49,6 +49,16 @@ What the baseline found:
   `>` detail; the Codex judge, one strict vote, passed a correct reply 1 time
   in 6 while its reason said the criterion was met (now 5 of 5, and 0 of 3 on
   a reply that misses the point).
-- **Real gaps, left for skill changes:** both agents delete the issue-link
-  comment `no-comments` now says to keep; Codex finds all three pager bugs but
-  does not give the exact commands `interrogate` asks for.
+- **Open questions, not yet skill gaps:** both agents deleted the issue-link
+  comment, but the fixture never showed the external constraint it cites, so
+  deletion was defensible; the fixture now establishes it. On
+  `interrogate-pager`, Codex's reply named all three bugs and included the
+  command it ran (`reply-shows-commands` passed), yet the three judge questions
+  that combine each bug with its evidence failed; read the judges' reasons on
+  the next run before calling this a skill gap.
+- **Graders that credited the unchanged fixture, fixed after review:** three
+  `bugfix-shared-fault` outcome graders matched text already in the fixture,
+  its order graders accepted unrelated events, a directory listing counted as a
+  read, and `build-design`'s consumer graders passed a whitespace-only edit. The
+  baseline above predates these fixes, so its `bugfix-shared-fault` and
+  `build-design` scores are upper bounds.

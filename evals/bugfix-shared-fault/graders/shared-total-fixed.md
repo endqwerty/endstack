@@ -1,6 +1,6 @@
 ---
 type: regex
-pattern: refunded
+pattern: '[\w)\]]\??\.refunded\b|\{[^{}\n]*\brefunded\b[^{}\n]*\}\s*[)=]'
 match: contains
 target:
   source: file

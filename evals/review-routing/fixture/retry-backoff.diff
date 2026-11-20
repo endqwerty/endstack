@@ -1,7 +1,8 @@
 diff --git a/src/queue/retry.ts b/src/queue/retry.ts
+index 5bdd431..b368584 100644
 --- a/src/queue/retry.ts
 +++ b/src/queue/retry.ts
-@@ -1,20 +1,29 @@
+@@ -1,11 +1,19 @@
  export type RetryOptions = {
    maxAttempts: number;
 -  delayMs: number;
@@ -22,8 +23,7 @@ diff --git a/src/queue/retry.ts b/src/queue/retry.ts
  export async function withRetry<T>(fn: () => Promise<T>, opts: RetryOptions): Promise<T> {
    const sleep = opts.sleep ?? realSleep;
    let attempt = 0;
-   for (;;) {
-     try {
+@@ -14,8 +22,8 @@ export async function withRetry<T>(fn: () => Promise<T>, opts: RetryOptions): Pr
        return await fn();
      } catch (err) {
        attempt++;
@@ -36,6 +36,7 @@ diff --git a/src/queue/retry.ts b/src/queue/retry.ts
  }
 diff --git a/test/retry.test.ts b/test/retry.test.ts
 new file mode 100644
+index 0000000..3a1ecba
 --- /dev/null
 +++ b/test/retry.test.ts
 @@ -0,0 +1,13 @@

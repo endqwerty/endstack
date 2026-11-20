@@ -1,0 +1,7 @@
+{
+  "name": "@acme/api",
+  "version": "2.9.1",
+  "description": "Generated client for the Acme orders API (v2). Vendored; regenerate from the API schema instead of editing.",
+  "main": "index.js",
+  "types": "index.d.ts"
+}

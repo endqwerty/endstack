@@ -2,8 +2,6 @@ export type Order = { id: string; cents: number };
 
 let warm = false;
 
-export const raw: { id: string } = { id: "42" };
-
 export function warmCache(): void {
   warm = true;
 }

@@ -1,7 +1,8 @@
 #!/usr/bin/env node  // shebang line
 // Copyright 2026 Acme Inc. Licensed under the MIT License.
 import type { Order } from "./runtime.ts";
-import { onResize, raw, start, warmCache } from "./runtime.ts";
+import { fetchOrderRef } from "../vendor/acme-api/index.js";
+import { onResize, start, warmCache } from "./runtime.ts";
 
 // Loop over the orders and add up totals
 export function total(orders: Order[]): number {
@@ -31,4 +32,7 @@ export const MATRIX = [1,0,0, 0,1,0, 0,0,1];
 function debugDump() {}
 
 // Tracked in https://github.com/acme/app/issues/88: the API returns ids as strings until v3
-export const id = Number(raw.id);
+export async function latestOrderId(): Promise<number> {
+  const ref = await fetchOrderRef();
+  return Number(ref.id);
+}

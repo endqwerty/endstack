@@ -7,8 +7,6 @@ because the Claude arm grades with JavaScript and the Codex arm with Python.
 """
 import json, os, re, shutil, subprocess, sys
 
-import yaml
-
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 EVALS = os.path.join(ROOT, "evals")
 PROMPT_KEYS = {"name", "tags", "runs", "max_turns", "timeout_seconds", "allowed_tools", "disallowed_tools"}
@@ -22,15 +20,97 @@ GRADER_KEYS = {
 TARGETS = {"last_message", "trace", "files"}
 
 
+# The small YAML subset eval files use, read the same way as homelab skill-eval's runner:
+# scalars, quoted strings, flow lists, block lists, one level of nested mapping, `|` blocks.
+def _split_flow(text):
+    items, depth, quote, start = [], 0, None, 0
+    for i, ch in enumerate(text):
+        if quote:
+            if ch == quote:
+                quote = None
+        elif ch in "'\"":
+            quote = ch
+        elif ch in "[{":
+            depth += 1
+        elif ch in "]}":
+            depth -= 1
+        elif ch == "," and depth == 0:
+            items.append(text[start:i])
+            start = i + 1
+    items.append(text[start:])
+    return [i.strip() for i in items if i.strip()]
+
+
+def scalar(text):
+    text = text.strip()
+    if text.startswith("'"):
+        if len(text) < 2 or not text.endswith("'") or re.search(r"(?<!')'(?!')", text[1:-1]):
+            raise ValueError(f"bad single-quoted string: {text[:60]}")
+        return text[1:-1].replace("''", "'")
+    if text.startswith('"'):
+        try:
+            return json.loads(text)
+        except ValueError:
+            raise ValueError(f"bad double-quoted string: {text[:60]}")
+    if text.startswith("[") and text.endswith("]"):
+        return [scalar(i) for i in _split_flow(text[1:-1])]
+    text = re.sub(r"\s+#.*$", "", text)
+    if text in ("true", "True"):
+        return True
+    if text in ("false", "False"):
+        return False
+    if text in ("null", "~", ""):
+        return None
+    if re.fullmatch(r"-?\d+", text):
+        return int(text)
+    if re.fullmatch(r"-?\d+\.\d*", text):
+        return float(text)
+    return text
+
+
+def parse_fields(head):
+    fields, i = {}, 0
+    while i < len(head):
+        line = head[i]
+        i += 1
+        if not line.strip() or line.lstrip().startswith("#"):
+            continue
+        match = re.match(r"([A-Za-z_][\w-]*):(?:\s+(.*)|\s*)$", line)
+        if not match:
+            raise ValueError(f"cannot read frontmatter line: {line!r}")
+        key, value = match.group(1), (match.group(2) or "").strip()
+        if key in fields:
+            raise ValueError(f"duplicate key {key}")
+        if value in ("|", "|-", ">", ">-"):
+            block = []
+            while i < len(head) and (not head[i].strip() or head[i].startswith((" ", "\t"))):
+                block.append(head[i])
+                i += 1
+            indent = min((len(b) - len(b.lstrip()) for b in block if b.strip()), default=0)
+            joined = "\n".join(b[indent:] for b in block).rstrip("\n")
+            fields[key] = (joined if value.startswith("|") else " ".join(joined.split())) + \
+                ("" if value.endswith("-") else "\n")
+        elif value == "":
+            items, mapping = [], {}
+            while i < len(head) and re.match(r"\s*- ", head[i]):
+                items.append(scalar(head[i].split("- ", 1)[1]))
+                i += 1
+            while not items and i < len(head) and re.match(r"[ \t]+[A-Za-z_][\w-]*:", head[i]):
+                sub, _, rest = head[i].strip().partition(":")
+                mapping[sub] = scalar(rest)
+                i += 1
+            fields[key] = items or mapping or None
+        else:
+            fields[key] = scalar(value)
+    return fields
+
+
 def frontmatter(path):
     text = open(path, encoding="utf-8").read()
     m = re.match(r"---\n(.*?)\n---\n?(.*)", text, re.S)
     if not m:
         raise ValueError("no YAML frontmatter between --- lines")
-    data = yaml.safe_load(m.group(1))
-    if not isinstance(data, dict):
-        raise ValueError("frontmatter is not a mapping")
-    return data, m.group(2)
+    return parse_fields(m.group(1).split("\n")), m.group(2)
 
 
 def check_prompt(case, path, skills, problems):
@@ -108,14 +188,14 @@ def main():
     problems, patterns, cases = [], [], 0
     for case in sorted(os.listdir(EVALS)):
         base = os.path.join(EVALS, case)
-        if not os.path.isdir(base) or case == "results":
+        if not os.path.isdir(base) or case == "results" or case.startswith(("_", ".")):
             continue
         cases += 1
         prompt = os.path.join(base, "prompt.md")
         graders = os.path.join(base, "graders")
         try:
             check_prompt(case, prompt, skills, problems)
-        except (OSError, ValueError, yaml.YAMLError) as e:
+        except (OSError, ValueError) as e:
             problems.append(f"{prompt}: {e}")
         files = sorted(f for f in os.listdir(graders) if f.endswith(".md")) if os.path.isdir(graders) else []
         if not files:
@@ -123,7 +203,7 @@ def main():
         for f in files:
             try:
                 check_grader(os.path.join(graders, f), patterns, problems)
-            except (OSError, ValueError, yaml.YAMLError) as e:
+            except (OSError, ValueError) as e:
                 problems.append(f"{os.path.join(graders, f)}: {e}")
     check_js(patterns, problems)
     for p in problems:

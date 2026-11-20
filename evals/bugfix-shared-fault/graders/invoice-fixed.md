@@ -1,6 +1,6 @@
 ---
 type: regex
-pattern: 'refunded|orderTotalCents'
+pattern: 'orderTotalCents\(|[\w)\]]\??\.refunded\b'
 match: contains
 target:
   source: file

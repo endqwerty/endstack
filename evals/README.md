@@ -12,7 +12,15 @@ From an endstack checkout:
 ```sh
 homelab skill-eval main HEAD                  # every case, both agents, base and head
 homelab skill-eval --case why-retry HEAD      # one case at one revision
+homelab skill-eval --case 'bugfix-*' HEAD     # cases whose folder names match a glob
 homelab skill-eval --agents claude --runs 1 main HEAD
+```
+
+`--case` takes case folder names under `evals/` or a glob over them, not skill
+names. To run the cases that exercise one skill, find them by their tags:
+
+```sh
+grep -l '^- verify$' evals/*/prompt.md       # cases tagged verify
 ```
 
 The runner archives each revision into a temporary directory, adds the plugin
@@ -71,24 +79,38 @@ revisions on Claude is roughly 60 runs; pass `--max-cost-usd` to cap it, or
 ### Regex targets
 
 - `last_message`: the agent's final reply.
-- `trace`: the run's event stream as JSON lines. A skill read shows up as
-  `"file_path":".../skills/<skill>/SKILL.md"` on Claude and as a `cat` or
-  `sed` command on Codex; patterns here match both. A directory listing does
-  not count as a read.
+- `trace`: the run's event stream as JSON lines: Claude's stream-json events,
+  or Codex's `item.completed` events (`command_execution` with `command` and
+  `aggregated_output`, `file_change` with `changes[].path`, `agent_message`).
+  A skill read is a Read call whose `file_path` ends in
+  `skills/<skill>/SKILL.md`, or a `command` in which a reading command (`cat`,
+  `sed`, `head`, `tail`, `nl`, `less`, `more`, `awk`, `bat`) stands at a
+  command-word position and names that file, directly, in a brace list, through
+  a `for` loop variable or after a `cd` into `skills/`. A listing (`ls`, `rg
+  --files`), a path in command output, and the word `head` inside a directory
+  name do not count.
 - `{source: file, path: <relative path>}`: one file's content at the end of
   the run. Use it to check what an edit kept or removed.
 - `files`: the list of files the run created, by path. It holds no content
   and does not list edited files.
 
 To check order in the trace, such as a test written before the fix, use
-`^(?:(?!SECOND)[\s\S])*FIRST`: it matches when FIRST occurs before any SECOND.
+`^(?:(?!SECOND)[\s\S])*(?:FIRST)`: it matches when FIRST occurs before any
+SECOND. Tie each event to its kind: a file write is a Write or Edit call's
+`file_path` or a Codex `file_change` path, never a bare path; a test result is
+the output of that test command (the Claude tool_result with the same
+`tool_use_id`, or the same Codex item's `aggregated_output`), never failure
+text elsewhere. Give every changed trace or file grader a negative control (the
+unchanged fixture or a wrong trace fails) and a positive control (a correct
+outcome passes) before relying on it.
 
 ### Limits of the Claude arm
 
 Claude runs inside the eval sandbox. Its shell can read and run programs but
 cannot write files, reach the network or run `git`; edits go through the edit
-tools, and `npm test` fails, so prompts name `node --test`. A case therefore cannot grade commits on Claude. Grade the
-order of edits and test runs in the trace instead.
+tools, and `npm test` fails, so prompts name `node --test`. A case therefore
+cannot grade commits on Claude. Grade the order of edits and test runs in the
+trace instead.
 
 ## Cases
 
@@ -97,9 +119,9 @@ order of edits and test runs in the trace instead.
 | ship-explains | ship | "How would you ship PR #12?" runs no merge command and the reply explains the gates |
 | build-design | build, principles, architect | archive tasks: design doc before production code, both list consumers changed, tests added, no merge or push |
 | review-routing | verify | a pre-merge review reads verify, not how, why or swarm, and finds the extra retry attempt |
-| bugfix-shared-fault | test-design | refunded lines: shared total, invoice and receipt fixed, failing test before the fix, redundant cap removed |
+| bugfix-shared-fault | test-design | refunded lines: shared total and invoice fixed (receipt and mail share the total), test written and seen failing before the fix, green after the last edit, redundant cap removed |
 | interrogate-pager | interrogate | three planted pager bugs, each with a command; no source edited |
-| no-comments-nine | no-comments | nine comments: licence, API doc, platform note, issue link and formatter ignore kept; narration and "do not remove" gone |
+| no-comments-nine | no-comments | nine comments: licence, API doc, platform note, issue link (ids come from a vendored API client) and formatter ignore kept; narration and "do not remove" gone |
 | unslop-prose | unslop | three pieces of prose without dashes, curly quotes, bold-label colons, rule 7's words or chatbot phrases |
 | principles-review | principles | guard hiding the bug, swallowed catch, cast on disk data |
 | why-retry | why | cites PR #812, marks inference, says the record does not show the rotation, advises keeping 7 |

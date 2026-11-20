@@ -9,8 +9,8 @@ Read [README.md](README.md) and [DISTILL.md](DISTILL.md) first.
 Daniel's portable agent skills for Claude Code and Codex, distilled from pstack
 (`cursor/plugins`) and no longer tracking it. `skills/` holds only installable,
 distilled skills. `candidates/` holds the pstack skills not yet imported, as
-reference; importing one means distilling it to the rules below, with a dry run,
-and recording it in DISTILL.md and CHANGELOG.md. Nothing in `candidates/` is
+reference; importing one means distilling it to the rules below, with an eval
+case and its score (below), and recording it in DISTILL.md and CHANGELOG.md. Nothing in `candidates/` is
 installed or maintained.
 
 ## Rules for a skill in `skills/`
@@ -26,7 +26,7 @@ size, no tool or model names, links) and must pass.
 - One skill, one job, one role. Deterministic work belongs in the `homelab` CLI
   with tests, not in a skill.
 - **Core delivery skills** (build, babysit, ship, autopilot-full, verify): `SKILL.md` at most 2,200 bytes, judgment and policy
-  only; changes get an eval score table in the PR (below).
+  only; a behaviour change gets an eval score table in the PR (below).
 - **Role skills**, imported (ported from pstack, see `candidates/README.md` and
   DISTILL.md) or new: keep an imported skill's role, identity, structure and
   judgment; `SKILL.md` at most 6,000 bytes, longer material in `references/` read on demand. Porting removes
@@ -71,8 +71,9 @@ with `git`, give the compare URL the push prints, and name opening and merging
 the PR as the pending step.
 
 Changes to a skill's behaviour, or to ROUTING.md, get evidence from the standing
-evals in [evals/](evals/README.md): run `homelab skill-eval main HEAD` (at least
-the cases tagged with the touched skills, `--case`) and paste the score table in
-the PR. A skill with no case gets one in the same change; a hand-run dry run
+evals in [evals/](evals/README.md): run `homelab skill-eval main HEAD` on at
+least the cases tagged with the touched skills (`--case` takes case folder names;
+the README shows how to find a skill's cases) and paste the score table in the
+PR. A skill with no case gets one in the same change; a hand-run dry run
 stays acceptable only for a behaviour no case can grade, and the PR says why.
 Record changes in CHANGELOG.md.
