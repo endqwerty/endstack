@@ -8,6 +8,7 @@ watch anyone's pull request in any repository the login can read.
 import argparse
 import datetime
 import json
+import os
 import queue
 import re
 import signal
@@ -31,6 +32,8 @@ PENDING_STATES = {"PENDING", "EXPECTED"}
 BACKOFF = 1.5
 MAX_POLL = 300.0
 MAX_ERRORS = 5
+VIEW_TIMEOUT = 120.0
+PROBE = 8.0
 EXIT_OK, EXIT_ERROR, EXIT_ENDED, EXIT_TIMEOUT = 0, 2, 3, 8
 
 
@@ -86,28 +89,39 @@ def parse_duration(text):
     return int(total) if total == int(total) else total
 
 
-def summarize_checks(rollup):
-    total, done, failed = 0, 0, []
+def check_runs(rollup):
+    """[(key, name, pending|pass|fail)]; a repeated name gets #2, #3 in rollup order."""
+    runs, seen = [], {}
     for c in rollup or []:
-        total += 1
         if c.get("__typename") == "StatusContext" or "context" in c:
-            state = (c.get("state") or "").upper()
-            if state not in PENDING_STATES:
-                done += 1
-                if state in FAILED:
-                    failed.append(c.get("context") or "?")
+            name = c.get("context") or "?"
+            raw = (c.get("state") or "").upper()
+            state = "pending" if raw in PENDING_STATES else ("fail" if raw in FAILED else "pass")
         else:
-            if (c.get("status") or "").upper() == "COMPLETED":
-                done += 1
-                if (c.get("conclusion") or "").upper() in FAILED:
-                    failed.append(c.get("name") or "?")
+            name = c.get("name") or "?"
+            if (c.get("status") or "").upper() != "COMPLETED":
+                state = "pending"
+            else:
+                state = "fail" if (c.get("conclusion") or "").upper() in FAILED else "pass"
+        base = f"{c.get('workflowName')}/{name}" if c.get("workflowName") else name
+        seen[base] = seen.get(base, 0) + 1
+        runs.append((base if seen[base] == 1 else f"{base}#{seen[base]}", name, state))
+    return runs
+
+
+def summarize_checks(rollup):
+    runs = check_runs(rollup)
+    total = len(runs)
+    done = sum(1 for _, _, st in runs if st != "pending")
+    failed = [name for _, name, st in runs if st == "fail"]
     if total == 0:
         state = "none"
     elif done < total:
         state = "pending"
     else:
         state = "fail" if failed else "pass"
-    return {"state": state, "total": total, "done": done, "failed": sorted(set(failed))}
+    return {"state": state, "total": total, "done": done, "failed": sorted(set(failed)),
+            "runs": {key: [name, st] for key, name, st in runs}}
 
 
 def normalize(raw):
@@ -126,9 +140,14 @@ def normalize(raw):
         "review_decision": raw.get("reviewDecision") or "",
         "reviews": sorted(reviews, key=lambda r: (r["author"], r["submitted_at"])),
         "comments": len(comments),
-        "last_comment_by": ((comments[-1].get("author") or {}).get("login") or "?") if comments else "",
+        "comment_ids": [_comment_id(c) for c in comments],
+        "comment_authors": [(c.get("author") or {}).get("login") or "?" for c in comments],
         "checks": summarize_checks(raw.get("statusCheckRollup")),
     }
+
+
+def _comment_id(c):
+    return c.get("id") or f"{(c.get('author') or {}).get('login')}@{c.get('createdAt')}"
 
 
 def carry_unknown(old, new):
@@ -170,6 +189,10 @@ def diff(old, new):
             "mergeable again" if old["mergeable"] == "CONFLICTING" else "mergeability changed")
         add("mergeable", f"{what} (mergeable: {new['mergeable']}, was {old['mergeable']})")
     oc, nc = old["checks"], new["checks"]
+    for key, (name, st) in nc["runs"].items():
+        before = oc["runs"].get(key, [name, "pending"])[1]
+        if st != "pending" and st != before:
+            add("check", f"check {name} {'passed' if st == 'pass' else 'failed'}")
     if (oc["state"], oc["failed"]) != (nc["state"], nc["failed"]) and nc["state"] != "none":
         if nc["state"] != "pending" or oc["state"] != "pending":
             add("checks", _checks_line(nc))
@@ -179,12 +202,12 @@ def diff(old, new):
             add("review", f"review: {r['author']} {r['state']}")
     if old["review_decision"] != new["review_decision"] and new["review_decision"]:
         add("review_decision", f"review decision: {new['review_decision']} (was {old['review_decision'] or 'none'})")
-    if new["comments"] > old["comments"]:
-        n = new["comments"] - old["comments"]
-        if n == 1:
-            add("comment", f"new comment by {new['last_comment_by']} ({new['comments']} total)")
-        else:
-            add("comment", f"{n} new comments, latest by {new['last_comment_by']} ({new['comments']} total)")
+    known = set(old["comment_ids"])
+    fresh = [a for cid, a in zip(new["comment_ids"], new["comment_authors"]) if cid not in known]
+    if len(fresh) == 1:
+        add("comment", f"new comment by {fresh[-1]} ({new['comments']} total)")
+    elif fresh:
+        add("comment", f"{len(fresh)} new comments, latest by {fresh[-1]} ({new['comments']} total)")
     return changes
 
 
@@ -198,15 +221,19 @@ def describe(s):
 class EventListener:
     """Runs `gh event listen --follow` and turns its stdout lines into wake-ups."""
 
-    def __init__(self, gh, url, events, probe=8.0):
-        try:
-            self.proc = subprocess.Popen(
-                [gh, "event", "listen", "--resource", url, "--event", ",".join(events), "--follow"],
-                stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-        except OSError as e:
-            raise ListenUnavailable(str(e))
+    def __init__(self, gh, url, events):
+        self.cmd = [gh, "event", "listen", "--resource", url, "--event", ",".join(events), "--follow"]
+        self.proc = None
         self.q = queue.Queue()
         self.stderr = []
+
+    def start(self, probe=8.0):
+        """Spawn in its own process group and wait up to probe seconds to see that it attached."""
+        try:
+            self.proc = subprocess.Popen(self.cmd, stdin=subprocess.DEVNULL, stdout=subprocess.PIPE,
+                                         stderr=subprocess.PIPE, text=True, start_new_session=True)
+        except OSError as e:
+            raise ListenUnavailable(str(e))
         threading.Thread(target=self._read, args=(self.proc.stdout, "event"), daemon=True).start()
         threading.Thread(target=self._read, args=(self.proc.stderr, "status"), daemon=True).start()
         deadline = time.monotonic() + probe
@@ -262,22 +289,32 @@ class EventListener:
                 return "dead"
 
     def close(self):
-        if self.proc.poll() is None:
-            self.proc.terminate()
+        """Stop the listener and anything it started (its whole process group)."""
+        if self.proc is None:
+            return
+        for sig, grace in ((signal.SIGTERM, 5), (signal.SIGKILL, 5)):
             try:
-                self.proc.wait(timeout=5)
+                os.killpg(self.proc.pid, sig)
+            except (ProcessLookupError, PermissionError):
+                break
+            try:
+                self.proc.wait(timeout=grace)
+                os.killpg(self.proc.pid, 0)
             except subprocess.TimeoutExpired:
-                self.proc.kill()
+                continue
+            except (ProcessLookupError, PermissionError):
+                break
 
 
 class GhClient:
     def __init__(self, gh="gh"):
         self.gh = gh
 
-    def view(self, ref):
+    def view(self, ref, timeout=None):
+        limit = VIEW_TIMEOUT if timeout is None else max(0.01, min(timeout, VIEW_TIMEOUT))
         try:
             p = subprocess.run([self.gh, "pr", "view", *ref.gh_args(), "--json", FIELDS],
-                               stdin=subprocess.DEVNULL, capture_output=True, text=True, timeout=120)
+                               stdin=subprocess.DEVNULL, capture_output=True, text=True, timeout=limit)
         except FileNotFoundError:
             raise GhError("the GitHub CLI (gh) is not installed or not on PATH")
         except (OSError, subprocess.TimeoutExpired) as e:
@@ -301,10 +338,11 @@ class Watcher:
         self.explicit = bool(conds)
         self.conds = conds or ([] if follow else ["any-change"])
         self.gh, self.ref, self.follow, self.timeout = gh, ref, follow, timeout
-        self.interval, self.as_json = interval, as_json
+        self.interval, self.as_json = min(interval, MAX_POLL), as_json
         self.out, self.err, self.clock, self.sleep = out, err, clock, sleep
         self.label = f"{ref.repo}#{ref.number}" if ref.repo else f"#{ref.number}"
         self.listener = None
+        self.deadline = None
 
     def _now(self):
         return datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
@@ -349,10 +387,20 @@ class Watcher:
             if self.listener is not None:
                 self.listener.close()
 
+    def left(self):
+        return None if self.deadline is None else self.deadline - self.clock()
+
+    def timed_out(self):
+        self.emit("timeout", f"timeout after {self.timeout}s (exit {EXIT_TIMEOUT})", exit=EXIT_TIMEOUT)
+        return EXIT_TIMEOUT
+
     def _run(self):
+        self.deadline = None if self.timeout is None else self.clock() + self.timeout
         try:
-            snap = normalize(self.gh.view(self.ref))
+            snap = normalize(self.gh.view(self.ref, timeout=self.left()))
         except GhError as e:
+            if self.deadline is not None and self.left() <= 0:
+                return self.timed_out()
             self.note(str(e))
             if self.as_json:
                 self.emit("error", "", message=str(e), exit=EXIT_ERROR)
@@ -362,27 +410,27 @@ class Watcher:
             if m:
                 self.label = f"{m.group(1)}#{snap['number']}"
         self.emit("snapshot", "snapshot: " + describe(snap), snapshot=snap)
-        start = self.clock()
-        deadline = None if self.timeout is None else start + self.timeout
         changes = []
         v = self.verdict(snap, changes)
         if v:
             return self.finish(v)
+        self.listener = self.gh.listen(snap["url"], EVENTS)
         try:
-            self.listener = self.gh.listen(snap["url"], EVENTS)
+            left = self.left()
+            self.listener.start(PROBE if left is None else max(0.0, min(PROBE, left)))
             self.note("listening for pull request events, with a poll as backstop")
             wait = 0
         except ListenUnavailable as e:
+            self.listener.close()
+            self.listener = None
             self.note(f"event stream unavailable ({e}); polling from every {self.interval}s")
             wait = self.interval
         step, errors = self.interval, 0
         while True:
-            if deadline is not None:
-                left = deadline - self.clock()
+            left = self.left()
+            if left is not None:
                 if left <= 0:
-                    t = self.timeout
-                    self.emit("timeout", f"timeout after {t}s (exit {EXIT_TIMEOUT})", exit=EXIT_TIMEOUT)
-                    return EXIT_TIMEOUT
+                    return self.timed_out()
                 wait = min(wait, left)
             woke = False
             if self.listener is not None:
@@ -394,24 +442,29 @@ class Watcher:
                 woke = r == "event"
             else:
                 self.sleep(wait)
+            left = self.left()
+            if left is not None and left <= 0:
+                return self.timed_out()
             try:
-                new = carry_unknown(snap, normalize(self.gh.view(self.ref)))
+                new = carry_unknown(snap, normalize(self.gh.view(self.ref, timeout=left)))
                 errors = 0
             except GhError as e:
+                if left is not None and self.left() <= 0:
+                    return self.timed_out()
                 errors += 1
                 self.note(f"{e} (attempt {errors} of {MAX_ERRORS})")
                 if errors >= MAX_ERRORS:
                     if self.as_json:
                         self.emit("error", "", message=str(e), exit=EXIT_ERROR)
                     return EXIT_ERROR
-                wait = step = min(step * BACKOFF, max(MAX_POLL, self.interval))
+                wait = step = min(step * BACKOFF, MAX_POLL)
                 continue
             found = diff(snap, new)
             snap = new
             for c in found:
                 self.emit("change", c["message"], **c)
             changes.extend(found)
-            step = self.interval if (found or woke) else min(step * BACKOFF, max(MAX_POLL, self.interval))
+            step = self.interval if (found or woke) else min(step * BACKOFF, MAX_POLL)
             wait = step
             v = self.verdict(snap, changes)
             if v:
@@ -436,7 +489,8 @@ def main(argv=None):
                    help="keep printing changes until --timeout or a signal; with --until, still stop when it holds")
     p.add_argument("--timeout", metavar="DURATION", help="give up after this long (90, 20s, 30m, 1h30m); exit 8")
     p.add_argument("--interval", metavar="DURATION", default="30s",
-                   help="first poll interval (default 30s); grows by half when nothing changes, to at most 5m")
+                   help="first poll interval (default 30s, above 5m capped at 5m); grows by half when "
+                        "nothing changes, to at most 5m")
     p.add_argument("--json", action="store_true", help="print one JSON object per line")
     a = p.parse_args(argv)
     try:

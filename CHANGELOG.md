@@ -14,7 +14,13 @@
 - AGENTS.md: a script a skill needs ships inside the skill with tests;
   machine-specific tooling stays in homelab.
 - `evals/pr-watch-wait`: an agent asked to wait for a merge runs the script
-  with `--until merged`, not a sleep loop.
+  with `--until merged` and no timeout under an hour, not a sleep loop, and
+  writes nothing to the pull request.
+- Review fixes: the event listener is registered before it starts and its
+  process group is killed on exit; each check that finishes and each new
+  comment (by id) is reported; every `gh` call and the listener probe are
+  bounded by the remaining `--timeout`; `--interval` is capped at 5m; the
+  tests do not depend on `sys.executable`.
 
 ## 2026-11-20 — Short eval checks
 

@@ -54,8 +54,8 @@ stalled pull request ends the wait instead of holding the task open. Use
 Start it as a background job if the harness has one, and keep working on
 anything that does not depend on the result. The first line is a snapshot
 of the current state; read it, since events before the start are not
-replayed. Each later line is one change: checks passed or failed (with the
-failing names), a new review and its state, new comments, a new push with its
+replayed. Each later line is one change: a check that finished and how,
+all checks passed or failed (with the failing names), a new review and its state, new comments, a new push with its
 commit, a merge conflict or its resolution, draft or ready, merged, closed,
 reopened.
 

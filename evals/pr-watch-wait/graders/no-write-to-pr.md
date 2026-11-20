@@ -1,6 +1,6 @@
 ---
 type: regex
-pattern: '"command":"(?:[^"\\]|\\.)*?\bgh\s+(?:pr\s+(?:merge|comment|review|close|edit|ready|reopen)|api\b(?:[^"\\]|\\.)*?(?:-X|--method)\s*(?:POST|PATCH|PUT|DELETE))'
+pattern: '"command":"(?:[^"\\]|\\.)*?\bgh\s+(?:pr\s+(?:merge|comment|review|close|edit|ready|reopen)\b|api\b(?:[^"\\;|&]|\\.)*?\s(?:(?:-[fF]|--field|--raw-field|--input)(?=[\s=]|[^\s"\\-])|(?:-X|--method)(?:\s+|=)?(?:\\"|'')?(?!GET\b)[A-Za-z]))'
 match: not_contains
 target: trace
 ---

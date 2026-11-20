@@ -2,6 +2,7 @@ import importlib.util
 import io
 import json
 import os
+import shutil
 import signal
 import subprocess
 import sys
@@ -16,6 +17,10 @@ wp = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(wp)
 
 URL = "https://github.com/o/r/pull/7"
+# A launcher variable can point sys.executable at a host binary that is not Python; use the interpreter.
+PYTHON = getattr(sys, "_base_executable", None) or sys.executable
+if not os.path.basename(PYTHON).startswith("python"):
+    PYTHON = shutil.which("python3") or PYTHON
 
 
 def check_run(name, status="COMPLETED", conclusion="SUCCESS"):
@@ -36,8 +41,8 @@ def review(login, state, at):
     return {"author": {"login": login}, "state": state, "submittedAt": at}
 
 
-def comment(login):
-    return {"author": {"login": login}, "body": "x"}
+def comment(login, cid=None):
+    return {"id": cid or "IC_" + login, "author": {"login": login}, "body": "x"}
 
 
 class Clock:
@@ -56,26 +61,30 @@ class Clock:
 class FakeGh:
     """Returns one queued pull request view per call; the last one repeats."""
 
-    def __init__(self, views, clock, listener=None, errors=()):
+    def __init__(self, views, clock, listener=None, errors=(), slow=None):
         self.views = list(views)
         self.clock = clock
         self.listener = listener
         self.errors = set(errors)
+        self.slow = slow
         self.calls = 0
         self.listen_args = None
+        self.timeouts = []
 
-    def view(self, ref):
+    def view(self, ref, timeout=None):
         i = self.calls
         self.calls += 1
+        self.timeouts.append(timeout)
+        if self.slow is not None:
+            self.clock.t += min(self.slow, timeout if timeout is not None else self.slow)
+            raise wp.GhError("gh pr view timed out")
         if i in self.errors:
             raise wp.GhError("boom")
         return self.views[min(i, len(self.views) - 1)]
 
     def listen(self, url, events):
         self.listen_args = (url, events)
-        if self.listener is None:
-            raise wp.ListenUnavailable("unknown command \"event\" for \"gh\"")
-        return self.listener
+        return self.listener if self.listener is not None else Unavailable()
 
 
 class FakeListener:
@@ -87,6 +96,10 @@ class FakeListener:
         self.n = 0
         self.closed = False
         self.waits = []
+        self.probe = None
+
+    def start(self, probe):
+        self.probe = probe
 
     def wait(self, timeout):
         self.waits.append(timeout)
@@ -102,11 +115,20 @@ class FakeListener:
         self.closed = True
 
 
-def run(views, until=(), follow=False, timeout=None, as_json=False, listener=None, errors=(), interval=10):
+class Unavailable(FakeListener):
+    def __init__(self):
+        super().__init__(None)
+
+    def start(self, probe):
+        raise wp.ListenUnavailable("unknown command \"event\" for \"gh\"")
+
+
+def run(views, until=(), follow=False, timeout=None, as_json=False, listener=None, errors=(), interval=10,
+        slow=None):
     clock = Clock()
     if listener is not None:
         listener.clock = clock
-    gh = FakeGh(views, clock, listener, errors)
+    gh = FakeGh(views, clock, listener, errors, slow)
     out, err = io.StringIO(), io.StringIO()
     w = wp.Watcher(gh, wp.parse_ref(URL), until=list(until), follow=follow, timeout=timeout,
                    interval=interval, as_json=as_json, out=out, err=err,
@@ -201,11 +223,26 @@ class Diff(unittest.TestCase):
 
     def test_checks_pass_fail_running(self):
         self.assertEqual(self.kinds(raw(), raw(statusCheckRollup=[check_run("test")])),
-                         [("checks", "checks passed (1/1)")])
+                         [("check", "check test passed"), ("checks", "checks passed (1/1)")])
         self.assertEqual(self.kinds(raw(), raw(statusCheckRollup=[check_run("test", conclusion="FAILURE")])),
-                         [("checks", "checks failed: test (1 of 1)")])
+                         [("check", "check test failed"), ("checks", "checks failed: test (1 of 1)")])
         self.assertEqual(self.kinds(raw(statusCheckRollup=[check_run("test")]), raw()),
                          [("checks", "checks running (0/1 done)")])
+
+    def test_one_check_fails_while_another_runs(self):
+        old = raw(statusCheckRollup=[check_run("a", "IN_PROGRESS", ""), check_run("b", "IN_PROGRESS", "")])
+        new = raw(statusCheckRollup=[check_run("a", conclusion="FAILURE"), check_run("b", "IN_PROGRESS", "")])
+        self.assertEqual(self.kinds(old, new), [("check", "check a failed")])
+        status = raw(statusCheckRollup=[{"__typename": "StatusContext", "context": "ci", "state": "PENDING"},
+                                        check_run("b", "IN_PROGRESS", "")])
+        done = raw(statusCheckRollup=[{"__typename": "StatusContext", "context": "ci", "state": "SUCCESS"},
+                                      check_run("b", "IN_PROGRESS", "")])
+        self.assertEqual(self.kinds(status, done), [("check", "check ci passed")])
+
+    def test_duplicate_check_names_are_told_apart(self):
+        old = raw(statusCheckRollup=[check_run("label"), check_run("label", "QUEUED", ""), check_run("x", "QUEUED", "")])
+        new = raw(statusCheckRollup=[check_run("label"), check_run("label"), check_run("x", "QUEUED", "")])
+        self.assertEqual(self.kinds(old, new), [("check", "check label passed")])
 
     def test_review(self):
         old = raw(latestReviews=[review("al", "COMMENTED", "2026-01-01T00:00:00Z")])
@@ -217,6 +254,16 @@ class Diff(unittest.TestCase):
     def test_review_decision(self):
         self.assertEqual(self.kinds(raw(), raw(reviewDecision="APPROVED")),
                          [("review_decision", "review decision: APPROVED (was REVIEW_REQUIRED)")])
+
+    def test_replaced_comment_is_new(self):
+        self.assertEqual(self.kinds(raw(comments=[comment("x", "IC_1")]), raw(comments=[comment("bo", "IC_2")])),
+                         [("comment", "new comment by bo (1 total)")])
+        self.assertEqual(self.kinds(raw(comments=[comment("x", "IC_1")]), raw(comments=[])), [])
+
+    def test_same_author_new_review_same_state(self):
+        old = raw(latestReviews=[review("al", "COMMENTED", "2026-01-01T00:00:00Z")])
+        new = raw(latestReviews=[review("al", "COMMENTED", "2026-01-03T00:00:00Z")])
+        self.assertEqual(self.kinds(old, new), [("review", "review: al COMMENTED")])
 
     def test_comment(self):
         self.assertEqual(self.kinds(raw(), raw(comments=[comment("bo")])),
@@ -320,6 +367,36 @@ class Timing(unittest.TestCase):
         self.assertEqual(run(views, follow=True, until=["merged"], timeout=600)[0], 0)
 
 
+class Limits(unittest.TestCase):
+    def test_every_view_is_bounded_by_the_deadline(self):
+        _, _, _, _, gh = run([raw()], until=["merged"], timeout=25, interval=10)
+        self.assertEqual(gh.timeouts, [25, 15])
+
+    def test_slow_view_past_deadline_is_a_timeout(self):
+        code, out, _, clock, _ = run([raw()], until=["merged"], timeout=0.1, slow=120)
+        self.assertEqual(code, 8)
+        self.assertAlmostEqual(clock.t, 0.1)
+        self.assertIn("timeout", out[-1])
+
+    def test_interval_is_capped_at_five_minutes(self):
+        _, _, _, clock, _ = run([raw()], until=["merged"], timeout=1000, interval=360)
+        self.assertEqual(clock.sleeps[0], 300)
+
+    def test_listener_probe_is_bounded_by_the_deadline(self):
+        listener = FakeListener(None)
+        run([raw()], until=["merged"], timeout=3, listener=listener)
+        self.assertLessEqual(listener.probe, 3)
+
+    def test_listener_is_closed_when_stopped_during_startup(self):
+        class Interrupted(FakeListener):
+            def start(self, probe):
+                raise wp.Stopped(signal.SIGTERM)
+        listener = Interrupted(None)
+        with self.assertRaises(wp.Stopped):
+            run([raw()], until=["merged"], listener=listener)
+        self.assertTrue(listener.closed)
+
+
 class Events(unittest.TestCase):
     def test_event_wakes_an_immediate_poll(self):
         listener = FakeListener(None, events_at={1})
@@ -391,6 +468,8 @@ import json, os, sys, time
 d = os.environ["FAKE_GH_DIR"]
 args = sys.argv[1:]
 if args[:2] == ["pr", "view"]:
+    if os.environ.get("FAKE_GH_VIEW") == "slow":
+        time.sleep(30)
     if os.environ.get("FAKE_GH_VIEW") == "noauth":
         sys.stderr.write("To get started with GitHub CLI, please run:  gh auth login\n")
         sys.exit(4)
@@ -402,6 +481,13 @@ if args[:2] == ["pr", "view"]:
     sys.exit(0)
 if args[:2] == ["event", "listen"]:
     mode = os.environ.get("FAKE_GH_EVENTS", "unsupported")
+    if mode == "hang":
+        import subprocess
+        child = subprocess.Popen(["sleep", "60"])
+        open(os.path.join(d, "pids.tmp"), "w").write("%d %d" % (os.getpid(), child.pid))
+        os.rename(os.path.join(d, "pids.tmp"), os.path.join(d, "pids"))
+        time.sleep(60)
+        sys.exit(0)
     if mode == "unsupported":
         sys.stderr.write('unknown command "event" for "gh"\n')
         sys.exit(1)
@@ -417,6 +503,14 @@ sys.exit(1)
 '''
 
 
+def _alive(pid):
+    try:
+        with open(f"/proc/{pid}/stat") as f:
+            return f.read().split(")")[-1].split()[0] != "Z"
+    except FileNotFoundError:
+        return False
+
+
 class EndToEnd(unittest.TestCase):
     def setUp(self):
         self.dir = tempfile.TemporaryDirectory()
@@ -426,7 +520,7 @@ class EndToEnd(unittest.TestCase):
         os.makedirs(self.data)
         gh = os.path.join(self.bin, "gh")
         with open(gh, "w") as f:
-            f.write(FAKE_GH.replace("{python}", sys.executable))
+            f.write(FAKE_GH.replace("{python}", PYTHON))
         os.chmod(gh, 0o755)
 
     def tearDown(self):
@@ -439,11 +533,12 @@ class EndToEnd(unittest.TestCase):
 
     def env(self, **extra):
         env = dict(os.environ, PATH=self.bin + os.pathsep + os.environ.get("PATH", ""), FAKE_GH_DIR=self.data)
+        env.pop("__PYVENV_LAUNCHER__", None)
         env.update(extra)
         return env
 
     def run_script(self, *args, **env):
-        return subprocess.run([sys.executable, SCRIPT, *args], capture_output=True, text=True,
+        return subprocess.run([PYTHON, SCRIPT, *args], capture_output=True, text=True,
                               env=self.env(**env), timeout=60)
 
     def test_help(self):
@@ -485,9 +580,35 @@ class EndToEnd(unittest.TestCase):
         lines = [json.loads(line) for line in p.stdout.splitlines()]
         self.assertEqual((lines[0]["event"], lines[-1]["event"]), ("snapshot", "timeout"))
 
+    def test_slow_view_stops_at_the_deadline(self):
+        self.views(raw())
+        start = time.monotonic()
+        p = self.run_script(URL, "--until", "merged", "--timeout", "0.3", FAKE_GH_VIEW="slow")
+        self.assertEqual(p.returncode, 8, p.stderr)
+        self.assertLess(time.monotonic() - start, 5)
+
+    def test_sigterm_during_listener_startup_kills_its_process_group(self):
+        self.views(raw())
+        proc = subprocess.Popen([PYTHON, SCRIPT, URL, "--until", "merged"], stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE, text=True, env=self.env(FAKE_GH_EVENTS="hang"))
+        pids_file = os.path.join(self.data, "pids")
+        deadline = time.monotonic() + 10
+        while not os.path.exists(pids_file) and time.monotonic() < deadline:
+            time.sleep(0.05)
+        pids = [int(x) for x in open(pids_file).read().split()]
+        proc.send_signal(signal.SIGTERM)
+        _, err = proc.communicate(timeout=10)
+        self.assertEqual(proc.returncode, 128 + signal.SIGTERM, err)
+        deadline = time.monotonic() + 5
+        alive = pids
+        while alive and time.monotonic() < deadline:
+            alive = [pid for pid in pids if _alive(pid)]
+            time.sleep(0.05)
+        self.assertEqual(alive, [], "listener or its child still running")
+
     def test_sigterm_exits_cleanly(self):
         self.views(raw())
-        proc = subprocess.Popen([sys.executable, SCRIPT, URL, "--until", "merged", "--interval", "30"],
+        proc = subprocess.Popen([PYTHON, SCRIPT, URL, "--until", "merged", "--interval", "30"],
                                 stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=self.env())
         deadline = time.monotonic() + 10
         while not os.path.exists(os.path.join(self.data, "n")) and time.monotonic() < deadline:
