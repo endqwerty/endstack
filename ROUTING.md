@@ -23,7 +23,10 @@ safety are tasks, however short.
 - Editing .ts or .tsx: `typescript-best-practices`.
 - Adding, keeping, moving or deleting a test, a bug fix with a cheap local
   test, or a failing or regression test asked for: `test-design`.
-- Removing comments or replacing workaround ones: `no-comments`.
+- Writing code: no comments, except license headers, public API docs, formatter
+  or style-only lint directives, and one line naming a constraint from something
+  you can't change; reasoning goes in the commit or PR. Cleaning up existing
+  ones: `no-comments`.
 - Contested design ("tear this apart"): `interrogate`. Competing attempts at
   one artifact: `arena`.
 - A timing or performance number to report, compare or limit:

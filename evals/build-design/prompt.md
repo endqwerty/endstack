@@ -6,6 +6,7 @@ tags:
 - architect
 - test-design
 - typescript-best-practices
+- no-comments
 runs: 2
 max_turns: 40
 timeout_seconds: 900

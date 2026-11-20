@@ -4,6 +4,7 @@ tags:
 - test-design
 - build
 - principles
+- no-comments
 runs: 2
 max_turns: 35
 timeout_seconds: 900
