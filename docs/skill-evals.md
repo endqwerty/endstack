@@ -54,8 +54,9 @@ What this run shows:
   `bugfix-shared-fault` miss on `test-failed-before-fix` cannot be checked;
   its Claude branch is tested only on synthetic traces. One run with
   `--keep-temp` settles it (follow-up).
-- **Codex misses to read with the saved judge reasons on the next run:** one
-  of three pager bugs without its command (`interrogate-pager`), the issue-link
+- **Codex misses to read with the saved judge reasons on the next run:** the judge
+  question on one of three pager bugs, though the reply gave a command and
+  its output for it (`interrogate-pager`), the issue-link
   and platform-note comments (`no-comments-nine`), and the explicit-request
   wording in `ship-explains`. The Codex judge started saving reasons after this
   run.
