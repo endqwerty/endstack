@@ -59,7 +59,8 @@ is one unit, and each Codex run of a case at one revision is another, so a
 check of N cases at two revisions with `--runs 1` on both agents is 4 x N
 units. Set `--jobs` to that number and the wall time is about the slowest single
 run: a few minutes for a reply case, eight to ten for a code change. One or two
-cases take about ten minutes; more cases than `--jobs` slots run in waves.
+cases take about ten minutes; when there are more units than `--jobs` slots,
+the rest wait and run in waves.
 Runs inside one Claude case go one after another, so `--runs 3` on a
 code-change case takes about three run-times.
 
