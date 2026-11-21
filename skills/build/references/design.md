@@ -2,8 +2,8 @@
 
 Do this before the first edit to production code for a feature or a change of
 shape, and again at each phase boundary of a larger change: one line per step
-that applies, `n/a` otherwise. A fix whose shape is already settled answers
-ground and tests in a sentence each.
+that applies, `n/a` otherwise. A fix whose shape is already settled still does
+step 1, and answers ground and tests in a sentence each.
 
 1. **Principles.** Open the [principles index](../../principles/SKILL.md) now
    and read all of it: one page, one rule per line. For each principle whose

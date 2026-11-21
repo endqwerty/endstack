@@ -8,9 +8,10 @@ description: Implement a feature or fix and prepare a checked pull request for r
 Own the change through a reviewable pull request, not through landing.
 
 - Establish the requested outcome, observable checks and scope before editing.
-- Before the first edit to production code, read
-  [references/design.md](references/design.md) and do its steps; keep its
-  note.
+- Before the first edit to production code, a fix included, read the
+  [principles index](../principles/SKILL.md), then
+  [references/design.md](references/design.md), and do its steps; keep its
+  note. Report each principle that changed a choice.
 - Implement the smallest complete change.
 - Use [verify](../verify/SKILL.md) for independent review.
 - Prepare a non-draft pull request that follows the project's template and
