@@ -2,6 +2,7 @@ import importlib.util
 import io
 import json
 import os
+from pathlib import Path
 import shutil
 import signal
 import subprocess
@@ -639,7 +640,7 @@ class EndToEnd(unittest.TestCase):
         deadline = time.monotonic() + 10
         while not os.path.exists(pids_file) and time.monotonic() < deadline:
             time.sleep(0.05)
-        pids = [int(x) for x in open(pids_file).read().split()]
+        pids = [int(x) for x in Path(pids_file).read_text().split()]
         proc.send_signal(signal.SIGTERM)
         _, err = proc.communicate(timeout=10)
         self.assertEqual(proc.returncode, 128 + signal.SIGTERM, err)
