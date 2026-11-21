@@ -11,7 +11,8 @@ Own delivery inside an explicit boundary, not an unlimited backlog.
   items before execution; if the work is unclear, land nothing.
 - Compose [build](../build/SKILL.md), [babysit](../babysit/SKILL.md) and
   [ship](../ship/SKILL.md) per item; autonomy removes approval prompts, never
-  evidence or [verify](../verify/SKILL.md)'s gate.
+  evidence or [verify](../verify/SKILL.md)'s gate. Wait on pull requests
+  with the harness's watcher, else [pr-watch](../pr-watch/SKILL.md).
 - Complete build's design step before any code or brief, and give each
   participant its change with that note. Land only the verified frontier;
   never delegate an operator-held decision.

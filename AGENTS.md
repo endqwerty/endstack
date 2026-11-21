@@ -23,8 +23,12 @@ size, no tool or model names, links) and must pass.
   harness can watch a pull request, use it" is fine; a tool name is not.
   Judge or reviewer roles ask for a different provider or model family "if
   available", never a named one.
-- One skill, one job, one role. Deterministic work belongs in the `homelab` CLI
-  with tests, not in a skill.
+- One skill, one job, one role. Deterministic work goes in a script, not in
+  prose. A script a skill needs ships inside that skill (`scripts/`, standard
+  library, with tests beside it run by
+  `python3 -m unittest discover -s skills/<skill>/scripts`), so it works
+  wherever the skills are installed; tooling tied to Daniel's machines stays in
+  the `homelab` CLI.
 - **Core delivery skills** (build, babysit, ship, autopilot-full, verify): `SKILL.md` at most 2,200 bytes, judgment and policy
   only; a behaviour change gets an eval score table in the PR (below).
 - **Role skills**, imported (ported from pstack, see `candidates/README.md` and

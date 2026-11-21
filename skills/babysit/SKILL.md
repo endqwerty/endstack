@@ -9,8 +9,8 @@ Own readiness of the requested pull request; the user owns the merge decision.
 
 - Identify the scope. “Is it green?” is one read-only status pass; “address
   comments” is feedback only; “babysit” is work to ready.
-- Keep one watcher. If the harness can watch pull requests, use that, not a
-  polling loop. Stop
+- Keep one watcher. If the harness can watch pull requests, use that;
+  otherwise [pr-watch](../pr-watch/SKILL.md), never a polling loop. Stop
   watching at readiness, a handoff or question, or an explicit stop.
 - Work an unmerged dependency only if authorized; otherwise report it as a
   blocker, and do not rewrite the stack.

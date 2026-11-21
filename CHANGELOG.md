@@ -1,5 +1,29 @@
 # Change log
 
+## 2026-11-20 — pr-watch
+
+- `skills/pr-watch/`: a hidden skill for waiting on any pull request, the
+  user's or anyone's, with a bundled read-only script
+  (`scripts/watch_pr.py`, standard library, tests beside it). It takes a
+  snapshot, listens for pull request events when the account has them and
+  polls with backoff when not, prints one line per change, and exits 0 when an
+  `--until` condition holds, 3 when the pull request closes unmerged while
+  waiting for a merge, 8 on timeout and 2 on errors.
+- ROUTING.md routes waits on a pull request to it; babysit, ship and
+  autopilot-full use it when the harness has no pull request watcher.
+- AGENTS.md: a script a skill needs ships inside the skill with tests;
+  machine-specific tooling stays in homelab.
+- `evals/pr-watch-wait`: an agent asked to wait for a merge runs the script
+  with `--until merged` and no `--timeout` or one of whole hours or at least
+  60 whole minutes, not a sleep loop, and
+  writes nothing to the pull request.
+- Review fixes: the event listener is registered before it starts and its
+  process group is killed on exit; each check that finishes and each new
+  comment (by id) is reported, and after a push every check on the new head
+  counts as new; every `gh` call and the listener probe are
+  bounded by the remaining `--timeout`; `--interval` is capped at 5m; the
+  tests do not depend on `sys.executable`.
+
 ## 2026-11-20 — Short eval checks
 
 - AGENTS.md: a skill or routing PR runs only the touched skills' cases (for a
