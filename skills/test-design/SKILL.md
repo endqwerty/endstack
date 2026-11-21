@@ -25,7 +25,7 @@ Read the project's testing guide first, if it has one.
 
 For a bug with a cheap local test, or when a failing or regression test is asked for.
 
-1. **Find the cause, then every consumer with the same fault.** Trace the symptom to its cause per the [fix-root-causes](../principles/references/fix-root-causes.md) principle. Then check every consumer, not only the one reported: other clients (web, mobile, command line, integrations) and sibling functions that do the same job. Search by what the faulty code does (the data it reads, writes or combines), not only by its name or call spelling. List each place you find.
+1. **Find the cause, then every consumer with the same fault.** Read the [principles index](../principles/SKILL.md) first, then trace the symptom to its cause per the [fix-root-causes](../principles/references/fix-root-causes.md) principle. Then check every consumer, not only the one reported: other clients (web, mobile, command line, integrations) and sibling functions that do the same job. Search by what the faulty code does (the data it reads, writes or combines), not only by its name or call spelling. List each place you find.
 2. **Name what the fix makes redundant**: a guard or workaround downstream of the cause. Delete it in the fix, but not an interface callers outside the repository may use.
 3. **Write the failing test first**, one for each independently faulty place; consumers that share one faulty implementation share one regression test on it. Run it and see it fail for the intended reason. Where the history allows, commit it before the fix.
 4. **Fix the cause in every consumer you listed**, not a guard downstream, or say why one is exempt. Rerun the test; it passes. Then decide whether it stays, below.
@@ -50,6 +50,6 @@ If a failing test would need broad harness setup, brittle mocks, production-only
 In the pull request or reply:
 
 - each fix's failing-before and passing-after lines, or why no failing test was possible and the check used instead;
-- for a bug fix, the consumers checked for the same fault, which changed, and why any was left;
+- for a bug fix, the consumers checked for the same fault, which changed, and why any was left, and each principle that changed a choice;
 - which new tests stay and which were dropped or deleted, with the holder or reason and the commit that removed them;
 - the time added to the every-change suite, when measurable.

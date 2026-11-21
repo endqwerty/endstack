@@ -4,8 +4,8 @@
 
 - `build` reads the principles index before the first production edit, a fix
   included, and reports each principle that changed a choice; design.md's
-  settled-fix path keeps step 1; `test-design`'s bug fix traces the cause per
-  fix-root-causes. #43 had cut all three.
+  settled-fix path keeps step 1; `test-design`'s bug fix reads the index,
+  traces the cause per fix-root-causes and reports the principles used. #43 had cut all three.
 - `build-design` and `bugfix-shared-fault` grade a read of the index before the
   first source edit and a principle named in the reply.
   [docs/principles-loads.md](docs/principles-loads.md).

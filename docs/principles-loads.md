@@ -35,7 +35,8 @@ sessions to count.
 - `test-design`'s bug fix traces the cause per fix-root-causes.
 - `build-design` and `bugfix-shared-fault` grade a read of the index before the
   first source edit (Read tool, a reader command, a loop over skill names, a
-  path variable, `rg -n '^'`; not `ls` or a search) and a principle named in
+  path variable, or `rg -n '^'` inside such a loop; not `ls`, a search or a
+  direct `rg -n '^'`) and a principle named in
   the reply.
 
 ## Eval
