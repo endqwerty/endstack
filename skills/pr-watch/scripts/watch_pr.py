@@ -189,6 +189,8 @@ def diff(old, new):
             "mergeable again" if old["mergeable"] == "CONFLICTING" else "mergeability changed")
         add("mergeable", f"{what} (mergeable: {new['mergeable']}, was {old['mergeable']})")
     oc, nc = old["checks"], new["checks"]
+    if old["head"] != new["head"]:
+        oc = {"state": "none", "failed": [], "runs": {}}
     for key, (name, st) in nc["runs"].items():
         before = oc["runs"].get(key, [name, "pending"])[1]
         if st != "pending" and st != before:
@@ -246,7 +248,7 @@ class EventListener:
                 continue
             if kind == "status":
                 try:
-                    self.proc.wait(timeout=1.5)
+                    self.proc.wait(timeout=max(0.0, min(1.5, deadline - time.monotonic())))
                 except subprocess.TimeoutExpired:
                     return
                 break

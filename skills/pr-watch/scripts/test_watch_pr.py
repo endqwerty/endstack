@@ -207,7 +207,8 @@ class Diff(unittest.TestCase):
 
     def test_push(self):
         self.assertEqual(self.kinds(raw(), raw(headRefOid="b" * 40)),
-                         [("push", "new push: head bbbbbbb (was aaaaaaa)")])
+                         [("push", "new push: head bbbbbbb (was aaaaaaa)"),
+                          ("checks", "checks running (0/1 done)")])
 
     def test_mergeable(self):
         self.assertEqual(self.kinds(raw(), raw(mergeable="CONFLICTING")),
@@ -238,6 +239,17 @@ class Diff(unittest.TestCase):
         done = raw(statusCheckRollup=[{"__typename": "StatusContext", "context": "ci", "state": "SUCCESS"},
                                       check_run("b", "IN_PROGRESS", "")])
         self.assertEqual(self.kinds(status, done), [("check", "check ci passed")])
+
+    def test_checks_on_a_new_head_are_new(self):
+        old = raw(statusCheckRollup=[check_run("lint")])
+        new = raw(headRefOid="b" * 40, statusCheckRollup=[check_run("lint"), check_run("test", "QUEUED", "")])
+        self.assertEqual(self.kinds(old, new), [("push", "new push: head bbbbbbb (was aaaaaaa)"),
+                                                ("check", "check lint passed"),
+                                                ("checks", "checks running (1/2 done)")])
+        done = raw(headRefOid="b" * 40, statusCheckRollup=[check_run("lint")])
+        self.assertEqual(self.kinds(old, done), [("push", "new push: head bbbbbbb (was aaaaaaa)"),
+                                                 ("check", "check lint passed"),
+                                                 ("checks", "checks passed (1/1)")])
 
     def test_duplicate_check_names_are_told_apart(self):
         old = raw(statusCheckRollup=[check_run("label"), check_run("label", "QUEUED", ""), check_run("x", "QUEUED", "")])
@@ -481,6 +493,11 @@ if args[:2] == ["pr", "view"]:
     sys.exit(0)
 if args[:2] == ["event", "listen"]:
     mode = os.environ.get("FAKE_GH_EVENTS", "unsupported")
+    if mode == "warn":
+        sys.stderr.write("warning: event subscriptions are in preview\n")
+        sys.stderr.flush()
+        time.sleep(60)
+        sys.exit(0)
     if mode == "hang":
         import subprocess
         child = subprocess.Popen(["sleep", "60"])
@@ -504,11 +521,22 @@ sys.exit(1)
 
 
 def _alive(pid):
+    """Running and not a zombie; works with or without /proc."""
     try:
-        with open(f"/proc/{pid}/stat") as f:
-            return f.read().split(")")[-1].split()[0] != "Z"
-    except FileNotFoundError:
+        os.kill(pid, 0)
+    except ProcessLookupError:
         return False
+    except PermissionError:
+        pass
+    if os.path.isdir("/proc/self"):
+        try:
+            with open(f"/proc/{pid}/stat") as f:
+                return f.read().split(")")[-1].split()[0] != "Z"
+        except FileNotFoundError:
+            return False
+    p = subprocess.run(["ps", "-o", "stat=", "-p", str(pid)], capture_output=True, text=True)
+    stat = p.stdout.strip()
+    return bool(stat) and not stat.startswith("Z")
 
 
 class EndToEnd(unittest.TestCase):
@@ -579,6 +607,22 @@ class EndToEnd(unittest.TestCase):
         self.assertEqual(p.returncode, 8, p.stderr)
         lines = [json.loads(line) for line in p.stdout.splitlines()]
         self.assertEqual((lines[0]["event"], lines[-1]["event"]), ("snapshot", "timeout"))
+
+    def test_listener_startup_wait_stops_at_the_deadline(self):
+        self.views(raw())
+        start = time.monotonic()
+        p = self.run_script(URL, "--until", "merged", "--timeout", "0.25", FAKE_GH_EVENTS="warn")
+        self.assertEqual(p.returncode, 8, p.stderr)
+        self.assertLess(time.monotonic() - start, 1.2)
+
+    def test_alive_sees_a_running_and_an_ended_process(self):
+        proc = subprocess.Popen(["sleep", "30"])
+        try:
+            self.assertTrue(_alive(proc.pid))
+        finally:
+            proc.kill()
+            proc.wait()
+        self.assertFalse(_alive(proc.pid))
 
     def test_slow_view_stops_at_the_deadline(self):
         self.views(raw())
