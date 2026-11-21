@@ -13,6 +13,7 @@ From an endstack checkout:
 homelab skill-eval main HEAD                  # every case, both agents, base and head
 homelab skill-eval --case why-retry HEAD      # one case at one revision
 homelab skill-eval --case 'bugfix-*' HEAD     # cases whose folder names match a glob
+homelab skill-eval --runs 1 --jobs 8 --case 'bu*' main HEAD   # the usual PR check: tagged cases, once, in parallel
 homelab skill-eval --agents claude --runs 1 main HEAD
 ```
 
@@ -50,6 +51,22 @@ change with tests (`build-design`, `bugfix-shared-fault`) costs about ten
 times that, which is why those cases use two runs. The full suite at two
 revisions on Claude is roughly 60 runs; pass `--max-cost-usd` to cap it, or
 `--case` while iterating. Codex cost is not reported.
+
+## Time
+
+Up to `--jobs` units run at once (default 4). Each Claude case at one revision
+is one unit, and each Codex run of a case at one revision is another, so a
+check of N cases at two revisions with `--runs 1` on both agents is 4 x N
+units. Set `--jobs` to that number and the wall time is about the slowest single
+run: a few minutes for a reply case, eight to ten for a code change. One or two
+cases take about ten minutes; when there are more units than `--jobs` slots,
+the rest wait and run in waves.
+Runs inside one Claude case go one after another, so `--runs 3` on a
+code-change case takes about three run-times.
+
+`--case` takes one folder name or one glob; repeating the flag keeps only the
+last, and a comma-separated list matches nothing. When no single glob selects
+exactly the cases you need, run one invocation per case or glob.
 
 ## Add a case
 

@@ -1,5 +1,14 @@
 # Change log
 
+## 2026-11-20 — Short eval checks
+
+- AGENTS.md: a skill or routing PR runs only the touched skills' cases (for a
+  routing change, the skills its changed lines name), once each, in parallel
+  (`homelab skill-eval --runs 1 --jobs <4 x cases> --case ...`); one or two
+  cases take about ten minutes; more runs only to confirm a surprising
+  difference.
+- evals/README.md: the usual PR command and a Time section.
+
 ## 2026-11-20 — Standing skill evals
 
 - `evals/`: ten cases (ship, build, routing, bug fix, interrogate,
