@@ -90,7 +90,7 @@ verified revision; green checks alone do not grant it.
 > $orchestrate Own [program] through [checkable completion goal].
 > Do not deploy or expand the program.
 
-Invoking orchestrate grants landing authority for the program. It asks the
+Naming orchestrate grants landing authority for the program; routed to it without that or an explicit merge request, it stops at merge-ready. It asks the
 questions that could later hold a merge together before the first unit, with
 defaults, then never asks whether to merge. The coordinator never edits code
 or merges; each PR owner lands after an independent verdict on the current

@@ -54,7 +54,7 @@ def check(root):
             problems.append(f"ROUTING.md: `{name}` must be routed only on an explicit request; say 'explicit' in its bullet")
     routed = bullet_with("orchestrate")
     if routed and "explicit" not in routed:
-        problems.append("ROUTING.md: `orchestrate` must be routed only on an explicit request to land; say 'explicit' in its bullet, or list it under '" + NAMED + "'")
+        problems.append("ROUTING.md: `orchestrate` may land only on an explicit request; say so with 'explicit' in its bullet, or list it under '" + NAMED + "'")
     if "casual" not in text.lower():
         problems.append("ROUTING.md: must say casual chat skips routing; add it to the opening paragraph")
     return problems

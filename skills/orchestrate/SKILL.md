@@ -77,9 +77,10 @@ evidence.
   delegation if available, otherwise explicitly hand off the required state.
 - Each PR gets a fresh read-only verifier who is not its author. Green checks
   alone never authorize landing.
-- Start with one unit through kickoff, owner, verifier and merge (or
-  merge-ready when the user reserves landing) before fan-out, so a bad kickoff
-  fails once.
+- Start with one pull request through kickoff, owner, verifier and its
+  endpoint (merged with landing authority, merge-ready without) before
+  fan-out, so a bad kickoff fails once. Inside one pull request, each unit's
+  own check gates the next worker; its gates apply once the units are in.
 
 ## Supervision
 
@@ -103,5 +104,5 @@ evidence.
 
 ## Reply
 
-Report what landed against the goal (not merely merge-ready), each PR's live
+Report what landed against the goal, or, without landing authority, what is merge-ready, each PR's live
 state and verdict, what was dropped and why, and decisions waiting on the user.

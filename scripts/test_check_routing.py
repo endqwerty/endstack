@@ -66,7 +66,7 @@ class T(unittest.TestCase):
     def test_routed_orchestrate_needs_explicit_landing(self):
         sk = SK + ("orchestrate",)
         routed = GOOD.replace("\n\nOnly", "\n- big change: `orchestrate` coordinates\n\nOnly")
-        self.assertIn("`orchestrate` must be routed only on an explicit request", " ".join(cr.check(tree(routed, sk))))
+        self.assertIn("`orchestrate` may land only on an explicit request", " ".join(cr.check(tree(routed, sk))))
         landing = routed.replace("coordinates", "coordinates, landing only on an explicit request")
         self.assertEqual(cr.check(tree(landing, sk)), [])
         named = GOOD.replace("`c`", "`c`, `orchestrate`")
