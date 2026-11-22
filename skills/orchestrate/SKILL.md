@@ -32,8 +32,7 @@ them.
 Naming orchestrate, or an explicit request to merge, land or ship the work,
 grants landing authority for the program, like
 [autopilot-full](../autopilot-full/SKILL.md). Without either, each pull
-request stops where build stops, merge-ready, and landing follows project
-rules. With authority, fully drive every PR through
+request stops at merge-ready unless project rules grant merging. With authority, fully drive every PR through
 build, verification, readiness and landing to the program's goal. Nothing
 waits for the user's approval to merge. The owner lands only with a passing
 independent verdict on the current head, required checks and honored holds,

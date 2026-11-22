@@ -52,8 +52,8 @@ def check(root):
     for name in ("ship", "autopilot-full"):
         if "explicit" not in bullet_with(name):
             problems.append(f"ROUTING.md: `{name}` must be routed only on an explicit request; say 'explicit' in its bullet")
-    routed = bullet_with("orchestrate")
-    if routed and "explicit" not in routed:
+    named = re.split(r"\n\s*\n", text[at:], maxsplit=1)[0] if at >= 0 else ""
+    if "`orchestrate`" in text and "`orchestrate`" not in named and "explicit" not in bullet_with("orchestrate"):
         problems.append("ROUTING.md: `orchestrate` may land only on an explicit request; say so with 'explicit' in its bullet, or list it under '" + NAMED + "'")
     if "casual" not in text.lower():
         problems.append("ROUTING.md: must say casual chat skips routing; add it to the opening paragraph")

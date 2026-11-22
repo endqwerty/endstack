@@ -10,7 +10,7 @@
   Order step, and gives each unit to a fresh worker; one pull request's units
   run one after another, one writer at a time. Fewer than three units in one
   pull request: build it yourself.
-- The index limit is 2,650 bytes (was 2,500); the new line needed 127 bytes.
+- The index limit is 2,650 bytes (was 2,500); the index grew 137 bytes, to 2,627.
 - `evals/orchestrate-medium`; `bugfix-shared-fault` checks a small fix does
   not load orchestrate. [docs/routing.md](docs/routing.md).
 
