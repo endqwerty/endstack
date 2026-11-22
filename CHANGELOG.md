@@ -1,5 +1,28 @@
 # Change log
 
+## 2026-11-22 — EGM plugin in place of its port
+
+- Delete `goldfish`, `interview` and `drift`, the 2026-11-17 port of Google's
+  Elephant-Goldfish Model. Design work uses the EGM plugin itself, a sibling
+  dependency pinned by commit (`8b1553f`) in the new root `plugins.json`, which
+  homelab reads to install it; nothing is vendored. Why:
+  [docs/egm-plugin-trial.md](docs/egm-plugin-trial.md).
+- ROUTING.md: a feature shaped by the user's intent goes `egm-brainstorm`,
+  `egm-draft`, `egm-review`; `egm-lite` is optional for a change; design docs
+  against code `egm-drift-report`; agent rules on a fresh agent
+  `egm-review-loop`; EGM runs unattended. The index limit goes from 2,650 to
+  2,800 bytes (now 2,776) rather than trimming unrelated routes.
+- `build`'s design reference tests the doc with `egm-review`, unattended, and
+  resolves findings with `egm-resolve`.
+- `scripts/check-routing.py` reads `plugins.json`: it checks its shape (full
+  commit hash, https repository, skill names), counts the listed skills as
+  external (routed at most once, not required) and rejects one that is also in
+  `skills/`.
+- `bugfix-shared-fault`'s test-order graders accept a test command after
+  `set ...` or `cd ...` ended by a newline, which Codex's EGM run used, and
+  `tests-pass-at-end` no longer counts a test command inside `echo` or a
+  heredoc.
+
 ## 2026-11-22 — orchestrate for medium and large changes
 
 - ROUTING.md routes a change of three or more verifiable units, or several

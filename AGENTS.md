@@ -53,9 +53,13 @@ the global rules so every turn sees it, and the hidden skills stay out of the
 catalog. Adding, renaming or dropping a skill means updating it, the README
 skill table and counts, and, after merge, the skill names in homelab's
 `skill-sources.json` (a name not listed there is not installed; your global
-rules say where the homelab checkout is);
-`python3 scripts/check-routing.py` must pass (every skill named once, the
-merge skills and a routed `orchestrate` tied to an explicit request, 2,650 bytes at most), and the copy in homelab's `agents/AGENTS.md` must match.
+rules say where the homelab checkout is). Skills from another plugin, such as
+EGM, are not copied into `skills/`: [plugins.json](plugins.json) pins each
+plugin by commit and lists its skills, and adding a plugin, moving its pin or
+changing its skill list updates homelab after merge the same way;
+`python3 scripts/check-routing.py` must pass (every skill in `skills/` named
+once, a plugin's at most once and never also in `skills/`, plugins.json well formed, the
+merge skills and a routed `orchestrate` tied to an explicit request, 2,800 bytes at most), and the copy in homelab's `agents/AGENTS.md` must match.
 Evidence and limits: [docs/routing.md](docs/routing.md).
 
 ## Delivery

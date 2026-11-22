@@ -1,16 +1,25 @@
-import os, tempfile, unittest, importlib.util
+import json, os, tempfile, unittest, importlib.util
 
 spec = importlib.util.spec_from_file_location("cr", os.path.join(os.path.dirname(__file__), "check-routing.py"))
 cr = importlib.util.module_from_spec(spec); spec.loader.exec_module(cr)
 
 
-def tree(routing, skills=("a", "b", "c")):
+def tree(routing, skills=("a", "b", "c"), plugins=None):
     d = tempfile.mkdtemp()
     for s in skills:
         os.makedirs(os.path.join(d, "skills", s))
     if routing is not None:
         open(os.path.join(d, "ROUTING.md"), "w").write(routing)
+    if plugins is not None:
+        open(os.path.join(d, "plugins.json"), "w").write(plugins if isinstance(plugins, str) else json.dumps(plugins))
     return d
+
+
+def plugin(**over):
+    p = {"name": "egm", "repository": "https://example.com/egm.git", "revision": "8b1553f5c6dc84c60b7e065f0040199d72c54c54",
+         "marketplace": "egm", "skills": ["egm-review", "egm-lite"]}
+    p.update(over)
+    return {"plugins": [p]}
 
 
 GOOD = "Skip casual chat.\n- prose: `unslop`, docs `technical-writing`\n- merge: `ship`, `autopilot-full` only when explicitly asked\n\nOnly when named: `c`\n"
@@ -25,7 +34,7 @@ class T(unittest.TestCase):
         self.assertEqual(cr.check(tree(None)), ["ROUTING.md: missing; restore it from the default branch"])
 
     def test_every_problem_names_its_fix(self):
-        bad = "- `ghost` `a` `a` with Claude via `git push`\n" + "x" * 2700
+        bad = "- `ghost` `a` `a` with Claude via `git push`\n" + "x" * 2900
         p = cr.check(tree(bad, ("a", "b", "ship", "autopilot-full", "unslop")))
         p += cr.check(tree(GOOD.replace("`c`", "").replace("\n\nOnly", "\n- `archify` `archify`\n\nOnly"), SK))
         self.assertGreater(len(p), 8)
@@ -42,6 +51,52 @@ class T(unittest.TestCase):
         self.assertEqual(cr.check(tree(GOOD + "- states: `statechart`, pictures `archify`\n", SK)), [])
         self.assertIn("skill archify appears 2 times",
                       " ".join(cr.check(tree(GOOD + "`archify` `archify`\n", SK))))
+
+    def test_plugin_skills_may_be_routed_once_and_need_not_be(self):
+        self.assertEqual(cr.check(tree(GOOD + "- review: `egm-review`\n", SK, plugin())), [])
+        self.assertEqual(cr.check(tree(GOOD, SK, plugin())), [])
+        self.assertIn("skill egm-review appears 2 times",
+                      " ".join(cr.check(tree(GOOD + "`egm-review` `egm-review`\n", SK, plugin()))))
+
+    def test_plugin_skill_unknown_without_plugins_json(self):
+        p = " ".join(cr.check(tree(GOOD + "`egm-review`\n", SK)))
+        self.assertIn("`egm-review` is not a skill in skills/ or plugins.json", p)
+
+    def test_plugin_skill_must_not_also_be_local_or_external(self):
+        p = " ".join(cr.check(tree(GOOD, SK + ("egm-review",), plugin())))
+        self.assertIn("skill egm-review also exists in skills/", p)
+        p = " ".join(cr.check(tree(GOOD, SK, plugin(skills=["archify"]))))
+        self.assertIn("skill archify is also in EXTERNAL", p)
+
+    def test_plugins_json_shape(self):
+        bad = [
+            ("{", "not valid JSON"),
+            ([], "expected {\"plugins\": [...]}"),
+            ({"plugins": [], "extra": 1}, "expected {\"plugins\": [...]}"),
+            ({"plugins": [{"name": "egm"}]}, "give it exactly those keys"),
+            (plugin(vendored=True), "give it exactly those keys"),
+            (plugin(revision="main"), "full 40-character commit hash"),
+            (plugin(revision="8b1553f"), "full 40-character commit hash"),
+            (plugin(repository="git@github.com:google/egm.git"), "https URL"),
+            (plugin(name="EGM"), "name must be a lowercase name"),
+            (plugin(marketplace=3), "marketplace must be a lowercase name"),
+            (plugin(skills=[]), "non-empty list"),
+            (plugin(skills="egm-review"), "non-empty list"),
+            (plugin(skills=["Egm Review"]), "non-empty list"),
+            (plugin(skills=["egm-review", "egm-review"]), "listed more than once"),
+            ({"plugins": plugin()["plugins"] * 2}, "listed twice"),
+        ]
+        for data, want in bad:
+            p = cr.check(tree(GOOD, SK, data if isinstance(data, str) else json.dumps(data)))
+            self.assertTrue(any(want in s for s in p), (data, want, p))
+            for s in p:
+                self.assertRegex(s, r"; \S", s)
+
+    def test_repository_plugins_json_is_valid(self):
+        root = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
+        names, problems = cr.plugin_skills(root, set())
+        self.assertEqual(problems, [])
+        self.assertIn("egm-review", names)
 
     def test_duplicate_route_and_named_conflict(self):
         self.assertIn("skill unslop appears 2 times", " ".join(cr.check(tree(GOOD.replace("docs", "`unslop` docs"), SK))))
