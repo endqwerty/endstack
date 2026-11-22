@@ -1,5 +1,19 @@
 # Change log
 
+## 2026-11-22 — orchestrate for medium and large changes
+
+- ROUTING.md routes a change of three or more verifiable units, or several
+  pull requests, to `orchestrate`; it is no longer named-only. Routed, it
+  grants no landing: only naming it or an explicit request to merge does,
+  and `scripts/check-routing.py` requires "explicit" in its bullet.
+- `orchestrate` does build's design itself, splits the work into units by its
+  Order step, and gives each unit to a fresh worker; one pull request's units
+  run one after another, one writer at a time. Fewer than three units in one
+  pull request: build it yourself.
+- The index limit is 2,650 bytes (was 2,500); the index grew 137 bytes, to 2,627.
+- `evals/orchestrate-medium`; `bugfix-shared-fault` checks a small fix does
+  not load orchestrate. [docs/routing.md](docs/routing.md).
+
 ## 2026-11-20 — principles load again
 
 - `build` reads the principles index before the first production edit, a fix

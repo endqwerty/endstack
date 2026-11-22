@@ -2,6 +2,7 @@
 name: bugfix-shared-fault
 tags:
 - test-design
+- orchestrate
 - build
 - principles
 - no-comments

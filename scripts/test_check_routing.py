@@ -25,7 +25,7 @@ class T(unittest.TestCase):
         self.assertEqual(cr.check(tree(None)), ["ROUTING.md: missing; restore it from the default branch"])
 
     def test_every_problem_names_its_fix(self):
-        bad = "- `ghost` `a` `a` with Claude via `git push`\n" + "x" * 2600
+        bad = "- `ghost` `a` `a` with Claude via `git push`\n" + "x" * 2700
         p = cr.check(tree(bad, ("a", "b", "ship", "autopilot-full", "unslop")))
         p += cr.check(tree(GOOD.replace("`c`", "").replace("\n\nOnly", "\n- `archify` `archify`\n\nOnly"), SK))
         self.assertGreater(len(p), 8)
@@ -62,6 +62,17 @@ class T(unittest.TestCase):
         p = " ".join(cr.check(tree(GOOD.replace("only when explicitly asked", "to merge"), SK)))
         self.assertIn("`ship` must be routed only on an explicit request", p)
         self.assertIn("`autopilot-full` must be routed only on an explicit request", p)
+
+    def test_routed_orchestrate_needs_explicit_landing(self):
+        sk = SK + ("orchestrate",)
+        routed = GOOD.replace("\n\nOnly", "\n- big change: `orchestrate` coordinates\n\nOnly")
+        self.assertIn("`orchestrate` may land only on an explicit request", " ".join(cr.check(tree(routed, sk))))
+        landing = routed.replace("coordinates", "coordinates, landing only on an explicit request")
+        self.assertEqual(cr.check(tree(landing, sk)), [])
+        outside = GOOD.replace("Skip casual chat.", "Skip casual chat. Use `orchestrate` for big changes.")
+        self.assertIn("`orchestrate` may land only on an explicit request", " ".join(cr.check(tree(outside, sk))))
+        named = GOOD.replace("`c`", "`c`, `orchestrate`")
+        self.assertEqual(cr.check(tree(named, sk)), [])
 
     def test_casual_skip_required(self):
         self.assertIn("casual chat", " ".join(cr.check(tree(GOOD.replace("casual", "quiet"), SK))))

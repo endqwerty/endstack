@@ -55,7 +55,7 @@ skill table and counts, and, after merge, the skill names in homelab's
 `skill-sources.json` (a name not listed there is not installed; your global
 rules say where the homelab checkout is);
 `python3 scripts/check-routing.py` must pass (every skill named once, the
-merge skills tied to an explicit request, 2.5 KB at most), and the copy in homelab's `agents/AGENTS.md` must match.
+merge skills and a routed `orchestrate` tied to an explicit request, 2,650 bytes at most), and the copy in homelab's `agents/AGENTS.md` must match.
 Evidence and limits: [docs/routing.md](docs/routing.md).
 
 ## Delivery
