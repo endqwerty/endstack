@@ -28,7 +28,7 @@ the named skill and check that the agent loads its installed `SKILL.md`.
 | [babysit](../skills/babysit/SKILL.md) | Existing PR feedback and failed checks | Merge-ready PR; no merge. Status questions are read-only |
 | [ship](../skills/ship/SKILL.md) | Explicitly landing identified work | Confirmed revision in its destination, or a named blocker |
 | [ketchup](../skills/ketchup/SKILL.md) | Named catch-up since your last message, as text or, when asked, a video | Summary with every decision waiting on you; the video form is a silent subtitled video plus the decisions in text |
-| [orchestrate](../skills/orchestrate/SKILL.md) | Named multi-day program under one coordinator thread | Owners build, verify and land each PR; explicit no-merge stops at merge-ready |
+| [orchestrate](../skills/orchestrate/SKILL.md) | A change of three or more verifiable units, or a multi-day program, under one coordinator thread | Fresh workers build each unit; landing only when named or explicitly asked, otherwise merge-ready |
 | [autopilot-full](../skills/autopilot-full/SKILL.md) | A bounded queue with explicit merge authority | Verified, landed items; held items remain held |
 | [verify](../skills/verify/SKILL.md) | Independent evidence on an exact revision | Read-only pass / issues / not checked verdict; no merge authority |
 

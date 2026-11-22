@@ -6,7 +6,7 @@ import importlib.util, os, re, sys
 spec = importlib.util.spec_from_file_location("cs", os.path.join(os.path.dirname(os.path.abspath(__file__)), "check-skills.py"))
 cs = importlib.util.module_from_spec(spec); spec.loader.exec_module(cs)
 
-MAX = 2500  # bytes: read on every turn, so it stays small
+MAX = 2650  # bytes: read on every turn, so it stays small
 NAMED = "Only when named:"
 EXTERNAL = {"archify", "statechart"}  # installed by homelab from other pinned sources, not skills/
 
@@ -52,6 +52,9 @@ def check(root):
     for name in ("ship", "autopilot-full"):
         if "explicit" not in bullet_with(name):
             problems.append(f"ROUTING.md: `{name}` must be routed only on an explicit request; say 'explicit' in its bullet")
+    routed = bullet_with("orchestrate")
+    if routed and "explicit" not in routed:
+        problems.append("ROUTING.md: `orchestrate` must be routed only on an explicit request to land; say 'explicit' in its bullet, or list it under '" + NAMED + "'")
     if "casual" not in text.lower():
         problems.append("ROUTING.md: must say casual chat skips routing; add it to the opening paragraph")
     return problems

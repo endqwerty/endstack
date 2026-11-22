@@ -35,7 +35,7 @@ The role skills are explicit-invocation (`/test-design`, `/arena`, ...), as in
 pstack, so they add almost nothing to the catalog the agent sees every session.
 `unslop` is the exception: it applies to every reply, and Claude Code agents
 skipped it while it was hidden ([evidence](docs/hidden-skill-loads.md)).
-What replaces pstack's always-on router is [ROUTING.md](ROUTING.md), an index under 2.5 KB
+What replaces pstack's always-on router is [ROUTING.md](ROUTING.md), an index under 2,650 bytes
 of when to use which skill, installed in the global rules so every turn
 sees it ([evidence](docs/routing.md)).
 

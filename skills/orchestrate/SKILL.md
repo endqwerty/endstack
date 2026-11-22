@@ -1,18 +1,26 @@
 ---
 name: orchestrate
-description: Run a multi-day program of many pull requests through delegated owners and verifiers from one standing coordinator thread. Use only when orchestrate is named.
+description: Coordinate a change of three or more verifiable units, or a program of many pull requests, through fresh workers and verifiers from one coordinator thread.
 disable-model-invocation: true
 ---
 
 # Orchestrate
 
 You run the program, never the code: assign work and check its results. One
-coordinator thread owns a multi-day program of many, often stacked, pull
-requests. Unavailable delegation is a blocker.
+coordinator thread owns a change too big for one context: three or more
+verifiable units in one pull request, or many, often stacked, pull requests
+over days. Your context holds the goal, the design and the verdicts; each
+worker's holds only its unit.
+
+Before any kickoff, do [build](../build/SKILL.md)'s design steps yourself and
+split the work by their Order step into units that each end in a check. Fewer
+than three units in one pull request: build it yourself instead. Unavailable
+delegation is a blocker when orchestrate was named; otherwise build it yourself
+and say so.
 
 Use the harness's delegation. Keep the state needed to resume (goals,
 ownership, PR links, verdicts, blockers) in a durable notes file in the repo
-or tracker, and the decision trail through
+or tracker, or for one pull request in its description, and the decision trail through
 [show-me-your-work](../show-me-your-work/SKILL.md). On pickup, read those
 records and reconcile live work before launching replacements. Use event
 subscriptions or watchers if the harness has them; do not build orchestration
@@ -21,8 +29,11 @@ them.
 
 ## Authority and delivery
 
-Invoking orchestrate grants landing authority for the program, like
-[autopilot-full](../autopilot-full/SKILL.md). Fully drive every PR through
+Naming orchestrate, or an explicit request to merge, land or ship the work,
+grants landing authority for the program, like
+[autopilot-full](../autopilot-full/SKILL.md). Without either, each pull
+request stops where build stops, merge-ready, and landing follows project
+rules. With authority, fully drive every PR through
 build, verification, readiness and landing to the program's goal. Nothing
 waits for the user's approval to merge. The owner lands only with a passing
 independent verdict on the current head, required checks and honored holds,
@@ -49,6 +60,9 @@ evidence.
 - One owner per PR, the only writer of its branch, carries it from build to
   the authorized endpoint; conflicts, chain rebases and fixes go to it.
   Closing or retargeting a base can orphan children and needs your call.
+- In a single pull request you are its owner but write no code: give its
+  units to fresh workers one after another, each the only writer of the
+  branch while it runs, with the design note and each earlier unit's report.
 - A fresh worker for each independent task. Its kickoff is self-contained,
   including each upstream report it depends on in full. Workers cannot see
   siblings. Choose an execution environment with the required code, runtime

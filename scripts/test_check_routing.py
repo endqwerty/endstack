@@ -63,6 +63,15 @@ class T(unittest.TestCase):
         self.assertIn("`ship` must be routed only on an explicit request", p)
         self.assertIn("`autopilot-full` must be routed only on an explicit request", p)
 
+    def test_routed_orchestrate_needs_explicit_landing(self):
+        sk = SK + ("orchestrate",)
+        routed = GOOD.replace("\n\nOnly", "\n- big change: `orchestrate` coordinates\n\nOnly")
+        self.assertIn("`orchestrate` must be routed only on an explicit request", " ".join(cr.check(tree(routed, sk))))
+        landing = routed.replace("coordinates", "coordinates, landing only on an explicit request")
+        self.assertEqual(cr.check(tree(landing, sk)), [])
+        named = GOOD.replace("`c`", "`c`, `orchestrate`")
+        self.assertEqual(cr.check(tree(named, sk)), [])
+
     def test_casual_skip_required(self):
         self.assertIn("casual chat", " ".join(cr.check(tree(GOOD.replace("casual", "quiet"), SK))))
 
