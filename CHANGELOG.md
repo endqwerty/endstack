@@ -21,11 +21,12 @@
   symlink). It counts the listed skills as external (routed at most once, not
   required) and rejects one that is also in `skills/` or listed by two plugins.
 - `bugfix-shared-fault`'s test-order graders accept a test command after
-  `set ...` or `cd ...` ended by a newline, which Codex's EGM run used, but not
-  after a `#` comment in either. `tests-pass-at-end` counts only a test command
-  at the start of a command, both for the passing run and for a later run that
-  would undo it, so a test command inside `echo` or a heredoc neither passes
-  nor vetoes a pass.
+  `set ...` or `cd ...` ended by a newline, which Codex's EGM run used. A
+  statement may end in a `#` comment only before a newline, and text after `#`
+  on a test command's line is not part of it. `tests-pass-at-end` counts only
+  a test command at the start of a command, both for the passing run and for a
+  later run that would undo it, so a test command inside `echo` or a heredoc
+  neither passes nor vetoes a pass.
 
 ## 2026-11-22 — orchestrate for medium and large changes
 

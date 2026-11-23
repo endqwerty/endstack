@@ -119,9 +119,9 @@ the output of that test command (the Claude tool_result with the same
 `tool_use_id`, or the same Codex item's `aggregated_output`), never failure
 text elsewhere. A test run is a test command (`node --test`, `npm test`, a
 test runner through `npx`) at the start of the command, after an optional
-shell `-c` wrapper, `cd` or `set` statements (ended by `&&`, `;` or a newline,
-with no `#` comment) and variable assignments; one inside `echo`, `printf`, a
-comment or a heredoc is not.
+shell `-c` wrapper, `cd` or `set` statements (ended by `&&`, `;` or a newline;
+a trailing `#` comment only before a newline) and variable assignments; one
+inside `echo`, `printf`, a comment or a heredoc is not.
 Give every changed trace or file grader a negative control (the
 unchanged fixture or a wrong trace fails) and a positive control (a correct
 outcome passes) before relying on it.
