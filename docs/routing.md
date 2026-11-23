@@ -6,7 +6,7 @@ used when Daniel named them, and nothing chained them (for example `build`
 writing docs never reached `unslop`). Asking him to think about 24 skills per
 message was the failure.
 
-What: [ROUTING.md](../ROUTING.md) is an index of at most 2,650 bytes (1.9 KB when
+What: [ROUTING.md](../ROUTING.md) is an index of at most 2,800 bytes (1.9 KB when
 added, 2.6 KB before the 2026-11-16 trim), one line per situation. It
 is loaded on every turn through the global rules in homelab (`agents/AGENTS.md`),
 the only file both Claude Code and Codex read each session. The model matches the
@@ -31,7 +31,7 @@ Turned down:
    every skill in `skills/` named exactly once; no unknown backticked name; a
    non-empty "Only when named" list; one bullet routing prose to `unslop` and
    docs to `technical-writing`; `ship` and `autopilot-full` only in a bullet
-   that says "explicit", and the same for `orchestrate` when it is routed; a casual-chat skip; at most 2,650 bytes; no tool, model or
+   that says "explicit", and the same for `orchestrate` when it is routed; a casual-chat skip; at most 2,800 bytes; no tool, model or
    provider names. Before `ROUTING.md` existed it printed `ROUTING.md: missing`
    (exit 1); now `0 problem(s)`.
    It cannot judge whether a line sends a skill to the right situation, or
@@ -96,6 +96,16 @@ build's own job is one context's worth of change) and a new skill. Antigravity
 keeps its own orchestration: homelab does not install `orchestrate` there.
 Evidence: `evals/orchestrate-medium`, in the pull request.
 
+EGM, 2026-11-22: endstack's port of Google's Elephant-Goldfish Model
+(`goldfish`, `interview`, `drift`) gave way to the egm plugin itself, pinned in
+`plugins.json` and installed by homelab. Its skills are named in the Design
+bullet and live in the plugin, not `skills/`. EGM keeps its gates, which wait
+for the user, unless a project's rules say to run it unattended; endstack's
+own AGENTS.md does. The bullet took the index to
+2,797 bytes, so the limit went from 2,650 to 2,800 rather than trimming the
+wording of unrelated routes. Evidence: [egm-plugin-trial.md](egm-plugin-trial.md)
+and the pull request.
+
 ## Not checked
 
 - Real sessions: the dry run is one small model's stated choice, not observed
@@ -103,6 +113,6 @@ Evidence: `evals/orchestrate-medium`, in the pull request.
   model really opens a hidden skill by reading its SKILL.md is unconfirmed.
   Measured on 2026-11-11 from real sessions: it does, unevenly by harness
   ([hidden-skill-loads.md](hidden-skill-loads.md)).
-- Cost and noise: the index adds up to 2,650 bytes per turn; whether it over-triggers
+- Cost and noise: the index adds up to 2,800 bytes per turn; whether it over-triggers
   on short turns is not measured. If it does, tighten the "casual turn" line.
 - Drift: the copy in homelab is checked by hand, not by a script.

@@ -56,17 +56,20 @@ the conversation. A fix whose shape was already settled needs only the note.
   why); *Implementation* (every file created or changed, and why); *Tasks*
   (step 8's units in order, each marked done or open); *Open questions* (with
   the answer assumed meanwhile).
-- **Test it.** Before the first edit to production code, run the
-  [goldfish](../../goldfish/SKILL.md) skill on the doc and fix it until its
-  review converges. Implementation follows the doc; a builder that has to
-  depart from it updates the doc in the same change and says why.
+- **Test it.** Before the first edit to production code, run the EGM plugin's
+  egm-review skill on the doc and resolve its findings with egm-resolve until
+  the review converges. Keep its gates for the user unless the project's rules
+  say to run EGM unattended; then answer each halt and resolve findings
+  yourself, in stage order with fresh reviewers. Implementation follows the doc; a
+  builder that has to depart from it updates the doc in the same change and
+  says why.
 - **Finish it.** When the build is done and before the final
   [verify](../../verify/SKILL.md) pass, in a commit of its own, delete
   *Implementation* and *Tasks*, make *Plan* describe the shape as built, and
   drop answered open questions. A scenario whose test
   [test-design](../../test-design/SKILL.md) dropped names the kept check that
   covers it instead, or, when none is kept, why the test was dropped and the
-  pull request holding its proof. This rewrite needs no goldfish pass unless
+  pull request holding its proof. This rewrite needs no egm-review pass unless
   the build departed from the plan. What remains is the feature's spec record.
 - **Later changes.** A change to the feature's behaviour adds, edits or
   removes its scenarios in the same change, and re-adds *Implementation* and

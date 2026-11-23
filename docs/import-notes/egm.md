@@ -1,5 +1,10 @@
 # EGM import notes
 
+> **Retired 2026-11-22.** endstack no longer ships this port: `goldfish`,
+> `interview` and `drift` are deleted, and design work uses Google's EGM plugin
+> itself, pinned by commit in [plugins.json](../../plugins.json). Why:
+> [egm-plugin-trial.md](../egm-plugin-trial.md).
+
 Source: `google/elephant-goldfish-model` at `72d06f5` (2026-11-15), Apache-2.0.
 EGM is a plugin of seven skills and eight reviewer prompts built on Dave
 Rensin's "Elephants, Goldfish" essay, the same source as `interview` and

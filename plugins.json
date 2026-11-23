@@ -1,0 +1,20 @@
+{
+  "plugins": [
+    {
+      "name": "egm",
+      "repository": "https://github.com/google/elephant-goldfish-model.git",
+      "revision": "8b1553f5c6dc84c60b7e065f0040199d72c54c54",
+      "marketplace": "egm",
+      "skills": [
+        "egm-bootstrap",
+        "egm-brainstorm",
+        "egm-draft",
+        "egm-drift-report",
+        "egm-lite",
+        "egm-resolve",
+        "egm-review",
+        "egm-review-loop"
+      ]
+    }
+  ]
+}

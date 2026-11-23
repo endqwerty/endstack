@@ -1,5 +1,33 @@
 # Change log
 
+## 2026-11-22 — EGM plugin in place of its port
+
+- Delete `goldfish`, `interview` and `drift`, the 2026-11-17 port of Google's
+  Elephant-Goldfish Model. Design work uses the EGM plugin itself, a sibling
+  dependency pinned by commit (`8b1553f`) in the new root `plugins.json`, which
+  homelab reads to install it; nothing is vendored. Why:
+  [docs/egm-plugin-trial.md](docs/egm-plugin-trial.md).
+- ROUTING.md: a feature shaped by the user's intent goes `egm-brainstorm`,
+  `egm-draft`, `egm-review`; `egm-lite` is optional for a change; design docs
+  against code `egm-drift-report`; agent rules on a fresh agent
+  `egm-review-loop`; EGM keeps its gates unless the project's rules say to run
+  it unattended, as endstack's AGENTS.md now does. The index limit goes from 2,650 to
+  2,800 bytes (now 2,797) rather than trimming unrelated routes.
+- `build`'s design reference tests the doc with `egm-review` and resolves
+  findings with `egm-resolve`, unattended only where the project's rules say so.
+- `scripts/check-routing.py` reads `plugins.json` and rejects what homelab's
+  sync rejects (its `read_manifest`: exact keys, safe and distinct names, one
+  plugin per marketplace, a URL or absolute repository, a full commit hash, no
+  symlink). It counts the listed skills as external (routed at most once, not
+  required) and rejects one that is also in `skills/` or listed by two plugins.
+- `bugfix-shared-fault`'s test-order graders accept a test command after
+  `set ...` or `cd ...` ended by a newline, which Codex's EGM run used. A
+  statement may end in a `#` comment only before a newline, and text after `#`
+  on a test command's line is not part of it. `tests-pass-at-end` counts only
+  a test command at the start of a command, both for the passing run and for a
+  later run that would undo it, so a test command inside `echo` or a heredoc
+  neither passes nor vetoes a pass.
+
 ## 2026-11-22 — orchestrate for medium and large changes
 
 - ROUTING.md routes a change of three or more verifiable units, or several

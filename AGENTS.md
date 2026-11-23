@@ -53,9 +53,13 @@ the global rules so every turn sees it, and the hidden skills stay out of the
 catalog. Adding, renaming or dropping a skill means updating it, the README
 skill table and counts, and, after merge, the skill names in homelab's
 `skill-sources.json` (a name not listed there is not installed; your global
-rules say where the homelab checkout is);
-`python3 scripts/check-routing.py` must pass (every skill named once, the
-merge skills and a routed `orchestrate` tied to an explicit request, 2,650 bytes at most), and the copy in homelab's `agents/AGENTS.md` must match.
+rules say where the homelab checkout is). Skills from another plugin, such as
+EGM, are not copied into `skills/`: [plugins.json](plugins.json) pins each
+plugin by commit and lists its skills, and adding a plugin, moving its pin or
+changing its skill list updates homelab after merge the same way;
+`python3 scripts/check-routing.py` must pass (every skill in `skills/` named
+once, a plugin's at most once and never also in `skills/`, plugins.json well formed, the
+merge skills and a routed `orchestrate` tied to an explicit request, 2,800 bytes at most), and the copy in homelab's `agents/AGENTS.md` must match.
 Evidence and limits: [docs/routing.md](docs/routing.md).
 
 ## Delivery
@@ -68,6 +72,9 @@ changes an installed skill or `ROUTING.md`, update homelab's pin and copies as
 described under Routing. Do not arm auto-merge or push directly to `main`.
 Opening a PR does not start a watcher; use [babysit](skills/babysit/SKILL.md)
 when requested.
+
+EGM runs unattended in this repository: where an EGM skill halts for a command
+or approval, give the next one yourself and resolve its findings yourself.
 
 Use `gh` for pull requests. Where `gh auth status` shows no valid login (over
 SSH to the Mac, whose login keychain holds the token but stays locked), push

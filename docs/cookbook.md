@@ -113,17 +113,22 @@ excluded.
 **Help, not execution:**
 > Explain which endstack skill fits [task] and draft a prompt. Do not start.
 
-**Interview before a feature:**
-> $interview I want [feature]. Question me before designing it, then propose
-> the first design yourself and write the design doc.
+These EGM prompts use the egm plugin's skills, pinned in
+[plugins.json](../plugins.json) and installed by homelab beside endstack. In
+Claude Code they are `/egm:egm-brainstorm` and so on. EGM stops at its gates
+for your answers unless the project's rules say to run it unattended.
 
-**Goldfish a document:**
-> $goldfish Test [path to design doc or AGENTS.md] on fresh readers with
-> these tasks: [two to four tasks as I would ask them].
+**Brainstorm and draft a feature:**
+> $egm-brainstorm I want [feature]. Question me before designing it, then run
+> egm-draft and egm-review on the design doc.
+
+**Review a document on fresh agents:**
+> $egm-review-loop Review [path to design doc or AGENTS.md] on fresh agents
+> and apply the fixes.
 
 **Check design docs against the code:**
-> $drift Compare the design docs in [directory] with the code and their
-> checks. Report only differences and which side should change.
+> $egm-drift-report Compare the design docs in [directory] with the code.
+> Report only differences and which side should change.
 
 ## Normal flow
 

@@ -1,5 +1,10 @@
 # EGM port: staged goldfish review, concept brief and drift
 
+> **Retired 2026-11-22.** endstack no longer ships this port: `goldfish`,
+> `interview` and `drift` are deleted, and design work uses Google's EGM plugin
+> itself, pinned by commit in [plugins.json](../plugins.json). Why:
+> [egm-plugin-trial.md](egm-plugin-trial.md).
+
 Daniel compared endstack with Google's Elephant-Goldfish Model
 (`google/elephant-goldfish-model` at `72d06f5`), a plugin built on the same
 Rensin essay as `interview` and `goldfish`, and chose to match it unless
