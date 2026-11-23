@@ -115,11 +115,12 @@ excluded.
 
 These EGM prompts use the egm plugin's skills, pinned in
 [plugins.json](../plugins.json) and installed by homelab beside endstack. In
-Claude Code they are `/egm:egm-brainstorm` and so on.
+Claude Code they are `/egm:egm-brainstorm` and so on. EGM stops at its gates
+for your answers unless the project's rules say to run it unattended.
 
 **Brainstorm and draft a feature:**
 > $egm-brainstorm I want [feature]. Question me before designing it, then run
-> egm-draft and egm-review on the design doc unattended.
+> egm-draft and egm-review on the design doc.
 
 **Review a document on fresh agents:**
 > $egm-review-loop Review [path to design doc or AGENTS.md] on fresh agents

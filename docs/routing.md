@@ -99,8 +99,10 @@ Evidence: `evals/orchestrate-medium`, in the pull request.
 EGM, 2026-11-22: endstack's port of Google's Elephant-Goldfish Model
 (`goldfish`, `interview`, `drift`) gave way to the egm plugin itself, pinned in
 `plugins.json` and installed by homelab. Its skills are named in the Design
-bullet and live in the plugin, not `skills/`. The bullet took the index to
-2,776 bytes, so the limit went from 2,650 to 2,800 rather than trimming the
+bullet and live in the plugin, not `skills/`. EGM keeps its gates, which wait
+for the user, unless a project's rules say to run it unattended; endstack's
+own AGENTS.md does. The bullet took the index to
+2,797 bytes, so the limit went from 2,650 to 2,800 rather than trimming the
 wording of unrelated routes. Evidence: [egm-plugin-trial.md](egm-plugin-trial.md)
 and the pull request.
 

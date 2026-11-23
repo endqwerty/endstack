@@ -68,29 +68,60 @@ class T(unittest.TestCase):
         p = " ".join(cr.check(tree(GOOD, SK, plugin(skills=["archify"]))))
         self.assertIn("skill archify is also in EXTERNAL", p)
 
-    def test_plugins_json_shape(self):
+    def test_plugins_json_rejects_what_homelab_sync_rejects(self):
+        two = lambda a, b: {"plugins": plugin(**a)["plugins"] + plugin(**b)["plugins"]}
         bad = [
             ("{", "not valid JSON"),
             ([], "expected {\"plugins\": [...]}"),
             ({"plugins": [], "extra": 1}, "expected {\"plugins\": [...]}"),
+            ({"plugins": {}}, "expected {\"plugins\": [...]}"),
             ({"plugins": [{"name": "egm"}]}, "give it exactly those keys"),
+            ({"plugins": ["egm"]}, "give it exactly those keys"),
             (plugin(vendored=True), "give it exactly those keys"),
             (plugin(revision="main"), "full 40-character commit hash"),
             (plugin(revision="8b1553f"), "full 40-character commit hash"),
-            (plugin(repository="git@github.com:google/egm.git"), "https URL"),
-            (plugin(name="EGM"), "name must be a lowercase name"),
-            (plugin(marketplace=3), "marketplace must be a lowercase name"),
-            (plugin(skills=[]), "non-empty list"),
-            (plugin(skills="egm-review"), "non-empty list"),
-            (plugin(skills=["Egm Review"]), "non-empty list"),
-            (plugin(skills=["egm-review", "egm-review"]), "listed more than once"),
-            ({"plugins": plugin()["plugins"] * 2}, "listed twice"),
+            (plugin(revision="g" * 40), "full 40-character commit hash"),
+            (plugin(repository="relative/egm"), "URL or an absolute path"),
+            (plugin(repository="-uexample:x"), "URL or an absolute path"),
+            (plugin(repository="  "), "URL or an absolute path"),
+            (plugin(repository="https://x\x00:y"), "URL or an absolute path"),
+            (plugin(repository=7), "URL or an absolute path"),
+            (plugin(name="-egm"), "name must be a safe name"),
+            (plugin(name="synced"), "name must be a safe name"),
+            (plugin(name="Backup"), "name must be a safe name"),
+            (plugin(name="endstack"), "source's own name"),
+            (plugin(name=3), "name must be a safe name"),
+            (plugin(marketplace="e g m"), "marketplace must be a safe name"),
+            (plugin(marketplace=3), "marketplace must be a safe name"),
+            (plugin(skills="egm-review"), "list of distinct safe names"),
+            (plugin(skills=["egm review"]), "list of distinct safe names"),
+            (plugin(skills=["egm-review", "EGM-review"]), "list of distinct safe names"),
+            (two({}, {"marketplace": "other"}), "name is used twice"),
+            (two({}, {"name": "EGM", "marketplace": "other"}), "name is used twice"),
+            (two({}, {"name": "other", "skills": ["x"]}), "shared with another plugin"),
+            (two({}, {"name": "other", "marketplace": "EGM", "skills": ["x"]}), "shared with another plugin"),
+            (two({}, {"name": "other", "marketplace": "other"}), "listed by two plugins"),
         ]
         for data, want in bad:
             p = cr.check(tree(GOOD, SK, data if isinstance(data, str) else json.dumps(data)))
             self.assertTrue(any(want in s for s in p), (data, want, p))
             for s in p:
                 self.assertRegex(s, r"; \S", s)
+
+    def test_plugins_json_accepts_what_homelab_sync_accepts(self):
+        for over in ({"revision": "8B1553F5C6DC84C60B7E065F0040199D72C54C54"},
+                     {"repository": "git@github.com:google/egm.git"},
+                     {"repository": "/srv/git/egm"},
+                     {"name": "EGM_2", "marketplace": "Egm_Market"},
+                     {"skills": []}):
+            self.assertEqual(cr.check(tree(GOOD, SK, plugin(**over))), [], over)
+
+    def test_plugins_json_symlink_rejected(self):
+        d = tree(GOOD, SK)
+        real = os.path.join(d, "real.json")
+        open(real, "w").write(json.dumps(plugin()))
+        os.symlink(real, os.path.join(d, "plugins.json"))
+        self.assertIn("is a symlink", " ".join(cr.check(d)))
 
     def test_repository_plugins_json_is_valid(self):
         root = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")

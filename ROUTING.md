@@ -21,10 +21,10 @@ opt-out. Reviewing and checking safety are tasks, however short.
 - Design: `architect` for non-trivial code crossing a function boundary or
   adding a module; `principles` for stateful or branchy logic or a design call;
   an intent-shaped feature: `egm-brainstorm`, `egm-draft`, `egm-review` (any
-  design doc); agent rules: `egm-review-loop`; docs against code:
-  `egm-drift-report`; optional for a change: `egm-lite`. Run EGM unattended:
-  answer each halt and resolve findings yourself, in stage order with fresh
-  reviewers.
+  design doc); agent rules: `egm-review-loop`; docs vs code: `egm-drift-report`;
+  optional for a change: `egm-lite`. EGM keeps gates unless project rules say
+  unattended: then answer halts and findings yourself, in stage order with
+  fresh reviewers.
 - Editing .ts or .tsx: `typescript-best-practices`.
 - Adding, keeping, moving or deleting a test, a bug fix with a cheap local
   test, or a failing or regression test asked for: `test-design`.

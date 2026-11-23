@@ -10,48 +10,66 @@ MAX = 2800  # bytes: read on every turn, so it stays small
 NAMED = "Only when named:"
 EXTERNAL = {"archify", "statechart"}  # installed by homelab from other pinned sources, not skills/
 PLUGIN_KEYS = {"name", "repository", "revision", "marketplace", "skills"}
-SKILL_NAME = r"[a-z][a-z0-9-]*"
+SOURCE = "endstack"  # homelab's name for this skill source; a plugin may not reuse it
+
+
+def safe_name(value):
+    """homelab's safe_name: the names its sync accepts for plugins, marketplaces and skills."""
+    return (isinstance(value, str) and re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]*", value) is not None
+            and value.casefold() not in {"synced", "backup"})
 
 
 def plugin_skills(root, local):
-    """Skill names the plugins in plugins.json install, and the problems in that file."""
+    """Skill names the plugins in plugins.json install, and the problems in that file.
+
+    Mirrors read_manifest in homelab's homelab_cli/plugins.py, which rejects the whole file
+    on any of these, plus endstack's own rule that a plugin skill is not also in skills/."""
     path = os.path.join(root, "plugins.json")
-    if not os.path.isfile(path):
+    if os.path.islink(path):
+        return set(), ["plugins.json: is a symlink, which homelab sync rejects; replace it with the file itself"]
+    if not os.path.exists(path):
         return set(), []
     try:
         with open(path, encoding="utf-8") as f:
             data = json.load(f)
-    except ValueError as e:
+    except (OSError, ValueError) as e:
         return set(), [f"plugins.json: not valid JSON ({e}); fix the syntax"]
     if not isinstance(data, dict) or set(data) != {"plugins"} or not isinstance(data["plugins"], list):
         return set(), ['plugins.json: expected {"plugins": [...]} and nothing else; restore that shape']
-    names, problems, seen = set(), [], set()
+    names, problems, seen, markets = set(), [], {SOURCE}, set()
+    folded_local = {s.casefold() for s in local}
     for i, p in enumerate(data["plugins"]):
-        where = f"plugins.json: plugin {i}"
         if not isinstance(p, dict) or set(p) != PLUGIN_KEYS:
             got = sorted(p) if isinstance(p, dict) else type(p).__name__
-            problems.append(f"{where}: keys {got} != {sorted(PLUGIN_KEYS)}; give it exactly those keys")
+            problems.append(f"plugins.json: plugin {i}: keys {got} != {sorted(PLUGIN_KEYS)}; give it exactly those keys")
             continue
-        where = f"plugins.json: plugin {p['name']!r}"
-        for k in ("name", "marketplace"):
-            if not isinstance(p[k], str) or not re.fullmatch(SKILL_NAME, p[k]):
-                problems.append(f"{where}: {k} must be a lowercase name; use letters, digits and hyphens")
-        if isinstance(p["name"], str):
-            if p["name"] in seen:
-                problems.append(f"{where}: listed twice; merge the entries")
-            seen.add(p["name"])
-        if not isinstance(p["repository"], str) or not re.fullmatch(r"https://\S+", p["repository"]):
-            problems.append(f"{where}: repository must be an https URL; give the clone URL")
-        if not isinstance(p["revision"], str) or not re.fullmatch(r"[0-9a-f]{40}", p["revision"]):
+        name, market, repo, rev, skills = (p[k] for k in ("name", "marketplace", "repository", "revision", "skills"))
+        where = f"plugins.json: plugin {name!r}"
+        if not safe_name(name):
+            problems.append(f"{where}: name must be a safe name (letters, digits, '_' or '-', not synced or backup); rename it")
+        elif name.casefold() in seen:
+            problems.append(f"{where}: name is used twice or is the source's own name ({SOURCE}); give it a distinct name")
+        else:
+            seen.add(name.casefold())
+        if not safe_name(market):
+            problems.append(f"{where}: marketplace must be a safe name (letters, digits, '_' or '-', not synced or backup); rename it")
+        elif market.casefold() in markets:
+            problems.append(f"{where}: marketplace {market!r} is shared with another plugin; give each plugin its own marketplace")
+        else:
+            markets.add(market.casefold())
+        if (not isinstance(repo, str) or not repo.strip() or "\x00" in repo or repo.startswith("-")
+                or not (":" in repo or os.path.isabs(repo))):
+            problems.append(f"{where}: repository must be a URL or an absolute path; give the clone URL")
+        if not isinstance(rev, str) or not re.fullmatch(r"[0-9a-fA-F]{40}", rev):
             problems.append(f"{where}: revision must be a full 40-character commit hash; pin the exact commit, not a branch or tag")
-        skills = p["skills"]
-        if not isinstance(skills, list) or not skills or not all(isinstance(s, str) and re.fullmatch(SKILL_NAME, s) for s in skills):
-            problems.append(f"{where}: skills must be a non-empty list of skill names; list the plugin's skill directory names")
+        if (not isinstance(skills, list) or not all(safe_name(s) for s in skills)
+                or len({s.casefold() for s in skills}) != len(skills)):
+            problems.append(f"{where}: skills must be a list of distinct safe names; list the plugin's skill directory names once each")
             continue
-        for s in sorted(set(skills)):
-            if skills.count(s) > 1 or s in names:
-                problems.append(f"plugins.json: skill {s} listed more than once; keep one entry")
-            if s in local:
+        for s in skills:
+            if s.casefold() in {n.casefold() for n in names}:
+                problems.append(f"plugins.json: skill {s} is listed by two plugins; keep it under one")
+            if s.casefold() in folded_local:
                 problems.append(f"plugins.json: skill {s} also exists in skills/; delete one of the two")
             if s in EXTERNAL:
                 problems.append(f"plugins.json: skill {s} is also in EXTERNAL; drop it from EXTERNAL")

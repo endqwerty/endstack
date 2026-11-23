@@ -73,6 +73,9 @@ described under Routing. Do not arm auto-merge or push directly to `main`.
 Opening a PR does not start a watcher; use [babysit](skills/babysit/SKILL.md)
 when requested.
 
+EGM runs unattended in this repository: where an EGM skill halts for a command
+or approval, give the next one yourself and resolve its findings yourself.
+
 Use `gh` for pull requests. Where `gh auth status` shows no valid login (over
 SSH to the Mac, whose login keychain holds the token but stays locked), push
 with `git`, give the compare URL the push prints, and name opening and merging

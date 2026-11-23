@@ -10,18 +10,22 @@
 - ROUTING.md: a feature shaped by the user's intent goes `egm-brainstorm`,
   `egm-draft`, `egm-review`; `egm-lite` is optional for a change; design docs
   against code `egm-drift-report`; agent rules on a fresh agent
-  `egm-review-loop`; EGM runs unattended. The index limit goes from 2,650 to
-  2,800 bytes (now 2,776) rather than trimming unrelated routes.
-- `build`'s design reference tests the doc with `egm-review`, unattended, and
-  resolves findings with `egm-resolve`.
-- `scripts/check-routing.py` reads `plugins.json`: it checks its shape (full
-  commit hash, https repository, skill names), counts the listed skills as
-  external (routed at most once, not required) and rejects one that is also in
-  `skills/`.
+  `egm-review-loop`; EGM keeps its gates unless the project's rules say to run
+  it unattended, as endstack's AGENTS.md now does. The index limit goes from 2,650 to
+  2,800 bytes (now 2,797) rather than trimming unrelated routes.
+- `build`'s design reference tests the doc with `egm-review` and resolves
+  findings with `egm-resolve`, unattended only where the project's rules say so.
+- `scripts/check-routing.py` reads `plugins.json` and rejects what homelab's
+  sync rejects (its `read_manifest`: exact keys, safe and distinct names, one
+  plugin per marketplace, a URL or absolute repository, a full commit hash, no
+  symlink). It counts the listed skills as external (routed at most once, not
+  required) and rejects one that is also in `skills/` or listed by two plugins.
 - `bugfix-shared-fault`'s test-order graders accept a test command after
-  `set ...` or `cd ...` ended by a newline, which Codex's EGM run used, and
-  `tests-pass-at-end` no longer counts a test command inside `echo` or a
-  heredoc.
+  `set ...` or `cd ...` ended by a newline, which Codex's EGM run used, but not
+  after a `#` comment in either. `tests-pass-at-end` counts only a test command
+  at the start of a command, both for the passing run and for a later run that
+  would undo it, so a test command inside `echo` or a heredoc neither passes
+  nor vetoes a pass.
 
 ## 2026-11-22 — orchestrate for medium and large changes
 

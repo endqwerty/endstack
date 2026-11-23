@@ -57,8 +57,10 @@ the conversation. A fix whose shape was already settled needs only the note.
   (step 8's units in order, each marked done or open); *Open questions* (with
   the answer assumed meanwhile).
 - **Test it.** Before the first edit to production code, run the EGM plugin's
-  egm-review skill on the doc unattended, and resolve its findings with
-  egm-resolve until the review converges. Implementation follows the doc; a
+  egm-review skill on the doc and resolve its findings with egm-resolve until
+  the review converges. Keep its gates for the user unless the project's rules
+  say to run EGM unattended; then answer each halt and resolve findings
+  yourself, in stage order with fresh reviewers. Implementation follows the doc; a
   builder that has to depart from it updates the doc in the same change and
   says why.
 - **Finish it.** When the build is done and before the final
