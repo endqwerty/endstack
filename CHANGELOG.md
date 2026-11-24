@@ -1,5 +1,30 @@
 # Change log
 
+## 2026-11-24 — Property-based and model-based testing in test-design
+
+- `skills/test-design/SKILL.md` adds step 4 under "Before writing a test" to
+  pick between examples, stateless property-based tests, and stateful
+  model-based tests, linking to the new on-demand reference
+  `skills/test-design/references/property-and-model-testing.md`.
+- `skills/test-design/references/property-and-model-testing.md` defines when to
+  use stateless properties (round-trips, idempotence, conservation, reference
+  equivalence) and stateful model tests (generated command sequences checked
+  against a small reference model), when to stay with examples, and guardrails
+  (independent oracle, targeted generators, pinned seeds and bounded runs in the
+  every-change suite, shrinking with regression pins, proving the check fails on
+  a broken variant).
+- `skills/formal-verification/SKILL.md` points to `test-design` when sampled
+  inputs or generated command sequences against the real code are enough,
+  reserving formal verification for exhaustive checks up to a bound, every
+  interleaving, or unbounded proofs.
+- `evals/test-design-properties` checks that an agent picks stateless
+  property-based tests for a cent allocator, stateful model-based tests for a
+  TTL cache, example tests for HTTP route wiring, and the reference's
+  determinism, oracle, and regression or broken-variant guardrails.
+- `evals/formal-verification-boundary` checks that an agent routes a
+  single-process LRU cache to stateful or property-based testing via
+  `test-design` and keeps a concurrent lease protocol in `formal-verification`.
+
 ## 2026-11-22 — EGM plugin in place of its port
 
 - Delete `goldfish`, `interview` and `drift`, the 2026-11-17 port of Google's

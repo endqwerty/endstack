@@ -15,6 +15,7 @@ Read the project's testing guide first, if it has one.
 1. **Name the failure.** State the reachable fault: which input or later change causes it, what goes wrong for a user, and who would act on the failure. If you cannot, write no test.
 2. **Find the existing holder.** Search for a test that already asserts the fact, at this layer or a cheaper one. Search by what it observes (the reply, the stored row, the text on screen), not by name. Extend that test, or name it and write nothing.
 3. **Choose the cheapest layer that reaches the fault**, and the cheapest schedule: every change, daily, or only when its code changes. A browser only for what needs its engine (layout, real focus and keys, navigation); one browser journey covers a flow, and its conditions go a layer down.
+4. **Choose the test shape.** Use examples for fixed rules, thin glue, or small input spaces. Use stateless property-based tests when an invariant holds across many inputs, such as round-trips, idempotence, conservation, or equivalence to a simple reference. Use stateful model-based tests when faults come from operation order across a cache, queue, lease, or state machine. Read [references/property-and-model-testing.md](references/property-and-model-testing.md) before writing either.
 
 ## Writing it
 
