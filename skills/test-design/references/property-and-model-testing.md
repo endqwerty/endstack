@@ -21,7 +21,7 @@ Choose stateful model-based tests for components whose faults come from operatio
 2. Define the public commands the component accepts, with preconditions that keep generated sequences in valid domain states.
 3. Run generated command sequences against both the real code and the reference model, checking return values, errors, and state invariants after every step.
 
-Prefer a stateful model test over a separate formal specification when single-process state transitions are the risk, because the test drives the real implementation and cannot drift silently from it. Use [formal-verification](../../formal-verification/SKILL.md) instead when you need exhaustive concurrency interleavings or an unbounded proof.
+Prefer a stateful model test over a separate formal specification when single-process state transitions are the risk, because the test drives the real implementation and cannot drift silently from it. Use [formal-verification](../../formal-verification/SKILL.md) instead when you need exhaustive checks up to a bound, every concurrency interleaving, or an unbounded proof.
 
 ## When to stay with examples
 
