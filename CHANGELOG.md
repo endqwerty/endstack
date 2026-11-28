@@ -22,6 +22,7 @@
   not a different model family; `blast-radius` splits a wide change by area
   instead of asking several models the same question. Tune one reviewer rather
   than adding more. Homelab's global rules and router change to match.
+  Evidence and the review record: `docs/review-flow.md`.
 - `test-design` guards a class of mistakes before testing instances: make it
   impossible (a type, a required argument), else one check over the whole
   repository, and test only what neither can express. Its report lists every
