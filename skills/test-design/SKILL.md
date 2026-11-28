@@ -33,18 +33,18 @@ For a bug with a cheap local test, or when a failing or regression test is asked
 3. **Write the failing test first**, one for each independently faulty place; consumers that share one faulty implementation share one regression test on it. Run it and see it fail for the intended reason. Where the history allows, commit it before the fix.
 4. **Fix the cause in every consumer you listed**, not a guard downstream, or say why one is exempt. Rerun the test; it passes. Then decide whether it stays, below.
 
-If a failing test would need broad harness setup, brittle mocks, production-only state or large fixture churn, use the closest executable check instead (a script, a reproduction command, a focused integration check) and say why. Prefer no new test over a bad one. Never change a test to match a wrong implementation, or weaken an assertion unless the intended behaviour changed.
+If a failing test would need broad harness setup, brittle mocks, production-only state or large fixture churn, use the closest executable check instead (a script, a reproduction command) and say why. Prefer no new test over a bad one. Never change a test to match a wrong implementation, or weaken an assertion unless the intended behaviour changed.
 
 ## Prove, then decide
 
-1. **Prove it.** A test of new or fixed behaviour must fail without the change for the intended reason, not because a symbol is missing, and pass with it. A test that pins behaviour a refactor must keep passes before and after.
-2. **Keep it only when all hold:** a plausible later change to code that stays could break the behaviour unnoticed; it catches a behaviour break and survives a refactor that keeps behaviour; it is fast and deterministic.
+1. **Prove it.** A new or fixed behaviour's test fails without the change for the intended reason, not a missing symbol, and passes with it. A test that pins behaviour a refactor must keep passes before and after.
+2. **Keep it only when all hold:** a plausible later change to code that stays could break the behaviour unnoticed; it catches a behaviour break and survives a refactor that keeps behaviour; it is fast and passes repeated runs; a failure there is a flake: fix its cause.
 3. **Drop it** when the fault cannot recur there: a one-time script or data repair retired after its run, a path the change removed, a test that only restates a value. A migration that new or restored databases still run is code that stays, so its test can stay.
 4. **A dropped proof** goes where the project's guide puts proofs outside the suite, with the deciding lines quoted in the pull request. Otherwise remove it in its own last commit, per the [sequence-verifiable-units](../principles/references/sequence-verifiable-units.md) principle, so the history shows it fail and pass and a revert restores it.
 
 ## Changing the suite
 
-Deleting is normal. To fix a flaky test or delete or move tests, read [references/changing-the-suite.md](references/changing-the-suite.md).
+Deleting is normal. To fix a flake or delete or move tests, read [references/changing-the-suite.md](references/changing-the-suite.md).
 
 ## Report
 

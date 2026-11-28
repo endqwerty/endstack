@@ -2,6 +2,7 @@
 name: loop-judge-flaky
 tags:
 - loop-judge
+- test-design
 runs: 2
 max_turns: 40
 timeout_seconds: 900
