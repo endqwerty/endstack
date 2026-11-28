@@ -8,6 +8,9 @@
   on any failure, so a new flake cannot merge.
 - `evals/loop-judge-flaky` is also tagged `test-design` and grades that the
   fix was proven by repeated runs.
+- `evals/test-design-properties`' routes grader asks only about `routes.ts`;
+  the old "stick to example-based tests" wording was read as covering every
+  module and failed a reply that met it.
 
 ## 2026-11-28 — Gemini DemoLab plugin for web UI work
 
