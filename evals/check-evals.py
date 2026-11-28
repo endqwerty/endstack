@@ -149,8 +149,15 @@ def check_grader(path, patterns, problems):
     for k in sorted(set(g) - required - optional):
         problems.append(f"{path}: unknown key {k} for type {kind}")
     if kind != "regex":
-        if kind == "llm" and g.get("criteria", "").count("?") != 1:
+        criteria = g.get("criteria", "") if kind == "llm" else ""
+        if kind == "llm" and criteria.count("?") != 1:
             problems.append(f"{path}: criteria must be one yes-or-no question")
+        if kind == "llm" and not re.match(r"Does the (?:final )?reply ", criteria):
+            problems.append(f"{path}: criteria must start 'Does the reply' or 'Does the final reply'; "
+                            "the judge reads the reply, not the change")
+        if kind == "llm" and re.search(r"\bshows? (?:the |a )?(?:command|output)", criteria, re.I):
+            problems.append(f"{path}: check a shown command or output with a regex on last_message, "
+                            "not inside an llm criterion")
         return
     target = g.get("target", "last_message")
     if isinstance(target, dict):
