@@ -1,0 +1,18 @@
+diff --git a/src/slug.js b/src/slug.js
+new file mode 100644
+--- /dev/null
++++ b/src/slug.js
+@@ -0,0 +1,10 @@
++const SEPARATORS = /[^a-z0-9]+/g;
++
++export function slugify(title) {
++  return title
++    .normalize("NFKD")
++    .replace(/[̀-ͯ]/g, "")
++    .toLowerCase()
++    .replace(SEPARATORS, "-")
++    .replace(/^-+|-+$/g, "");
++}
+diff --git a/test/slug.test.js b/test/slug.test.js
+new file mode 100644
+(eight new tests; see test/slug.test.js)

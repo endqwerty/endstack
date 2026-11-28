@@ -12,6 +12,7 @@ Read the project's testing guide first, if it has one.
 
 ## Before writing a test
 
+0. **Guard the class, not the instance.** For a mistake that can recur in many places (a route missing its permission check), make it impossible first (a type, a required argument), else one check over the whole repository (a lint rule or script). Test only what neither can express; a test per instance is the deluge.
 1. **Name the failure.** State the reachable fault: which input or later change causes it, what goes wrong for a user, and who would act on the failure. If you cannot, write no test.
 2. **Find the existing holder.** Search for a test that already asserts the fact, at this layer or a cheaper one. Search by what it observes (the reply, the stored row, the text on screen), not by name. Extend that test, or name it and write nothing.
 3. **Choose the cheapest layer that reaches the fault**, and the cheapest schedule: every change, daily, or only when its code changes. A browser only for what needs its engine (layout, real focus and keys, navigation); one browser journey covers a flow, and its conditions go a layer down.
@@ -42,9 +43,7 @@ If a failing test would need broad harness setup, brittle mocks, production-only
 
 ## Changing the suite
 
-- **A flaky test is a defect.** Fix its cause: a shared resource, an unordered read, or a deadline below the work. Retries and longer timeouts are not fixes. Make it deterministic and document the signal being locked down.
-- **Deleting is normal.** Delete a test whose fact a cheaper kept test holds, whose state a refactor made unreachable, or whose feature is gone, and name the holder or the reason.
-- Internal tooling gets a proof, not a kept test, unless a mistake there is costly to undo.
+Deleting is normal. To fix a flaky test or delete or move tests, read [references/changing-the-suite.md](references/changing-the-suite.md).
 
 ## Report
 
@@ -52,5 +51,5 @@ In the pull request or reply:
 
 - each fix's failing-before and passing-after lines, or why no failing test was possible and the check used instead;
 - for a bug fix, the consumers checked for the same fault, which changed, and why any was left, and each principle that changed a choice;
-- which new tests stay and which were dropped or deleted, with the holder or reason and the commit that removed them;
+- every test the change adds, each with the failure it names, the search for an existing holder, and why it stays rather than being dropped after the proof; and which were dropped or deleted, with the holder or reason and the commit that removed them;
 - the time added to the every-change suite, when measurable.

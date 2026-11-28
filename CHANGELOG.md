@@ -1,6 +1,6 @@
 # Change log
 
-## 2026-11-27 — blast-radius returns with a door call; loop-judge
+## 2026-11-27 — blast-radius with a door call, loop-judge, same-provider review
 
 - `skills/blast-radius/` is imported from the pstack candidate and routed. It
   keeps upstream's method (find breakage past the diff, prove the one fact the
@@ -16,6 +16,22 @@
   has no byte limit (`MAX = None`) until the next trim pass sets one again;
   tests cover both states.
 - `evals/blast-radius-door` and `evals/loop-judge-flaky` grade the two skills.
+- Review stays on the author's own provider. `verify`'s review scope, `arena`,
+  `interrogate`, show-me-your-work's audit review, `blast-radius` and the
+  skill rules in `AGENTS.md` ask for a fresh context on the author's provider,
+  not a different model family; `blast-radius` splits a wide change by area
+  instead of asking several models the same question. Tune one reviewer rather
+  than adding more. Homelab's global rules and router change to match.
+- `test-design` guards a class of mistakes before testing instances: make it
+  impossible (a type, a required argument), else one check over the whole
+  repository, and test only what neither can express. Its report lists every
+  added test with the failure it names, the holder search and why it stays.
+  "Changing the suite" moved to `references/changing-the-suite.md` to fit the
+  size limit.
+- `verify`'s rubric makes an added test without that accounting, or a test
+  per instance where one guard would hold the class, a should; asking for more
+  tests stays a nit.
+- `evals/test-design-guard` and `evals/verify-test-bloat` grade both.
 
 ## 2026-11-24 — Property-based and model-based testing in test-design
 

@@ -15,6 +15,7 @@ homelab skill-eval --case why-retry HEAD      # one case at one revision
 homelab skill-eval --case 'bugfix-*' HEAD     # cases whose folder names match a glob
 homelab skill-eval --runs 1 --jobs 8 --case 'bu*' main HEAD   # the usual PR check: tagged cases, once, in parallel
 homelab skill-eval --agents claude --runs 1 main HEAD
+homelab skill-eval --agents claude,codex,antigravity --runs 1 --case why-retry main HEAD   # Gemini through agy too
 ```
 
 `--case` takes case folder names under `evals/` or a glob over them, not skill
@@ -99,7 +100,10 @@ exactly the cases you need, run one invocation per case or glob.
 - `trace`: the run's event stream as JSON lines: Claude's stream-json events,
   or Codex's `item.completed` events (`command_execution` with `command` and
   `aggregated_output`, `file_change` with `changes[].path`, `agent_message`).
-  A skill read is a Read call whose `file_path` ends in
+  Antigravity (`--agents antigravity`) runs are rewritten into these shapes: a
+  file read as a Read call with `file_path`, a shell command as
+  `command_execution`, an edit as `file_change`; its raw stream-json is kept
+  beside it. A skill read is a Read call whose `file_path` ends in
   `skills/<skill>/SKILL.md`, or a `command` in which a reading command (`cat`,
   `sed`, `head`, `tail`, `nl`, `less`, `more`, `awk`, `bat`) stands at a
   command-word position and names that file, directly, in a brace list, through
@@ -157,3 +161,5 @@ trace instead.
 | formal-verification-boundary | formal-verification, test-design | single-process LRU cache vs distributed lease claim: reads formal-verification, routes the single-process cache to stateful model-based or property-based testing on the real code, and keeps the concurrent lease protocol in formal verification |
 | blast-radius-door | blast-radius | an applied camelCase rename and column drop: reads blast-radius, finds the Python nightly report still reading `total_cents` outside the diff, finds pre-2024 orders never backfilled, calls the drop a one-way door and proposes making it reversible; no file edited |
 | loop-judge-flaky | loop-judge | a flaky TTL test after four timeout bumps: reads loop-judge, does not raise the timeout again, fixes the expiry boundary (an entry still returned at exactly the ttl) or the real-timer dependence, and logs a pivot in `attempts.md` |
+| test-design-guard | test-design | two admin routes shipped without a permission: reads test-design, fixes both, and guards every admin route through one mechanism that covers routes added later instead of a test per route |
+| verify-test-bloat | verify, test-design | a slug function with eight tests: reads verify, asks to drop the near-duplicate, source-reading and type-only tests before merging, keeps the accent and punctuation tests |
