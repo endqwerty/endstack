@@ -109,7 +109,7 @@ and the pull request.
 Blast radius and loop judge, 2026-11-27: `blast-radius` is routed again (it
 was a pstack candidate folded into `verify`, then imported with a one-way or
 two-way door call and a rigor call), and `loop-judge` is new: a light, fresh
-judge at each round of a loop says continue, pivot or stop. The two bullets
+judge from the third round of a loop says continue, pivot or stop. The two bullets
 took the index to 2,991 bytes. The byte limit is off until the next trim pass,
 which sets it again; `MAX` in `scripts/check-routing.py` is `None` until then.
 Evidence: `evals/blast-radius-door`, `evals/loop-judge-flaky` and the pull

@@ -39,7 +39,7 @@ opt-out. Reviewing and checking safety are tasks, however short.
 - A timing or performance number to report, compare or limit:
   `benchmark-checklist`.
 - Long, unattended or multi-phase work: `show-me-your-work`. A loop on one goal
-  (retries, fix and rerun, hill climbs, review rounds): `loop-judge` each round.
+  (retries, fix and rerun, hill climbs, review rounds): `loop-judge` from round three.
 - Corrected, a mistake recurs, or adding a rule to agent instructions:
   `correct`.
 - Asked to prove or model-check a race, invariant or rare case, or code

@@ -1,24 +1,20 @@
 ---
 name: loop-judge
-description: At each round of a loop on one goal (retries, fix and rerun, hill climbs, review rounds), a light fresh judge reads the goal and attempt log and says continue, pivot or stop.
+description: From the third round of a loop on one goal (retries, fix and rerun, hill climbs, review rounds), a light fresh judge reads the goal and attempt log and says continue, pivot or stop.
 disable-model-invocation: true
 ---
 
 # Loop judge
 
-An agent deep in a loop is the worst judge of whether to keep going. It remembers why each attempt should have worked, reads its near misses as progress, and has spent too much to stop. Hand that call, at each round boundary, to a fresh judge that sees only the goal and the record.
+An agent deep in a loop is the worst judge of whether to keep going. It remembers why each attempt should have worked, reads its near misses as progress, and has spent too much to stop. Once a loop reaches its third round, hand that call to a fresh judge that sees only the goal and the record.
 
 The judge is light on purpose: the smallest model tier the harness offers, in a separate context, one short call. The same provider is fine. It judges progress, never the code; correctness stays with the checks and [verify](../verify/SKILL.md). Without a separate context, answer the verdict yourself from the log alone and say the judge was not independent.
 
 ## When to ask
 
-A loop is any repeated attempt at one goal: a failing test fixed and rerun, a flaky check, a hill climb on a number, review rounds, a red pull request, a hunt for a root cause. Ask:
+A loop is any repeated attempt at one goal: a failing test fixed and rerun, a flaky check, a hill climb on a number, review rounds, a red pull request, a hunt for a root cause. The first two rounds usually pay for themselves; let them run. Ask the judge from the third round on: after the third attempt at the same goal ends short of it, and after each round from then on. Also ask, at any round, before the loop spends something new: a wider scope, a new dependency, a pricier model, a one-way door.
 
-- after the second failed attempt at the same thing, and after each failed attempt from then on;
-- every few rounds of a loop that is moving (a hill climb, a migration over many units), and at least hourly in unattended work;
-- before the loop spends something new: a wider scope, a new dependency, a pricier model, a one-way door.
-
-Skip it for a first attempt, one retry of a known flake, or a loop whose stop rule is already a script, such as a watcher that waits for a merge.
+Skip it for a loop still in its first two rounds, one retry of a known flake, or a loop whose stop rule is already a script, such as a watcher that waits for a merge.
 
 ## The brief
 
@@ -35,7 +31,7 @@ Leave out why you think it should continue, your confidence and the answer you w
 The judge answers one word and one reason that cites log lines:
 
 - **Continue.** The last rounds moved the predicate by a measured amount, and the next step follows from that evidence.
-- **Pivot.** No measured progress in two rounds; the same failure under different fixes; several rounds circling one hypothesis; or a result that contradicts the approach. Name what the log rules out and one different direction: another hypothesis, a smaller reproduction, a different layer, reading the source instead of guessing, or getting the one missing fact.
+- **Pivot.** No measured progress in the last two rounds; the same failure under different fixes; several rounds circling one hypothesis; or a result that contradicts the approach. Name what the log rules out and one different direction: another hypothesis, a smaller reproduction, a different layer, reading the source instead of guessing, or getting the one missing fact.
 - **Stop.** The predicate is met; the budget is spent; the gap left costs more than it is worth; the next step needs something only the user can give or authority the loop lacks; or it is a one-way door the loop was not cleared to open. Say which.
 
 When the log cannot decide it, the answer is Pivot to measuring: name the number the log is missing.

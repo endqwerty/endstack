@@ -1,5 +1,22 @@
 # Change log
 
+## 2026-11-27 — blast-radius returns with a door call; loop-judge
+
+- `skills/blast-radius/` is imported from the pstack candidate and routed. It
+  keeps upstream's method (find breakage past the diff, prove the one fact the
+  change is safe because of by running real code) and adds a one-way or
+  two-way door call and a rigor call that combines radius and door. Port notes
+  in `docs/import-notes/blast-radius.md`.
+- `skills/loop-judge/` is new: from the third round of a loop on one goal (retries,
+  fix and rerun, hill climbs, review rounds), a light model in a fresh context
+  reads the goal, budget and attempt log, never the author's case, and answers
+  continue, pivot or stop with one reason. Two pivots without progress is a
+  stop; a verdict grants no authority.
+- `ROUTING.md` routes both. It is 2,991 bytes, and `scripts/check-routing.py`
+  has no byte limit (`MAX = None`) until the next trim pass sets one again;
+  tests cover both states.
+- `evals/blast-radius-door` and `evals/loop-judge-flaky` grade the two skills.
+
 ## 2026-11-24 — Property-based and model-based testing in test-design
 
 - `skills/test-design/SKILL.md` adds step 4 under "Before writing a test" to
