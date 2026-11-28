@@ -13,11 +13,11 @@ repository names in its `AGENTS.md`. Background and the merge-policy design:
 | `babysit` | babysit | Handle existing PR feedback and checks; stop at merge-ready. Status-only is one read-only pass. |
 | `ship` | shipping | Explicitly authorized landing of identified, currently verified work; confirm destination. |
 | `autopilot-full` | autopilot-full | Compose build, babysit and ship for a bounded queue with explicit merge authority. |
-| `verify` | principle-prove-it-works, interrogate (single reviewer), blast-radius | An independent read-only verifier (a different provider is optional), answers each check pass / issues / not checked and tries to break the change; tied to the head it judged. |
+| `verify` | principle-prove-it-works, interrogate (single reviewer), blast-radius | An independent read-only verifier on the author's own provider, answers each check pass / issues / not checked and tries to break the change; tied to the head it judged. |
 | PR brief (inside `build`, not another skill) | opening-a-pr, technical-writing, unslop | Short, standalone why, what, approach, checks, deciding evidence and reviewer. |
 | `repro-first` (not built: `tdd` and the fix-root-causes principle cover it) | bug-fix, tdd, fix-root-causes | Reproduce before fixing; a failing check first. |
 
-Daniel's existing homelab skills (`use-gpt-budget`, `trmnl-screens`) stay
+Daniel's existing homelab skills (`use-budget`, `trmnl-screens`) stay
 where they are.
 
 ## Done
@@ -25,7 +25,7 @@ where they are.
 - `verify` (2026-10-10): `skills/verify/`. One skill for both roles (author
   asks, verifier answers). Mandatory for features, bug fixes and anything
   touching auth, data, money, credentials or deployment; skipped for docs,
-  comments, and mechanical edits that change no behaviour, data or contract. "A different provider than yours" is stated without naming any;
+  comments, and mechanical edits that change no behaviour, data or contract. The verifier is a fresh context on the author's own provider;
   homelab routing decides who that is. Upstream `principle-prove-it-works`,
   `interrogate` and `blast-radius` stay until step 5, since other upstream
   skills still link to them. Do not shrink the global AGENTS.md paragraph until

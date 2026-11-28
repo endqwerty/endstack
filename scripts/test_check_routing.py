@@ -167,15 +167,10 @@ class T(unittest.TestCase):
         p = " ".join(cr.check(tree(GOOD + "Use Claude, run `git push`.\n", SK)))
         self.assertIn("model or provider name", p); self.assertIn("command in backticks", p)
 
-    def test_no_size_cap_until_one_is_set(self):
-        long = GOOD + "word " * 700 + "\n"
-        self.assertIsNone(cr.MAX)
-        self.assertEqual(cr.check(tree(long, SK)), [])
-        cr.MAX = 2800
-        try:
-            self.assertIn("bytes > 2800", " ".join(cr.check(tree(long, SK))))
-        finally:
-            cr.MAX = None
+    def test_size_cap(self):
+        self.assertEqual(cr.MAX, 3000)
+        self.assertIn("bytes > 3000", " ".join(cr.check(tree(GOOD + "word " * 700 + "\n", SK))))
+        self.assertEqual(cr.check(tree(GOOD, SK)), [])
 
 
 if __name__ == "__main__":

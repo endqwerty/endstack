@@ -1,5 +1,22 @@
 # Change log
 
+## 2026-11-27 — Eval judges: one judge for every arm, criteria that ask one thing
+
+- `evals/check-evals.py` rejects an llm criterion that does not start "Does
+  the reply" or "Does the final reply" (the judge reads the reply, not the
+  change) or that asks for a shown command or output (a regex grader's job).
+- `interrogate-pager`'s three llm graders ask one plain positive question each
+  and lose their "with-command" suffix; `reply-shows-commands` still checks the
+  commands. Re-judged on every stored reply: all pass, a made-up reply with no
+  findings fails all three.
+- `evals/README.md` gains "Judges": homelab's judge grades every arm,
+  including Claude's, after a re-judge of 174 Claude-arm verdicts flipped 26.
+- Trim pass: `ROUTING.md` keeps every route (the candidates traded a tested
+  trigger for under 80 bytes) and its cap returns at 3,000 bytes.
+  `verify`'s review scope says a provider that cannot review reports the work
+  unverified, matching the global rules; DISTILL.md drops the stale
+  different-provider and `use-gpt-budget` wording.
+
 ## 2026-11-27 — blast-radius with a door call, loop-judge, same-provider review
 
 - `skills/blast-radius/` is imported from the pstack candidate and routed. It

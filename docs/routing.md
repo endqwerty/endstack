@@ -7,7 +7,7 @@ writing docs never reached `unslop`). Asking him to think about 24 skills per
 message was the failure.
 
 What: [ROUTING.md](../ROUTING.md) is an index of about 3 KB (1.9 KB when
-added, 2.6 KB before the 2026-11-16 trim; uncapped since 2026-11-27 until the next trim), one line per situation. It
+added, 2.6 KB before the 2026-11-16 trim; capped at 3,000 bytes after the 2026-11-27 trim), one line per situation. It
 is loaded on every turn through the global rules in homelab (`agents/AGENTS.md`),
 the only file both Claude Code and Codex read each session. The model matches the
 task against it, opens the named skill, and says which one shaped a decision. A
@@ -31,7 +31,7 @@ Turned down:
    every skill in `skills/` named exactly once; no unknown backticked name; a
    non-empty "Only when named" list; one bullet routing prose to `unslop` and
    docs to `technical-writing`; `ship` and `autopilot-full` only in a bullet
-   that says "explicit", and the same for `orchestrate` when it is routed; a casual-chat skip; a byte limit while one is set; no tool, model or
+   that says "explicit", and the same for `orchestrate` when it is routed; a casual-chat skip; at most 3,000 bytes; no tool, model or
    provider names. Before `ROUTING.md` existed it printed `ROUTING.md: missing`
    (exit 1); now `0 problem(s)`.
    It cannot judge whether a line sends a skill to the right situation, or
@@ -111,7 +111,9 @@ was a pstack candidate folded into `verify`, then imported with a one-way or
 two-way door call and a rigor call), and `loop-judge` is new: a light, fresh
 judge from the third round of a loop says continue, pivot or stop. The two bullets
 took the index to 2,991 bytes. The byte limit is off until the next trim pass,
-which sets it again; `MAX` in `scripts/check-routing.py` is `None` until then.
+which sets it again. The trim pass the same day found no route worth cutting
+(the audit's candidates traded a tested trigger for under 80 bytes) and set
+`MAX` to 3,000, three bytes above the index.
 Evidence: `evals/blast-radius-door`, `evals/loop-judge-flaky` and the pull
 request.
 

@@ -42,8 +42,21 @@ A run's score is the share of its graders that passed; a case's score is the
 mean over its runs. 1.0 means every check passed in every run. Compare the
 base and head columns of the same agent; a delta inside one run's worth of a
 grader (1 / graders / runs) is noise. LLM graders are judged by a small model
-and are the least stable; read the trace before trusting a delta that rests on
-one.
+and are the least stable; read the reply before trusting a delta that rests on
+one. On 2026-11-27 a re-judge of 174 Claude-arm llm verdicts found 21 false
+failures and 5 false passes (see [Judges](#judges)).
+
+## Judges
+
+Every arm's `llm` graders are judged the same way, by homelab's judge: a small
+model, three votes, a prompt that counts a paraphrase and asks for the reason
+before the verdict, given the final reply and the changed files. The Claude
+arm used `claude plugin eval`'s built-in judge until 2026-11-27, when a
+re-judge of 174 of its verdicts by homelab's judge flipped 26: 21 failures the
+replies plainly met, and 5 passes on criteria worded as double negatives or
+asking for a shown command. A criterion that fails a reply meeting it is a
+grader bug: fix the wording, then re-judge the stored replies and a made-up
+positive and negative before trusting it.
 
 ## Cost
 
@@ -88,7 +101,12 @@ exactly the cases you need, run one invocation per case or glob.
    - `file_exists`: `path`, a glob relative to the working directory.
    - `tool_used`: `tool`, optional `input_match`, `min`, `max` (Claude only).
    - `llm`: `criteria`, one yes-or-no question a judge can answer from the
-     final reply.
+     final reply. Start it "Does the reply say" (or "Does the final reply")
+     and ask for one finding in plain positive words: "says page() accepts
+     page 0", not "reports that page() does not raise". Give the example the
+     reply is likely to use. Leave shown commands, files and order to regex
+     graders. `check-evals.py` rejects a criterion that asks about "the
+     change" or for a shown command or output.
    Prefer `regex` and `file_exists`; use `llm` only for what a pattern cannot
    decide.
 5. Run `python3 evals/check-evals.py`, then the case once on each agent, and
