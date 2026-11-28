@@ -1,4 +1,4 @@
 ---
 type: llm
-criteria: 'Does the change make every admin route require a permission through one mechanism that also covers routes added later (route registration rejecting an admin route without a permission, a required argument, or one check that walks every registered route), rather than only adding a separate test for each of the two incident routes?'
+criteria: 'Does the reply say that one mechanism now makes every admin route need a permission, including admin routes added later (for example route registration that rejects an admin route without one, a required argument, or a single check over all registered routes), instead of only a separate test for each of the two incident routes?'
 ---
