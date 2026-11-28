@@ -6,7 +6,7 @@ import importlib.util, json, os, re, sys
 spec = importlib.util.spec_from_file_location("cs", os.path.join(os.path.dirname(os.path.abspath(__file__)), "check-skills.py"))
 cs = importlib.util.module_from_spec(spec); spec.loader.exec_module(cs)
 
-MAX = None  # bytes; off until the next trim pass sets it again
+MAX = 3000  # bytes: read on every turn, so it stays small
 NAMED = "Only when named:"
 EXTERNAL = {"archify", "statechart"}  # installed by homelab from other pinned sources, not skills/
 PLUGIN_KEYS = {"name", "repository", "revision", "marketplace", "skills"}
