@@ -12,7 +12,8 @@ Read the project's testing guide first, if it has one.
 
 ## Before writing a test
 
-0. **Guard the class, not the instance.** For a mistake that can recur in many places (a route missing its permission check), make it impossible first (a type, a required argument), else one check over the whole repository (a lint rule or script). Test only what neither can express; a test per instance is the deluge.
+**Guard the class, not the instance.** For a mistake that can recur in many places (a route missing its permission check), make it impossible first (a type, a required argument), else one check over the whole repository (a lint rule or script). Test only what neither can express; a test per instance is the deluge.
+
 1. **Name the failure.** State the reachable fault: which input or later change causes it, what goes wrong for a user, and who would act on the failure. If you cannot, write no test.
 2. **Find the existing holder.** Search for a test that already asserts the fact, at this layer or a cheaper one. Search by what it observes (the reply, the stored row, the text on screen), not by name. Extend that test, or name it and write nothing.
 3. **Choose the cheapest layer that reaches the fault**, and the cheapest schedule: every change, daily, or only when its code changes. A browser only for what needs its engine (layout, real focus and keys, navigation); one browser journey covers a flow, and its conditions go a layer down.

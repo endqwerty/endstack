@@ -17,7 +17,7 @@ comments; classified by agents, so judgment, not audit):
 
 | | Count |
 | --- | --- |
-| PRs with a recorded finding | 151 of 194 (51 record none: unknown, not zero) |
+| PRs with a recorded finding | 151 of 194 (43 record none: unknown, not zero) |
 | PRs with at least one real defect found | 132 (68%) |
 | Real-defect rows | 304; wording 84, nit or declined 64, rebutted 1 |
 | Real defects outside the diff | 81 of 304 (27%); endstack 29 of 53, mainworthy 17 of 41, agent-factory 12 of 84, ebook-manager 3 of 56 |
@@ -47,13 +47,20 @@ common.
 - arXiv 2610.01471: a top-tier cross-model reviewer was not significantly
   better than a same-model reviewer in a fresh session. arXiv 2607.21656: one
   direction of cross-model review lowered accuracy (91.4% to 82.8%).
-- OpenAI's Codex review: one reviewer, only P0 and P1 shown on pull requests,
-  rules in an AGENTS.md `## Code Review Rules` section, "signal-to-noise
-  first". Google's EGM: every Goldfish is a fresh subagent of the same harness,
-  split by lens, one re-audit per stage.
+- OpenAI: "We optimize for signal-to-noise first", and repository access with
+  code execution "results in a stronger reviewer" ("A Practical Approach to
+  Verifying Code at Scale"). Codex Code Review is tuned with review rules in
+  the AGENTS.md nearest the code (developers.openai.com, Codex GitHub code
+  reviews and "Custom Code Review rules for Codex"); a third-party guide says
+  pull requests show only P0 and P1 findings, not confirmed here.
+- Google's EGM: every Goldfish is a fresh subagent of the same harness, each
+  on its own lens, with one re-audit per stage.
 
-None of the three vendors reviews across providers; each tunes one fresh
-reviewer on its own models through its own repository rules file.
+None of these sources describes reviewing one provider's work with another's
+model. Anthropic's managed Code Review does run several agents on the diff in
+parallel and then filters their findings, so "one reviewer" is the advice for
+stacking whole reviewers, not a ban on parallel finders. Each vendor tunes its
+review through its own repository rules file.
 
 ## What changed
 
