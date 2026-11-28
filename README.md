@@ -48,6 +48,11 @@ not a copy in `skills/`. [plugins.json](plugins.json) pins it by commit;
 homelab installs it beside the skills. Moving the pin means checking the new
 revision as [docs/egm-plugin-trial.md](docs/egm-plugin-trial.md) did.
 
+Web UI work uses `gemini-frontend-design` from Google's
+[Gemini DemoLab](https://github.com/google-gemini/demolab) plugin, pinned the
+same way. The plugin also brings its `deep-research` skill, which ROUTING.md
+does not route. Why and the eval: [docs/demolab-plugin.md](docs/demolab-plugin.md).
+
 ## Why not just install pstack
 
 pstack is a Cursor plugin: Cursor-only entry points, Grok and Opus named per
