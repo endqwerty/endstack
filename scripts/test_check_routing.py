@@ -163,9 +163,19 @@ class T(unittest.TestCase):
     def test_casual_skip_required(self):
         self.assertIn("casual chat", " ".join(cr.check(tree(GOOD.replace("casual", "quiet"), SK))))
 
-    def test_size_and_forbidden_terms(self):
-        p = " ".join(cr.check(tree(GOOD + "word " * 700 + "Use Claude, run `git push`.\n", SK)))
-        self.assertIn("bytes >", p); self.assertIn("model or provider name", p); self.assertIn("command in backticks", p)
+    def test_forbidden_terms(self):
+        p = " ".join(cr.check(tree(GOOD + "Use Claude, run `git push`.\n", SK)))
+        self.assertIn("model or provider name", p); self.assertIn("command in backticks", p)
+
+    def test_no_size_cap_until_one_is_set(self):
+        long = GOOD + "word " * 700 + "\n"
+        self.assertIsNone(cr.MAX)
+        self.assertEqual(cr.check(tree(long, SK)), [])
+        cr.MAX = 2800
+        try:
+            self.assertIn("bytes > 2800", " ".join(cr.check(tree(long, SK))))
+        finally:
+            cr.MAX = None
 
 
 if __name__ == "__main__":

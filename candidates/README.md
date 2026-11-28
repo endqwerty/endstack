@@ -21,7 +21,7 @@ merge, add its name to homelab's `skill-sources.json`.
 
 | Skill | Upstream description | Status |
 | --- | --- | --- |
-| [blast-radius](blast-radius/SKILL.md) | Find what a change could break somewhere else before it ships, beyond the diff, and prove the one fact it's safe because of by running real code instead of writing it up. Use for 'blast radius of... | folded into `verify` |
+| [blast-radius](blast-radius/SKILL.md) | Find what a change could break somewhere else before it ships, beyond the diff, and prove the one fact it's safe because of by running real code instead of writing it up. Use for 'blast radius of... | imported as `blast-radius` on 2026-11-27, with a one-way or two-way door call; was folded into `verify` |
 | [poteto-help](poteto-help/SKILL.md) | Guides users through pstack setup, /poteto-mode, and picking the skill, playbook, or principle for a task. Type /poteto-help with a question. | help text for poteto-mode; not needed |
 | [poteto-mode](poteto-mode/SKILL.md) | poteto's agent style for concise, detailed responses, deliberate subagents, unslopped prose, simple code, and verified work. Use for poteto, /poteto-mode, or requests to work in this style. | the always-on router and 23 playbooks; its babysit, shipping, opening-a-pr, feature, bug-fix and autopilot playbooks became build, babysit, ship, autopilot-full (autopilot-stack was dropped); orchestrate was imported later. Other playbooks are not imported |
 | [principle-prove-it-works](principle-prove-it-works/SKILL.md) | Apply after completing a task, before declaring done. Verify against the real artifact (run the feature, read the actual value, inspect the diff), not a proxy, self-report, or 'it compiles. | covered by `verify` |

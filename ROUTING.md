@@ -11,6 +11,8 @@ opt-out. Reviewing and checking safety are tasks, however short.
   `autopilot-full` only on an explicit request to merge, land or ship;
   "autopilot" or "full send" on a change is that request for the latter, with
   no waiting for approval. "Full stop": build, then babysit to ready, unmerged.
+- What a change could break past its diff, or whether it is a one-way door:
+  `blast-radius`.
 - A change of three or more verifiable units, or several pull requests:
   `orchestrate` coordinates fresh workers, landing only on an explicit request.
 - Waiting on a pull request, yours or anyone's: `pr-watch`.
@@ -36,7 +38,8 @@ opt-out. Reviewing and checking safety are tasks, however short.
   one artifact: `arena`.
 - A timing or performance number to report, compare or limit:
   `benchmark-checklist`.
-- Long, unattended or multi-phase work: `show-me-your-work`.
+- Long, unattended or multi-phase work: `show-me-your-work`. A loop on one goal
+  (retries, fix and rerun, hill climbs, review rounds): `loop-judge` each round.
 - Corrected, a mistake recurs, or adding a rule to agent instructions:
   `correct`.
 - Asked to prove or model-check a race, invariant or rare case, or code

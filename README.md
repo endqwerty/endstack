@@ -5,7 +5,7 @@
 Daniel Yang's agent stack: skills for Claude Code and Codex (through T3 Code),
 distilled from Lauren Tan's [pstack](https://github.com/cursor/plugins/tree/main/pstack).
 
-**State: five core delivery skills plus 21 role skills.** Build, babysit, ship,
+**State: five core delivery skills plus 23 role skills.** Build, babysit, ship,
 autopilot-full and verify keep implementation, readiness and merge authority
 separate. Start with the [command cookbook](docs/cookbook.md) for the full
 catalog, copyable prompts, outputs and stopping points. Distribution uses a
@@ -27,7 +27,7 @@ carry no tool, model or harness names; see the [skills table](#skills) and
 | --- | --- |
 | Delivery (core, about 2 KB each) | build, babysit, ship, autopilot-full, verify |
 | Explain and think | architect, how, why, correct, ketchup, sharpen |
-| Review and process | interrogate, arena, swarm, orchestrate, show-me-your-work, benchmark-checklist, pr-watch, bro |
+| Review and process | interrogate, blast-radius, loop-judge, arena, swarm, orchestrate, show-me-your-work, benchmark-checklist, pr-watch, bro |
 | Writing and code | technical-writing, unslop, no-comments, typescript-best-practices, test-design, formal-verification |
 | Principles | principles (index; each principle is a reference read on demand) |
 
@@ -35,7 +35,7 @@ The role skills are explicit-invocation (`/test-design`, `/arena`, ...), as in
 pstack, so they add almost nothing to the catalog the agent sees every session.
 `unslop` is the exception: it applies to every reply, and Claude Code agents
 skipped it while it was hidden ([evidence](docs/hidden-skill-loads.md)).
-What replaces pstack's always-on router is [ROUTING.md](ROUTING.md), an index under 2,800 bytes
+What replaces pstack's always-on router is [ROUTING.md](ROUTING.md), an index of about 3 KB
 of when to use which skill, installed in the global rules so every turn
 sees it ([evidence](docs/routing.md)).
 
@@ -62,7 +62,7 @@ in its `AGENTS.md`.
 
 ## Install
 
-Only `skills/` is installable (26 skills); the EGM plugin installs separately
+Only `skills/` is installable (28 skills); the EGM plugin installs separately
 ([Dependencies](#dependencies)). Add `-s build -s verify ...` to take a subset.
 
 **With npx** (any machine; installs to Claude Code, Codex, Kiro and other agents):
