@@ -43,8 +43,8 @@ mean over its runs. 1.0 means every check passed in every run. Compare the
 base and head columns of the same agent; a delta inside one run's worth of a
 grader (1 / graders / runs) is noise. LLM graders are judged by a small model
 and are the least stable; read the reply before trusting a delta that rests on
-one. On 2026-11-27, 21 of 26 Claude-arm llm failures were the judge's, not the
-agent's (see [Judges](#judges)).
+one. On 2026-11-27 a re-judge of 174 Claude-arm llm verdicts found 21 false
+failures and 5 false passes (see [Judges](#judges)).
 
 ## Judges
 
