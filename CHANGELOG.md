@@ -1,5 +1,17 @@
 # Change log
 
+## 2026-11-28 — No flaky tests
+
+- `test-design` keeps a test only when it passes repeated runs; a failure there
+  is a flake to fix at its cause. `references/changing-the-suite.md` adds a
+  project check that reruns the test files a change adds or touches and fails
+  on any failure, so a new flake cannot merge.
+- `evals/loop-judge-flaky` is also tagged `test-design` and grades that the
+  fix was proven by repeated runs.
+- `evals/test-design-properties`' routes grader asks only about `routes.ts`;
+  the old "stick to example-based tests" wording was read as covering every
+  module and failed a reply that met it.
+
 ## 2026-11-28 — Gemini DemoLab plugin for web UI work
 
 - `plugins.json` pins Google's DemoLab (`demolab@demolab` at `6a5e364`);

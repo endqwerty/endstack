@@ -17,7 +17,7 @@ Read the project's testing guide first, if it has one.
 1. **Name the failure.** State the reachable fault: which input or later change causes it, what goes wrong for a user, and who would act on the failure. If you cannot, write no test.
 2. **Find the existing holder.** Search for a test that already asserts the fact, at this layer or a cheaper one. Search by what it observes (the reply, the stored row, the text on screen), not by name. Extend that test, or name it and write nothing.
 3. **Choose the cheapest layer that reaches the fault**, and the cheapest schedule: every change, daily, or only when its code changes. A browser only for what needs its engine (layout, real focus and keys, navigation); one browser journey covers a flow, and its conditions go a layer down.
-4. **Choose the test shape.** Use examples for fixed rules, thin glue, or small input spaces. Use stateless property-based tests when an invariant holds across many inputs, such as round-trips, idempotence, conservation, or equivalence to a simple reference. Use stateful model-based tests when faults come from operation order across a cache, queue, lease, or state machine. Read [references/property-and-model-testing.md](references/property-and-model-testing.md) before writing either.
+4. **Choose the test shape.** Use examples for fixed rules, thin glue or small input spaces; stateless property-based tests for an invariant across many inputs (round-trips, idempotence, conservation, a simple reference); stateful model-based tests for faults from operation order (a cache, queue, lease or state machine). Read [references/property-and-model-testing.md](references/property-and-model-testing.md) before writing either.
 
 ## Writing it
 
@@ -37,14 +37,14 @@ If a failing test would need broad harness setup, brittle mocks, production-only
 
 ## Prove, then decide
 
-1. **Prove it.** A test of new or fixed behaviour must fail without the change for the intended reason, not because a symbol is missing, and pass with it. A test that pins behaviour a refactor must keep passes before and after.
-2. **Keep it only when all hold:** a plausible later change to code that stays could break the behaviour unnoticed; it catches a behaviour break and survives a refactor that keeps behaviour; it is fast and deterministic.
+1. **Prove it.** A new or fixed behaviour's test fails without the change for the intended reason, not a missing symbol, and passes with it. A test that pins behaviour a refactor must keep passes before and after.
+2. **Keep it only when all hold:** a plausible later change to code that stays could break the behaviour unnoticed; it catches a behaviour break and survives a refactor that keeps behaviour; it is fast, deterministic and passes repeated runs (a failure in them is a flake to fix at its cause).
 3. **Drop it** when the fault cannot recur there: a one-time script or data repair retired after its run, a path the change removed, a test that only restates a value. A migration that new or restored databases still run is code that stays, so its test can stay.
 4. **A dropped proof** goes where the project's guide puts proofs outside the suite, with the deciding lines quoted in the pull request. Otherwise remove it in its own last commit, per the [sequence-verifiable-units](../principles/references/sequence-verifiable-units.md) principle, so the history shows it fail and pass and a revert restores it.
 
 ## Changing the suite
 
-Deleting is normal. To fix a flaky test or delete or move tests, read [references/changing-the-suite.md](references/changing-the-suite.md).
+Deleting is normal. To fix a flake or delete or move tests, read [references/changing-the-suite.md](references/changing-the-suite.md).
 
 ## Report
 
