@@ -45,7 +45,7 @@ Most changes are two-way with a small one-way core. Name the core and say how to
 4. Call the door. Name what outlives a revert, or say nothing does and why.
 5. Be honest about each risk. Give it a real chance of happening and a real cost if it does. Keep the risks you confirmed. List the ones you checked and cleared separately. Same rules as `why`. Cite a real `file:line`, a search that finds nothing is still an answer, and never make up a caller or an API.
 6. Prove the one fact. Write a script or test that runs the real code, run it, and paste what happened. Behind a one-way door, step 4 of the list above is the floor, not a goal.
-7. For a big or wide change, run it as an [arena](../arena/SKILL.md). Ask more than one model the same question and merge the answers. Different models catch different real bugs.
+7. For a big or wide change, split it by area and run steps 2 to 6 for each area in its own fresh context, then merge the answers. Split the work; don't stack reviewers on the same question.
 
 ## Rigor
 

@@ -14,7 +14,7 @@ The scope is what the user names. Otherwise it is the branch diff from its merge
 
 ## Fan out
 
-Choose at least two adversaries suited to the scope, from different model families if available. Give each its own isolated checkout and copy the scope's uncommitted changes into it. If the harness has separate workers, launch them all in parallel; otherwise play each adversary yourself in sequence and say so, since the findings are then not independent. If an adversary cannot start or returns nothing, continue with the rest and say so. Give each adversary the scope, the intent, and this brief:
+Choose at least two adversaries suited to the scope, each in its own fresh context on your own provider. Give each its own isolated checkout and copy the scope's uncommitted changes into it. If the harness has separate workers, launch them all in parallel; otherwise play each adversary yourself in sequence and say so, since the findings are then not independent. If an adversary cannot start or returns nothing, continue with the rest and say so. Give each adversary the scope, the intent, and this brief:
 
 > Break this change. Prove each finding with a run against the real code, such as a failing test, a repro script, or command output that shows the wrong behavior. For a design or plan, run a prototype or probe the current tree. Report each finding with a title, the exact command, including any repro script's full text so it runs from the scope's own checkout, the output it printed, and the output the intent requires. Leave out anything you did not run. That covers style, naming, structure, and risks that need a future change to matter. No findings is a valid result.
 

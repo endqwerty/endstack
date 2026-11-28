@@ -21,8 +21,8 @@ size, no tool or model names, links) and must pass.
 - Say the outcome and the roles, never the tool. No `gh`, `git`, `Task`,
   `/loop`, model names, provider names, Cursor or T3 Code features. "If the
   harness can watch a pull request, use it" is fine; a tool name is not.
-  Judge or reviewer roles ask for a different provider or model family "if
-  available", never a named one.
+  Judge or reviewer roles ask for a fresh context on the author's own
+  provider, never another or a named one; each provider checks its own work.
 - One skill, one job, one role. Deterministic work goes in a script, not in
   prose. A script a skill needs ships inside that skill (`scripts/`, standard
   library, with tests beside it run by

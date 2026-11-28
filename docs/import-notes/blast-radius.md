@@ -5,13 +5,14 @@ Source: `candidates/blast-radius/SKILL.md` (pstack at `978ca6e`).
 Kept: the role (find breakage outside the diff, not list callers), the "don't
 trust your own writeup" stance, the five-step certainty ladder, the one fact
 the change is safe because of, looking where search stops, honest risks with
-cleared ones listed apart, proving the fact by running real code, an arena for
-a wide change, the handback shape and the unslop and privacy line.
+cleared ones listed apart, proving the fact by running real code, the handback shape and the unslop and privacy line.
 
 Changed for portability: "`why` step 2" became "`why`", since `why` no longer
 numbers its steps; "grep" became "search"; "Solid versus React" became "the
 framework's render and effect order"; an installed or vendored copy joins the
-list of things a symbol search misses; the arena step links the skill.
+list of things a symbol search misses; the arena step (ask several models, merge the answers) became: split a wide
+change by area and run the steps per area in fresh contexts, since reviewers
+now come from the author's own provider and are not stacked on one question.
 
 Added: a one-way or two-way door section (what outlives a revert, and how to
 make the one-way core two-way), a step that calls the door, a rigor table that
