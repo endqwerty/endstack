@@ -9,7 +9,8 @@ to `max`. endstack does not import it: the skills name roles, never models (see
 Daniel uses Codex, Claude and Gemini (through Antigravity) and wants a middle
 ground, not unlimited effort. Gemini is routed again since 2026-11-18: Neon at
 the Opus and Sol tier, Carbon at the Astra and Fable tier, so its `hard` and
-`lead` seats are Carbon. Every change is verified by the other two providers.
+`lead` seats are Carbon. Since 2026-11-27 each provider verifies its own work in
+a fresh context, and Daniel picks the provider by the thread he starts.
 `homelab route models` prints the table (add `--profile lean|balanced|deep`,
 `--role <class>`, `--json`). Balanced is the default.
 
@@ -20,11 +21,11 @@ the Opus and Sol tier, Carbon at the Astra and Fable tier, so its `hard` and
 | feature, bug-fix, refactoring, perf-issue work; arena and architect candidates | `author` |
 | how explorer, why investigators, reflect tooling reviewer, swarm workers | `worker` |
 | how explainer, why synthesizer, reflect judgment, divergent and synthesizer, arena cross-judge, interrogate panel, judgment and prose | `reviewer` |
-| the independent check in `verify` | `verifier` (router prefers another provider; fresh context is required unless exempt) |
+| the independent check in `verify` | `verifier` (a fresh context on the author's own provider; required unless exempt) |
 | long-horizon or large-scope work: hillclimbs, multi-phase or campaign-sized changes, large design panel seats | `hard` |
 
-A panel (arena, architect, interrogate, reflect) puts one member on each
-provider: the Codex and Claude rows of its class.
+A panel (arena, architect, interrogate, reflect) seats each member in its own
+fresh context on the author's provider, from that provider's row of its class.
 
 ## What balanced runs
 

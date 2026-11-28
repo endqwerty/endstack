@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 An agent deep in a loop is the worst judge of whether to keep going. It remembers why each attempt should have worked, reads its near misses as progress, and has spent too much to stop. Once a loop reaches its third round, hand that call to a fresh judge that sees only the goal and the record.
 
-The judge is light on purpose: the smallest model tier the harness offers, in a separate context, one short call. The same provider is fine. It judges progress, never the code; correctness stays with the checks and [verify](../verify/SKILL.md). Without a separate context, answer the verdict yourself from the log alone and say the judge was not independent.
+The judge is light on purpose: your provider's light tier for gathering work, below the one doing the loop, in a separate context, one short call. The same provider is fine. It judges progress, never the code; correctness stays with the checks and [verify](../verify/SKILL.md). Without a separate context, answer the verdict yourself from the log alone and say the judge was not independent.
 
 ## When to ask
 
