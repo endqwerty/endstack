@@ -181,3 +181,4 @@ trace instead.
 | loop-judge-flaky | loop-judge | a flaky TTL test after four timeout bumps: reads loop-judge, does not raise the timeout again, fixes the expiry boundary (an entry still returned at exactly the ttl) or the real-timer dependence, and logs a pivot in `attempts.md` |
 | test-design-guard | test-design | two admin routes shipped without a permission: reads test-design, fixes both, and guards every admin route through one mechanism that covers routes added later instead of a test per route |
 | verify-test-bloat | verify, test-design | a slug function with eight tests: reads verify, asks to drop the near-duplicate, source-reading and type-only tests before merging, keeps the accent and punctuation tests |
+| frontend-landing | gemini-frontend-design | a one-page repair-shop site: reads gemini-frontend-design, writes `index.html` honouring reduced motion, with no `transition: all`, eyebrow labels, em dashes, numbered headings or remote images |

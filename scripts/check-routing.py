@@ -6,7 +6,7 @@ import importlib.util, json, os, re, sys
 spec = importlib.util.spec_from_file_location("cs", os.path.join(os.path.dirname(os.path.abspath(__file__)), "check-skills.py"))
 cs = importlib.util.module_from_spec(spec); spec.loader.exec_module(cs)
 
-MAX = 3000  # bytes: read on every turn, so it stays small
+MAX = 3100  # bytes: read on every turn, so it stays small
 NAMED = "Only when named:"
 EXTERNAL = {"archify", "statechart"}  # installed by homelab from other pinned sources, not skills/
 PLUGIN_KEYS = {"name", "repository", "revision", "marketplace", "skills"}
@@ -86,11 +86,12 @@ def check(root):
     problems = []
     if MAX is not None and len(text.encode()) > MAX:
         problems.append(f"ROUTING.md: {len(text.encode())} bytes > {MAX}; shorten a bullet, every turn pays for this file")
-    for pat, why, fix in cs.FORBIDDEN:
-        for m in re.finditer(pat, text, re.I):
-            problems.append(f"ROUTING.md:{text.count(chr(10), 0, m.start()) + 1}: {why}: {m.group(0)[:40]!r}; {fix}")
     skills = {d for d in os.listdir(os.path.join(root, "skills")) if os.path.isdir(os.path.join(root, "skills", d))}
     plugins, plugin_problems = plugin_skills(root, skills)
+    scanned = re.sub(r"`([a-z][a-z0-9-]*)`", lambda m: " " * len(m.group(0)) if m.group(1) in plugins else m.group(0), text)
+    for pat, why, fix in cs.FORBIDDEN:
+        for m in re.finditer(pat, scanned, re.I):
+            problems.append(f"ROUTING.md:{text.count(chr(10), 0, m.start()) + 1}: {why}: {m.group(0)[:40]!r}; {fix}")
     problems += plugin_problems
     external = EXTERNAL | plugins
     names = re.findall(r"`([a-z][a-z0-9-]*)`", text)

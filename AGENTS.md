@@ -59,7 +59,7 @@ plugin by commit and lists its skills, and adding a plugin, moving its pin or
 changing its skill list updates homelab after merge the same way;
 `python3 scripts/check-routing.py` must pass (every skill in `skills/` named
 once, a plugin's at most once and never also in `skills/`, plugins.json well formed, the
-merge skills and a routed `orchestrate` tied to an explicit request, 3,000 bytes at most), and the copy in homelab's `agents/AGENTS.md` must match.
+merge skills and a routed `orchestrate` tied to an explicit request, 3,100 bytes at most), and the copy in homelab's `agents/AGENTS.md` must match.
 Evidence and limits: [docs/routing.md](docs/routing.md).
 
 ## Delivery

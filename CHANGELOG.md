@@ -1,5 +1,16 @@
 # Change log
 
+## 2026-11-28 — Gemini DemoLab plugin for web UI work
+
+- `plugins.json` pins Google's DemoLab (`demolab@demolab` at `6a5e364`);
+  homelab installs it into Claude Code, Codex and Antigravity.
+  `ROUTING.md` routes building or restyling a web page or web app UI to its
+  `gemini-frontend-design`; its `deep-research` is not routed. The routing cap
+  rises to 3,100 bytes for the new route.
+- `check-routing.py` exempts backticked plugin skill names from the
+  provider-name scan; `check-evals.py` accepts plugin skills as tags. New case
+  `frontend-landing`. Evidence: [docs/demolab-plugin.md](docs/demolab-plugin.md).
+
 ## 2026-11-27 — Eval judges: one judge for every arm, criteria that ask one thing
 
 - `evals/check-evals.py` rejects an llm criterion that does not start "Does

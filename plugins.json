@@ -15,6 +15,16 @@
         "egm-review",
         "egm-review-loop"
       ]
+    },
+    {
+      "name": "demolab",
+      "repository": "https://github.com/google-gemini/demolab.git",
+      "revision": "6a5e364114af46a31afd64f833a41e3d83271da6",
+      "marketplace": "demolab",
+      "skills": [
+        "deep-research",
+        "gemini-frontend-design"
+      ]
     }
   ]
 }

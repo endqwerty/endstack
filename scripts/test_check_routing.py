@@ -167,9 +167,17 @@ class T(unittest.TestCase):
         p = " ".join(cr.check(tree(GOOD + "Use Claude, run `git push`.\n", SK)))
         self.assertIn("model or provider name", p); self.assertIn("command in backticks", p)
 
+    def test_declared_plugin_skill_name_is_not_a_provider_name(self):
+        pl = plugin(name="demolab", marketplace="demolab", skills=["gemini-frontend-design"])
+        self.assertEqual(cr.check(tree(GOOD + "- web UI: `gemini-frontend-design`\n", SK, pl)), [])
+        p = " ".join(cr.check(tree(GOOD + "- web UI: `gemini-frontend-design` on Gemini\n", SK, pl)))
+        self.assertIn("model or provider name", p)
+        p = " ".join(cr.check(tree(GOOD + "- web UI: `gemini-frontend-design`\n", SK)))
+        self.assertIn("model or provider name", p)
+
     def test_size_cap(self):
-        self.assertEqual(cr.MAX, 3000)
-        self.assertIn("bytes > 3000", " ".join(cr.check(tree(GOOD + "word " * 700 + "\n", SK))))
+        self.assertEqual(cr.MAX, 3100)
+        self.assertIn("bytes > 3100", " ".join(cr.check(tree(GOOD + "word " * 700 + "\n", SK))))
         self.assertEqual(cr.check(tree(GOOD, SK)), [])
 
 

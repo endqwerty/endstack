@@ -213,6 +213,12 @@ pstack's `statechart` is installed by homelab from a pin, not ported, and
 create-formal-verification-skill takes upstream's paragraph pointing to it
 ([docs/statechart.md](docs/statechart.md)).
 
+### Gemini DemoLab (2026-11-28)
+
+Google's DemoLab plugin is pinned in `plugins.json` like EGM, and web UI work
+routes to its `gemini-frontend-design`; its `deep-research` is not routed
+([docs/demolab-plugin.md](docs/demolab-plugin.md)).
+
 ### Upstream review at de8ee15 (2026-11-10)
 
 Reviewed the 23 pstack commits after `190d287` through `de8ee15`. Adapted

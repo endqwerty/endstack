@@ -127,7 +127,7 @@ def check_prompt(case, path, skills, problems):
     else:
         for t in tags:
             if t not in skills:
-                problems.append(f"{path}: tag {t!r} is not a skill in skills/")
+                problems.append(f"{path}: tag {t!r} is not a skill in skills/ or plugins.json")
     for k in ("runs", "max_turns", "timeout_seconds"):
         if k in fm and (not isinstance(fm[k], int) or fm[k] < 1):
             problems.append(f"{path}: {k} must be a positive integer")
@@ -192,6 +192,8 @@ def check_js(patterns, problems):
 
 def main():
     skills = set(os.listdir(os.path.join(ROOT, "skills")))
+    with open(os.path.join(ROOT, "plugins.json"), encoding="utf-8") as f:
+        skills |= {s for p in json.load(f)["plugins"] for s in p["skills"]}
     problems, patterns, cases = [], [], 0
     for case in sorted(os.listdir(EVALS)):
         base = os.path.join(EVALS, case)

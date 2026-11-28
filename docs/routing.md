@@ -7,7 +7,7 @@ writing docs never reached `unslop`). Asking him to think about 24 skills per
 message was the failure.
 
 What: [ROUTING.md](../ROUTING.md) is an index of about 3 KB (1.9 KB when
-added, 2.6 KB before the 2026-11-16 trim; capped at 3,000 bytes after the 2026-11-27 trim), one line per situation. It
+added, 2.6 KB before the 2026-11-16 trim; capped at 3,000 bytes after the 2026-11-27 trim, 3,100 since the 2026-11-28 web UI route), one line per situation. It
 is loaded on every turn through the global rules in homelab (`agents/AGENTS.md`),
 the only file both Claude Code and Codex read each session. The model matches the
 task against it, opens the named skill, and says which one shaped a decision. A
@@ -31,7 +31,7 @@ Turned down:
    every skill in `skills/` named exactly once; no unknown backticked name; a
    non-empty "Only when named" list; one bullet routing prose to `unslop` and
    docs to `technical-writing`; `ship` and `autopilot-full` only in a bullet
-   that says "explicit", and the same for `orchestrate` when it is routed; a casual-chat skip; at most 3,000 bytes; no tool, model or
+   that says "explicit", and the same for `orchestrate` when it is routed; a casual-chat skip; at most 3,100 bytes; no tool, model or
    provider names. Before `ROUTING.md` existed it printed `ROUTING.md: missing`
    (exit 1); now `0 problem(s)`.
    It cannot judge whether a line sends a skill to the right situation, or
