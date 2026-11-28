@@ -1,0 +1,39 @@
+diff --git a/migrations/004_drop_legacy_total.sql b/migrations/004_drop_legacy_total.sql
+new file mode 100644
+--- /dev/null
++++ b/migrations/004_drop_legacy_total.sql
+@@ -0,0 +1 @@
++ALTER TABLE orders DROP COLUMN legacy_total;
+diff --git a/src/api/orders.js b/src/api/orders.js
+--- a/src/api/orders.js
++++ b/src/api/orders.js
+@@ -1,10 +1,9 @@
+ export function orderJson(row) {
+   return {
+     id: row.id,
+-    created_at: row.created_at,
+-    total_cents: row.total_cents ?? Math.round(row.legacy_total * 100),
+-    legacy_total: row.legacy_total,
++    createdAt: row.created_at,
++    totalCents: row.total_cents ?? 0,
+   };
+ }
+ 
+ export function ordersResponse(rows) {
+   return { orders: rows.map(orderJson) };
+diff --git a/test/orders.test.js b/test/orders.test.js
+--- a/test/orders.test.js
++++ b/test/orders.test.js
+@@ -4,10 +4,10 @@ import { orderJson, ordersResponse } from "../src/api/orders.js";
+ 
+ test("orderJson exposes the total in cents", () => {
+-  assert.deepEqual(orderJson({ id: 7, created_at: "2024-03-01", total_cents: 1234, legacy_total: 12.34 }), {
++  assert.deepEqual(orderJson({ id: 7, created_at: "2024-03-01", total_cents: 1234 }), {
+     id: 7,
+-    created_at: "2024-03-01",
+-    total_cents: 1234,
+-    legacy_total: 12.34,
++    createdAt: "2024-03-01",
++    totalCents: 1234,
+   });
+ });

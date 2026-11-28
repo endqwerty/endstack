@@ -26,6 +26,13 @@ the code rules out is no finding. One on data loss, security or a trust
 boundary that can be neither shown nor ruled out goes under not checked
 instead, with the check that would settle it.
 
+Every test the change keeps is a standing cost. A kept test without a named
+failure, a search for an existing holder and a reason to stay rather than be
+dropped after its proof (the [test-design](../../test-design/SKILL.md) report)
+is a should: drop it or justify it. So is a test per instance where one guard
+over the repository, or a type, would hold the whole class. Asking for more
+tests stays a nit.
+
 Skip style, naming and optional refactors. A required compatibility or safety
 property is not style; factual errors in evidence or requirements are
 defects. Put a missing check or unresolved safety fact under not checked, not

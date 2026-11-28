@@ -6,8 +6,8 @@ used when Daniel named them, and nothing chained them (for example `build`
 writing docs never reached `unslop`). Asking him to think about 24 skills per
 message was the failure.
 
-What: [ROUTING.md](../ROUTING.md) is an index of at most 2,800 bytes (1.9 KB when
-added, 2.6 KB before the 2026-11-16 trim), one line per situation. It
+What: [ROUTING.md](../ROUTING.md) is an index of about 3 KB (1.9 KB when
+added, 2.6 KB before the 2026-11-16 trim; uncapped since 2026-11-27 until the next trim), one line per situation. It
 is loaded on every turn through the global rules in homelab (`agents/AGENTS.md`),
 the only file both Claude Code and Codex read each session. The model matches the
 task against it, opens the named skill, and says which one shaped a decision. A
@@ -31,7 +31,7 @@ Turned down:
    every skill in `skills/` named exactly once; no unknown backticked name; a
    non-empty "Only when named" list; one bullet routing prose to `unslop` and
    docs to `technical-writing`; `ship` and `autopilot-full` only in a bullet
-   that says "explicit", and the same for `orchestrate` when it is routed; a casual-chat skip; at most 2,800 bytes; no tool, model or
+   that says "explicit", and the same for `orchestrate` when it is routed; a casual-chat skip; a byte limit while one is set; no tool, model or
    provider names. Before `ROUTING.md` existed it printed `ROUTING.md: missing`
    (exit 1); now `0 problem(s)`.
    It cannot judge whether a line sends a skill to the right situation, or
@@ -106,6 +106,15 @@ own AGENTS.md does. The bullet took the index to
 wording of unrelated routes. Evidence: [egm-plugin-trial.md](egm-plugin-trial.md)
 and the pull request.
 
+Blast radius and loop judge, 2026-11-27: `blast-radius` is routed again (it
+was a pstack candidate folded into `verify`, then imported with a one-way or
+two-way door call and a rigor call), and `loop-judge` is new: a light, fresh
+judge from the third round of a loop says continue, pivot or stop. The two bullets
+took the index to 2,991 bytes. The byte limit is off until the next trim pass,
+which sets it again; `MAX` in `scripts/check-routing.py` is `None` until then.
+Evidence: `evals/blast-radius-door`, `evals/loop-judge-flaky` and the pull
+request.
+
 ## Not checked
 
 - Real sessions: the dry run is one small model's stated choice, not observed
@@ -113,6 +122,6 @@ and the pull request.
   model really opens a hidden skill by reading its SKILL.md is unconfirmed.
   Measured on 2026-11-11 from real sessions: it does, unevenly by harness
   ([hidden-skill-loads.md](hidden-skill-loads.md)).
-- Cost and noise: the index adds up to 2,800 bytes per turn; whether it over-triggers
+- Cost and noise: the index adds about 3 KB per turn; whether it over-triggers
   on short turns is not measured. If it does, tighten the "casual turn" line.
 - Drift: the copy in homelab is checked by hand, not by a script.

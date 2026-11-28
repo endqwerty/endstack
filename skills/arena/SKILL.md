@@ -14,7 +14,7 @@ Every candidate gets the same prompt, so the prompt is the contract.
 
 1. State the artifact each candidate is producing.
 2. Derive the rubric, 3-6 concrete gradeable criteria for what success looks like on *this* task. It is the picker's tool in Phase D. Candidates only see the task.
-3. Choose runners suited to the task, with different model families for judgment-sensitive work if available. Use more runners for multiple design directions; the same family can fill several seats for generation-bound work.
+3. Choose runners suited to the task, each in its own fresh context on your own provider. Use more runners for multiple design directions.
 4. Give each candidate its own isolated output location, preferably a separate checkout. Separate writable state before coordinating it.
 
 ## Phase B: Fan out
@@ -25,7 +25,7 @@ If a runner cannot start, use an available replacement only when the task and ha
 
 ## Phase C: Cross-judge
 
-After all candidates complete, give a read-only judge the rubric and candidates by path label. Use fresh context independent of the candidate authors. A different model family is optional. Use a separate worker if the harness has one, otherwise apply the judge lens yourself in sequence and disclose this. The judge scores each criterion and recommends a base with rationale. It may run alongside your reading in Phase D.
+After all candidates complete, give a read-only judge the rubric and candidates by path label. Use fresh context independent of the candidate authors. Use a separate worker if the harness has one, otherwise apply the judge lens yourself in sequence and disclose this. The judge scores each criterion and recommends a base with rationale. It may run alongside your reading in Phase D.
 
 ## Phase D: Pick a base
 

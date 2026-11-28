@@ -136,6 +136,19 @@ Upstream `principle-prove-it-works`, `interrogate` and `blast-radius` are
 still linked from 23 upstream files (poteto-mode, its playbooks, guide
 chapters), so they stay until those are deleted (step 5).
 
+## blast-radius imported, loop-judge added (2026-11-27)
+
+`blast-radius` was folded into `verify` (the verifier's "name the fact its
+safety rests on" bullet) and later unpinned for having one load. It is back as
+a role skill because it is a different job from verify: an on-demand risk
+call, before review, that finds breakage past the diff and now also says
+whether the change is a one-way or two-way door and how much rigor that earns.
+Port notes: [docs/import-notes/blast-radius.md](docs/import-notes/blast-radius.md).
+`loop-judge` is new, not from pstack: from the third round of a loop on one goal, a
+light model in a fresh context reads the goal and attempt log and says
+continue, pivot or stop. Evidence: `evals/blast-radius-door` and
+`evals/loop-judge-flaky`.
+
 ## Import of the pstack role skills (2026-10-10)
 
 Daniel likes pstack's separation of roles and identities and asked for all the

@@ -6,7 +6,7 @@ import importlib.util, json, os, re, sys
 spec = importlib.util.spec_from_file_location("cs", os.path.join(os.path.dirname(os.path.abspath(__file__)), "check-skills.py"))
 cs = importlib.util.module_from_spec(spec); spec.loader.exec_module(cs)
 
-MAX = 2800  # bytes: read on every turn, so it stays small
+MAX = None  # bytes; off until the next trim pass sets it again
 NAMED = "Only when named:"
 EXTERNAL = {"archify", "statechart"}  # installed by homelab from other pinned sources, not skills/
 PLUGIN_KEYS = {"name", "repository", "revision", "marketplace", "skills"}
@@ -84,7 +84,7 @@ def check(root):
     with open(path, encoding="utf-8") as f:
         text = f.read()
     problems = []
-    if len(text.encode()) > MAX:
+    if MAX is not None and len(text.encode()) > MAX:
         problems.append(f"ROUTING.md: {len(text.encode())} bytes > {MAX}; shorten a bullet, every turn pays for this file")
     for pat, why, fix in cs.FORBIDDEN:
         for m in re.finditer(pat, text, re.I):

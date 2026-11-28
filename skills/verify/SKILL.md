@@ -36,7 +36,7 @@ Both roles read the whole diff, delegated work too, and the
 - Show what reaches each issue; rank it. Blocker: the intended case is
   wrong. Should: ordinary use, a caller, stored or imported data, a race
   or a setting reaches it. Nit: nothing shown reaches it, contrived input
-  giving only a wrong result or warning, wording, extra tests or guards,
+  giving only a wrong result or warning, wording, requests for more tests or guards,
   small costs, what only later code makes. Data loss, security or a trust
   boundary is never a nit.
 - Name the revision and patch judged.

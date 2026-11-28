@@ -2,9 +2,9 @@
 
 Run deterministic checks first. One fresh initial reviewer is the default.
 Independent means a separate read-only context that did not write the change
-and has not seen the author's conversation or reasoning. The same provider
-or model family qualifies. A different family is optional when a specific
-risk or uncertainty makes another perspective useful; it is not a gate.
+and has not seen the author's conversation or reasoning, on the author's
+own provider. Tune that one reviewer rather than adding a second; another
+provider reviews only when the author's cannot.
 
 ## Exemptions
 
