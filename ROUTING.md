@@ -1,8 +1,8 @@
 ## Skill routing
 
 Match each new task here before acting. On a match, open the skill: by name if
-listed, else read its SKILL.md from your skills directory (EGM: the egm
-plugin's), never through a skill tool. Follow it and say which skill shaped a
+listed, else read its SKILL.md from your skills directory (a plugin skill:
+its plugin's), never through a skill tool. Follow it and say which skill shaped a
 decision; several can apply. Skip for casual chat, a one-fact lookup or an
 opt-out. Reviewing and checking safety are tasks, however short.
 
@@ -28,6 +28,7 @@ opt-out. Reviewing and checking safety are tasks, however short.
   unattended: then answer halts and findings yourself, in stage order with
   fresh reviewers.
 - Editing .ts or .tsx: `typescript-best-practices`.
+- Building or restyling a web page or app UI: `gemini-frontend-design`.
 - Adding, keeping, moving or deleting a test, a bug fix with a cheap local
   test, or a failing or regression test asked for: `test-design`.
 - Writing code: no comments, except license headers, public API docs, formatter
