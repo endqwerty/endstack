@@ -13,13 +13,17 @@ on every provider. DemoLab at `6a5e364` has two skills:
   names an image tool, so it is pinned, not ported, like EGM.
 - `deep-research`: not routed. The harnesses already ship research
   orchestration, and `swarm` covers fan-out. A plugin installs whole, so it
-  still arrives; it is reached only by name.
+  still arrives, and neither DemoLab skill is hidden: both stay in every
+  harness's catalog and can load on their own (a probe listed
+  `demolab:deep-research` in Claude Code). Accepted: one description line per
+  request. Hiding it needs a fork or a homelab override, not worth it for one
+  line; revisit if it starts loading on research questions.
 
 ## Change
 
 - `plugins.json` pins `demolab@demolab` at `6a5e364`; homelab sync installs
   it into Claude Code, Codex and Antigravity.
-- `ROUTING.md` routes building or restyling a web page or app UI to
+- `ROUTING.md` routes building or restyling a web page or web app UI to
   `gemini-frontend-design`, and its read rule now says "a plugin skill: its
   plugin's" instead of naming EGM. The cap rises from 3,000 to 3,100 bytes
   for the new route; the existing routes keep their tested wording.

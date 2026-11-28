@@ -4,7 +4,7 @@
 
 - `plugins.json` pins Google's DemoLab (`demolab@demolab` at `6a5e364`);
   homelab installs it into Claude Code, Codex and Antigravity.
-  `ROUTING.md` routes building or restyling a web page or app UI to its
+  `ROUTING.md` routes building or restyling a web page or web app UI to its
   `gemini-frontend-design`; its `deep-research` is not routed. The routing cap
   rises to 3,100 bytes for the new route.
 - `check-routing.py` exempts backticked plugin skill names from the

@@ -51,7 +51,7 @@ revision as [docs/egm-plugin-trial.md](docs/egm-plugin-trial.md) did.
 Web UI work uses `gemini-frontend-design` from Google's
 [Gemini DemoLab](https://github.com/google-gemini/demolab) plugin, pinned the
 same way. The plugin also brings its `deep-research` skill, which ROUTING.md
-does not route. Why and the eval: [docs/demolab-plugin.md](docs/demolab-plugin.md).
+does not route but agents can still pick up on their own. Why and the eval: [docs/demolab-plugin.md](docs/demolab-plugin.md).
 
 ## Why not just install pstack
 

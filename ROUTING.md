@@ -28,7 +28,7 @@ opt-out. Reviewing and checking safety are tasks, however short.
   unattended: then answer halts and findings yourself, in stage order with
   fresh reviewers.
 - Editing .ts or .tsx: `typescript-best-practices`.
-- Building or restyling a web page or app UI: `gemini-frontend-design`.
+- Building or restyling a web page or web app UI: `gemini-frontend-design`.
 - Adding, keeping, moving or deleting a test, a bug fix with a cheap local
   test, or a failing or regression test asked for: `test-design`.
 - Writing code: no comments, except license headers, public API docs, formatter
